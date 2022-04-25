@@ -1,6 +1,6 @@
 ### Team Dev Client
 
-Client repository for team dev project
+Client repository for team dev project.
 
 ### Quick Start
 
