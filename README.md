@@ -21,7 +21,8 @@ Cypress setup: https://docs.cypress.io/guides/getting-started/installing-cypress
 $ npx cypress open
 ```
 
-
 ### Contribution
 
 I have changed the readme!
+
+I've also made changes to the readMe.
