@@ -22,3 +22,5 @@ $ npx cypress open
 ```
 
 ### Contribution
+
+Added somthing to thr readMe
