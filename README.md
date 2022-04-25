@@ -1,5 +1,7 @@
 ### Team Dev Client
 
+Client repository for team dev project
+
 ### Quick Start
 
 Clone this repository
