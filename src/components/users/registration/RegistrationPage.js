@@ -11,7 +11,7 @@ const RegistrationPage = () => {
 
   const registerUser = (event) => {
     event.preventDefault()
-    client.post('/users', user, false)
+    client.post('/user', user, false)
       .then(res => setRegisterResponse(res.data))
       .catch(err => console.log(err.response))
   }
