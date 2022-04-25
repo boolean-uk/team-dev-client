@@ -2,7 +2,7 @@
 
 Client repository for team dev project.
 
-Barry and Omar is awesome!
+Barry and Omar are awesome!
 
 ### Quick Start
 
