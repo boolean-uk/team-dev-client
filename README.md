@@ -2,8 +2,6 @@
 
 Client repository for team dev project.
 
-Barry and Omar are awesome!
-
 ### Quick Start
 
 Clone this repository
