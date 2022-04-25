@@ -1,7 +1,7 @@
 ### Team Dev Client
 
-Client repository for team dev project.
-
+conflicting changes
+git 
 ### Quick Start
 
 Clone this repository
@@ -19,3 +19,5 @@ $ npx cypress open
 ```
 
 ### Contribution
+
+added branch `addCohortClient`
