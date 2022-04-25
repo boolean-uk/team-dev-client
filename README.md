@@ -24,3 +24,4 @@ $ npx cypress open
 ### Contribution
 
 Added somthing to thr readMe
+This will throw an error
