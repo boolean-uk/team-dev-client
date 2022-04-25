@@ -2,6 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
+env: 
+  REACT_APP_API_URL: http://localhost:4000
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
