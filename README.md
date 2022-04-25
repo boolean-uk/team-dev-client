@@ -1,7 +1,8 @@
 ### Team Dev Client
 
 Client repository for team dev project.
-Barry is awesome!
+
+Barry and Omar is awesome!
 
 ### Quick Start
 
