@@ -1,0 +1,15 @@
+.registration-page {
+
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-form-input {
+  width: 100%;
+  background-color: white;
+}

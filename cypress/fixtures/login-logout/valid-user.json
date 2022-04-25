@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTY0OTQxMzk0OSwiZXhwIjoxNjQ5NTAwMzQ5fQ.b37lSRtpFWJ9kqUYAc6PUIP28JXjAYtBN_GpU5TcEuc",
+    "user": {
+      "id": 5,
+      "cohort_id": null,
+      "role": "STUDENT",
+      "first_name": "Edward",
+      "last_name": "Withers",
+      "email": "test@test.com",
+      "biography": "a long bio",
+      "github_url": "https://github.com/dearshrewdwit"
+    }
+  }
+}
