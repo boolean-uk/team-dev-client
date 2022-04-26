@@ -1,9 +1,10 @@
-import './App.css';
-import LoginPage from './components/users/login/LoginPage';
-import RegistrationPage from './components/users/registration/RegistrationPage';
-import PostsPage from './components/posts/PostsPage';
+import "./App.css";
+import LoginPage from "./components/users/login/LoginPage";
+import RegistrationPage from "./components/users/registration/RegistrationPage";
+import PostsPage from "./components/posts/PostsPage";
+import EditUser from "./components/users/edit/UserForm";
 
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
+          <Route path="/user/edit/:id" element={<EditUser />} />
         </Route>
       </Routes>
     </div>
@@ -22,13 +24,13 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem('token');
-  return !(loadedToken === '');
+  const loadedToken = localStorage.getItem("token");
+  return !(loadedToken === "");
 }
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = '/' }) => {
+const AuthenticateUser = ({ children, redirectPath = "/" }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }
