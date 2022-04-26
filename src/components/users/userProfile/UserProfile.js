@@ -18,8 +18,6 @@ const UserProfile = () => {
       foundProfile()
   }, [])
 
-  console.log(id);
-
   const foundProfile = () => {
     client.get(`/user/${id}`)
     .then(res => {
