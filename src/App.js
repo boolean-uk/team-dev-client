@@ -4,17 +4,16 @@ import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import Header from './components/Header/Header';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Cohort Manager 2.0</h1>
-
+    <div className='App'>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<RegistrationPage />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage />} />
+          <Route path='/posts' element={<PostsPage />} />
         </Route>
       </Routes>
     </div>
