@@ -1,6 +1,8 @@
-import { Box } from '@mui/system';
+import { Box, flexbox } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Stack } from '@mui/material';
+import InputBase from '@mui/material/InputBase';
 
 {
   /* <Typography variant="h1" component="h2">
@@ -20,6 +22,7 @@ const Header = ({ companyName }) => {
           // alignItems: 'center',
           border: '2px solid black',
           width: '100vw',
+          padding: '1em'
         }}
       >
         {/* -- */}
@@ -30,15 +33,21 @@ const Header = ({ companyName }) => {
         </Box>
         {/* -- */}
         <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-          <Box>Search Bar</Box>
+          <Box>
+          
+          <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+  
+          </Box>
           {/* -- */}
           <Box>
-            <Button>Search User</Button>
+            <Button variant="contained">Search User</Button>
           </Box>
         </Box>
         <Box>
-          <Button>Add Cohort</Button>
-          <Button>Logout</Button>
+          <Stack spacing={2} direction="row">
+          <Button variant="contained">Add Cohort</Button>
+          <Button variant="contained">Logout</Button>
+          </Stack>
         </Box>
       </Box>
     </>
