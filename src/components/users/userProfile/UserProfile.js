@@ -15,10 +15,10 @@ const UserProfile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-      foundProfile()
+      handleFindProfile()
   }, [])
 
-  const foundProfile = () => {
+  const handleFindProfile = () => {
     client.get(`/user/${id}`)
     .then(res => {
         setProfile(res.data.data.user)
@@ -31,9 +31,9 @@ const UserProfile = () => {
       <h2>
         {profile.first_name} {profile.last_name}
       </h2>
-      <p>{profile.email}</p>
-      <p>{profile.biography}</p>
-      <p>{profile.github_url}</p>
+      <p>Email: {profile.email}</p>
+      <p>Bio: {profile.biography}</p>
+      <p>Github: {profile.github_url}</p>
     </div>
   );
 };
