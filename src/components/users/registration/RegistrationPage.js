@@ -5,6 +5,7 @@ import userBlankData from '../utils/userHelpers'
 import client from '../../../utils/client'
 import './style.css'
 
+
 const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData())
   const [registerResponse, setRegisterResponse] = useState("")
