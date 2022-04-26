@@ -23,3 +23,7 @@ $ npx cypress open
 
 ### Contribution
 
+### Styling
+
+- Fonts: to make it easier let's just keep a consistent font throughout
+- Colors: background #2a2c30, normal text #fff, links #ffa500
