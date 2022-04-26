@@ -9,6 +9,7 @@ Clone this repository
 ```sh
 $ git clone git@github.com:boolean-uk/team-dev-client.git && cd team-dev-client
 $ npm ci # install dependencies
+$ cp .env.example .env  # copy env variables template
 $ npm start
 # then point your browser to localhost:3000
 ```
@@ -22,4 +23,3 @@ $ npx cypress open
 ```
 
 ### Contribution
-
