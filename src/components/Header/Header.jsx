@@ -1,14 +1,8 @@
-import { Box, flexbox } from '@mui/system';
+import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-
-{
-  /* <Typography variant="h1" component="h2">
-  h1. Heading
-</Typography>; */
-}
 
 const Header = ({ companyName }) => {
   return (
