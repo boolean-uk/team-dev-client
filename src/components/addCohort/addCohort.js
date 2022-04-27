@@ -1,43 +1,17 @@
-import React from "react";
+import React from "react-dom";
+import { useState } from "react";
+// import Button from " @material-ui/core/Button";
 
 export default function AddCohort() {
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const [cohort, setCohort] = useState("");
+
+  const handleChange = () => {
+    console.log("read event: ");
+  };
   return (
     <>
-      <form handleSubmit={handleSubmit}>
-        <label>Cohort Name</label>
-
-        <div>
-          <input
-            name="addCohort"
-            type="text"
-            placeholder="Add cohort"
-            // value={}
-            handleChange={handleChange}
-          />
-        </div>
-
-        <label>Start Date</label>
-        <div>
-          <input name="date" type="date" />
-        </div>
-
-        <label>End Date</label>
-
-        <div>
-          <input name="date" type="date" />
-        </div>
-        <input
-          className="submitButton"
-          type="submit"
-          value="Add Cohort"
-          handleChange={handleChange}
-        />
-      </form>
+      <button onclick={() => handleChange()}>Add Cohort</button>
+      {/* <Button variant="outlined">Default</Button> */}
     </>
   );
 }
-// Cohort Name
-// Start Date
-// End Date
