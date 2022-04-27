@@ -21,10 +21,25 @@ const LoginPage = () => {
       .then(res => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
         setLoginResponse(res.data)
+        console.log(res.data)
         navigate("../posts", { replace: true });
       })
       .catch(err => console.log(err.response))
   }
+
+
+// function getListOfCohorts() {
+//   const options = {
+//     headers: {
+//       "content-type": "application/json",
+//       "Authorization": "Bearer " + localStorage.getItem("jwt")
+//     },
+//   }
+//   client.get('/', options)
+//   .then((res) => res.json())
+//   .then((data) => console.log(data))
+// }
+
 
   const handleChange = (event) => {
     event.preventDefault()
