@@ -28,6 +28,7 @@ const UserProfile = () => {
 
   return (
     <div>
+      <h1>User Profile</h1>
       <h2>
         {profile.first_name} {profile.last_name}
       </h2>
