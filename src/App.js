@@ -8,9 +8,7 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 function App () {
 
   return (
-    <div className="App">
-      <h1>Cohort Manager 2.0</h1>
-
+    <div className='App'>
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
         <Route path="/signup" element={ <RegistrationPage /> } />
