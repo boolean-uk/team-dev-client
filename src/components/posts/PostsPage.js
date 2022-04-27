@@ -1,35 +1,39 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import PostForm from './PostForm'
-import client from '../../utils/client'
-import './style.css'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import './style.css';
+
+import Header from '../Header/Header';
 
 const PostsPage = () => {
-  const [post, setPost] = useState({content: ""})
-  const [postResponse, setPostResponse] = useState("")
-  const [posts, setPosts] = useState([])
+  const [post, setPost] = useState({ content: '' });
+  const [postResponse, setPostResponse] = useState('');
+  const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get('/posts')
-      .then(res => setPosts(res.data.data.posts))
-  }, [])
+    client.get('/posts').then((res) => setPosts(res.data.data.posts));
+  }, []);
 
   const createPost = async (event) => {
-    event.preventDefault()
-    client.post('/post', post)
-      .then(res => setPostResponse(res.data))
-      .catch(data => { console.log(data) })
-  }
+    event.preventDefault();
+    client
+      .post('/post', post)
+      .then((res) => setPostResponse(res.data))
+      .catch((data) => {
+        console.log(data);
+      });
+  };
 
   const handleChange = (event) => {
-    event.preventDefault()
-    const { value, name } = event.target
+    event.preventDefault();
+    const { value, name } = event.target;
     setPost({
       ...post,
       [name]: value,
     });
-  }
+  };
 
   const signOut = (event) => {
     event.preventDefault()
@@ -49,7 +53,7 @@ const PostsPage = () => {
       </ul>
     </section>
     </>
-  )
-}
+  );
+};
 
 export default PostsPage;
