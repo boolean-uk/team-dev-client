@@ -3,21 +3,15 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
+import client from "../../utils/client";
 
 const Header = ({ companyName }) => {
 
   const addCohortHandle = () => {
-    const options = {
-      method: "POST",
-      headers: {
-        authorization:
-          "Bearer " + localStorage.getItem(process.env.REACT_APP_USER_TOKEN), 
-      },
-    };
-    fetch(process.env.REACT_APP_API_URL + "/cohort", options)
-      .then((res) => res.json())
-      .then((json) => console.log(json));
-  };
+   client.post('/cohort', {})
+      .catch(err => console.log(err.response))
+    }
+  
   return (
     <>
       <Box
