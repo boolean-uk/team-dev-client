@@ -1,16 +1,8 @@
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import React from "react"
-import { useState } from "react"
 
-const UserForm = ({ handleSubmit, handleChange }) => {
-  const [radioButtonValue, setRadioButtonValue] = useState(null)
-
-  function handleFilter(event) {
-    const inputValue = event.target.value
-    console.log(inputValue)
-    setRadioButtonValue(inputValue)
-  }
+const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue}) => {
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -62,16 +54,16 @@ const UserForm = ({ handleSubmit, handleChange }) => {
       <label className="user-form-input-button">
         <input
           type="radio"
-          value="STUDENT"
+          value="TEACHER"
           onChange={handleFilter}
-          checked={radioButtonValue === "STUDENT"}
+          checked={radioButtonValue === "TEACHER"}
         />
         <h4>Student</h4>
         <input
           type="radio"
-          value="TEACHER"
+          value="STUDENT"
           onChange={handleFilter}
-          checked={radioButtonValue === "TEACHER"}
+          checked={radioButtonValue === "STUDENT"}
         />
         <h4>Teacher</h4>
       </label>
