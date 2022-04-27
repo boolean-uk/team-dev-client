@@ -1,8 +1,10 @@
-import './App.css';
-import LoginPage from './components/users/login/LoginPage';
-import RegistrationPage from './components/users/registration/RegistrationPage';
-import PostsPage from './components/posts/PostsPage';
+import "./App.css";
+import LoginPage from "./components/users/login/LoginPage";
+import RegistrationPage from "./components/users/registration/RegistrationPage";
+import PostsPage from "./components/posts/PostsPage";
+import EditUser from "./components/users/userProfile/EditUserProfile";
 import ProfilePage from './components/users/userProfile/UserProfile'
+
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
