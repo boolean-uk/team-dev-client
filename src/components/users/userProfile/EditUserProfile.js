@@ -14,24 +14,16 @@ const UserForm = ({ handleSubmit, handleChange }) => {
   //use state
   // value set to state or placeholder
 
- 
-    // const initialProfileState = {
-    //   first_name: "",
-    //   last_name: "",
-    //   email: "",
-    //   biography: "",
-    //   github_url: "",
-    // 
     const [profile, setProfile] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
-      foundProfile();
+      handleFindProfile();
     }, []);
 
     console.log(id);
 
-    const foundProfile = () => {
+    const handleFindProfile = () => {
       client
         .get(`/user/${id}`)
         .then((res) => {
@@ -55,12 +47,44 @@ const UserForm = ({ handleSubmit, handleChange }) => {
    // 
    //     setProfile({
    //       ...profile,
-   //       [name]: value,
-   //     });
-   //   }
-//
+   //      [name]: value,
+   //    });
+   //  }
+
+   const onFirstNameChange = (e) => {
+    setProfile([...profile, {first_name : e.target.value }]);
+  };
+    
+   const onSubmit = (e) => {
+   e.preventDefault()
+
+   const options ={
+     method: 'PATCH',
+      headers: {
+       'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({
+      first_Name: profile.first_name,
+      last_Name: profile.last_name,
+      email: profile.email,
+      biography: profile.biography,
+      github_url: profile.github_url,
+    })
+   }
+   fetch(`/users/${id}`, options)
+   .then(res => {
+    setProfile(res.data.data.user)
+})
+.catch(err => console.log(err.response))
+};
+  
+
     return (
-      <form className="user-form" onSubmit={handleSubmit}>
+      <div>
+        <h1> Edit Profile Details </h1>
+      <br>
+      </br> 
+      <form onSubmit={onSubmit} className="user-form">
         <TextField
           className="user-form-input"
           value= {profile.first_name}
@@ -110,8 +134,12 @@ const UserForm = ({ handleSubmit, handleChange }) => {
           Submit
         </Button>
       </form>
+
+      </div>
+      
     );
   };
+
 
 
 export default UserForm;
