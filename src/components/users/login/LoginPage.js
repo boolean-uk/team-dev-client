@@ -16,29 +16,15 @@ const LoginPage = () => {
   }, []);
 
   const loginUser = (event) => {
-    event.preventDefault();
-    client
-      .post('/login', user)
-      .then((res) => {
-        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
-        setLoginResponse(res.data);
-        navigate('../posts', { replace: true });
+    event.preventDefault()
+    client.post('/login', user)
+      .then(res => {
+        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
+        setLoginResponse(res.data)
+        navigate("../posts", { replace: true });
       })
       .catch((err) => console.log(err.response));
   };
-
-
-// function getListOfCohorts() {
-//   const options = {
-//     headers: {
-//       "content-type": "application/json",
-//       "Authorization": "Bearer " + localStorage.getItem("jwt")
-//     },
-//   }
-//   client.get('/', options)
-//   .then((res) => res.json())
-//   .then((data) => console.log(data))
-// }
 
 
   const handleChange = (event) => {

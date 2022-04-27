@@ -14,7 +14,6 @@ const RegistrationPage = () => {
 
   const registerUser = (event) => {
     event.preventDefault()
-    console.log(user)
     client.post('/user', user, false)
       .then(res => setRegisterResponse(res.data))
       .catch(err => console.log(err.response))
