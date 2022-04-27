@@ -13,7 +13,6 @@ function App() {
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/addCohort" element={<AddCohort />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path='/user/:id' element={<ProfilePage />} />
         </Route>
