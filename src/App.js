@@ -4,7 +4,7 @@ import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
-import AddCohort from "./components/addCohort/addCohort";
+import AddCohort from "./components/addCohort/AddCohort";
 
 function App() {
   return (
