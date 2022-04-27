@@ -2,7 +2,7 @@ import "./App.css";
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
-import EditPage from "./components/users/edit/UserForm";
+import EditUser from "./components/users/edit/UserForm";
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
-          <Route path="/user/:id" element={<EditPage />} />
+          <Route path="/user/edit/:id" element={<EditUser />} />
         </Route>
       </Routes>
     </div>
