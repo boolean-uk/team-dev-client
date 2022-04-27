@@ -4,13 +4,6 @@ import React from "react"
 import { useState } from "react"
 
 const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue}) => {
-  // const [radioButtonValue, setRadioButtonValue] = useState(null)
-
-  // function handleFilter(event) {
-  //   const inputValue = event.target.value
-  //   console.log(inputValue)
-  //   setRadioButtonValue(inputValue)
-  // }
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
