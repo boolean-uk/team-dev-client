@@ -15,14 +15,14 @@ const UserForm = ({ handleSubmit, handleChange }) => {
   // value set to state or placeholder
 
  
-    const initialProfileState = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      biography: "",
-      github_url: "",
-    }
-    const [profile, setProfile] = useState(initialProfileState);
+    // const initialProfileState = {
+    //   first_name: "",
+    //   last_name: "",
+    //   email: "",
+    //   biography: "",
+    //   github_url: "",
+    // 
+    const [profile, setProfile] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
