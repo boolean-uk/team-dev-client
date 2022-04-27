@@ -16,6 +16,7 @@ const LoginPage = () => {
   }, []);
 
   const loginUser = (event) => {
+<<<<<<< HEAD
     event.preventDefault();
     client
       .post('/login', user)
@@ -23,9 +24,32 @@ const LoginPage = () => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
         setLoginResponse(res.data);
         navigate('../posts', { replace: true });
+=======
+    event.preventDefault()
+    client.post('/login', user)
+      .then(res => {
+        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
+        setLoginResponse(res.data)
+        console.log(res.data)
+        navigate("../posts", { replace: true });
+>>>>>>> d1eb1fd73c0c52b9e0622c230c79f93a820f34f9
       })
       .catch((err) => console.log(err.response));
   };
+
+
+// function getListOfCohorts() {
+//   const options = {
+//     headers: {
+//       "content-type": "application/json",
+//       "Authorization": "Bearer " + localStorage.getItem("jwt")
+//     },
+//   }
+//   client.get('/', options)
+//   .then((res) => res.json())
+//   .then((data) => console.log(data))
+// }
+
 
   const handleChange = (event) => {
     event.preventDefault();
