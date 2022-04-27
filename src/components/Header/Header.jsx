@@ -2,9 +2,11 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
+import { SearchComponent } from './SearchComponent';
 
 const Header = ({ companyName }) => {
+
+
   return (
     <>
       <Box
@@ -24,14 +26,7 @@ const Header = ({ companyName }) => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-          <Box sx={{backgroundColor: 'white'}}>
-          <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
-          </Box>
-          <Box>
-            <Button variant='contained'>Search User</Button>
-          </Box>
-        </Box>
+        {SearchComponent()}
 
         <Box>
           <Stack spacing={2} direction='row'>
@@ -45,3 +40,4 @@ const Header = ({ companyName }) => {
 };
 
 export default Header;
+
