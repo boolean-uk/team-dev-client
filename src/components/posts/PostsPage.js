@@ -38,6 +38,8 @@ const PostsPage = () => {
   }
 
   return(
+    <>
+    <Header companyName={`Cohort Manager 2.0`} />
     <section className="posts-section">
       <button id="user-signout-button" onClick={signOut}>sign out</button>
       <p>Status: {postResponse.status}</p>
@@ -46,6 +48,7 @@ const PostsPage = () => {
         {posts.map((post, index) => <li key={index} className="post-item">{`${post.content} ${post.user.email}`}</li>)}
       </ul>
     </section>
+    </>
   )
 }
 
