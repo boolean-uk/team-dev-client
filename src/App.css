@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #2a2c30;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,15 +17,24 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  margin: 40px;
 }
 
-h1 {
-  margin-bottom: 40px;
+#user-registration-link,
+#user-login-link {
+  text-decoration: none;
+  color: orange;
+}
+
+#user-registration-link {
+  margin-right: 2rem;
+}
+
+#user-login-link {
+  margin-left: 2rem;
+}
+
+#user-submit-button {
+  margin: 2rem;
 }
