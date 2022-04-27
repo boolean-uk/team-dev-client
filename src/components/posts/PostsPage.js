@@ -26,6 +26,12 @@ const PostsPage = () => {
       });
   };
 
+  // view post
+  const viewPost = []
+
+  new array = this.cohort
+
+
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
