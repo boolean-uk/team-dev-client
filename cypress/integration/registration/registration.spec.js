@@ -1,7 +1,6 @@
 describe('User Registration', () => {
   describe("a valid user", () => {
     const url = Cypress.env('api_url')
-    console.log('URL', url)
     beforeEach(() => {
       cy.intercept('POST', `${url}/user`, { fixture: 'registration/valid-user.json' })
       cy.visit('/')
