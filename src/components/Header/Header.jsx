@@ -5,12 +5,13 @@ import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 
 const Header = ({ companyName }) => {
+
   const addCohortHandle = () => {
     const options = {
       method: "POST",
       headers: {
         authorization:
-          "Bearer " + localStorage.getItem(process.env.REACT_APP_USER_TOKEN),
+          "Bearer " + localStorage.getItem(process.env.REACT_APP_USER_TOKEN), 
       },
     };
     fetch(process.env.REACT_APP_API_URL + "/cohort", options)
