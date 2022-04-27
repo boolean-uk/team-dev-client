@@ -2,21 +2,19 @@ import "./App.css";
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
+import ProfilePage from "./components/users/userProfile/UserProfile";
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
-import AddCohort from "./components/addCohort/AddCohort";
 
 function App() {
   return (
     <div className="App">
-      <h1>Cohort Manager 2.0</h1>
-
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/addCohort" element={<AddCohort />} />
           <Route path="/posts" element={<PostsPage />} />
+          <Route path="/user/:id" element={<ProfilePage />} />
         </Route>
       </Routes>
     </div>
