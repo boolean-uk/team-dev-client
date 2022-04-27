@@ -23,6 +23,8 @@ $ npx cypress open
 
 ### Contribution
 
+added branch `addCohortClient`
+
 ### Styling
 
 - Fonts: to make it easier let's just keep a consistent font throughout
