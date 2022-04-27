@@ -40,7 +40,6 @@ const PostsPage = () => {
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '')
     navigate("../", { replace: true });
   }
-
   return(
     <>
     <Header companyName={`Cohort Manager 2.0`} />
@@ -49,7 +48,10 @@ const PostsPage = () => {
       <p>Status: {postResponse.status}</p>
       <PostForm handleSubmit={createPost} handleChange={handleChange}/>
       <ul className="posts-list">
-        {posts.map((post, index) => <li key={index} className="post-item">{`${post.content} ${post.user.email}`}</li>)}
+        {posts.map((post, index) => {
+        console.log(post)
+        return <li key={index} className="post-item">{`${post.content} ${post.user.profile.firstName} ${post.user.profile.lastName}`}</li>
+        })}
       </ul>
     </section>
     </>
