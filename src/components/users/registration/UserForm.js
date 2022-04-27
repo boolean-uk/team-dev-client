@@ -64,14 +64,14 @@ const UserForm = ({ handleSubmit, handleChange }) => {
           type="radio"
           value="STUDENT"
           onChange={handleFilter}
-          checked={radioButtonValue === "student"}
+          checked={radioButtonValue === "STUDENT"}
         />
         <h4>Student</h4>
         <input
           type="radio"
           value="TEACHER"
           onChange={handleFilter}
-          checked={radioButtonValue === "teacher"}
+          checked={radioButtonValue === "TEACHER"}
         />
         <h4>Teacher</h4>
       </label>
