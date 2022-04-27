@@ -62,14 +62,14 @@ const UserForm = ({ handleSubmit, handleChange }) => {
       <label className="user-form-input-button">
         <input
           type="radio"
-          value="student"
+          value="STUDENT"
           onChange={handleFilter}
           checked={radioButtonValue === "student"}
         />
         <h4>Student</h4>
         <input
           type="radio"
-          value="teacher"
+          value="TEACHER"
           onChange={handleFilter}
           checked={radioButtonValue === "teacher"}
         />
