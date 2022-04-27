@@ -40,6 +40,23 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         .catch((err) => console.log(err.response));
     };
 
+    const editUser = (event) => {
+        event.preventDefault()
+        client.patch('/user', user, false)
+          .then(res => setRegisterResponse(res.data))
+          .catch(err => console.log(err.response))
+      }
+    
+      const handleChange = (event) => {
+        event.preventDefault()
+        const { value, name } = event.target
+    
+        setProfile({
+          ...profile,
+          [name]: value,
+        });
+      }
+
     return (
       <form className="user-form" onSubmit={handleSubmit}>
         <TextField
