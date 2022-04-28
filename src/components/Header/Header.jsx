@@ -6,9 +6,7 @@ import InputBase from "@mui/material/InputBase";
 import client from "../../utils/client";
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
-
-
+const Header = ({ role }) => {
   let navigate = useNavigate();
 
   const signOut = (event) => {
@@ -18,10 +16,9 @@ const Header = () => {
   };
 
   const addCohortHandle = () => {
-   client.post('/cohort', {})
-      .catch(err => console.log(err.response))
-    }
-  
+    client.post("/cohort", {}).catch((err) => console.log(err.response));
+  };
+
   return (
     <>
       <Box
@@ -60,9 +57,11 @@ const Header = () => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            <Button variant="contained" onClick={addCohortHandle}>
-              Add Cohort
-            </Button>
+            {role !== "STUDENT" && (
+              <Button variant="contained" onClick={addCohortHandle}>
+                Add Cohort
+              </Button>
+            )}
             <Button id='user-signout-button' variant="contained" onClick={signOut}>Logout</Button>
           </Stack>
         </Box>
