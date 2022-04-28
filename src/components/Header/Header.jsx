@@ -1,52 +1,67 @@
-import { Box, flexbox } from '@mui/system';
+import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
+import client from '../../utils/client';
+import { useNavigate } from 'react-router-dom';
 
-{
-  /* <Typography variant="h1" component="h2">
-  h1. Heading
-</Typography>; */
-}
+const Header = ({ role }) => {
+  let navigate = useNavigate();
 
-const Header = ({ companyName }) => {
+  const signOut = (event) => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
+
+  const addCohortHandle = () => {
+    client.post('/cohort', {}).catch((err) => console.log(err.response));
+  };
+
   return (
     <>
       <Box
         sx={{
           display: 'flex',
+          backgroundColor: 'grey',
           justifyContent: 'space-between',
           alignContent: 'center',
-          // justifyItems: 'center',
-          // alignItems: 'center',
-          border: '2px solid black',
           width: '100vw',
-          padding: '1em'
+          padding: '1em',
         }}
       >
-        {/* -- */}
         <Box>
-          <Typography>
-            <p>{companyName}</p>
+          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
+            Cohort Manager 2.0
           </Typography>
         </Box>
-        {/* -- */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-          <Box>
-          
-          <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
-  
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
+        >
+          <Box sx={{ backgroundColor: 'white' }}>
+            <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
           </Box>
-          {/* -- */}
           <Box>
-            <Button variant="contained">Search User</Button>
+            <Button variant='contained'>Search User</Button>
           </Box>
         </Box>
+
         <Box>
-          <Stack spacing={2} direction="row">
-          <Button variant="contained">Add Cohort</Button>
-          <Button variant="contained">Logout</Button>
+          <Stack spacing={2} direction='row'>
+            {role !== 'STUDENT' && (
+              <Button variant='contained' onClick={addCohortHandle}>
+                Add Cohort
+              </Button>
+            )}
+            <Button id='user-signout-button' variant='contained' onClick={signOut}>
+              Logout
+            </Button>
           </Stack>
         </Box>
       </Box>
