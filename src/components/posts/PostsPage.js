@@ -5,7 +5,7 @@ import './style.css';
 
 import Header from '../Header/Header';
 
-const PostsPage = () => {
+const PostsPage = ({role}) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -35,7 +35,7 @@ const PostsPage = () => {
 
   return (
     <>
-      <Header />
+      <Header role={role}/>
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
