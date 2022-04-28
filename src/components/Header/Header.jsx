@@ -4,8 +4,18 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import client from "../../utils/client";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
+
+  let navigate = useNavigate();
+
+  const signOut = (event) => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
 
   const addCohortHandle = () => {
    client.post('/cohort', {})
@@ -53,7 +63,7 @@ const Header = () => {
             <Button variant="contained" onClick={addCohortHandle}>
               Add Cohort
             </Button>
-            <Button variant="contained">Logout</Button>
+            <Button id='user-signout-button' variant="contained" onClick={signOut}>Logout</Button>
           </Stack>
         </Box>
       </Box>
