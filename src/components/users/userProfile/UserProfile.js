@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import { useParams } from "react-router-dom";
+import Header from '../../Header/Header'
 
 const UserProfile = () => {
   const initialProfileState = {
@@ -28,6 +29,7 @@ const UserProfile = () => {
 
   return (
     <div>
+      < Header />
       <h1>User Profile</h1>
       <h2>
         {profile.first_name} {profile.last_name}
