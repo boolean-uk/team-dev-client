@@ -6,7 +6,7 @@ import './style.css';
 
 import Header from '../Header/Header';
 
-const PostsPage = (props) => {
+const PostsPage = ({role}) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -43,7 +43,7 @@ const PostsPage = (props) => {
 
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} role={props} />
+      <Header role={role}/>
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
           sign out

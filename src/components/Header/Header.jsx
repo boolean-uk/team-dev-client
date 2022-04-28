@@ -5,8 +5,7 @@ import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import client from "../../utils/client";
 
-const Header = ({ companyName, role }) => {
-  console.log("RENDER", role);
+const Header = ({ role }) => {
   const addCohortHandle = () => {
     client.post("/cohort", {}).catch((err) => console.log(err.response));
   };
@@ -25,7 +24,7 @@ const Header = ({ companyName, role }) => {
       >
         <Box>
           <Typography>
-            <p>{companyName}</p>
+            <p>Cohort Manager 2.0</p>
           </Typography>
         </Box>
 
@@ -49,11 +48,11 @@ const Header = ({ companyName, role }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            {role !== "STUDENT" && 
+            {role !== "STUDENT" && (
               <Button variant="contained" onClick={addCohortHandle}>
                 Add Cohort
               </Button>
-            }
+            )}
             <Button variant="contained">Logout</Button>
           </Stack>
         </Box>
