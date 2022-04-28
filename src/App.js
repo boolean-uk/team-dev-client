@@ -8,7 +8,6 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 function App() {
   const [role, setRole] = useState("");
-  console.log(role)
   return (
     <div className="App">
       <Routes>
