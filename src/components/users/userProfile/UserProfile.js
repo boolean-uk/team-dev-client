@@ -13,10 +13,9 @@ const UserProfile = () => {
     github_url: "",
   };
   const [profile, setProfile] = useState(initialProfileState);
-  
+  const { id } = useParams();
 
   useEffect(() => {
-    const { id } = useParams();
       client
         .get(`/user/${id}`)
         .then((res) => {
