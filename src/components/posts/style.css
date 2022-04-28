@@ -10,10 +10,6 @@
   display: flex;
   justify-content: center;
   padding: 3em;
-  /* border-style: solid;
-  border-color: #9e9e9e;
-  row-gap: 10px;
-  flex-flow: row wrap; */
 }
 
 .post-content {

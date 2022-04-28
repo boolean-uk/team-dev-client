@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
-import { Box, Stack, CardHeader, CardContent } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions'
 
@@ -13,7 +13,6 @@ const PostsPage = () => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
-  console.log(posts);
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -25,7 +24,6 @@ const PostsPage = () => {
       .post('/post', post)
       .then((res) => setPostResponse(res.data))
       .catch((data) => {
-        console.log(data);
       });
   };
 
