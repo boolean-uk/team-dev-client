@@ -6,12 +6,10 @@ import InputBase from "@mui/material/InputBase";
 import client from "../../utils/client";
 
 const Header = ({ companyName }) => {
-
   const addCohortHandle = () => {
-   client.post('/cohort', {})
-      .catch(err => console.log(err.response))
-    }
-  
+    client.post("/cohort", {}).catch((err) => console.log(err.response));
+  };
+
   return (
     <>
       <Box
@@ -50,9 +48,11 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            <Button variant="contained" onClick={addCohortHandle}>
-              Add Cohort
-            </Button>
+            {role === "TEACHER" && (
+              <Button variant="contained" onClick={addCohortHandle}>
+                Add Cohort
+              </Button>
+            )}
             <Button variant="contained">Logout</Button>
           </Stack>
         </Box>
