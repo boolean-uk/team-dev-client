@@ -26,7 +26,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Header />
+      <Header/>
       <h1>User Profile</h1>
       <h2>
         {profile.firstName} {profile.lastName}
