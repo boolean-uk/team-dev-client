@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
-
+import { Card, CardHeader, CardContent } from '@mui/material';
 import Header from '../Header/Header';
+
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
+  console.log(posts);
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -25,12 +27,6 @@ const PostsPage = () => {
         console.log(data);
       });
   };
-
-  // view post
-  const viewPost = []
-
-  new array = this.cohort
-
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -59,7 +55,18 @@ const PostsPage = () => {
         <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
+              <Card>
+              <CardHeader>
               {post.content}
+              
+              </CardHeader>
+              <CardContent>
+              {post.createdAt}
+              {post.user.profile.firstName}
+              {post.user.profile.lastName}
+              </CardContent>
+          
+              </Card>
             </li>
           ))}
         </ul>
