@@ -17,7 +17,7 @@ const LoginPage = () => {
   }, []);
 
   const loginUser = (event) => {
-    event.preventDefault()
+    event.preventDefault()  
     client.post('/login', user)
       .then(res => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
@@ -56,8 +56,7 @@ const LoginPage = () => {
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} />
-      {loginError && <p>{loginError}</p>}
+      <UserForm handleChange={handleChange} handleSubmit={loginUser} loginError={loginError} />
     </div>
   );
 };
