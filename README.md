@@ -1,6 +1,6 @@
 ### Team Dev Client
 
-Client repository for team dev project.
+conflicting changes
 
 ### Quick Start
 
@@ -23,3 +23,9 @@ $ npx cypress open
 
 ### Contribution
 
+added branch `addCohortClient`
+
+### Styling
+
+- Fonts: to make it easier let's just keep a consistent font throughout
+- Colors: background #2a2c30, normal text #fff, links #ffa500
