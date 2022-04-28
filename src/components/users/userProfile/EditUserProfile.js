@@ -6,13 +6,12 @@ import client from "../../../utils/client";
 import { useParams } from "react-router-dom";
 
 const UserForm = () => {
-
   const [profile, setProfile] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
     handleFindProfile();
-  }, []);
+  });
 
   console.log(id);
 
@@ -25,25 +24,25 @@ const UserForm = () => {
       .catch((err) => console.log(err.response));
   };
 
-  const onFirstNameChange = (e) => {
-    setProfile({ ...profile, first_name: e.target.value });
-  };
-  const onLastNameChange = (e) => {
-    setProfile({ ...profile, last_name: e.target.value });
-  };
-  const onEmailChange = (e) => {
-    setProfile({ ...profile, email: e.target.value });
-  };
-  const onPasswordChange = (e) => {
-    setProfile({ ...profile, password: e.target.value });
-  };
-  const onBiographyChange = (e) => {
-    setProfile({ ...profile, biography: e.target.value });
-  };
+  function handleEditChange(event) {
+    const firstName = event.target.first_name;
+    const lastName = event.target.first_name;
+    const email = event.target.email;
+    const password = event.target.password;
+    const biography = event.target.biography;
+    const githubUrl = event.target.github_url;
+    const value = event.target.value;
 
-  const onGithubUrlChange = (e) => {
-    setProfile({ ...profile, github_url: e.target.value });
-  };
+    setProfile({
+      ...profile,
+      [firstName]: value,
+      [lastName]: value,
+      [email]: value,
+      [password]: value,
+      [biography]: value,
+      [githubUrl]: value,
+    });
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -57,6 +56,7 @@ const UserForm = () => {
         first_Name: profile.first_name,
         last_Name: profile.last_name,
         email: profile.email,
+        password: profile.password,
         biography: profile.biography,
         github_url: profile.github_url,
       }),
@@ -71,21 +71,20 @@ const UserForm = () => {
   return (
     <div>
       <h1> Edit Profile Details </h1>
-      <br></br>
       <form onSubmit={onSubmit} className="user-form">
         <TextField
           className="user-form-input"
           value={profile.first_name}
           variant="outlined"
           name="first_name"
-          onChange={onFirstNameChange}
+          onChange={handleEditChange}
         />
         <TextField
           className="user-form-input"
           value={profile.last_name}
           variant="outlined"
           name="last_name"
-          onChange={onLastNameChange}
+          onChange={handleEditChange}
         />
         <TextField
           className="user-form-input"
@@ -93,7 +92,7 @@ const UserForm = () => {
           value={profile.email}
           variant="outlined"
           name="email"
-          onChange={onEmailChange}
+          onChange={handleEditChange}
         />
         <TextField
           className="user-form-input"
@@ -101,14 +100,14 @@ const UserForm = () => {
           label="Password"
           variant="outlined"
           name="password"
-          onChange={onPasswordChange}
+          onChange={handleEditChange}
         />
         <TextField
           className="user-form-input"
           value={profile.biography}
           variant="outlined"
           name="biography"
-          onChange={onBiographyChange}
+          onChange={handleEditChange}
         />
         <TextField
           className="user-form-input"
@@ -116,7 +115,7 @@ const UserForm = () => {
           value={profile.github_url}
           variant="outlined"
           name="github_url"
-          onChange={onGithubUrlChange}
+          onChange={handleEditChange}
         />
         <Button id="user-submit-button" type="submit" variant="contained">
           Submit

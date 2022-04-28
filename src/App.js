@@ -16,8 +16,8 @@ function App() {
         <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
-          <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path='/user/:id' element={<ProfilePage />} />
+          <Route path="/user/edit/:id" element={<EditUser />} />
         </Route>
       </Routes>
     </div>
