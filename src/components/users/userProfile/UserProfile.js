@@ -16,8 +16,8 @@ const UserProfile = () => {
 
   useEffect(() => {
       handleFindProfile()
-  })
-
+  }, [])
+  console.log("user profile:", profile)
   const handleFindProfile = () => {
     client.get(`/user/${id}`)
     .then(res => {
@@ -30,11 +30,11 @@ const UserProfile = () => {
     <div>
       <h1>User Profile</h1>
       <h2>
-        {profile.first_name} {profile.last_name}
+        {profile.firstName} {profile.lastName}
       </h2>
       <p>Email: {profile.email}</p>
       <p>Bio: {profile.biography}</p>
-      <p>Github: {profile.github_url}</p>
+      <p>Github: {profile.githubUrl}</p>
     </div>
   );
 };

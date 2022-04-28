@@ -22,10 +22,14 @@ const LoginPage = () => {
       .then(res => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
         setLoginResponse(res.data)
-        console.log('login here:', res.data)
         navigate("../posts", { replace: true });
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response)
+        const errorMessage = err.response.data.data.email
+        console.log('login error:', err.response.data.data.email)
+        setLoginError(errorMessage)
+      });
   };
 
 
@@ -53,6 +57,7 @@ const LoginPage = () => {
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+      {loginError && <p>{loginError}</p>}
     </div>
   );
 };
