@@ -5,7 +5,7 @@ import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import client from "../../utils/client";
 
-const Header = ({ companyName }) => {
+const Header = () => {
 
   const addCohortHandle = () => {
    client.post('/cohort', {})
@@ -26,7 +26,7 @@ const Header = ({ companyName }) => {
       >
         <Box>
           <Typography>
-            <p>{companyName}</p>
+            <p>Cohort Manager 2.0</p>
           </Typography>
         </Box>
 

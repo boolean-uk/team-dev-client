@@ -43,7 +43,7 @@ const PostsPage = () => {
 
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} />
+      <Header />
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
           sign out
