@@ -4,7 +4,6 @@ import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import Header from './components/Header/Header';
 
 function App() {
   return (
