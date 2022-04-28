@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
-import { Card, CardHeader, CardContent } from '@mui/material';
+import { Box, Stack, CardHeader, CardContent } from '@mui/material';
 import Header from '../Header/Header';
+import dateTimetoRelativeTime from './helperfunctions'
 
 
 const PostsPage = () => {
@@ -55,18 +56,13 @@ const PostsPage = () => {
         <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
-              <Card>
-              <CardHeader>
-              {post.content}
-              
-              </CardHeader>
-              <CardContent>
-              {post.createdAt}
-              {post.user.profile.firstName}
-              {post.user.profile.lastName}
-              </CardContent>
-          
-              </Card>
+            <Box>
+            <div className='post-content'>{post.content}</div>
+            <Stack spacing={2} direction='row'>
+            <Box variant='contained'>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+            <Box variant='contained'>{dateTimetoRelativeTime(post.createdAt)}</Box>
+            </Stack>
+            </Box>
             </li>
           ))}
         </ul>
