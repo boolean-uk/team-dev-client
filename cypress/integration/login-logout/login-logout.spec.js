@@ -1,9 +1,10 @@
 describe('User Login Logout', () => {
   describe("a valid user", () => {
+    const url = Cypress.env('api_url')
     beforeEach(() => {
-      cy.intercept('POST', 'http://localhost:4000/user', { fixture: 'registration/valid-user.json' })
-      cy.intercept('POST', 'http://localhost:4000/login', { fixture: 'login-logout/valid-user.json' })
-      cy.intercept('GET', 'http://localhost:4000/posts', { fixture: 'posts/valid-posts.json' })
+      cy.intercept('POST', `${url}/user`, { fixture: 'registration/valid-user.json' })
+      cy.intercept('POST', `${url}/login`, { fixture: 'login-logout/valid-user.json' })
+      cy.intercept('GET', `${url}/posts`, { fixture: 'posts/valid-posts.json' })
       cy.visit('/')
     })
 
