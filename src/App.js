@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<LoginPage setRole={setRole} />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/posts" element={<PostsPage role={role}/>} />
           <Route path="/user/:id" element={<ProfilePage />} />
         </Route>
       </Routes>

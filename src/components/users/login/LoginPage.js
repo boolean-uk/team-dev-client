@@ -6,7 +6,7 @@ import client from "../../../utils/client";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = (props) => {
-  console.log("checking role-props: ", props);
+  const { setRole } = props
   const [user, setUser] = useState(userBlankData());
   const [loginResponse, setLoginResponse] = useState({
     data: { token: "", user: {} },
@@ -24,7 +24,7 @@ const LoginPage = (props) => {
     client
       .post("/login", user)
       .then((res) => {
-        console.log("logging response", res.data.data.user.role);
+        setRole(res.data.data.user.role)
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
