@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PostForm from './PostForm';
+import PostComment from '.PostComment'
 import client from '../../utils/client';
 import './style.css';
 
@@ -43,6 +44,7 @@ const PostsPage = ({role}) => {
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
               {post.content}
+              <PostComment/>
             </li>
           ))}
         </ul>
