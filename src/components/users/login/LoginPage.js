@@ -27,7 +27,6 @@ const LoginPage = () => {
       .catch((err) => {
         console.log(err.response)
         const errorMessage = err.response.data.data.email
-        console.log('login error:', err.response.data.data.email)
         setLoginError(errorMessage)
       });
   };
