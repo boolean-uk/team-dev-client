@@ -13,7 +13,10 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get('/posts').then((res) => setPosts(res.data.data.posts));
+    client.get('/posts').then((res) => {
+      console.log(res)
+      setPosts(res.data.data.posts)
+      });
   }, []);
 
   const createPost = async (event) => {
