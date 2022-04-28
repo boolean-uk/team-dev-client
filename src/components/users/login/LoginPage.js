@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
+  const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const LoginPage = () => {
       .then(res => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
         setLoginResponse(res.data)
+        console.log('login here:', res.data)
         navigate("../posts", { replace: true });
       })
       .catch((err) => console.log(err.response));
