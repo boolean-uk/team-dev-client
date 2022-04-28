@@ -16,16 +16,16 @@ const LoginPage = () => {
   }, []);
 
   const loginUser = (event) => {
-    event.preventDefault();
-    client
-      .post('/login', user)
-      .then((res) => {
-        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
-        setLoginResponse(res.data);
-        navigate('../posts', { replace: true });
+    event.preventDefault()
+    client.post('/login', user)
+      .then(res => {
+        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token)
+        setLoginResponse(res.data)
+        navigate("../posts", { replace: true });
       })
       .catch((err) => console.log(err.response));
   };
+
 
   const handleChange = (event) => {
     event.preventDefault();

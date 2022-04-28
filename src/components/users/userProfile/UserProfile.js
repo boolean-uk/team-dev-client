@@ -18,7 +18,7 @@ const UserProfile = () => {
 
   useEffect(() => {
       handleFindProfile()
-  }, [])
+  })
 
   const handleFindProfile = () => {
     client.get(`/user/${id}`)

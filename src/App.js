@@ -3,20 +3,19 @@ import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import EditUser from "./components/users/userProfile/EditUserProfile";
-import ProfilePage from './components/users/userProfile/UserProfile'
-
+import ProfilePage from "./components/users/userProfile/UserProfile";
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/signup' element={<RegistrationPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
-          <Route path='/user/:id' element={<ProfilePage />} />
+          <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
         </Route>
       </Routes>
