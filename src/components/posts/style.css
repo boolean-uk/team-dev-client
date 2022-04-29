@@ -7,5 +7,16 @@
 }
 
 .post-item {
-
+  display: flex;
+  justify-content: center;
+  padding: 3em;
 }
+
+.post-content {
+  display: flex;
+}
+
+li {
+  list-style-type: none;
+}
+
