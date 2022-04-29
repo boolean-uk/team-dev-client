@@ -3,11 +3,14 @@ import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import ProfilePage from "./components/users/userProfile/UserProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+
 
 function App() {
   const [role, setRole] = useState("");
+
+
   return (
     <div className="App">
       <Routes>
@@ -29,7 +32,7 @@ function isLoggedIn() {
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = "/" }) => {
+const AuthenticateUser = ({ children, redirectPath = "/login" }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }
