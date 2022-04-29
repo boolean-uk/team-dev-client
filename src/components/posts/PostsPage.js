@@ -1,69 +1,73 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import PostForm from "./PostForm";
-import client from "../../utils/client";
-import "./style.css";
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import PostForm from './PostForm'
+import client from '../../utils/client'
+import Comment from './comments'
+import './style.css'
 
 const PostsPage = () => {
-  const [post, setPost] = useState({ content: "" });
-  const [postResponse, setPostResponse] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState({ content: '' })
+  const [postResponse, setPostResponse] = useState('')
+  const [posts, setPosts] = useState([])
   const [commentResponse, setcommentResponse] = useState({})
-  const [comment, setComment] = useState("")
-  let navigate = useNavigate();
+  const [load, setLoad] = useState(true)
+  const [comment, setComment] = useState('')
+  let navigate = useNavigate()
 
   useEffect(() => {
-    client.get("/posts").then((res) => setPosts(res.data.data.posts));
-  }, []);
+    client.get('/posts').then((res) => setPosts(res.data.data.posts))
+  }, [load])
 
   const createPost = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     client
       .post('/post', post)
-      .then((res) => setPostResponse(res.data))
+      .then((res) =>{
+        setPostResponse(res.data)
+      })
       .catch((data) => {
-        console.log(data);
-      });
-  };
+        console.log(data)
+      })
+  }
+  
 
   const handleChange = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
+    event.preventDefault()
+    const { value, name } = event.target
     setPost({
       ...post,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-    navigate("../", { replace: true });
-  };
+    event.preventDefault()
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '')
+    navigate('../', { replace: true })
+  }
 
   const createComment = async (event) => {
-        event.preventDefault();
-        console.log(event)
+    event.preventDefault()
+    const postId = event.target.firstChild.id
     client
-      .post(`/post/1/comment`, comment)
+      .post(`/post/${postId}/comment`, comment)
       .then((res) => {
-        console.log('hello testing', res)
         setcommentResponse(res.data)
+        setLoad(x => !x)
       })
       .catch((data) => {
-        console.log(data);
-      });
-  };
+        console.log(data)
+      })
+  }
 
   const handleComment = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
+    event.preventDefault()
+    const { value, name } = event.target
     setComment({
       ...comment,
       [name]: value,
-    });
-  };
-  console.log('funnymessage', posts)
+    })
+  }
   return (
     <section className='posts-section'>
       <button id='user-signout-button' onClick={signOut}>
@@ -72,24 +76,15 @@ const PostsPage = () => {
       <p>Status: {postResponse.status}</p>
       <PostForm handleSubmit={createPost} handleChange={handleChange} />
       <ul className='posts-list'>
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <li key={post.id} className='post-item'>
             {post.content}
-            <div className="comments-section">
-              <form onSubmit={createComment} >
-                <input type='text' className="post__comment" onChange={handleComment} name="comment" label="New Comment" variant="outlined"/>
-                <button className="comment-button" >Comment</button>
-              </form>
-              <ul className="comments-list">
-               {commentResponse.data && 
-                <li className="comment-item">{commentResponse.data.comment.content} </li >}
-              </ul>
-            </div>
+            <Comment post={post} createComment={createComment} handleComment={handleComment} />
           </li>
         ))}
       </ul>
     </section>
-  );
-};
+  )
+}
 
-export default PostsPage;
+export default PostsPage
