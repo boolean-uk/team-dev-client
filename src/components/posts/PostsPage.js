@@ -40,15 +40,27 @@ const PostsPage = () => {
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         <ul className='posts-list'>
-          {posts.map((post, index) => (
-            <li key={index} className='post-item'>
-              {post.content}
-            </li>
-          ))}
-        </ul>
+        {posts.map((post, index) => (
+          <li key={index} className='post-item'>
+            {post.content}
+            <div className="comments-section">
+              <form>
+                <input type='text' className="post__comment" name="comment" label="New Comment" variant="outlined"/>
+                <button type="button" className="comment-button" >Comment</button>
+              </form>
+              <ul className="comments-list">
+                <li className="comment-item">"Hello"</li >
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+        
       </section>
     </>
+
   );
+
 };
 
 export default PostsPage;

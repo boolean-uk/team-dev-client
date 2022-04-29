@@ -1,5 +1,5 @@
 .posts-section {
-
+  margin-top: 15px;
 }
 
 .posts-list {
@@ -7,5 +7,37 @@
 }
 
 .post-item {
+  margin-bottom: 10px;
+}
 
+.post-item {
+  list-style: none;
+}
+
+form.post-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+textarea {
+  border-radius: 0.2rem;
+}
+
+li.post-item {
+  background-color: grey;
+  gap: 0.5rem;
+  border-radius: 0.2rem;
+  width: 30rem;
+  height: 100%
+}
+
+ul.posts-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+* {
+  list-style: none;
 }
