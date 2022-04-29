@@ -43,6 +43,7 @@ const PostsPage = () => {
 
   const createComment = async (event) => {
         event.preventDefault();
+        console.log(event)
     client
       .post(`/post/1/comment`, comment)
       .then((res) => {
@@ -55,7 +56,6 @@ const PostsPage = () => {
   };
 
   const handleComment = (event) => {
-    console.log(event.target)
     event.preventDefault();
     const { value, name } = event.target;
     setComment({
@@ -63,6 +63,7 @@ const PostsPage = () => {
       [name]: value,
     });
   };
+  console.log('funnymessage', posts)
   return (
     <section className='posts-section'>
       <button id='user-signout-button' onClick={signOut}>
@@ -72,12 +73,12 @@ const PostsPage = () => {
       <PostForm handleSubmit={createPost} handleChange={handleChange} />
       <ul className='posts-list'>
         {posts.map((post, index) => (
-          <li key={index} className='post-item'>
+          <li key={post.id} className='post-item'>
             {post.content}
             <div className="comments-section">
               <form onSubmit={createComment} >
                 <input type='text' className="post__comment" onChange={handleComment} name="comment" label="New Comment" variant="outlined"/>
-                <button type="button" className="comment-button" >Comment</button>
+                <button className="comment-button" >Comment</button>
               </form>
               <ul className="comments-list">
                {commentResponse.data && 
