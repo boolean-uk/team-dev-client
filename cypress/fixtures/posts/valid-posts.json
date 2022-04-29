@@ -5,29 +5,43 @@
       {
         "id": 1,
         "content": "Hello world!",
-        "author": {
+        "userId": 5,
+        "createdAt": "2022-04-29T08:59:34.351Z",
+        "updatedAt": "2022-04-29T08:59:34.353Z",
+        "user": {
           "id": 5,
           "cohortId": null,
-          "firstName": "Nathan",
-          "lastName": "King",
           "email": "ngk2@gmail.com",
-          "bio": "Hello world",
           "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
+          "role": "STUDENT",
+          "profile": {
+            "id": 1,
+            "userId": 1,
+            "firstName": "Nathan",
+            "lastName": "King",
+            "bio": "..."
+          }
         }
       },
       {
         "id": 2,
         "content": "Hello from the void!",
-        "author": {
+        "userId": 5,
+        "createdAt": "2022-04-29T08:59:34.351Z",
+        "updatedAt": "2022-04-29T08:59:34.353Z",
+        "user": {
           "id": 5,
           "cohortId": null,
-          "firstName": "Nathan",
-          "lastName": "King",
           "email": "ngk2@gmail.com",
-          "bio": "Hello world",
           "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
+          "role": "STUDENT",
+          "profile": {
+            "id": 2,
+            "userId": 5,
+            "firstName": "Nathan", 
+            "lastName": "King",
+            "bio": "Hello world"
+          }
         }
       }
     ]

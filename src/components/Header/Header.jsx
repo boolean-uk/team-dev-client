@@ -12,7 +12,7 @@ const Header = ({ role }) => {
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
+    navigate('../login', { replace: true });
   };
 
   const addCohortHandle = () => {
