@@ -42,11 +42,11 @@ const PostsPage = () => {
   };
 
   const createComment = async (event) => {
-    console.log(event.target)
-    event.preventDefault();
+        event.preventDefault();
     client
-      .post("/post/comment", comment)
+      .post(`/post/1/comment`, comment)
       .then((res) => {
+        console.log('hello testing', res)
         setcommentResponse(res.data)
       })
       .catch((data) => {
