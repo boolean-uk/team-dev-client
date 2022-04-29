@@ -30,7 +30,7 @@ const LoginPage = (props) => {
           res.data.data.token
         );
         setLoginResponse(res.data);
-        navigate("../posts", { replace: true });
+        navigate("../", { replace: true });
       })
       .catch((err) => console.log(err.response));
   };
@@ -53,7 +53,7 @@ const LoginPage = (props) => {
       <Link id="user-registration-link" to="/signup">
         sign up
       </Link>
-      <Link id="user-login-link" to="/">
+      <Link id="user-login-link" to="/login">
         login
       </Link>
       <h1>Login</h1>
