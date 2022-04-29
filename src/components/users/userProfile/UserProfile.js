@@ -6,18 +6,10 @@ import Header from "../../Header/Header";
 
 
 const UserProfile = () => {
-  // const initialProfileState = {
-  //   first_name: "",
-  //   last_name: "",
-  //   email: "",
-  //   biography: "",
-  //   github_url: "",
-  // };
-  
 
   const [profile, setProfile] = useState('');
   const { id } = useParams();
-  
+  let role = profile.role
 
   useEffect(() => {
       client
@@ -30,7 +22,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Header/>
+      <Header role={role}/>
       <h1>User Profile</h1>
       <h2>
         {profile.firstName} {profile.lastName}
