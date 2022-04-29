@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
@@ -7,11 +6,10 @@ import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
 
-const PostsPage = () => {
+const PostsPage = ({role}) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  let navigate = useNavigate();
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -34,19 +32,10 @@ const PostsPage = () => {
     });
   };
 
-  const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
-  };
-
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} />
-      <section className="posts-section">
-        <button id="user-signout-button" onClick={signOut}>
-          sign out
-        </button>
+      <Header role={role}/>
+      <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         <ul className="posts-list">
