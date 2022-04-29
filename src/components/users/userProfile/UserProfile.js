@@ -1,8 +1,8 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import client from "../../../utils/client";
-import { useParams } from "react-router-dom";
-import Header from "../../Header/Header";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import client from '../../../utils/client';
+import { useParams } from 'react-router-dom';
+import Header from '../../Header/Header';
 
 
 const UserProfile = () => {
