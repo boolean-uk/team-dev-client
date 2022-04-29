@@ -44,7 +44,7 @@ const RegistrationPage = () => {
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id="user-registration-link" to="/signup">sign up</Link> <Link id="user-login-link" to="/">login</Link>
+      <Link id="user-registration-link" to="/signup">sign up</Link> <Link id="user-login-link" to="/login">login</Link>
       <h1>Sign up</h1>
       <p>Status: {registerResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={registerUser} handleFilter={handleFilter} radioButtonValue={radioButtonValue}/>
