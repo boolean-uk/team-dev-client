@@ -1,5 +1,3 @@
-
-
 const Comments = ({createComment,handleComment,post}) => {
   
   return (

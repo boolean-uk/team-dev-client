@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import PostForm from './PostForm'
-import client from '../../utils/client'
-import Comment from './comments'
-import './style.css'
+import { useState, useEffect } from 'react';
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import './style.css';
+import { Box, Stack } from '@mui/material';
+import Header from '../Header/Header';
+import dateTimetoRelativeTime from './helperfunctions';
+import Comment from './PostComment'
 
-const PostsPage = () => {
-  const [post, setPost] = useState({ content: '' })
-  const [postResponse, setPostResponse] = useState('')
-  const [posts, setPosts] = useState([])
+
+const PostsPage = ({role}) => {
+  const [post, setPost] = useState({ content: '' });
+  const [postResponse, setPostResponse] = useState('');
+  const [posts, setPosts] = useState([]);
   const [commentResponse, setcommentResponse] = useState({})
   const [load, setLoad] = useState(true)
   const [comment, setComment] = useState('')
-  let navigate = useNavigate()
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts))
@@ -30,7 +32,6 @@ const PostsPage = () => {
       })
   }
   
-
   const handleChange = (event) => {
     event.preventDefault()
     const { value, name } = event.target
@@ -38,12 +39,6 @@ const PostsPage = () => {
       ...post,
       [name]: value,
     })
-  }
-
-  const signOut = (event) => {
-    event.preventDefault()
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '')
-    navigate('../', { replace: true })
   }
 
   const createComment = async (event) => {
@@ -69,21 +64,29 @@ const PostsPage = () => {
     })
   }
   return (
-    <section className='posts-section'>
-      <button id='user-signout-button' onClick={signOut}>
-        sign out
-      </button>
-      <p>Status: {postResponse.status}</p>
-      <PostForm handleSubmit={createPost} handleChange={handleChange} />
-      <ul className='posts-list'>
-        {posts.map((post) => (
-          <li key={post.id} className='post-item'>
-            {post.content}
-            <Comment post={post} createComment={createComment} handleComment={handleComment} />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <>
+      <Header role={role}/>
+      <section className='posts-section'>
+        <p>Status: {postResponse.status}</p>
+        <PostForm handleSubmit={createPost} handleChange={handleChange} />
+        <ul className="posts-list">
+          {posts.map((post, index) => (
+            <li key={index} className="post-item">
+              <Box>
+                <div className="post-content">{post.content}</div>
+                <Stack spacing={2} direction="row">
+                  <Box variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+                  <Box variant="contained">
+                    {dateTimetoRelativeTime(post.createdAt)}
+                  </Box>
+                </Stack>
+              </Box>
+              <Comment post={post} createComment={createComment} handleComment={handleComment} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   )
 }
 
