@@ -8,19 +8,19 @@ import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
 
 const PostsPage = () => {
-  const [post, setPost] = useState({ content: "" });
-  const [postResponse, setPostResponse] = useState("");
+  const [post, setPost] = useState({ content: '' });
+  const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get("/posts").then((res) => setPosts(res.data.data.posts));
+    client.get('/posts').then((res) => setPosts(res.data.data.posts));
   }, []);
 
   const createPost = async (event) => {
     event.preventDefault();
     client
-      .post("/post", post)
+      .post('/post', post)
       .then((res) => setPostResponse(res.data))
       .catch((data) => {});
   };
@@ -36,8 +36,8 @@ const PostsPage = () => {
 
   const signOut = (event) => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-    navigate("../", { replace: true });
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
   };
 
   return (
