@@ -8,26 +8,22 @@ import client from '../../../utils/client';
 export default function ViewCohort() {
   const { id } = useParams()
 
-  // const [allStudents, setAllStudents] = useState([])
+  const [cohortStudents, setCohortStudents] = useState([])
   const [noCohort, setNoCohort] = useState([])
-
-  let all = []
 
   useEffect(() => {
       client
         .get(`/user`)
         .then((res) => {
+        const coSt = res.data.data.users.filter(user => user.cohort_id === parseInt(id))
          const noCo = res.data.data.users.filter(user => user.role === "STUDENT" && user.cohort_id === null)
+         setCohortStudents(coSt)
          setNoCohort(noCo)
         })
         .catch((err) => console.log(err.response));
   }, [])
 
-  //fetch with useeffect, set a state
-  //get all users then filter out ones with no cohort id
-  //render a list with map below
-
-  
+ 
 
   return (
     <>

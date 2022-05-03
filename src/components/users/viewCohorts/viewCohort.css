@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 75% 25%;
 }
 
 
@@ -20,13 +20,18 @@
 .add-student-container {
     display: flex;
     flex-flow: column wrap;
+    /* align-content: center; */
 }
 
 .add-student {
     display: inline-block;
+    align-items: center;
+    text-align: left; 
+    margin-left: 0.7rem;
 }
 
 .add-student-card {
     display: grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 30% 70%;
 }
+
