@@ -26,8 +26,8 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem("token");
-  return !(loadedToken === "");
+  const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
+  return !(loadedToken === "" || loadedToken === null);
 }
 
 export default App;
