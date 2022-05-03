@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react"
-import PostForm from "./PostForm"
-import client from "../../utils/client"
-import "./style.css"
-import { Box, Stack } from "@mui/material"
-import Header from "../Header/Header"
-import dateTimetoRelativeTime from "./helperfunctions"
-import { useNavigate } from "react-router-dom"
+import React from 'react';
+import { useState, useEffect } from 'react';
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import './style.css';
+import { Box, Stack } from '@mui/material';
+import Header from '../Header/Header';
+import dateTimetoRelativeTime from './helperfunctions';
+import { useNavigate } from "react-router-dom
+
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: "" })
