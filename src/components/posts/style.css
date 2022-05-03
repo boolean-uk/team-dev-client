@@ -1,5 +1,4 @@
 .posts-section {
-
 }
 
 .posts-list {
@@ -20,3 +19,11 @@ li {
   list-style-type: none;
 }
 
+.post-author {
+  color: #ffa500;
+}
+
+.post-author:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
