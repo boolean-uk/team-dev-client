@@ -12,7 +12,7 @@ const PostsPage = ({role}) => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
-  // onClick={navigate(`/user/${post.user.profile.id}`)}
+  
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
   }, []);
@@ -33,10 +33,10 @@ const PostsPage = ({role}) => {
       [name]: value,
     });
   };
-  const handleClick = (post) => {
-    console.log('id', post.user.id)
-    const id = post.user.id
-    navigate(`/user/${id}`, { id: id });
+  const handleClick = (user) => {
+    console.log('id', user.id)
+    const id = user.id
+    navigate(`/user/${id}`);
   }
 
   return (
@@ -51,7 +51,7 @@ const PostsPage = ({role}) => {
               <Box>
                 <div className="post-content">{post.content}</div>
                 <Stack spacing={2} direction="row">
-                  <Box variant="contained" onClick={() => handleClick(post)}><strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong></Box>
+                  <Box variant="contained" onClick={() => handleClick(post.user)}><strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong></Box>
                   <Box variant="contained">
                     {dateTimetoRelativeTime(post.createdAt)}
                   </Box>
