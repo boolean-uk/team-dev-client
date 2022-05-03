@@ -9,7 +9,7 @@ import dateTimetoRelativeTime from './helperfunctions';
 const PostsPage = ({role}) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); 
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -20,11 +20,11 @@ const PostsPage = ({role}) => {
     client
       .post('/post', post)
       .then((res) => {
-        console.log(res)
         setPostResponse(res.data)
         setPosts(posts => [res.data.data.post, ...posts])
       })
       .catch((data) => {});
+      setPost(() => ({ content: '' }))
   };
 
   const handleChange = (event) => {
@@ -41,7 +41,7 @@ const PostsPage = ({role}) => {
       <Header role={role}/>
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} />
+        <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
         <ul className="posts-list">
           {posts.map((post, index) => (
             <li key={index} className="post-item">
