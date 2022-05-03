@@ -7,16 +7,16 @@ export default function ViewCohort() {
   const { id } = useParams()
 
   return (
-      <>
-    <Header/>
-    <div className="BigContainer">
-      <div className="Container_cohorts">
-        <h3>Cohort {id}</h3>
+    <>
+      <Header />
+      <div className="BigContainer">
+        <div className="Container_cohorts">
+          <h3>Cohort {id}</h3>
+        </div>
+        <div className="Container_addStudent">
+          <div>Student</div>
+        </div>
       </div>
-      <div className="Container_addStudent">
-      <div>Student</div>
-      </div>
-      </div>
-      </>
+    </>
   )
 }
