@@ -5,6 +5,7 @@ import "./style.css";
 import { Box, Stack } from "@mui/material";
 import Header from "../Header/Header";
 import dateTimetoRelativeTime from "./helperfunctions";
+import CohortList from "../cohort/CohortList";
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: "" });
@@ -35,6 +36,7 @@ const PostsPage = ({ role }) => {
   return (
     <>
       <Header role={role} />
+      <CohortList role={role} />
       <section className="posts-section">
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
