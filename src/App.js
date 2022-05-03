@@ -24,8 +24,8 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem("token");
-  return !(loadedToken === "");
+  const loadedToken = localStorage.getItem("jwt");
+  return !(loadedToken === null || loadedToken === "");
 }
 
 export default App;
