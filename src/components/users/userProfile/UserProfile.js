@@ -1,20 +1,18 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import client from "../../../utils/client";
-import { useParams } from "react-router-dom";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import client from '../../../utils/client';
+import { useParams } from 'react-router-dom';
+import Header from '../../Header/Header';
+
 
 const UserProfile = () => {
-  const initialProfileState = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    biography: "",
-    github_url: "",
-  };
-  const [profile, setProfile] = useState(initialProfileState);
+
+  const [profile, setProfile] = useState('');
   const { id } = useParams();
+  let role = profile.role
 
   useEffect(() => {
+<<<<<<< HEAD
       handleFindProfile()
   }, [])
   console.log("user profile:", profile)
@@ -25,9 +23,19 @@ const UserProfile = () => {
     })
     .catch(err => console.log(err.response))
   };
+=======
+      client
+        .get(`/user/${id}`)
+        .then((res) => {
+          setProfile(res.data.data.user);
+        })
+        .catch((err) => console.log(err.response));
+  }, [id]);
+>>>>>>> b37e43cd1914ed7caa782c0036f5b49c8a353a21
 
   return (
     <div>
+      <Header role={role}/>
       <h1>User Profile</h1>
       <h2>
         {profile.firstName} {profile.lastName}
