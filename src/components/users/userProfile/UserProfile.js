@@ -28,7 +28,7 @@ const UserProfile = () => {
         {profile.firstName} {profile.lastName}
       </h2>
       <p>Email: {profile.email}</p>
-      <p>Bio: {profile.bio}</p>
+      <p>Bio: {profile.biography}</p>
       <p>Github: {profile.githubUrl}</p>
     </div>
   );
