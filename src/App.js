@@ -21,7 +21,7 @@ function App() {
             element={<PostsPage role={role} />}
             CohortList={<CohortList />}
           />
-          {/* <Route path="/" element={<CohortList />} /> */}
+
           <Route path="/user/:id" element={<ProfilePage />} />
         </Route>
       </Routes>
