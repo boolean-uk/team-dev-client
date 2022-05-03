@@ -12,18 +12,6 @@ const UserProfile = () => {
   let role = profile.role
 
   useEffect(() => {
-<<<<<<< HEAD
-      handleFindProfile()
-  }, [])
-  console.log("user profile:", profile)
-  const handleFindProfile = () => {
-    client.get(`/user/${id}`)
-    .then(res => {
-        setProfile(res.data.data.user)
-    })
-    .catch(err => console.log(err.response))
-  };
-=======
       client
         .get(`/user/${id}`)
         .then((res) => {
@@ -31,7 +19,6 @@ const UserProfile = () => {
         })
         .catch((err) => console.log(err.response));
   }, [id]);
->>>>>>> b37e43cd1914ed7caa782c0036f5b49c8a353a21
 
   return (
     <div>
