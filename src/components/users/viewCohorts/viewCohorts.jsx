@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import "./viewCohort.css"
-import Header from "/Users/danielmccarthy/team-dev-client/src/components/Header/Header.jsx"
+import Header from "../../Header/Header.jsx"
 
 export default function ViewCohort() {
   const { id } = useParams()
