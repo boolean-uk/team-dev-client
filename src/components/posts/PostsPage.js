@@ -33,8 +33,8 @@ const PostsPage = ({ role }) => {
       [name]: value,
     })
   }
+  
   const handleClick = (user) => {
-    console.log("id", user.id)
     const id = user.id
     navigate(`/user/${id}`)
   }
