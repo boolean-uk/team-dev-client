@@ -1,8 +1,10 @@
+import React from 'react';
 import "./App.css";
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import ProfilePage from "./components/users/userProfile/UserProfile";
+import ViewCohort from "./components/users/viewCohorts/viewCohorts"
 import { useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
@@ -17,6 +19,7 @@ function App() {
         <Route element={<AuthenticateUser />}>
           <Route path="/" element={<PostsPage role={role}/>} />
           <Route path="/user/:id" element={<ProfilePage />} />
+          <Route path="/cohort/:id" element={<ViewCohort />} />
         </Route>
       </Routes>
     </div>
@@ -24,8 +27,8 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem("token");
-  return !(loadedToken === "");
+  const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
+  return !(loadedToken === "" || loadedToken === null);
 }
 
 export default App;
