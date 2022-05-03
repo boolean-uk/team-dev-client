@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
-
+import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
+import dateTimetoRelativeTime from './helperfunctions';
 
-const PostsPage = ({role}) => {
+const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -19,9 +20,7 @@ const PostsPage = ({role}) => {
     client
       .post('/post', post)
       .then((res) => setPostResponse(res.data))
-      .catch((data) => {
-        console.log(data);
-      });
+      .catch((data) => { });
   };
 
   const handleChange = (event) => {
@@ -35,32 +34,30 @@ const PostsPage = ({role}) => {
 
   return (
     <>
-      <Header role={role}/>
+      <Header role={role} />
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className='posts-list'>
-        {posts.map((post, index) => (
-          <li key={index} className='post-item'>
-            {post.content}
-            <div className="comments-section">
-              <form>
-                <input type='text' className="post__comment" name="comment" label="New Comment" variant="outlined"/>
-                <button type="button" className="comment-button" >Comment</button>
-              </form>
-              <ul className="comments-list">
-                <li className="comment-item">"Hello"</li >
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ul>
-        
+
+
+        <ul className="posts-list">
+          {posts.map((post, index) => (
+            <li key={index} className="post-item">
+              <Box>
+                <div className="post-content">{post.content}</div>
+                <Stack spacing={2} direction="row">
+                  <Box variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+                  <Box variant="contained">
+                    {dateTimetoRelativeTime(post.createdAt)}
+                  </Box>
+                </Stack>
+              </Box>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
-
   );
-
 };
 
 export default PostsPage;
