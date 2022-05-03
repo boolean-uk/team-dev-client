@@ -20,6 +20,11 @@ const Header = ({ role }) => {
     client.post('/cohort', {}).catch((err) => console.log(err.response));
   };
 
+  const handleMyProfile = () => {
+    localStorage.getItem(process.env.REACT_APP_USER_TOKEN)
+    console.log(process.env.REACT_APP_USER_TOKEN)
+  }
+
   return (
     <>
       <Box
@@ -60,6 +65,9 @@ const Header = ({ role }) => {
                 Add Cohort
               </Button>
             )}
+            <Button id='my-profile' variant='contained' onClick={handleMyProfile}>
+              My Profile
+            </Button>
             <Button id='user-signout-button' variant='contained' onClick={signOut}>
               Logout
             </Button>
