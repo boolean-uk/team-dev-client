@@ -63,7 +63,6 @@ const PostsPage = () => {
       [name]: value,
     });
   };
-  console.log('funnymessage', posts)
   return (
     <section className='posts-section'>
       <button id='user-signout-button' onClick={signOut}>
