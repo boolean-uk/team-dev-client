@@ -63,6 +63,7 @@ const UserForm = () => {
     };
     fetch(`/users/${id}`, options)
       .then((res) => {
+        console.log(res)
         setProfile(res.data.data.user);
       })
       .catch((err) => console.log(err.response));
