@@ -23,7 +23,6 @@ export default function ViewCohort() {
         .catch((err) => console.log(err.response));
   }, [])
 
- 
 
   return (
     <>
