@@ -14,7 +14,7 @@ export default function ViewCohort() {
       <div className="Container_cohorts">
         <h3>Cohort {id}</h3>
       </div>
-      <div className="Conatiner_addStudent">
+      <div className="Container_addStudent">
       <div>Student</div>
       </div>
       </div>
