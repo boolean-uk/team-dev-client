@@ -15,11 +15,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage setRole={setRole} />} />
         <Route path="/signup" element={<RegistrationPage />} />
-        {/* <Route element={<AuthenticateUser />}> */}
+        <Route element={<AuthenticateUser />}>
           <Route path="/" element={<PostsPage role={role}/>} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
-        {/* </Route> */}
+        </Route>
       </Routes>
     </div>
   );
@@ -32,10 +32,10 @@ function isLoggedIn() {
 
 export default App;
 
-// const AuthenticateUser = ({ children, redirectPath = "/login" }) => {
-//   if (!isLoggedIn()) {
-//     return <Navigate to={redirectPath} replace />;
-//   }
+const AuthenticateUser = ({ children, redirectPath = "/login" }) => {
+  if (!isLoggedIn()) {
+    return <Navigate to={redirectPath} replace />;
+  }
 
-//   return <Outlet />;
-// };
+  return <Outlet />;
+};
