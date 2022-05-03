@@ -4,7 +4,11 @@ import { Route, Routes } from "react-router";
 import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import { useParams } from "react-router-dom";
+<<<<<<< HEAD
 import Header from "../../Header/Header";
+=======
+import Header from '../../Header/Header';
+>>>>>>> ff0e1fc0ba23169600ab3850eac966cd08a7eab0
 
 const UserProfile = () => {
   const [profile, setProfile] = useState("");
@@ -29,11 +33,21 @@ const UserProfile = () => {
       </h2>
       <p>Email: {profile.email}</p>
       <p>Bio: {profile.biography}</p>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ff0e1fc0ba23169600ab3850eac966cd08a7eab0
       <p>Github: {profile.github_url}</p>
       <Link id="edit-profile-button" to={`/user/edit/${id}`}>
         {" "}
         Edit Profile
       </Link>
+<<<<<<< HEAD
+=======
+=======
+      <p>Github: {profile.githubUrl}</p>
+>>>>>>> origin
+>>>>>>> ff0e1fc0ba23169600ab3850eac966cd08a7eab0
     </div>
   );
 };
