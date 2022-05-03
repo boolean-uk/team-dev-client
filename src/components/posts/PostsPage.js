@@ -45,7 +45,7 @@ const PostsPage = ({ role }) => {
             <li key={index} className="post-item">
               <Box>
                 <div className="post-content">{post.content}</div>
-                <Stack spacing={2} direction="row">
+                <Stack className="names-date" spacing={2} direction="row">
                   <Box variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
                   <Box variant="contained">
                     {dateTimetoRelativeTime(post.createdAt)}
