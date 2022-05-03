@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
@@ -7,7 +8,7 @@ import Header from '../Header/Header'
 import dateTimetoRelativeTime from './helperfunctions'
 
 const PostsPage = ({ role }) => {
-  const [post, setPost] = useState('')
+  const [post, setPost] = useState({ content: '' })
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState('')
@@ -26,16 +27,25 @@ const PostsPage = ({ role }) => {
   const createPost = async (event) => {
     event.preventDefault()
     client
-      .post('/post', { content: post })
+      .post('/post', post)
       .then((res) => {
         setPostResponse(res.data)
-        setLoad((x) => !x)
-        setPost('')
+        setPosts((posts) => [res.data.data.post, ...posts])
       })
-      .catch((data) => {
-        console.log(data)
-      })
+      .catch((data) => {})
+    setPost(() => ({ content: '' }))
   }
+
+  //     .post('/post', { content: post })
+  //     .then((res) => {
+  //       setPostResponse(res.data)
+  //       setLoad((x) => !x)
+  //       setPost('')
+  //     })
+  //     .catch((data) => {
+  //       console.log(data)
+  //     })
+  // }
 
   const handleChange = (event) => {
     event.preventDefault()
@@ -70,7 +80,7 @@ const PostsPage = ({ role }) => {
         <PostForm
           handleSubmit={createPost}
           handleChange={handleChange}
-          post={post}
+          inputValue={post.content}
         />
         <ul className='posts-list'>
           {posts.map((post, index) => (
