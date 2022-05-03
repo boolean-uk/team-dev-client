@@ -12,10 +12,16 @@ const PostsPage = ({ role }) => {
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState('')
   const [load, setLoad] = useState(true)
+  const [firstComment, setFirstComment] = useState([])
 
   useEffect(() => {
-    client.get('/posts').then((res) => setPosts(res.data.data.posts))
+    client.get('/posts').then((res) => {
+      setPosts(res.data.data.posts)
+      console.log(res.data.data.posts)
+    })
   }, [load])
+
+  const addComment = (posts) => {}
 
   const createPost = async (event) => {
     event.preventDefault()
