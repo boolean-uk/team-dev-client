@@ -2,12 +2,12 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 1fr 16rem;
+    padding: 1rem;
 }
 
-
 .Container_cohorts {
-    border: 2px solid black;
+    /* border: 2px solid black; */
 
 }
 
@@ -20,18 +20,23 @@
 .add-student-container {
     display: flex;
     flex-flow: column wrap;
-    /* align-content: center; */
 }
 
 .add-student {
-    display: inline-block;
+    display: flex;
     align-items: center;
-    text-align: left; 
+    justify-items: left; 
     margin-left: 0.7rem;
 }
 
 .add-student-card {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 3rem 70%;
+    height: 3rem;
+}
+
+.add-student-card button{
+    margin: 6px 3px;
+    border-radius: 4px;
 }
 
