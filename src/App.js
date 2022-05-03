@@ -12,10 +12,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<LoginPage setRole={setRole} />} />
+        <Route path="/login" element={<LoginPage setRole={setRole} />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage role={role}/>} />
+          <Route path="/" element={<PostsPage role={role}/>} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
         </Route>
