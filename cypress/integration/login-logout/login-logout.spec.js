@@ -1,10 +1,11 @@
 describe('User Login Logout', () => {
   describe("a valid user", () => {
+    const url = Cypress.env('api_url')
     beforeEach(() => {
-      cy.intercept('POST', 'http://localhost:4000/user', { fixture: 'registration/valid-user.json' })
-      cy.intercept('POST', 'http://localhost:4000/login', { fixture: 'login-logout/valid-user.json' })
-      cy.intercept('GET', 'http://localhost:4000/posts', { fixture: 'posts/valid-posts.json' })
-      cy.visit('/')
+      cy.intercept('POST', `${url}/user`, { fixture: 'registration/valid-user.json' })
+      cy.intercept('POST', `${url}/login`, { fixture: 'login-logout/valid-user.json' })
+      cy.intercept('GET', `${url}/posts`, { fixture: 'posts/valid-posts.json' })
+      cy.visit('/login')
     })
 
     it('can login a user and be redirected to the posts page', () => {
@@ -20,13 +21,13 @@ describe('User Login Logout', () => {
       cy.get('#user-submit-button').click()
 
       cy.get('#user-login-link').click()
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/login`)
 
       cy.get('input[name=email]').type('test@test.com')
       cy.get('input[name=password]').type('test12')
       cy.get('#user-submit-button').click()
 
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/posts`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
 
     it('can log out after login', () => {
@@ -42,16 +43,16 @@ describe('User Login Logout', () => {
       cy.get('#user-submit-button').click()
 
       cy.get('#user-login-link').click()
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/login`)
 
       cy.get('input[name=email]').type('test@test.com')
       cy.get('input[name=password]').type('test12')
       cy.get('#user-submit-button').click()
 
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/posts`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
 
       cy.get('#user-signout-button').click()
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/login`)
     })
   })
 })
