@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Route, Routes } from "react-router";
 import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import { useParams } from "react-router-dom";
