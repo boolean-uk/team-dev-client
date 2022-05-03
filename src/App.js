@@ -32,7 +32,7 @@ export default App;
 
 const AuthenticateUser = ({ children, redirectPath = "/login" }) => {
   if (!isLoggedIn()) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate to={ redirectPath } replace />;
   }
 
   return <Outlet />;
