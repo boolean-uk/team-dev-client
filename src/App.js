@@ -3,7 +3,7 @@ import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import ProfilePage from "./components/users/userProfile/UserProfile";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 function App() {
