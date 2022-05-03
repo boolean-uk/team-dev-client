@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
-import PostForm from './PostForm';
-import client from '../../utils/client';
-import './style.css';
-import { Box, Stack } from '@mui/material';
-import Header from '../Header/Header';
-import dateTimetoRelativeTime from './helperfunctions';
+import { useState, useEffect } from "react";
+import PostForm from "./PostForm";
+import client from "../../utils/client";
+import "./style.css";
+import { Box, Stack } from "@mui/material";
+import Header from "../Header/Header";
+import dateTimetoRelativeTime from "./helperfunctions";
 
-const PostsPage = ({role}) => {
-  const [post, setPost] = useState({ content: '' });
-  const [postResponse, setPostResponse] = useState('');
+const PostsPage = ({ role }) => {
+  const [post, setPost] = useState({ content: "" });
+  const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    client.get('/posts').then((res) => setPosts(res.data.data.posts));
+    client.get("/posts").then((res) => setPosts(res.data.data.posts));
   }, []);
 
   const createPost = async (event) => {
     event.preventDefault();
     client
-      .post('/post', post)
+      .post("/post", post)
       .then((res) => setPostResponse(res.data))
       .catch((data) => {});
   };
@@ -34,8 +34,8 @@ const PostsPage = ({role}) => {
 
   return (
     <>
-      <Header role={role}/>
-      <section className='posts-section'>
+      <Header role={role} />
+      <section className="posts-section">
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         <ul className="posts-list">
