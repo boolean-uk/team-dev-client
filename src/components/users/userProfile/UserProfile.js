@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import { useParams } from "react-router-dom";
 import Header from "../../Header/Header";
+import './style.css';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState("");
@@ -29,11 +30,9 @@ const UserProfile = () => {
       <p>Email: {profile.email}</p>
       <p>Bio: {profile.biography}</p>
       <p>Github: {profile.github_url}</p>
-      <Link id="edit-profile-button" to={`/user/edit/${id}`}>
-        {" "}
+      <Link id="edit-profile-button" to={`/user/edit/${id}`} className='link'>
         Edit Profile
       </Link>
-      <p>Github: {profile.githubUrl}</p>
     </div>
   );
 };
