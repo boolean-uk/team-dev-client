@@ -1,94 +1,111 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import PostForm from "./PostForm";
-import client from "../../utils/client";
-import "./style.css";
+import { useState, useEffect } from 'react'
+import PostForm from './PostForm'
+import client from '../../utils/client'
+import './style.css'
+import { Box, Stack } from '@mui/material'
+import Header from '../Header/Header'
+import dateTimetoRelativeTime from './helperfunctions'
 
-const PostsPage = () => {
-  const [post, setPost] = useState({ content: "" });
-  const [postResponse, setPostResponse] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [commentResponse, setcommentResponse] = useState({})
-  const [comment, setComment] = useState("")
-  let navigate = useNavigate();
+const PostsPage = ({ role }) => {
+  const [post, setPost] = useState('')
+  const [postResponse, setPostResponse] = useState('')
+  const [posts, setPosts] = useState([])
+  const [comment, setComment] = useState('')
+  const [load, setLoad] = useState(true)
 
   useEffect(() => {
-    client.get("/posts").then((res) => setPosts(res.data.data.posts));
-  }, []);
+    client.get('/posts').then((res) => setPosts(res.data.data.posts))
+  }, [load])
 
   const createPost = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     client
-      .post('/post', post)
-      .then((res) => setPostResponse(res.data))
-      .catch((data) => {
-        console.log(data);
-      });
-  };
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
-    setPost({
-      ...post,
-      [name]: value,
-    });
-  };
-
-  const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-    navigate("../", { replace: true });
-  };
-
-  const createComment = async (event) => {
-        event.preventDefault();
-        console.log(event)
-    client
-      .post(`/post/1/comment`, comment)
+      .post('/post', { content: post })
       .then((res) => {
-        console.log('hello testing', res)
-        setcommentResponse(res.data)
+        setPostResponse(res.data)
+        setLoad((x) => !x)
+        setPost('')
       })
       .catch((data) => {
-        console.log(data);
-      });
-  };
+        console.log(data)
+      })
+  }
+
+  const handleChange = (event) => {
+    event.preventDefault()
+    const { value } = event.target
+    setPost(value)
+  }
+
+  const createComment = async (event) => {
+    event.preventDefault()
+    const postId = event.target.firstChild.id
+    client
+      .post(`/post/${postId}/comment`, { comment })
+      .then(() => {
+        setLoad((x) => !x)
+        setComment('')
+      })
+      .catch((data) => {
+        console.log(data)
+      })
+  }
 
   const handleComment = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
-    setComment({
-      ...comment,
-      [name]: value,
-    });
-  };
+    event.preventDefault()
+    const { value } = event.target
+    setComment(value)
+  }
   return (
-    <section className='posts-section'>
-      <button id='user-signout-button' onClick={signOut}>
-        sign out
-      </button>
-      <p>Status: {postResponse.status}</p>
-      <PostForm handleSubmit={createPost} handleChange={handleChange} />
-      <ul className='posts-list'>
-        {posts.map((post, index) => (
-          <li key={post.id} className='post-item'>
-            {post.content}
-            <div className="comments-section">
-              <form onSubmit={createComment} >
-                <input type='text' className="post__comment" onChange={handleComment} name="comment" label="New Comment" variant="outlined"/>
-                <button className="comment-button" >Comment</button>
-              </form>
-              <ul className="comments-list">
-               {commentResponse.data && 
-                <li className="comment-item">{commentResponse.data.comment.content} </li >}
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-};
+    <>
+      <Header role={role} />
+      <section className='posts-section'>
+        <p>Status: {postResponse.status}</p>
+        <PostForm
+          handleSubmit={createPost}
+          handleChange={handleChange}
+          post={post}
+        />
+        <ul className='posts-list'>
+          {posts.map((post, index) => (
+            <li key={index} className='post-item'>
+              <Box>
+                <div className='post-content'>{post.content}</div>
+                <Stack spacing={2} direction='row'>
+                  <Box variant='contained'>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+                  <Box variant='contained'>
+                    {dateTimetoRelativeTime(post.createdAt)}
+                  </Box>
+                </Stack>
+              </Box>
+              <div className='comments-section'>
+                <form onSubmit={createComment}>
+                  <input
+                    id={post.id}
+                    type='text'
+                    className='post__comment'
+                    onChange={handleComment}
+                    name='comment'
+                    label='New Comment'
+                    variant='outlined'
+                    value={comment}
+                  />
+                  <button className='comment-button'>Comment</button>
+                </form>
+                <ul className='comments-list'>
+                  {post.postComments.map((comment) => (
+                    <li key={comment.id} className='comment-item'>
+                      {comment.content}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
+  )
+}
 
-export default PostsPage;
+export default PostsPage

@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<LoginPage setRole={setRole} />} />
+        <Route path="/login" element={<LoginPage setRole={setRole} />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage role={role}/>} />
+          <Route path="/" element={<PostsPage role={role}/>} />
           <Route path="/user/:id" element={<ProfilePage />} />
         </Route>
       </Routes>
@@ -31,7 +31,7 @@ export default App;
 
 const AuthenticateUser = ({ children, redirectPath = "/" }) => {
   if (!isLoggedIn()) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate to={ redirectPath } replace />;
   }
 
   return <Outlet />;
