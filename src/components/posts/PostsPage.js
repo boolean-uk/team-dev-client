@@ -42,24 +42,20 @@ const PostsPage = ({ role }) => {
     <>
       <Header role={role} />
       <section className='posts-section'>
-        <p>Status: {postResponse.status}</p>
-        <PostForm
-          handleSubmit={createPost}
-          handleChange={handleChange}
-          inputValue={post.content}
-        />
-        <ul className='posts-list'>
+        {postResponse.status}
+        <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
+        <ul className="posts-list">
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
               <Box>
-                <div className='post-content'>{post.content}</div>
-                <Stack spacing={2} direction='row'>
+                <div className="post-content">{post.content}</div>
+                <Stack className="names-date" spacing={2} direction="row">
                   <Link to={`/user/${post.user.id}`} className='post-author'>
-                    <Box variant='contained'>
+                    <Box className="fullname" variant='contained'>
                       <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
                     </Box>
                   </Link>
-                  <Box variant='contained'>
+                  <Box className="date-time" variant="contained">
                     {dateTimetoRelativeTime(post.createdAt)}
                   </Box>
                 </Stack>
