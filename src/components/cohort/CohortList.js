@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import client from "../../utils/client";
-import "../cohort/CohortList.css";
+import "./CohortList.css";
 
 function CohortList() {
   const [cohort, setCohort] = useState();
