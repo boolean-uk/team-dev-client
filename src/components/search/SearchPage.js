@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
-import ListItemIcon from "@mui/material/ListItemIcon"
+// import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 
 export default function SearchPage({ searchInput }) {
@@ -26,18 +26,16 @@ export default function SearchPage({ searchInput }) {
   }, [searchInput])
 
   return (
-    <Box>
-          <ul>
-            
+    <>
+    <Box  sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+        <List>
             {searchResults.map((user, index) => (
-      
-          <ListItem key={index} component="a" href="#" disablePadding>
-          <ListItemButton>
-            <ListItemText primary={user.first_name} />
-          </ListItemButton>
-     
-      ))}
-      </ul>
+            <ListItem key={index}>
+                <p>{`${user.firstName} ${user.lastName}`}</p>
+            </ListItem>
+         ))}
+      </List>
     </Box>
-  )
-}
+    </>
+  );
+};
