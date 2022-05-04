@@ -40,7 +40,7 @@ export default function ViewCohort() {
     };
 
     fetch(
-      process.env.REACT_APP_API_URL + `/user/${event.target.value}`,
+      process.env.REACT_APP_API_URL + `/user/${event.target.value}/cohort`,
       options
     )
       .then((res) => res.json())

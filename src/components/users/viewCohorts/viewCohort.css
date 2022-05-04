@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 16rem;
+    grid-template-columns: 1fr 19rem;
     padding: 1rem;
 }
 
@@ -18,8 +18,12 @@
 }
 
 .add-student-container {
-    display: flex;
-    flex-flow: column wrap;
+    height: 250px;
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+.add-student-container::-webkit-scrollbar {
+  display: none;
 }
 
 .add-student {
