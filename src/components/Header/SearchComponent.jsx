@@ -1,7 +1,10 @@
 import { Box } from "@mui/system"
 import Button from "@mui/material/Button"
 import InputBase from "@mui/material/InputBase"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import client from "../../utils/client";
+import { useNavigate } from "react-router-dom"
+import Typography from '@mui/material/Typography';
 
 
 /* 
@@ -18,7 +21,34 @@ TO DO:-
 
 */
 
-export function SearchComponent({handleSubmit}) {
+export default function SearchComponent() {
+
+  let navigate = useNavigate()
+
+  const [searchInput, setSearchInput] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+
+  const handleChange = (event) => {
+    setSearchInput(event.target.value)
+    console.log(searchInput)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("HandleSubmit pressed")
+    client.get(`/user/${searchInput}`)
+    .then(res => {
+    const searchTerm = res.json()
+    setSearchResults(searchTerm)
+    .then(navigate('/search'))
+    .catch(err => console.log(err.response))
+    })
+  }
+
+
+    
+  
+
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}
@@ -28,12 +58,15 @@ export function SearchComponent({handleSubmit}) {
           <InputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
+            onChange={handleChange}
+            value={searchInput}
           />
         </Box>
         <Box>
           <Button variant="contained">Search User</Button>
         </Box>
       </form>
+      <Typography>{searchResults}</Typography>
     </Box>
   )
 }

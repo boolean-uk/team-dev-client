@@ -2,8 +2,7 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-
-import InputBase from '@mui/material/InputBase';
+import SearchComponent from './SearchComponent'
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
@@ -38,21 +37,7 @@ const Header = ({ role }) => {
           </Typography>
         </Box>
 
-        {/* {SearchComponent()} */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        >
-          <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
-          </Box>
-          <Box>
-            <Button variant='contained'>Search User</Button>
-          </Box>
-        </Box>
+        {SearchComponent()}
 
         <Box>
           <Stack spacing={2} direction='row'>
