@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserForm from "./UserForm";
@@ -8,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = (props) => {
   const { setRole } = props
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({
-    data: { token: "", user: {} },
-  });
+  
+  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
+  const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,11 @@ const LoginPage = (props) => {
         setLoginResponse(res.data);
         navigate("../", { replace: true });
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response)
+        const errorMessage = err.response.data.data.email
+        setLoginError(errorMessage)
+      });
   };
 
   const handleChange = (event) => {
@@ -58,7 +63,7 @@ const LoginPage = (props) => {
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+      <UserForm handleChange={handleChange} handleSubmit={loginUser} loginError={loginError} />
     </div>
   );
 };

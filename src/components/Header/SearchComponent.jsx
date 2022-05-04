@@ -33,14 +33,15 @@ export default function SearchComponent() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("HandleSubmit pressed")
-    console.log(`/user?=${searchInput}`)
+    console.log(`/user?first_name=${searchInput}`)
     client
-      .get(`/user?${searchInput}`)
-      .then((res) => setSearchResults(res.json))
-      console.log(searchResults)
+      .get(`/user?first_name=${searchInput}`)
+      .then((res) => setSearchResults(res.data))
       // .then(navigate('/search'))
       .catch(err => console.log(err.response))
     }
+
+    // console.log(searchResults)
   
 
 
