@@ -9,9 +9,12 @@
 }
 
 .edit-user-form {
-    display: grid;
-    grid-auto-columns: 25rem;
-    grid-auto-rows: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto; 
+  width: 50%;
   }
   
   .user-form-input {
