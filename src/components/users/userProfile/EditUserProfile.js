@@ -29,7 +29,7 @@ const UserForm = ({ role }) => {
         setProfile(res.data.data.user);
       })
       .catch((err) => console.log(err.response));
-  }, []);
+  },);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -58,7 +58,7 @@ const UserForm = ({ role }) => {
         setEditUserResponse(res.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log("Error editing user",err.response);
         console.log(editUserResponse);
       });
   };
