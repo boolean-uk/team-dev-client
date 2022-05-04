@@ -7,7 +7,7 @@ function CohortList() {
   useEffect(() => {
     const role = localStorage.getItem("role");
     if (role === "TEACHER") {
-      client.get("/cohort").then((res) => setCohort(res.data.data));
+      client.get("/cohort").then((res) => setCohort(res.data.data))
     }
   }, []);
 
