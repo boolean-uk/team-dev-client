@@ -3,13 +3,12 @@ import Button from "@mui/material/Button"
 import InputBase from "@mui/material/InputBase"
 import { useState } from "react"
 import client from "../../utils/client";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import Typography from '@mui/material/Typography';
 
 
 /* 
 TO DO:-
-
 * Check get route is working using TC
 * Work out where the component is going to live 
 * Write onSubmit function that sends a GET request to the server with
@@ -17,13 +16,11 @@ TO DO:-
 * Return the search results into state array
 * Send state up to App
 * Send state as props from App to Seach Component / Search Page for rendering
-
-
 */
 
 export default function SearchComponent() {
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
   const [searchInput, setSearchInput] = useState('')
   const [searchResults, setSearchResults] = useState([])
@@ -36,14 +33,15 @@ export default function SearchComponent() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("HandleSubmit pressed")
-    client.get(`/user/${searchInput}`)
-    .then(res => {
-    const searchTerm = res.json()
-    setSearchResults(searchTerm)
-    .then(navigate('/search'))
-    .catch(err => console.log(err.response))
-    })
-  }
+    console.log(`/user?=${searchInput}`)
+    client
+      .get(`/user?${searchInput}`)
+      .then((res) => setSearchResults(res.json))
+      console.log(searchResults)
+      // .then(navigate('/search'))
+      .catch(err => console.log(err.response))
+    }
+  
 
 
     
@@ -63,7 +61,7 @@ export default function SearchComponent() {
           />
         </Box>
         <Box>
-          <Button variant="contained">Search User</Button>
+          <Button variant="contained" type="submit" >Search User</Button>
         </Box>
       </form>
       <Typography>{searchResults}</Typography>
