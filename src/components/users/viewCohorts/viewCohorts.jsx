@@ -24,6 +24,22 @@ export default function ViewCohort() {
   }, [])
 
 
+const addStudent = (event) => {
+  const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN)
+  let headers = {'Content-type': 'application/json'}
+    headers["authorization"] = `Bearer ${token}`
+
+ const options = {
+   method: "PATCH",
+  headers: headers,
+  body: JSON.stringify({cohort_id: id})
+   }
+
+fetch(process.env.REACT_APP_API_URL + `/user/${event.target.value}`, options)
+.then(res => console.log(res.json()))
+}
+ 
+
   return (
     <>
       <Header />
@@ -33,7 +49,7 @@ export default function ViewCohort() {
         </div>
         <div className="Container_addStudent">
           <div><h3>Add Students Here</h3></div>
-          <div className="add-student-container">{noCohort.map((student, key) => (<div className="add-student-card"><button>Add</button><div key={key} className="add-student">{student.firstName} {student.lastName}</div></div>))}</div>
+          <div className="add-student-container">{noCohort.map((student, key) => (<div className="add-student-card"><button onClick={addStudent} value={student.id}>Add</button><div key={key} className="add-student">{student.firstName} {student.lastName}</div></div>))}</div>
         </div>
       </div>
     </>
