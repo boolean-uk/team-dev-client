@@ -37,6 +37,13 @@ const PostsPage = ({ role }) => {
     setPost(value)
   }
 
+  // const userName= user.find(firstName).firstName
+  // function firstName(user.profile) {
+  //   return user.profile= firstName
+  // }
+  // console.log('username', userName)
+
+
   const createComment = async (event, postId) => {
     event.preventDefault()
     client
