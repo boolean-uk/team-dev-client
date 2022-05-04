@@ -22,23 +22,8 @@ export default function ViewCohort() {
   }, []);
 
   const addStudent = (event) => {
-    const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
-    const data = { cohort_id: id };
-    let headers = { "Content-type": "application/json" };
-    headers["authorization"] = `Bearer ${token}`;
-
-    const options = {
-      method: "PATCH",
-      headers: headers,
-      body: JSON.stringify(data),
-    };
-
-    fetch(
-      process.env.REACT_APP_API_URL + `/user/${event.target.value}/cohort`,
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {});
+    client.patch(`/user/${event.target.value}/cohort`, { cohort_id: id })
+    .then(res => console.log(res))
   };
 
   return (
