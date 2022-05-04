@@ -66,7 +66,7 @@ const PostsPage = () => {
           ))}
         </ul>
       </section>
-      <CohortList />
+      {localStorage.getItem("role") === "TEACHER" && <CohortList />}
       </div>
     </>
   );
