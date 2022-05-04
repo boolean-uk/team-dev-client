@@ -11,19 +11,15 @@ export default function ViewCohort() {
 
   useEffect(() => {
     client
-      .get(`/user`)
-      .then((res) => {
-        const noCo = res.data.data.users.filter(
-          (user) => user.role === "STUDENT" && user.cohort_id === null
-        );
-        setNoCohort(noCo);
+      .get(`/user/studentWithoutCohort`)
+      .then(res => {
+        setNoCohort(res.data.data)
       })
       .catch((err) => console.log(err.response));
-  }, []);
+  }, [id]);
 
   const addStudent = (event) => {
     client.patch(`/user/${event.target.value}/cohort`, { cohort_id: id })
-    .then(res => console.log(res))
   };
 
   return (
@@ -41,7 +37,7 @@ export default function ViewCohort() {
             {noCohort.map((student, key) => (
               <div className="add-student-card" key={key}>
                 <div className="add-student">
-                  {student.firstName} {student.lastName}
+                  {student.profile.firstName} {student.profile.lastName}
                 </div>
                 <button onClick={addStudent} value={student.id}>
                   Add
