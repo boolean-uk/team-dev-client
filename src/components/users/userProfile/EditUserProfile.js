@@ -66,39 +66,39 @@ const UserForm = ({ role }) => {
   return (
     <>
       <Header role={role} />
-      <section className="user-form">
+      <section className='user-form'>
         <h1> Edit Profile Details </h1>
         <form onSubmit={onSubmit}>
           <TextField
-            className="user-form-input"
+            className='user-form-input'
             value={profile.firstName}
-            variant="outlined"
-            name="firstName"
+            variant='outlined'
+            name='firstName'
             onChange={handleChange}
           />
           <TextField
-            className="user-form-input"
+            className='user-form-input'
             value={profile.lastName}
-            variant="outlined"
-            name="lastName"
+            variant='outlined'
+            name='lastName'
             onChange={handleChange}
           />
           <TextField
-            className="user-form-input"
+            className='user-form-input'
             value={profile.biography}
-            variant="outlined"
-            name="biography"
+            variant='outlined'
+            name='biography'
             onChange={handleChange}
           />
           <TextField
-            className="user-form-input"
-            type="url"
+            className='user-form-input'
+            type='url'
             value={profile.githubUrl}
-            variant="outlined"
-            name="githubUrl"
+            variant='outlined'
+            name='githubUrl'
             onChange={handleChange}
           />
-          <Button id="user-submit-button" type="submit" variant="contained">
+          <Button id='user-submit-button' type='submit' variant='contained'>
             Submit
           </Button>
         </form>
