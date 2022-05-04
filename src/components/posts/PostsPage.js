@@ -39,7 +39,6 @@ const PostsPage = ({role}) => {
 
   return (
     <>
-      <Header role={role}/>
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />

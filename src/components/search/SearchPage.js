@@ -1,7 +1,43 @@
-import React from 'react'
+import React from "react"
+import { useEffect, useState } from "react"
+import client from "../../utils/client"
+import Box from "@mui/material/Box"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemButton from "@mui/material/ListItemButton"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
 
-export default function SearchPage() {
+export default function SearchPage({ searchInput }) {
+  const [searchResults, setSearchResults] = useState([])
+
+  useEffect(() => {
+    if (!searchInput) {
+      return
+    }
+    client
+      .get(`/user?first_name=${searchInput}`)
+      .then((res) => {
+        console.log("go results:", res)
+        setSearchResults(res.data.data.users)
+      })
+      .catch((err) => console.log("Error", err))
+    console.log("Search page", searchInput)
+  }, [searchInput])
+
   return (
-    <div>SearchPage</div>
+    <Box>
+          <ul>
+            
+            {searchResults.map((user, index) => (
+      
+          <ListItem key={index} component="a" href="#" disablePadding>
+          <ListItemButton>
+            <ListItemText primary={user.first_name} />
+          </ListItemButton>
+     
+      ))}
+      </ul>
+    </Box>
   )
 }

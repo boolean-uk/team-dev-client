@@ -7,8 +7,16 @@ import SearchComponent from './SearchComponent'
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ role }) => {
+const Header = ({ role, setSearchInput }) => {
   let navigate = useNavigate();
+
+  console.log("This is the role", role)
+
+  if (!role) {
+    return <></>
+  }
+
+
 
   const signOut = (event) => {
     event.preventDefault();
@@ -19,6 +27,7 @@ const Header = ({ role }) => {
   const addCohortHandle = () => {
     client.post('/cohort', {}).catch((err) => console.log(err.response));
   };
+
 
   return (
     <>
@@ -38,7 +47,7 @@ const Header = ({ role }) => {
           </Typography>
         </Box>
 
-        {SearchComponent()}
+        <SearchComponent setSearchInput={setSearchInput} />
 
         <Box>
           <Stack spacing={2} direction='row'>
