@@ -7,7 +7,6 @@ import client from "../../../utils/client";
 
 export default function ViewCohort() {
   const { id } = useParams();
-
   const [noCohort, setNoCohort] = useState([]);
 
   useEffect(() => {

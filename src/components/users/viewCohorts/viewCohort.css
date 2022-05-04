@@ -2,13 +2,8 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 16rem;
+    grid-template-columns: 1fr 19rem;
     padding: 1rem;
-}
-
-.Container_cohorts {
-    /* border: 2px solid black; */
-
 }
 
 .Container_addStudent {
@@ -18,8 +13,12 @@
 }
 
 .add-student-container {
-    display: flex;
-    flex-flow: column wrap;
+    height: 250px;
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+.add-student-container::-webkit-scrollbar {
+  display: none;
 }
 
 .add-student {
@@ -36,7 +35,6 @@
 }
 
 .add-student-card button {
-    
     margin: 6px 3px;
     border-radius: 4px;
 }
