@@ -12,7 +12,6 @@ const PostsPage = ({ role }) => {
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState('')
   const [load, setLoad] = useState(true)
-
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts))
   }, [load])
@@ -37,11 +36,10 @@ const PostsPage = ({ role }) => {
     setPost(value)
   }
 
-  const createComment = async (event) => {
+  const createComment = async (event, postId) => {
     event.preventDefault()
-    const postId = event.target.firstChild.id
     client
-      .post(`/post/${postId}/comment`, { comment })
+      .post(`/post/${postId}/comment`, { content: comment })
       .then(() => {
         setLoad((x) => !x)
         setComment('')
@@ -79,7 +77,7 @@ const PostsPage = ({ role }) => {
                 </Stack>
               </Box>
               <div className='comments-section'>
-                <form onSubmit={createComment}>
+                <form onSubmit={event => createComment(event, post.id)}>
                   <input
                     id={post.id}
                     type='text'
@@ -93,11 +91,11 @@ const PostsPage = ({ role }) => {
                   <button className='comment-button'>Comment</button>
                 </form>
                 <ul className='comments-list'>
-                  {post.postComments.map((comment) => (
+                  {/*post.postComments.map((comment) => (
                     <li key={comment.id} className='comment-item'>
                       {comment.content}
                     </li>
-                  ))}
+                  ))*/}
                 </ul>
               </div>
             </li>
