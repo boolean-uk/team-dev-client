@@ -41,7 +41,7 @@ const PostsPage = ({ role }) => {
     <>
       <Header role={role} />
       <section className='posts-section'>
-        <p>Status: {postResponse.status}</p>
+        {postResponse.status}
         <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
         <ul className="posts-list">
           {posts.map((post, index) => (
@@ -49,8 +49,8 @@ const PostsPage = ({ role }) => {
               <Box>
                 <div className="post-content">{post.content}</div>
                 <Stack className="names-date" spacing={2} direction="row">
-                  <Box variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
-                  <Box variant="contained">
+                  <Box className="fullname" variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+                  <Box className="date-time" variant="contained">
                     {dateTimetoRelativeTime(post.createdAt)}
                   </Box>
                 </Stack>

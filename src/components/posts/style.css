@@ -16,8 +16,6 @@
 .post-item {
   list-style: none;
   display: flex;
-  justify-content: center;
-  padding: 3em;
   height: 100%;
 }
 
@@ -32,14 +30,13 @@ textarea {
 }
 
 li.post-item {
-  background-color: grey;
-  gap: 0.5rem;
+  background-color: transparent;
   border-radius: 0.2rem;
   width: 25rem;
-  padding: 1rem;
-  margin: .5rem;
+  padding: .5rem;
+  margin: .2rem;
   border-style: solid;
-  border-color: #1976d2;
+  border-color: grey;
   border-width: .1rem;
 }
 
@@ -55,11 +52,10 @@ ul.posts-list {
 
 .post-content,
 .names-date {
-  display: inline;
-  color: black;
+  display: flex;
+  color: whitesmoke;
   font-family: helvetica;
   font-style: normal;
-  display: flex;
 }
 
 li {
@@ -72,17 +68,32 @@ li {
 }
 
 .post-content {
-  background-color: whitesmoke;
+  background-color: transparent;
   border-radius: 0.2rem;
-  width: 15rem;
-  font-size: 12pt;
-  padding: 0.5rem;
+  width: 100%;
+  font-size: 13pt;
+  padding-bottom: .5rem;
+  margin: 0;
+
 }
 
 .names-date {
   margin-top: 0.4rem;
-  gap: 2rem;
-  display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
   font-size: 10pt;
+}
+
+.MuiBox-root {
+width:100%
+}
+
+.fullname {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.date-time {
+  display: flex;
+  justify-content: flex-end;
 }
