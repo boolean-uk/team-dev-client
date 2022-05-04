@@ -37,13 +37,15 @@ const PostsPage = ({ role }) => {
 
   const handleChange = (event) => {
     event.preventDefault()
-    const { value } = event.target
-    setPost(value)
+    const { value, name } = event.target
+    setPost({
+      ...post,
+      [name]: value,
+    })
   }
 
-  const createComment = async (event) => {
+  const createComment = async (event, postId) => {
     event.preventDefault()
-    const postId = event.target.firstChild.id
     client
       .post(`/post/${postId}/comment`, { comment })
       .then(() => {
@@ -54,10 +56,12 @@ const PostsPage = ({ role }) => {
         console.log(data)
       })
   }
-  const adder = (id) => {
+
+  const addToShowedComments = (id) => {
     !showAllArr.some((a) => a === id) && setShowAll((x) => [...x, id])
   }
-  const remover = (id) => {
+
+  const removeFromShowedComments = (id) => {
     setShowAll((x) => x.filter((c) => c !== id))
   }
 
@@ -66,6 +70,7 @@ const PostsPage = ({ role }) => {
     const { value } = event.target
     setComment(value)
   }
+
   return (
     <>
       <Header role={role} />
@@ -89,7 +94,7 @@ const PostsPage = ({ role }) => {
                 </Stack>
               </Box>
               <div className='comments-section'>
-                <form onSubmit={createComment}>
+                <form onSubmit={(event) => createComment(event, post.id)}>
                   <input
                     id={post.id}
                     type='text'
@@ -103,9 +108,10 @@ const PostsPage = ({ role }) => {
                   <button className='comment-button'>Comment</button>
                 </form>
                 <div className='single-comment'>
-                  {post.postComments.length > 1 &&
+                  {post.postComments &&
+                    post.postComments.length > 1 &&
                     !showAllArr.includes(post.id) && (
-                      <div onClick={() => adder(post.id)}>
+                      <div onClick={() => addToShowedComments(post.id)}>
                         show all
                         <span className='commentCount'>
                           {` (${post.postComments.length})`}
@@ -113,9 +119,12 @@ const PostsPage = ({ role }) => {
                       </div>
                     )}
                   {showAllArr.includes(post.id) && (
-                    <div onClick={() => remover(post.id)}>hide</div>
+                    <div onClick={() => removeFromShowedComments(post.id)}>
+                      hide
+                    </div>
                   )}
-                  {post.postComments.length !== 0 &&
+                  {post.postComments &&
+                  post.postComments.length !== 0 &&
                   !showAllArr.includes(post.id)
                     ? post.postComments[0].content
                     : ''}
