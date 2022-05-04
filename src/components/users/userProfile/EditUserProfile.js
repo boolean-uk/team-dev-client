@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import Header from "../../Header/Header";
 import { useParams } from "react-router-dom";
-import './style.css';
+import "./style.css";
 
-const UserForm = ({role}) => {
+const UserForm = ({ role }) => {
   const initialFormData = {
     firstName: "",
     lastName: "",
@@ -29,7 +29,7 @@ const UserForm = ({role}) => {
         setProfile(res.data.data.user);
       })
       .catch((err) => console.log(err.response));
-  }, []);
+  }, [id]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -57,48 +57,51 @@ const UserForm = ({role}) => {
       .then((res) => {
         setEditUserResponse(res.data);
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response);
+        console.log(editUserResponse);
+      });
   };
 
   return (
     <>
       <Header role={role} />
       <section className="user-form">
-      <h1> Edit Profile Details </h1>
-      <form onSubmit={onSubmit}>
-        <TextField
-          className="user-form-input"
-          value={profile.firstName}
-          variant="outlined"
-          name="firstName"
-          onChange={handleChange}
-        />
-        <TextField
-          className="user-form-input"
-          value={profile.lastName}
-          variant="outlined"
-          name="lastName"
-          onChange={handleChange}
-        />
-        <TextField
-          className="user-form-input"
-          value={profile.biography}
-          variant="outlined"
-          name="biography"
-          onChange={handleChange}
-        />
-        <TextField
-          className="user-form-input"
-          type="url"
-          value={profile.githubUrl}
-          variant="outlined"
-          name="githubUrl"
-          onChange={handleChange}
-        />
-        <Button id="user-submit-button" type="submit" variant="contained">
-          Submit
-        </Button>
-      </form>
+        <h1> Edit Profile Details </h1>
+        <form onSubmit={onSubmit}>
+          <TextField
+            className="user-form-input"
+            value={profile.firstName}
+            variant="outlined"
+            name="firstName"
+            onChange={handleChange}
+          />
+          <TextField
+            className="user-form-input"
+            value={profile.lastName}
+            variant="outlined"
+            name="lastName"
+            onChange={handleChange}
+          />
+          <TextField
+            className="user-form-input"
+            value={profile.biography}
+            variant="outlined"
+            name="biography"
+            onChange={handleChange}
+          />
+          <TextField
+            className="user-form-input"
+            type="url"
+            value={profile.githubUrl}
+            variant="outlined"
+            name="githubUrl"
+            onChange={handleChange}
+          />
+          <Button id="user-submit-button" type="submit" variant="contained">
+            Submit
+          </Button>
+        </form>
       </section>
     </>
   );
