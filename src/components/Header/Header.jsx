@@ -21,6 +21,7 @@ const Header = ({ role, userId }) => {
   };
 
   const handleMyProfileLink = () => {
+    const userId = localStorage.getItem('userId')
     navigate(`../user/${userId}`)
   }
 

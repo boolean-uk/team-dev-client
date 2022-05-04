@@ -30,6 +30,8 @@ const LoginPage = (props) => {
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
         );
+        const userId = res.data.data.user.id
+        localStorage.setItem('userId', userId)
         setLoginResponse(res.data);
         navigate("../", { replace: true });
       })

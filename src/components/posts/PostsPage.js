@@ -6,18 +6,14 @@ import './style.css';
 import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
-const jwt = require('jsonwebtoken');
 
 const PostsPage = ({role}) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
-    const payload = jwt.decode(localStorage.getItem(process.env.REACT_APP_USER_TOKEN))
-    setUserId(payload.userId)
   }, []);
 
   const createPost = async (event) => {
@@ -43,7 +39,7 @@ const PostsPage = ({role}) => {
 
   return (
     <>
-      <Header role={role} userId={userId}/>
+      <Header role={role} />
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
