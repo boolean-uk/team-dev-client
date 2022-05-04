@@ -1,6 +1,3 @@
-.posts-section {
-}
-
 .posts-list {
   display: flex;
   justify-content: center;
@@ -9,8 +6,8 @@
 }
 
 .post-item {
-  /*display: flex;
-  justify-content: center;*/
+  display: flex;
+  justify-content: center;
   padding: 3em;
 }
 
@@ -24,6 +21,7 @@ li {
 
 .post-author {
   color: #ffa500;
+  text-decoration: none;
 }
 
 .post-author:hover {

@@ -6,13 +6,12 @@ import './style.css';
 import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -23,11 +22,11 @@ const PostsPage = ({ role }) => {
     client
       .post('/post', post)
       .then((res) => {
-        setPostResponse(res.data)
-        setPosts(posts => [res.data.data.post, ...posts])
+        setPostResponse(res.data);
+        setPosts((posts) => [res.data.data.post, ...posts]);
       })
       .catch((data) => {});
-      setPost(() => ({ content: '' }))
+    setPost(() => ({ content: '' }));
   };
 
   const handleChange = (event) => {
@@ -39,30 +38,27 @@ const PostsPage = ({ role }) => {
     });
   };
 
-  const handleClick = (user) => {
-    const id = user.id;
-    navigate(`/user/${id}`);
-  };
-
   return (
     <>
       <Header role={role} />
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
-        <ul className="posts-list">
+        <PostForm
+          handleSubmit={createPost}
+          handleChange={handleChange}
+          inputValue={post.content}
+        />
+        <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
               <Box>
                 <div className='post-content'>{post.content}</div>
                 <Stack spacing={2} direction='row'>
-                  <Box
-                    className='post-author'
-                    variant='contained'
-                    onClick={() => handleClick(post.user)}
-                  >
-                    <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
-                  </Box>
+                  <Link to={`/user/${post.user.id}`} className='post-author'>
+                    <Box variant='contained'>
+                      <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+                    </Box>
+                  </Link>
                   <Box variant='contained'>
                     {dateTimetoRelativeTime(post.createdAt)}
                   </Box>
