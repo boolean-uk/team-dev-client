@@ -8,20 +8,15 @@ import client from "../../../utils/client";
 export default function ViewCohort() {
   const { id } = useParams();
 
-  // const [cohortStudents, setCohortStudents] = useState([]);
   const [noCohort, setNoCohort] = useState([]);
 
   useEffect(() => {
     client
       .get(`/user`)
       .then((res) => {
-        // const coSt = res.data.data.users.filter(
-        //   (user) => user.cohort_id === parseInt(id)
-        // );
         const noCo = res.data.data.users.filter(
           (user) => user.role === "STUDENT" && user.cohort_id === null
         );
-        // setCohortStudents(coSt);
         setNoCohort(noCo);
       })
       .catch((err) => console.log(err.response));
@@ -29,7 +24,7 @@ export default function ViewCohort() {
 
   const addStudent = (event) => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
-    const data = { cohort_id: id, id: parseInt(event.target.value) };
+    const data = { cohort_id: id };
     let headers = { "Content-type": "application/json" };
     headers["authorization"] = `Bearer ${token}`;
 
@@ -40,7 +35,7 @@ export default function ViewCohort() {
     };
 
     fetch(
-      process.env.REACT_APP_API_URL + `/user/${event.target.value}`,
+      process.env.REACT_APP_API_URL + `/user/${event.target.value}/cohort`,
       options
     )
       .then((res) => res.json())
