@@ -7,21 +7,15 @@ import client from "../../../utils/client";
 
 export default function ViewCohort() {
   const { id } = useParams();
-
-  // const [cohortStudents, setCohortStudents] = useState([]);
   const [noCohort, setNoCohort] = useState([]);
 
   useEffect(() => {
     client
       .get(`/user`)
       .then((res) => {
-        // const coSt = res.data.data.users.filter(
-        //   (user) => user.cohort_id === parseInt(id)
-        // );
         const noCo = res.data.data.users.filter(
           (user) => user.role === "STUDENT" && user.cohort_id === null
         );
-        // setCohortStudents(coSt);
         setNoCohort(noCo);
       })
       .catch((err) => console.log(err.response));

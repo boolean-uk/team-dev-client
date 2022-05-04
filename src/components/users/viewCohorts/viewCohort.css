@@ -6,11 +6,6 @@
     padding: 1rem;
 }
 
-.Container_cohorts {
-    /* border: 2px solid black; */
-
-}
-
 .Container_addStudent {
     display: grid;
     grid-template-rows: 50px 1fr;
@@ -40,7 +35,6 @@
 }
 
 .add-student-card button {
-    
     margin: 6px 3px;
     border-radius: 4px;
 }
