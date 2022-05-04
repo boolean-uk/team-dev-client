@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
@@ -24,11 +25,10 @@ const PostsPage = ({ role }) => {
         setPostResponse(res.data)
         setLoad((x) => !x)
         setPost('')
+        setPosts(posts => [res.data.data.post, ...posts])
       })
-      .catch((data) => {
-        console.log(data)
-      })
-  }
+      .catch((data) => {});
+  };
 
   const handleChange = (event) => {
     event.preventDefault()
@@ -48,7 +48,7 @@ const PostsPage = ({ role }) => {
         console.log(data)
       })
   }
-
+console.log(posts)
   const handleComment = (event) => {
     event.preventDefault()
     const { value } = event.target
@@ -59,12 +59,8 @@ const PostsPage = ({ role }) => {
       <Header role={role} />
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
-        <PostForm
-          handleSubmit={createPost}
-          handleChange={handleChange}
-          post={post}
-        />
-        <ul className='posts-list'>
+        <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
+        <ul className="posts-list">
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
               <Box>
@@ -91,11 +87,11 @@ const PostsPage = ({ role }) => {
                   <button className='comment-button'>Comment</button>
                 </form>
                 <ul className='comments-list'>
-                  {/*post.postComments.map((comment) => (
+                  {post.postComments.map((comment) => (
                     <li key={comment.id} className='comment-item'>
-                      {comment.content}
+                  {comment.content}
                     </li>
-                  ))*/}
+                  ))}
                 </ul>
               </div>
             </li>
