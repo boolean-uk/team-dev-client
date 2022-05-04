@@ -6,6 +6,7 @@ import './style.css';
 import { Box, Stack } from '@mui/material';
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
+import { Link } from 'react-router-dom';
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' });
@@ -49,7 +50,11 @@ const PostsPage = ({ role }) => {
               <Box>
                 <div className="post-content">{post.content}</div>
                 <Stack className="names-date" spacing={2} direction="row">
-                  <Box className="fullname" variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
+                  <Link to={`/user/${post.user.id}`} className='post-author'>
+                    <Box className="fullname" variant='contained'>
+                      <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+                    </Box>
+                  </Link>
                   <Box className="date-time" variant="contained">
                     {dateTimetoRelativeTime(post.createdAt)}
                   </Box>

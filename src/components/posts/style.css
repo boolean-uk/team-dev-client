@@ -10,6 +10,9 @@
 }
 
 .post-item {
+  display: flex;
+  justify-content: center;
+  padding: 3em;
   margin-bottom: 10px;
 }
 
@@ -62,6 +65,15 @@ li {
   list-style-type: none;
 }
 
+.post-author {
+  color: #ffa500;
+  text-decoration: none;
+}
+
+.post-author:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .posts-section {
   font-family: helvetica;
   font-style: normal;
