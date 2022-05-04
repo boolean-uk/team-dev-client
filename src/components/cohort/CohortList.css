@@ -1,14 +1,15 @@
-.side-bar {
+/* .side-bar {
   display: flex;
   justify-content: flex-end;
-}
+} */
+
 .cohort-container {
-  display: flex;
+  /* display: flex; */
   border: solid white 3px;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin: 20px;
-  padding: 4rem;
+  /* flex-direction: column; */
+  /* justify-content: flex-end; */
+  margin: 20px 50px;
+  padding: 2rem;
   max-width: 20rem;
 }
 .cohortList-title {
