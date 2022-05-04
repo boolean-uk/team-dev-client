@@ -3,25 +3,16 @@ import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import ProfilePage from "./components/users/userProfile/UserProfile";
-import { useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
-import CohortList from "./components/cohort/CohortList";
 
 function App() {
-  const [role, setRole] = useState("");
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<LoginPage setRole={setRole} />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route
-            path="/"
-            element={<PostsPage role={role} />}
-            CohortList={<CohortList />}
-          />
-          {/* <Route path="/" element={<CohortList />} /> */}
+          <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
         </Route>
       </Routes>

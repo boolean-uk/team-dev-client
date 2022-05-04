@@ -6,9 +6,9 @@ import InputBase from '@mui/material/InputBase';
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ role }) => {
+const Header = () => {
   let navigate = useNavigate();
-
+  const role = localStorage.getItem('role')
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');

@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 import dateTimetoRelativeTime from "./helperfunctions";
 import CohortList from "../cohort/CohortList";
 
-const PostsPage = ({ role }) => {
+const PostsPage = () => {
   const [post, setPost] = useState({ content: "" });
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
@@ -35,8 +35,8 @@ const PostsPage = ({ role }) => {
 
   return (
     <>
-      <Header role={role} />
-      <CohortList role={role} />
+      <Header />
+      <CohortList />
       <section className="posts-section">
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
