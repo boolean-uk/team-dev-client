@@ -42,32 +42,31 @@ export default function ViewCohort() {
     fetch(
       process.env.REACT_APP_API_URL + `/user/${event.target.value}`,
       options
-    ).then((res) => res.json())
-    .then(data => {
-
-    })
+    )
+      .then((res) => res.json())
+      .then((data) => {});
   };
 
   return (
     <>
       <Header />
-      <div className='BigContainer'>
-        <div className='Container_cohorts'>
+      <div className="BigContainer">
+        <div className="Container_cohorts">
           <h3>Cohort {id}</h3>
         </div>
-        <div className='Container_addStudent'>
+        <div className="Container_addStudent">
           <div>
-            <h3>Add Students Here</h3>
+            <h3>Available students</h3>
           </div>
-          <div className='add-student-container'>
+          <div className="add-student-container">
             {noCohort.map((student, key) => (
-              <div className='add-student-card' key={key}>
-                <button onClick={addStudent} value={student.id} >
-                 Add
-                </button>
-                <div className='add-student'>
+              <div className="add-student-card" key={key}>
+                <div className="add-student">
                   {student.firstName} {student.lastName}
                 </div>
+                <button onClick={addStudent} value={student.id}>
+                  Add
+                </button>
               </div>
             ))}
           </div>

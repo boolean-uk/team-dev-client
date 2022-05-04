@@ -31,11 +31,12 @@
 
 .add-student-card {
     display: grid;
-    grid-template-columns: 3rem 1fr;
+    grid-template-columns: 1fr 3rem ;
     height: 3rem;
 }
 
 .add-student-card button {
+    
     margin: 6px 3px;
     border-radius: 4px;
 }
