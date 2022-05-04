@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 
-.user-form {
+.edit-user-form {
     display: grid;
     grid-auto-columns: 25rem;
     grid-auto-rows: 15rem;
