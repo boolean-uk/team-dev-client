@@ -7,9 +7,9 @@ import InputBase from '@mui/material/InputBase';
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ role }) => {
+const Header = ({ role, userId }) => {
   let navigate = useNavigate();
-
+  
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -20,9 +20,8 @@ const Header = ({ role }) => {
     client.post('/cohort', {}).catch((err) => console.log(err.response));
   };
 
-  const handleMyProfile = () => {
-    localStorage.getItem(process.env.REACT_APP_USER_TOKEN)
-    console.log(process.env.REACT_APP_USER_TOKEN)
+  const handleMyProfileLink = () => {
+    navigate(`../user/${userId}`)
   }
 
   return (
@@ -65,7 +64,7 @@ const Header = ({ role }) => {
                 Add Cohort
               </Button>
             )}
-            <Button id='my-profile' variant='contained' onClick={handleMyProfile}>
+            <Button id='my-profile' variant='contained' onClick={handleMyProfileLink}>
               My Profile
             </Button>
             <Button id='user-signout-button' variant='contained' onClick={signOut}>
