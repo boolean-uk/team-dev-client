@@ -22,8 +22,12 @@ const PostsPage = ({ role }) => {
     event.preventDefault();
     client
       .post('/post', post)
-      .then((res) => setPostResponse(res.data))
+      .then((res) => {
+        setPostResponse(res.data)
+        setPosts(posts => [res.data.data.post, ...posts])
+      })
       .catch((data) => {});
+      setPost(() => ({ content: '' }))
   };
 
   const handleChange = (event) => {
@@ -45,8 +49,8 @@ const PostsPage = ({ role }) => {
       <Header role={role} />
       <section className='posts-section'>
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className='posts-list'>
+        <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
+        <ul className="posts-list">
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
               <Box>
