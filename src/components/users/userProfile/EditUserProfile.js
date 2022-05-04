@@ -3,9 +3,11 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { useState, useEffect } from "react";
 import client from "../../../utils/client";
+import Header from "../../Header/Header";
 import { useParams } from "react-router-dom";
+import './style.css';
 
-const UserForm = () => {
+const UserForm = ({role}) => {
   const initialFormData = {
     firstName: "",
     lastName: "",
@@ -59,9 +61,11 @@ const UserForm = () => {
   };
 
   return (
-    <div>
+    <>
+      <Header role={role} />
+      <section className="user-form">
       <h1> Edit Profile Details </h1>
-      <form onSubmit={onSubmit} className="user-form">
+      <form onSubmit={onSubmit}>
         <TextField
           className="user-form-input"
           value={profile.firstName}
@@ -95,7 +99,8 @@ const UserForm = () => {
           Submit
         </Button>
       </form>
-    </div>
+      </section>
+    </>
   );
 };
 

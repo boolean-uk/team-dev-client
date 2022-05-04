@@ -7,3 +7,14 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.user-form {
+    display: grid;
+    grid-auto-columns: 25rem;
+    grid-auto-rows: 15rem;
+  }
+  
+  .user-form-input {
+    width: 100%;
+    background-color: white;
+  }
