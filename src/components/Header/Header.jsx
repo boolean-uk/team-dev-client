@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = ({ role, userId }) => {
   let navigate = useNavigate();
-  
+
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -21,9 +21,9 @@ const Header = ({ role, userId }) => {
   };
 
   const handleMyProfileLink = () => {
-    const userId = localStorage.getItem('userId')
-    navigate(`../user/${userId}`)
-  }
+    const userId = localStorage.getItem('userId');
+    navigate(`../user/${userId}`);
+  };
 
   return (
     <>
@@ -51,7 +51,10 @@ const Header = ({ role, userId }) => {
           }}
         >
           <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+            <InputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </Box>
           <Box>
             <Button variant='contained'>Search User</Button>
@@ -65,10 +68,18 @@ const Header = ({ role, userId }) => {
                 Add Cohort
               </Button>
             )}
-            <Button id='my-profile' variant='contained' onClick={handleMyProfileLink}>
+            <Button
+              id='my-profile'
+              variant='contained'
+              onClick={handleMyProfileLink}
+            >
               My Profile
             </Button>
-            <Button id='user-signout-button' variant='contained' onClick={signOut}>
+            <Button
+              id='user-signout-button'
+              variant='contained'
+              onClick={signOut}
+            >
               Logout
             </Button>
           </Stack>
