@@ -13,17 +13,13 @@ const PostsPage = ({ role }) => {
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState('')
   const [load, setLoad] = useState(true)
-  const [firstComment, setFirstComment] = useState([])
+  const [showAllArr, setShowAll] = useState([])
 
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts)
-      console.log(res.data.data.posts)
     })
   }, [load])
-
-  const addComment = (posts) => {}
-
   const createPost = async (event) => {
     event.preventDefault()
     client
@@ -31,21 +27,13 @@ const PostsPage = ({ role }) => {
       .then((res) => {
         setPostResponse(res.data)
         setPosts((posts) => [res.data.data.post, ...posts])
+        setLoad((x) => !x)
       })
-      .catch((data) => {})
+      .catch((data) => {
+        console.log(data)
+      })
     setPost(() => ({ content: '' }))
   }
-
-  //     .post('/post', { content: post })
-  //     .then((res) => {
-  //       setPostResponse(res.data)
-  //       setLoad((x) => !x)
-  //       setPost('')
-  //     })
-  //     .catch((data) => {
-  //       console.log(data)
-  //     })
-  // }
 
   const handleChange = (event) => {
     event.preventDefault()
@@ -65,6 +53,12 @@ const PostsPage = ({ role }) => {
       .catch((data) => {
         console.log(data)
       })
+  }
+  const adder = (id) => {
+    !showAllArr.some((a) => a === id) && setShowAll((x) => [...x, id])
+  }
+  const remover = (id) => {
+    setShowAll((x) => x.filter((c) => c !== id))
   }
 
   const handleComment = (event) => {
@@ -108,13 +102,32 @@ const PostsPage = ({ role }) => {
                   />
                   <button className='comment-button'>Comment</button>
                 </form>
-                <ul className='comments-list'>
-                  {post.postComments.map((comment) => (
-                    <li key={comment.id} className='comment-item'>
-                      {comment.content}
-                    </li>
-                  ))}
-                </ul>
+                <div className='single-comment'>
+                  {post.postComments.length > 1 &&
+                    !showAllArr.includes(post.id) && (
+                      <div onClick={() => adder(post.id)}>
+                        show all
+                        <span className='commentCount'>
+                          {` (${post.postComments.length})`}
+                        </span>
+                      </div>
+                    )}
+                  {showAllArr.includes(post.id) && (
+                    <div onClick={() => remover(post.id)}>hide</div>
+                  )}
+                  {post.postComments.length !== 0 &&
+                  !showAllArr.includes(post.id)
+                    ? post.postComments[0].content
+                    : ''}
+                  <ul className='comments-list'>
+                    {showAllArr.includes(post.id) &&
+                      post.postComments.map((comment) => (
+                        <li key={comment.id} className='comment-item'>
+                          {comment.content}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
               </div>
             </li>
           ))}
