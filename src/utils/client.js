@@ -20,6 +20,15 @@ const client = {
       headers["Authorization"] = `Bearer ${token}`
     }
     return axios.post(url, data, { headers })
+  },
+
+
+  put:(path, data) => {
+    const url = `${host}${path}`
+    const headers = {
+      "Authorization": `Bearer ${localStorage.getItem(tokenKey)}`
+    }
+    return axios.put(url, data, {headers})
   }
 }
 
