@@ -46,14 +46,11 @@ const UserForm = ({ role }) => {
     const putBody = {
       firstName: profile.firstName,
       lastName: profile.lastName,
-      email: profile.email,
-      password: profile.password,
       bio: profile.biography,
       githubUrl: profile.githubUrl,
     };
     client
       .put("/user", putBody)
-      .then((res) => res.json)
       .then((res) => {
         setEditUserResponse(res.data);
       })
