@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import client from "../../../utils/client";
 import Header from "../../Header/Header";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const UserForm = ({ role }) => {
@@ -19,6 +20,8 @@ const UserForm = ({ role }) => {
 
   const [profile, setProfile] = useState(initialFormData);
   const [editUserResponse, setEditUserResponse] = useState("");
+
+  let navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -53,6 +56,7 @@ const UserForm = ({ role }) => {
       .put("/user", putBody)
       .then((res) => {
         setEditUserResponse(res.data);
+        navigate(`/user/${id}`)
       })
       .catch((err) => {
         console.log(err);
