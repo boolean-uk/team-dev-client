@@ -63,64 +63,6 @@ const PostsPage = ({ role }) => {
         <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
-              {/* <Box>
-                <div className='post-content'>{post.content}</div>
-                <Stack className='names-date' spacing={2} direction='row'>
-                  <Link to={`/user/${post.user.id}`} className='post-author'>
-                    <Box className='fullname' variant='contained'>
-                      <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
-                    </Box>
-                  </Link>
-                  <Box className='date-time' variant='contained'>
-                    {dateTimetoRelativeTime(post.createdAt)}
-                  </Box>
-                </Stack>
-              </Box>
-              <div className='comments-section'>
-                <form onSubmit={(event) => createComment(event, post.id)}>
-                  <input 
-                    id={post.id}
-                    type='text'
-                    className='post__comment'
-                    onChange={handleComment}
-                    name='comment'
-                    label='New Comment'
-                    variant='outlined'
-                    value={comment}
-                  />
-                  <button className='comment-button'>Comment</button>
-                </form>
-                <div className='single-comment'>
-                  {post.postComments &&
-                    post.postComments.length > 1 &&
-                    !showAllArr.includes(post.id) && (
-                      <div onClick={() => addToShowedComments(post.id)}>
-                        show all
-                        <span className='commentCount'>
-                          {` (${post.postComments.length})`}
-                        </span>
-                      </div>
-                    )}
-                  {showAllArr.includes(post.id) && (
-                    <div onClick={() => removeFromShowedComments(post.id)}>
-                      hide
-                    </div>
-                  )}
-                  {post.postComments &&
-                  post.postComments.length !== 0 &&
-                  !showAllArr.includes(post.id)
-                    ? post.postComments[0].content
-                    : ''}
-                  <ul className='comments-list'>
-                    {showAllArr.includes(post.id) &&
-                      post.postComments.map((comment) => (
-                        <li key={comment.id} className='comment-item'>
-                          {comment.content}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              </div> */}
               <Post post={post} onCommentAdded={onCommentAdded} />
             </li>
           ))}
