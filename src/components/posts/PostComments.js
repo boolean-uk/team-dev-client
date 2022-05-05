@@ -1,14 +1,40 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React from "react";
+import { useState} from "react";
+import client from '../../utils/client'
+import dateTimetoRelativeTime from './helperfunctions'
+import { Box, Stack } from '@mui/material'
 
 
+function PostComments({onCommentAdded, post}) {
+  const [comment, setComment] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
-const [comment, setComment] = useState('')
-const [showAllArr, setShowAll] = useState([])
-const [post, setPost] = useState({ content: '' })
-function PostComments({createComment, handleComment, removeFromShowedComments, addToShowedComments }) {
+  const createComment = (event, postId) => {
+    event.preventDefault();
+    client
+      .post(`/post/${postId}/comment`, { content:comment })
+      .then((res) => {
+        setComment("");
+        onCommentAdded(post, res.data.data.comment);
+      })
+      .catch((data) => {
+        console.log(data);
+      });
+  };
+
+  const toggleCommentsList = () => {
+    setShowAll((toggle) => !toggle);
+  };
+
+  const handleComment = (event) => {
+    event.preventDefault();
+    const { value } = event.target;
+    setComment(value);
+  };
+
   return (
     <div className="comments-section">
+      { post.id &&
       <form onSubmit={(event) => createComment(event, post.id)}>
         <input
           id={post.id}
@@ -21,37 +47,41 @@ function PostComments({createComment, handleComment, removeFromShowedComments, a
           value={comment}
         />
         <button className="comment-button">Comment</button>
-      </form>
+      </form> }
       <div className="single-comment">
-        {post.postComments &&
-          post.postComments.length > 1 &&
-          !showAllArr.includes(post.id) && (
-            <div onClick={() => addToShowedComments(post.id)}>
-              show all
-              <span className="commentCount">
-                {` (${post.postComments.length})`}
-              </span>
-            </div>
-          )}
-        {showAllArr.includes(post.id) && (
-          <div onClick={() => removeFromShowedComments(post.id)}>hide</div>
+        {post.postComments && post.postComments.length > 1 && !showAll && (
+          <div onClick={() => toggleCommentsList()}>
+            show all
+            <span className="commentCount">
+              {` (${post.postComments.length})`}
+            </span>
+          </div>
         )}
-        {post.postComments &&
-        post.postComments.length !== 0 &&
-        !showAllArr.includes(post.id)
+        {showAll && <div onClick={() => toggleCommentsList()}>hide</div>}
+        {post.postComments && post.postComments.length !== 0 && !showAll
           ? post.postComments[0].content
-          : ''}
+          : ""}
         <ul className="comments-list">
-          {showAllArr.includes(post.id) &&
+          {showAll &&
             post.postComments.map((comment) => (
               <li key={comment.id} className="comment-item">
-                {comment.content}
+                <Box>
+                  <div className="comment-content">{comment.content}</div>
+                  <Stack className="names-date" spacing={2} direction="row">
+                    {/* <Box className='fullname' variant='contained'>
+                                <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+                              </Box> */}
+                    <Box className="date-time" variant="contained">
+                      {dateTimetoRelativeTime(comment.createdAt)}
+                    </Box>
+                  </Stack>
+                </Box>
               </li>
             ))}
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default PostComments
+export default PostComments;
