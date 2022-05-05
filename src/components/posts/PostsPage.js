@@ -3,23 +3,20 @@ import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
 import './style.css'
-import { Box, Stack } from '@mui/material'
 import Header from '../Header/Header'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Link } from 'react-router-dom'
+import Post from './Post'
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' })
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
-  const [comment, setComment] = useState('')
-  const [showAllArr, setShowAll] = useState([])
 
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts)
     })
-  }, [postResponse, comment])
+  }, [postResponse])
+
   const createPost = (event) => {
     event.preventDefault()
     client
@@ -34,6 +31,26 @@ const PostsPage = ({ role }) => {
     setPost(() => ({ content: '' }))
   }
 
+  const onCommentAdded = (post, comment) => {
+    setPosts(
+      posts.map((updatedPost) =>
+        updatedPost === post
+          ? { ...post, postComments: [comment, ...post.postComments] }
+          : updatedPost
+      )
+    )
+  }
+
+  // function toggleTodoCompletion(target) {
+  //   const updatedTodos = todos.map(function (todo) {
+  //     if (todo === target) {
+  //       return { ...todo, completed: !todo.completed }
+  //     }
+  //     return todo
+  //   })
+  //   setTodos(updatedTodos)
+  // }
+
   const handleChange = (event) => {
     event.preventDefault()
     const { value, name } = event.target
@@ -41,33 +58,6 @@ const PostsPage = ({ role }) => {
       ...post,
       [name]: value,
     })
-  }
-
-  const createComment = (event, postId) => {
-    event.preventDefault()
-    client
-      .post(`/post/${postId}/comment`, { comment })
-      .then(() => {
-        setComment('')
-      })
-      .catch((data) => {
-        console.log(data)
-      })
-  }
-
-  const addToShowedComments = (postId) => {
-    !showAllArr.some((id) => id === postId) &&
-      setShowAll((previousArr) => [...previousArr, postId])
-  }
-
-  const removeFromShowedComments = (postId) => {
-    setShowAll((previousArr) => previousArr.filter((id) => id !== postId))
-  }
-
-  const handleComment = (event) => {
-    event.preventDefault()
-    const { value } = event.target
-    setComment(value)
   }
 
   return (
@@ -83,64 +73,7 @@ const PostsPage = ({ role }) => {
         <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
-              <Box>
-                <div className='post-content'>{post.content}</div>
-                <Stack className='names-date' spacing={2} direction='row'>
-                  <Link to={`/user/${post.user.id}`} className='post-author'>
-                    <Box className='fullname' variant='contained'>
-                      <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
-                    </Box>
-                  </Link>
-                  <Box className='date-time' variant='contained'>
-                    {dateTimetoRelativeTime(post.createdAt)}
-                  </Box>
-                </Stack>
-              </Box>
-              <div className='comments-section'>
-                <form onSubmit={(event) => createComment(event, post.id)}>
-                  <input
-                    id={post.id}
-                    type='text'
-                    className='post__comment'
-                    onChange={handleComment}
-                    name='comment'
-                    label='New Comment'
-                    variant='outlined'
-                    value={comment}
-                  />
-                  <button className='comment-button'>Comment</button>
-                </form>
-                <div className='single-comment'>
-                  {post.postComments &&
-                    post.postComments.length > 1 &&
-                    !showAllArr.includes(post.id) && (
-                      <div onClick={() => addToShowedComments(post.id)}>
-                        show all
-                        <span className='commentCount'>
-                          {` (${post.postComments.length})`}
-                        </span>
-                      </div>
-                    )}
-                  {showAllArr.includes(post.id) && (
-                    <div onClick={() => removeFromShowedComments(post.id)}>
-                      hide
-                    </div>
-                  )}
-                  {post.postComments &&
-                  post.postComments.length !== 0 &&
-                  !showAllArr.includes(post.id)
-                    ? post.postComments[0].content
-                    : ''}
-                  <ul className='comments-list'>
-                    {showAllArr.includes(post.id) &&
-                      post.postComments.map((comment) => (
-                        <li key={comment.id} className='comment-item'>
-                          {comment.content}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              </div>
+              <Post post={post} onCommentAdded={onCommentAdded} />
             </li>
           ))}
         </ul>
