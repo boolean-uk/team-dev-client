@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import PostForm from './PostForm';
+import PostLike from './PostLike'
 import client from '../../utils/client';
 import './style.css';
 import { Box, Stack } from '@mui/material';
@@ -41,6 +42,7 @@ const PostsPage = ({ role }) => {
   return (
     <>
       <Header role={role} />
+      <PostLike/>
       <section className='posts-section'>
         {postResponse.status}
         <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
