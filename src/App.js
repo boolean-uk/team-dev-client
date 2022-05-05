@@ -11,15 +11,15 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<RegistrationPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/" element={<PostsPage />} />
-          <Route path="/user/:id" element={<ProfilePage />} />
-          <Route path="/user/edit/:id" element={<EditUser />} />
-          <Route path="/cohort/:id" element={<ViewCohort />} />
+          <Route path='/' element={<PostsPage />} />
+          <Route path='/user/:id' element={<ProfilePage />} />
+          <Route path='/user/edit/:id' element={<EditUser />} />
+          <Route path='/cohort/:id' element={<ViewCohort />} />
         </Route>
       </Routes>
     </div>

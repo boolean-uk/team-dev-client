@@ -38,7 +38,7 @@ const Header = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontWeight: "bold" }} variant="p" component="p">
+          <Typography sx={{ fontWeight: "bold" }} variant='p' component='p'>
             Cohort Manager 2.0
           </Typography>
         </Box>
@@ -52,32 +52,32 @@ const Header = () => {
         >
           <Box sx={{ backgroundColor: "white" }}>
             <InputBase
-              placeholder="Search…"
+              placeholder='Search…'
               inputProps={{ "aria-label": "search" }}
             />
           </Box>
           <Box>
-            <Button variant="contained">Search User</Button>
+            <Button variant='contained'>Search User</Button>
           </Box>
         </Box>
 
         <Box>
-          <Stack spacing={2} direction="row">
+          <Stack spacing={2} direction='row'>
             {role !== "STUDENT" && (
-              <Button variant="contained" onClick={addCohortHandle}>
+              <Button variant='contained' onClick={addCohortHandle}>
                 Add Cohort
               </Button>
             )}
             <Button
-              id="my-profile"
-              variant="contained"
+              id='my-profile'
+              variant='contained'
               onClick={handleMyProfileLink}
             >
               My Profile
             </Button>
             <Button
-              id="user-signout-button"
-              variant="contained"
+              id='user-signout-button'
+              variant='contained'
               onClick={signOut}
             >
               Logout
