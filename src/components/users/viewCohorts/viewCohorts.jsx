@@ -10,36 +10,24 @@ export default function ViewCohort() {
   const [noCohort, setNoCohort] = useState([]);
 
   useEffect(() => {
-    client
-      .get(`/user`)
-      .then((res) => {
-        const noCo = res.data.data.users.filter(
-          (user) => user.role === "STUDENT" && user.cohort_id === null
-        );
-        setNoCohort(noCo);
-      })
+    client.get(`/user/student?cohort=none`)
+      .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
   }, []);
 
-  const addStudent = (event) => {
-    const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
-    const data = { cohort_id: id, id: parseInt(event.target.value) };
-    let headers = { "Content-type": "application/json" };
-    headers["authorization"] = `Bearer ${token}`;
 
+function addStudent(studentId) {
     const options = {
-      method: "PATCH",
-      headers: headers,
-      body: JSON.stringify(data),
-    };
+      body: JSON.stringify({
+        studentId: studentId
+      })
+    }
+  client.patch(`/user/student/cohort/${id}`, options)
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err.response));
+}
 
-    fetch(
-      process.env.REACT_APP_API_URL + `/user/${event.target.value}/cohort`,
-      options
-    )
-      .then((res) => res.json())
-      .then((data) => {});
-  };
 
   return (
     <>
@@ -54,13 +42,15 @@ export default function ViewCohort() {
           </div>
           <div className="add-student-container">
             {noCohort.map((student, key) => (
+
               <div className="add-student-card" key={key}>
                 <div className="add-student">
-                  {student.firstName} {student.lastName}
+                  {student.user.firstName} {student.user.lastName}
                 </div>
-                <button onClick={addStudent} value={student.id}>
+                <button onClick={() => {addStudent(student.user.id)}} value={student.id}>
                   Add
                 </button>
+                
               </div>
             ))}
           </div>
