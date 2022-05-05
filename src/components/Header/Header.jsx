@@ -16,8 +16,6 @@ const Header = ({ role, setSearchInput }) => {
     return <></>
   }
 
-
-
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -56,7 +54,18 @@ const Header = ({ role, setSearchInput }) => {
                 Add Cohort
               </Button>
             )}
-            <Button id='user-signout-button' variant='contained' onClick={signOut}>
+            <Button
+              id='my-profile'
+              variant='contained'
+              onClick={handleMyProfileLink}
+            >
+              My Profile
+            </Button>
+            <Button
+              id='user-signout-button'
+              variant='contained'
+              onClick={signOut}
+            >
               Logout
             </Button>
           </Stack>
@@ -67,4 +76,3 @@ const Header = ({ role, setSearchInput }) => {
 };
 
 export default Header;
-
