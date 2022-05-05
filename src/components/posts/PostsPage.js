@@ -98,7 +98,7 @@ const PostsPage = ({ role }) => {
               </Box>
               <div className='comments-section'>
                 <form onSubmit={(event) => createComment(event, post.id)}>
-                  <input
+                  <input 
                     id={post.id}
                     type='text'
                     className='post__comment'
