@@ -7,6 +7,7 @@ import { Box, Stack } from '@mui/material'
 import Header from '../Header/Header'
 import dateTimetoRelativeTime from './helperfunctions'
 import { Link } from 'react-router-dom'
+import PostComments from './PostComments'
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' })
@@ -96,51 +97,12 @@ const PostsPage = ({ role }) => {
                   </Box>
                 </Stack>
               </Box>
-              <div className='comments-section'>
-                <form onSubmit={(event) => createComment(event, post.id)}>
-                  <input
-                    id={post.id}
-                    type='text'
-                    className='post__comment'
-                    onChange={handleComment}
-                    name='comment'
-                    label='New Comment'
-                    variant='outlined'
-                    value={comment}
-                  />
-                  <button className='comment-button'>Comment</button>
-                </form>
-                <div className='single-comment'>
-                  {post.postComments &&
-                    post.postComments.length > 1 &&
-                    !showAllArr.includes(post.id) && (
-                      <div onClick={() => addToShowedComments(post.id)}>
-                        show all
-                        <span className='commentCount'>
-                          {` (${post.postComments.length})`}
-                        </span>
-                      </div>
-                    )}
-                  {showAllArr.includes(post.id) && (
-                    <div onClick={() => removeFromShowedComments(post.id)}>
-                      hide
-                    </div>
-                  )}
-                  {post.postComments &&
-                  post.postComments.length !== 0 &&
-                  !showAllArr.includes(post.id)
-                    ? post.postComments[0].content
-                    : ''}
-                  <ul className='comments-list'>
-                    {showAllArr.includes(post.id) &&
-                      post.postComments.map((comment) => (
-                        <li key={comment.id} className='comment-item'>
-                          {comment.content}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              </div>
+              <PostComments 
+              createComment = {createComment}
+              handleComment = {handleComment}
+              removeFromShowedComments = {removeFromShowedComments}
+              addToShowedComments = {addToShowedComments}
+              />
             </li>
           ))}
         </ul>
