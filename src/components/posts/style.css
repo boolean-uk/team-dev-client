@@ -65,6 +65,7 @@ ul.posts-list {
   font-family: helvetica;
   font-style: normal;
   align-items: center;
+  text-align: left;
 }
 
 li {
