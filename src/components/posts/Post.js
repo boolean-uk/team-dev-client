@@ -12,7 +12,7 @@ function Post({ post, onCommentAdded }) {
   const createComment = (event, postId) => {
     event.preventDefault()
     client
-      .post(`/post/${postId}/comment`, { comment })
+      .post(`/post/${postId}/comment`, { content: comment })
       .then((res) => {
         setComment('')
         onCommentAdded(post, res.data.data.comment)
@@ -81,9 +81,11 @@ function Post({ post, onCommentAdded }) {
                   <Box>
                     <div className='comment-content'>{comment.content}</div>
                     <Stack className='names-date' spacing={2} direction='row'>
-                      <Box className='fullname' variant='contained'>
-                        <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
-                      </Box>
+                      {
+                        <Box className='fullname' variant='contained'>
+                          <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+                        </Box>
+                      }
                       <Box className='date-time' variant='contained'>
                         {dateTimetoRelativeTime(comment.createdAt)}
                       </Box>
