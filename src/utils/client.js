@@ -19,10 +19,6 @@ const client = {
     if (withToken) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-<<<<<<< HEAD
-    return axios.post(url, data, { headers });
-  },
-=======
     return axios.post(url, data, { headers })
   },
 
@@ -33,9 +29,7 @@ const client = {
       "Authorization": `Bearer ${localStorage.getItem(tokenKey)}`
     }
     return axios.put(url, data, {headers})
-  }
-}
->>>>>>> main
+  },
 
   patch: (path, data, withToken = true) => {
     const url = `${host}${path}`;
@@ -45,7 +39,7 @@ const client = {
       headers["Authorization"] = `Bearer ${token}`;
     }
     return axios.patch(url, data, { headers });
-  },
+  }
 };
 
 export default client;
