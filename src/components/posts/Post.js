@@ -5,10 +5,8 @@ import React from "react";
 import PostComments from "./PostComments";
 
 function Post({ post, onCommentAdded }) {
-  console.log('post', post)
   return (
     <>
-      {console.log('newpost', post.user)  }
       {post.user &&
         <Box> 
         <div className="post-content">{post.content}</div>
