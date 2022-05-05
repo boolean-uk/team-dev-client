@@ -19,8 +19,23 @@ const client = {
     if (withToken) {
       headers["Authorization"] = `Bearer ${token}`;
     }
+<<<<<<< HEAD
     return axios.post(url, data, { headers });
   },
+=======
+    return axios.post(url, data, { headers })
+  },
+
+
+  put:(path, data) => {
+    const url = `${host}${path}`
+    const headers = {
+      "Authorization": `Bearer ${localStorage.getItem(tokenKey)}`
+    }
+    return axios.put(url, data, {headers})
+  }
+}
+>>>>>>> main
 
   patch: (path, data, withToken = true) => {
     const url = `${host}${path}`;

@@ -8,26 +8,26 @@ import client from "../../../utils/client";
 export default function ViewCohort() {
   const { id } = useParams();
   const [noCohort, setNoCohort] = useState([]);
-  const [cohortStudents, setCohortStudents] = useState([]);
-  useEffect(() => {
-    client
-      .get(`/user/student?cohort=none`)
-      .then((res) => {
-        setNoCohort(res.data.data);
-      })
-      .catch((err) => console.log(err.response));
 
-    client
-      .get(`/user/student?cohort=${id}`)
-      .then((res) => {
-        setCohortStudents(res.data.data);
-      })
+  useEffect(() => {
+    client.get(`/user/student?cohort=none`)
+      .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
   }, [id]);
 
-  const addStudent = (event) => {
-    client.patch(`/user/${event.target.value}/cohort`, { cohort_id: id });
-  };
+
+function addStudent(studentId) {
+    const options = {
+      body: JSON.stringify({
+        student_Id: studentId
+      })
+    }
+  client.patch(`/user/student/cohort/${id}`, options)
+  .then((res) => console.log(res.data))
+  
+  .catch((err) => console.log(err.response));
+}
+
 
   return (
     <>
@@ -56,9 +56,10 @@ export default function ViewCohort() {
                 <div className="add-student">
                   {student.user.firstName} {student.user.lastName}
                 </div>
-                <button onClick={addStudent} value={student.user.id}>
+                <button onClick={() => {addStudent(student.user.id)}} value={student.id}>
                   Add
                 </button>
+                
               </div>
             ))}
           </div>

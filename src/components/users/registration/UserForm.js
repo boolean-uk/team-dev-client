@@ -45,6 +45,13 @@ const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue})
       />
       <TextField
         className="user-form-input"
+        label="Avatar URL"
+        variant="outlined"
+        name="avatar"
+        onChange={handleChange}
+      />
+      <TextField
+        className="user-form-input"
         type="url"
         label="GitHub URL"
         variant="outlined"
