@@ -12,7 +12,6 @@ const PostsPage = ({ role }) => {
 	const [post, setPost] = useState({ content: '' });
 	const [postResponse, setPostResponse] = useState('');
 	const [posts, setPosts] = useState([]);
-	console.log(posts);
 
 	useEffect(() => {
 		client.get('/posts').then((res) => setPosts(res.data.data.posts));
@@ -55,7 +54,11 @@ const PostsPage = ({ role }) => {
 							<Box>
 								<div className='post-content'>{post.content}</div>
 								<Stack className='names-date' spacing={2} direction='row'>
-									<img src={`${post.user.profile.profileImgUrl}`} alt='avatar' width='30px'/>
+									<img
+										src={`${post.user.profile.profileImgUrl}`}
+										alt='avatar'
+										width='30px'
+									/>
 									<Link to={`/user/${post.user.id}`} className='post-author'>
 										<Box className='fullname' variant='contained'>
 											<strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
