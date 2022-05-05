@@ -26,6 +26,10 @@ const Header = ({ role, setSearchInput }) => {
     client.post('/cohort', {}).catch((err) => console.log(err.response));
   };
 
+  const handleMyProfileLink = () => {
+    const userId = localStorage.getItem('userId');
+    navigate(`../user/${userId}`);
+  };
 
   return (
     <>
