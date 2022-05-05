@@ -3,23 +3,20 @@ import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
 import './style.css'
-import { Box, Stack } from '@mui/material'
 import Header from '../Header/Header'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Link } from 'react-router-dom'
+import Post from './Post'
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' })
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
-  const [comment, setComment] = useState('')
-  const [showAllArr, setShowAll] = useState([])
 
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts)
     })
-  }, [postResponse, comment])
+  }, [postResponse])
+
   const createPost = (event) => {
     event.preventDefault()
     client
@@ -34,6 +31,16 @@ const PostsPage = ({ role }) => {
     setPost(() => ({ content: '' }))
   }
 
+  const onCommentAdded = (post, comment) => {
+    setPosts(
+      posts.map((updatedPost) =>
+        updatedPost === post
+          ? { ...post, postComments: [comment, ...post.postComments] }
+          : updatedPost
+      )
+    )
+  }
+
   const handleChange = (event) => {
     event.preventDefault()
     const { value, name } = event.target
@@ -41,33 +48,6 @@ const PostsPage = ({ role }) => {
       ...post,
       [name]: value,
     })
-  }
-
-  const createComment = (event, postId) => {
-    event.preventDefault()
-    client
-      .post(`/post/${postId}/comment`, { comment })
-      .then(() => {
-        setComment('')
-      })
-      .catch((data) => {
-        console.log(data)
-      })
-  }
-
-  const addToShowedComments = (postId) => {
-    !showAllArr.some((id) => id === postId) &&
-      setShowAll((previousArr) => [...previousArr, postId])
-  }
-
-  const removeFromShowedComments = (postId) => {
-    setShowAll((previousArr) => previousArr.filter((id) => id !== postId))
-  }
-
-  const handleComment = (event) => {
-    event.preventDefault()
-    const { value } = event.target
-    setComment(value)
   }
 
   return (
@@ -83,7 +63,7 @@ const PostsPage = ({ role }) => {
         <ul className='posts-list'>
           {posts.map((post, index) => (
             <li key={index} className='post-item'>
-              <Box>
+              {/* <Box>
                 <div className='post-content'>{post.content}</div>
                 <Stack className='names-date' spacing={2} direction='row'>
                   <Link to={`/user/${post.user.id}`} className='post-author'>
@@ -140,7 +120,8 @@ const PostsPage = ({ role }) => {
                       ))}
                   </ul>
                 </div>
-              </div>
+              </div> */}
+              <Post post={post} onCommentAdded={onCommentAdded} />
             </li>
           ))}
         </ul>
