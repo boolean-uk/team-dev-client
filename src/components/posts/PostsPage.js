@@ -13,22 +13,20 @@ const PostsPage = ({ role }) => {
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState('')
-  const [load, setLoad] = useState(true)
   const [showAllArr, setShowAll] = useState([])
 
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts)
     })
-  }, [load])
-  const createPost = async (event) => {
+  }, [postResponse, comment])
+  const createPost = (event) => {
     event.preventDefault()
     client
       .post('/post', post)
       .then((res) => {
         setPostResponse(res.data)
         setPosts((posts) => [res.data.data.post, ...posts])
-        setLoad((x) => !x)
       })
       .catch((data) => {
         console.log(data)
@@ -45,12 +43,11 @@ const PostsPage = ({ role }) => {
     })
   }
 
-  const createComment = async (event, postId) => {
+  const createComment = (event, postId) => {
     event.preventDefault()
     client
       .post(`/post/${postId}/comment`, { comment })
       .then(() => {
-        setLoad((x) => !x)
         setComment('')
       })
       .catch((data) => {
@@ -58,12 +55,13 @@ const PostsPage = ({ role }) => {
       })
   }
 
-  const addToShowedComments = (id) => {
-    !showAllArr.some((a) => a === id) && setShowAll((x) => [...x, id])
+  const addToShowedComments = (postId) => {
+    !showAllArr.some((id) => id === postId) &&
+      setShowAll((previousArr) => [...previousArr, postId])
   }
 
-  const removeFromShowedComments = (id) => {
-    setShowAll((x) => x.filter((c) => c !== id))
+  const removeFromShowedComments = (postId) => {
+    setShowAll((previousArr) => previousArr.filter((id) => id !== postId))
   }
 
   const handleComment = (event) => {
