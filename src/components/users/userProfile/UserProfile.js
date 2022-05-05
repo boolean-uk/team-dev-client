@@ -37,7 +37,6 @@ const UserProfile = () => {
   const handleEditProfileLink = () => {
     if (id === loggedInId) {
       return setCheckId(true)
-      
     }
   }
 

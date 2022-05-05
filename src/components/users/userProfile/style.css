@@ -18,3 +18,19 @@ gap: 1rem;
 .profile-img {
   border-radius: 50%;
 }
+
+/* EDIT USER PROFILE */
+
+.edit-user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto; 
+  width: 50%;
+  }
+
+  .user-form-input {
+    width: 100%;
+    background-color: white;
+  }
