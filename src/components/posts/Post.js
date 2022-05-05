@@ -12,7 +12,7 @@ function Post({ post, onCommentAdded }) {
   const createComment = (event, postId) => {
     event.preventDefault()
     client
-      .post(`/post/${postId}/comment`, { comment })
+      .post(`/post/${postId}/comment`, { content: comment })
       .then((res) => {
         setComment('')
         onCommentAdded(post, res.data.data.comment)
