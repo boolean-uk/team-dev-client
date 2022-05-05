@@ -22,14 +22,13 @@ const client = {
     return axios.post(url, data, { headers })
   },
 
-  patch: (path, data, withToken=true) => {
+
+  put:(path, data) => {
     const url = `${host}${path}`
-    const token = localStorage.getItem(tokenKey)
-    let headers = {}
-    if (withToken) {
-      headers["Authorization"] = `Bearer ${token}`
+    const headers = {
+      "Authorization": `Bearer ${localStorage.getItem(tokenKey)}`
     }
-    return axios.patch(url, data, { headers })
+    return axios.put(url, data, {headers})
   }
 }
 
