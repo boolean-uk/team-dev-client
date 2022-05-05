@@ -3,6 +3,7 @@ import client from "../../utils/client";
 import Button from "@mui/material/Button";
 import "./CohortList.css";
 import React from "react";
+import { Link } from "react-router-dom";
 function CohortList() {
   const [cohort, setCohort] = useState();
   useEffect(() => {
@@ -22,7 +23,12 @@ function CohortList() {
               cohort.map((cohort) => (
                 <li key={cohort.id}>
                   {" "}
-                  <Button className="list-btn" variant="contained"> Cohort {cohort.id}</Button>
+                  <Link
+                    to={`/cohort/${cohort.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button variant="contained"> Cohort {cohort.id}</Button>
+                  </Link>
                 </li>
               ))}
           </ul>
