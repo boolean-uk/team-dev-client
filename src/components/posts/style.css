@@ -109,3 +109,16 @@ width:100%
   display: flex;
   justify-content: flex-end;
 }
+
+.post-like {
+  height: 1em;
+  
+}
+
+.icon-container {
+  height: 1.3em;
+  width: 1.3em;
+  background-color: #1976d2;
+  opacity: 0.5;
+  border-radius: 50%;
+}

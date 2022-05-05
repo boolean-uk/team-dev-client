@@ -42,7 +42,6 @@ const PostsPage = ({ role }) => {
   return (
     <>
       <Header role={role} />
-      <PostLike/>
       <section className='posts-section'>
         {postResponse.status}
         <PostForm handleSubmit={createPost} handleChange={handleChange} inputValue={post.content} />
@@ -62,6 +61,7 @@ const PostsPage = ({ role }) => {
                   </Box>
                 </Stack>
               </Box>
+              <PostLike/>
             </li>
           ))}
         </ul>
