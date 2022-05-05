@@ -1,18 +1,18 @@
 .link {
-    color: #ffa500;
-    text-decoration: none;
+  color: #ffa500;
+  text-decoration: none;
 }
 
 .link:hover {
-    text-decoration: underline;
-    cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .profile {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .profile-img {
@@ -28,9 +28,9 @@ gap: 1rem;
   justify-content: center;
   margin: auto; 
   width: 50%;
-  }
+}
 
-  .user-form-input {
-    width: 100%;
-    background-color: white;
-  }
+.user-form-input {
+  width: 100%;
+  background-color: white;
+}

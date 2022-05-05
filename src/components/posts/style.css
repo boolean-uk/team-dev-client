@@ -32,6 +32,11 @@ textarea {
   border-radius: 0.2rem;
 }
 
+.user-form-input {
+  resize: none;
+  padding: 0.5rem;
+}
+
 li.post-item {
   background-color: transparent;
   border-radius: 0.2rem;
@@ -59,6 +64,7 @@ ul.posts-list {
   color: whitesmoke;
   font-family: helvetica;
   font-style: normal;
+  align-items: center;
 }
 
 li {
@@ -68,12 +74,14 @@ li {
 .post-author {
   color: #ffa500;
   text-decoration: none;
+  width: 100%;
 }
 
 .post-author:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
 .posts-section {
   font-family: helvetica;
   font-style: normal;
@@ -83,10 +91,9 @@ li {
   background-color: transparent;
   border-radius: 0.2rem;
   width: 100%;
-  font-size: 13pt;
+  font-size: 12pt;
   padding-bottom: .5rem;
   margin: 0;
-
 }
 
 .names-date {
@@ -97,12 +104,13 @@ li {
 }
 
 .MuiBox-root {
-width:100%
+  width: 100%;
 }
 
 .fullname {
   display: flex;
   justify-content: flex-start;
+  align-items: center
 }
 
 .date-time {
