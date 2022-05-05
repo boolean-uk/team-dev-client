@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
 import Header from '../../Header/Header';
-import './style.css'
+import './style.css';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
@@ -16,16 +16,17 @@ const UserProfile = () => {
   }, [id]);
 
   const handleProfile = () => {
-     client
+    client
       .get(`/user/${id}`)
       .then((res) => {
         setProfile(res.data.data.user);
-        const firstName = res.data.data.user.firstName
-        const lastName = res.data.data.user.lastName
-        fetch(
-          `https://ui-avatars.com/api/?name=${firstName}+${lastName}`
-        )
-        .then(res=> { setProfileImg(res.url)} )
+        const firstName = res.data.data.user.firstName;
+        const lastName = res.data.data.user.lastName;
+        fetch(`https://ui-avatars.com/api/?name=${firstName}+${lastName}`).then(
+          (res) => {
+            setProfileImg(res.url);
+          }
+        );
       })
       .catch((err) => console.log(err.response));
   };
@@ -34,18 +35,18 @@ const UserProfile = () => {
     <div>
       <Header role={role} />
       <h1>User Profile</h1>
-      <div className="profile">
-      <div className="profile-img">
-      <img src={profileImg} alt="avatar" width="60" height="60" />
-      </div>
-      <div className="profile-info">
-      <h2>
-        {profile.firstName} {profile.lastName}
-      </h2>
-      <p>Email: {profile.email}</p>
-      <p>Bio: {profile.biography}</p>
-      <p>Github: {profile.githubUrl}</p>
-      </div>
+      <div className='profile'>
+        <div>
+          <img className='profile-img' src={profileImg} alt='avatar' />
+        </div>
+        <div className='profile-info'>
+          <h2>
+            {profile.firstName} {profile.lastName}
+          </h2>
+          <p>Email: {profile.email}</p>
+          <p>Bio: {profile.biography}</p>
+          <p>Github: {profile.githubUrl}</p>
+        </div>
       </div>
     </div>
   );
