@@ -29,10 +29,10 @@ export default function SearchPage({ searchInput }) {
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
         <List>
-          {searchResults.map((user, index) => (
+          {searchResults.map((user) => (
             <>
-              <ListItem disablePadding>
-                <ListItemButton key={index} component='a' href='#simple-list'>
+              <ListItem colour="white" key={user.id}>
+                <ListItemButton  component='a' href='#simple-list' color="white" variant="contained">
                   <ListItemText primary={`${user.firstName} ${user.lastName}`} />
                 </ListItemButton>
               </ListItem>
