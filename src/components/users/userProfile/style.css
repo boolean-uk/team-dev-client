@@ -1,0 +1,36 @@
+.link {
+    color: #ffa500;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profile {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 1rem;
+}
+
+.profile-img {
+  border-radius: 50%;
+}
+
+/* EDIT USER PROFILE */
+
+.edit-user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto; 
+  width: 50%;
+  }
+
+  .user-form-input {
+    width: 100%;
+    background-color: white;
+  }
