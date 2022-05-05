@@ -13,7 +13,7 @@ export default function ViewCohort() {
     client.get(`/user/student?cohort=none`)
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
-  }, []);
+  }, [id]);
 
 
 function addStudent(studentId) {
@@ -45,7 +45,11 @@ function addStudent(studentId) {
 
               <div className="add-student-card" key={key}>
                 <div className="add-student">
+<<<<<<< HEAD
                   {student.user.firstName} {student.user.lastName}
+=======
+                  {student.profile.firstName} {student.profile.lastName}
+>>>>>>> 149372d2a8bb8f4e574ab78404bb7246f2e33aca
                 </div>
                 <button onClick={() => {addStudent(student.user.id)}} value={student.id}>
                   Add
