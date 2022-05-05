@@ -10,7 +10,7 @@ const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' })
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
-
+  console.log(posts)
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts)
@@ -40,16 +40,6 @@ const PostsPage = ({ role }) => {
       )
     )
   }
-
-  // function toggleTodoCompletion(target) {
-  //   const updatedTodos = todos.map(function (todo) {
-  //     if (todo === target) {
-  //       return { ...todo, completed: !todo.completed }
-  //     }
-  //     return todo
-  //   })
-  //   setTodos(updatedTodos)
-  // }
 
   const handleChange = (event) => {
     event.preventDefault()
