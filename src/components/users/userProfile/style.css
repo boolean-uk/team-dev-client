@@ -7,3 +7,14 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.profile {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 1rem;
+}
+
+.profile-img {
+  border-radius: 50%;
+}
