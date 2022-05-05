@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import client from "../../utils/client";
+import Button from "@mui/material/Button";
 import "./CohortList.css";
 import React from "react";
 function CohortList() {
@@ -21,7 +22,7 @@ function CohortList() {
               cohort.map((cohort) => (
                 <li key={cohort.id}>
                   {" "}
-                  <button className="list-btn"> Cohort {cohort.id}</button>
+                  <Button className="list-btn" variant="contained"> Cohort {cohort.id}</Button>
                 </li>
               ))}
           </ul>

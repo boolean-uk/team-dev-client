@@ -1,13 +1,5 @@
-/* .side-bar {
-  display: flex;
-  justify-content: flex-end;
-} */
-
 .cohort-container {
-  /* display: flex; */
   border: solid white 3px;
-  /* flex-direction: column; */
-  /* justify-content: flex-end; */
   margin: 20px 50px;
   padding: 2rem;
   max-width: 20rem;
@@ -20,11 +12,3 @@
   row-gap: 5px;
 }
 
-.list-btn {
-  pointer-events: auto;
-  cursor: pointer;
-  background: #cccaca;
-  border: none;
-  border-radius: 3px;
-  padding: 10px 30px;
-}
