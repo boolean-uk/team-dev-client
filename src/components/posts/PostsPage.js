@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PostForm from "./PostForm";
 import client from "../../utils/client";
 import "./style.css";
-
+import React from "react";
 import { Box, Stack } from "@mui/material";
 import Header from "../Header/Header";
 import dateTimetoRelativeTime from "./helperfunctions";
