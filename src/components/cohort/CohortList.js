@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import client from "../../utils/client";
-import "../cohort/CohortList.css";
-import React from "react";
+import "./CohortList.css";
+
 function CohortList() {
   const [cohort, setCohort] = useState();
   useEffect(() => {
     const role = localStorage.getItem("role");
     if (role === "TEACHER") {
-      client.get("/cohort").then((res) => setCohort(res.data.data));
+      client.get("/cohort").then((res) => setCohort(res.data.data))
     }
   }, []);
 

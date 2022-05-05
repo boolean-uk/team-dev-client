@@ -1,8 +1,9 @@
+import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PostForm from "./PostForm";
 import client from "../../utils/client";
 import "./style.css";
-import React from "react";
 import { Box, Stack } from "@mui/material";
 import Header from "../Header/Header";
 import dateTimetoRelativeTime from "./helperfunctions";
@@ -43,16 +44,24 @@ const PostsPage = () => {
       <Header />
       <div className="home-container">
         <section className="posts-section">
-          <p>Status: {postResponse.status}</p>
-          <PostForm handleSubmit={createPost} handleChange={handleChange} />
+          {postResponse.status}
+          <PostForm
+            handleSubmit={createPost}
+            handleChange={handleChange}
+            inputValue={post.content}
+          />
           <ul className="posts-list">
             {posts.map((post, index) => (
               <li key={index} className="post-item">
                 <Box>
                   <div className="post-content">{post.content}</div>
-                  <Stack spacing={2} direction="row">
-                    <Box variant="contained">{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</Box>
-                    <Box variant="contained">
+                  <Stack className="names-date" spacing={2} direction="row">
+                    <Link to={`/user/${post.user.id}`} className="post-author">
+                      <Box className="fullname" variant="contained">
+                        <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+                      </Box>
+                    </Link>
+                    <Box className="date-time" variant="contained">
                       {dateTimetoRelativeTime(post.createdAt)}
                     </Box>
                   </Stack>
@@ -61,8 +70,7 @@ const PostsPage = () => {
             ))}
           </ul>
         </section>
-
-        <CohortList />
+        {localStorage.getItem("role") === "TEACHER" && <CohortList />}
       </div>
     </>
   );
