@@ -100,7 +100,7 @@ const UserForm = ({ role }) => {
             onChange={handleChange}
           />
           <Button id='user-submit-button' type='submit' variant='contained'>
-            Submit
+            Update Profile
           </Button>
         </form>
       </section>
