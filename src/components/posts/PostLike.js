@@ -3,24 +3,18 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './style.css';
 
-let divStyle = {
-  backgroundColor: 'grey'
-  };
-
 const PostLike = () => {
-        const [isLiked, updateLike] = useState(false);
       
-    useEffect(() => {
-      if (divStyle.backgroundColor === `#1976d2`){
-        divStyle = {backgroundColor: 'grey'};
-      }
-      else (divStyle = {backgroundColor:`#1976d2`})
-      return;
-      }, [isLiked]);
+const [divStyle, updateLike] = useState({
+  backgroundColor: 'grey'
+  });
 
-    function toggleLike() {
-        updateLike(!isLiked)
-    }
+function toggleLike() {
+  const updatedStyle = divStyle.backgroundColor === `#1976d2` ? {backgroundColor: 'grey'} : {backgroundColor: '#1976d2'}
+  updateLike(updatedStyle);
+}
+
+
     return <div className = 'icon-container' onClick={toggleLike} style={divStyle}><img className='post-like' src={like} alt='like'/></div>
 
     
