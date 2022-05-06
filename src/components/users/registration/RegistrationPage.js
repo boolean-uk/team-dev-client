@@ -17,7 +17,8 @@ const RegistrationPage = () => {
     event.preventDefault()
     client.post('/user', user, false)
       .then(res => setRegisterResponse(res.data))
-      .catch(err => console.log(err.response))
+      .catch(err => { console.log(err.response)
+      })
   }
 
   const handleChange = (event) => {
@@ -33,9 +34,8 @@ const RegistrationPage = () => {
     const handleFilter = (event) => {
       const inputValue = event.target.value
       setRadioButtonValue(inputValue)
-      console.log(radioButtonValue)
       setUser({...user,
-      role: radioButtonValue})
+      role: inputValue})
     }
   
 

@@ -1,6 +1,6 @@
 import like from "./like.png"
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './style.css';
 
 const PostLike = () => {
@@ -14,10 +14,7 @@ function toggleLike() {
   updateLike(updatedStyle);
 }
 
-
     return <div className = 'icon-container' onClick={toggleLike} style={divStyle}><img className='post-like' src={like} alt='like'/></div>
-
-    
 }
 
 export default PostLike

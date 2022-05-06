@@ -20,6 +20,8 @@
   list-style: none;
   display: flex;
   height: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 form.post-form {
@@ -86,7 +88,6 @@ li {
   font-size: 13pt;
   padding-bottom: .5rem;
   margin: 0;
-
 }
 
 .names-date {
@@ -121,4 +122,21 @@ width:100%
   background-color: #1976d2;
   opacity: 0.5;
   border-radius: 50%;
+}
+
+.single-comment {
+  font-size: 10pt;
+}
+
+li.comment-item {
+  border-bottom: 1px solid;
+  border-color: grey;
+}
+
+.comments-section {
+  width: 100%;
+}
+
+.post__comment {
+  width: 19rem;
 }
