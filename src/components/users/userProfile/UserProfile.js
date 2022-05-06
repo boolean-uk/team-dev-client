@@ -11,7 +11,6 @@ const UserProfile = () => {
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
   const loggedInId = localStorage.getItem('userId');
-  const role = profile.role;
 
   useEffect(() => {
     handleProfile();
