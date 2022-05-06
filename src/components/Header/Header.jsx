@@ -4,25 +4,31 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
+import SearchComponent from '../search/SearchComponent'
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
-  const role = localStorage.getItem("role");
+
+  const role = localStorage.getItem("role")
+
+  if (!role) {
+    return <></>
+  }
+
   const signOut = (event) => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-    navigate("../login", { replace: true });
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../login', { replace: true });
   };
 
   const addCohortHandle = () => {
-    client.post("/cohort", {}).catch((err) => console.log(err.response));
+    client.post('/cohort', {}).catch((err) => console.log(err.response));
   };
 
   const handleMyProfileLink = () => {
-    const userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem('userId');
     navigate(`../user/${userId}`);
   };
 
@@ -30,41 +36,25 @@ const Header = () => {
     <>
       <Box
         sx={{
-          display: "flex",
-          backgroundColor: "grey",
-          justifyContent: "space-between",
-          alignContent: "center",
-          width: "100vw",
-          padding: "1em",
+          display: 'flex',
+          backgroundColor: 'grey',
+          justifyContent: 'space-between',
+          alignContent: 'center',
+          width: '100vw',
+          padding: '1em',
         }}
       >
         <Box>
-          <Typography sx={{ fontWeight: "bold" }} variant='p' component='p'>
+          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
             Cohort Manager 2.0
           </Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-          }}
-        >
-          <Box sx={{ backgroundColor: "white" }}>
-            <InputBase
-              placeholder='Search…'
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Box>
-          <Box>
-            <Button variant='contained'>Search User</Button>
-          </Box>
-        </Box>
+        <SearchComponent setSearchInput={setSearchInput} />
 
         <Box>
           <Stack spacing={2} direction='row'>
-            {role !== "STUDENT" && (
+            {role !== 'STUDENT' && (
               <Button variant='contained' onClick={addCohortHandle}>
                 Add Cohort
               </Button>

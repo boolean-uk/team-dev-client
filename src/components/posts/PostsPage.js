@@ -41,7 +41,6 @@ const PostsPage = () => {
 
   return (
     <>
-      <Header />
       <div className="home-container">
         <section className="posts-section">
           {postResponse.status}

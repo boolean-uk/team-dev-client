@@ -66,7 +66,6 @@ const UserForm = ({ role }) => {
 
 	return (
 		<>
-			<Header role={role} />
 			<section className='edit-user-form'>
 				<h1> Edit Profile Details </h1>
 				<form onSubmit={onSubmit}>
