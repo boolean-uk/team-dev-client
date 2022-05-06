@@ -5,10 +5,13 @@
     grid-template-columns: 1fr 19rem;
     padding: 1rem;
 }
-
+.cohort-title {
+    margin-bottom: 30px;
+}
 .Container_addStudent {
     display: grid;
     grid-template-rows: 50px 1fr;
+    border: 2px solid white;
 
 }
 
@@ -16,6 +19,7 @@
     height: 250px;
     scrollbar-width: none;
     overflow-y: auto;
+    border: 2px solid white;
 }
 .add-student-container::-webkit-scrollbar {
   display: none;
@@ -24,7 +28,6 @@
 .add-student {
     display: flex;
     align-items: center;
-    justify-items: left; 
     margin-left: 0.7rem;
 }
 

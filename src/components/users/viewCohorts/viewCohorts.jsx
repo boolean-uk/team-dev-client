@@ -48,7 +48,7 @@ export default function ViewCohort() {
     
         <div className="BigContainer">
           <div className="Container_cohorts">
-            <h3>Cohort {id}</h3>
+            <h3 className="cohort-title">Cohort {id}</h3>
             <Table cohortStudents={cohortStudents} />
           </div>
         
@@ -61,7 +61,7 @@ export default function ViewCohort() {
               <div className="add-student-card" key={key}>
                 <div className="add-student">
                   {student.user.firstName} {student.user.lastName}
-                </div>
+               
                 <button
                   onClick={() => {
                     addStudent(student.user.id);
@@ -70,6 +70,7 @@ export default function ViewCohort() {
                 >
                   Add
                 </button>
+                 </div>
               </div>
             ))}
           </div>

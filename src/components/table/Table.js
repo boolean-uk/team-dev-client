@@ -6,18 +6,23 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Avatar} from '@mui/material';
+import { Avatar } from '@mui/material';
+import { Box } from '@mui/system';
 //import client from '../../utils/client';
 
 
 export default function BasicTable(props) {
     const { cohortStudents } = props
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
+        <TableContainer component={Paper} sx={{
+            maxWidth: 720
+        }} >
+            <Table aria-label="simple table">
+                <TableHead sx={{
+                    backgroundColor: "#808080fc"
+                }}>
                     <TableRow>
-                        <TableCell>Student ID</TableCell>
+                        <TableCell >Student ID</TableCell>
                         <TableCell>Profile</TableCell>
                         <TableCell >FirstName</TableCell>
                         <TableCell >LastName</TableCell>
@@ -27,7 +32,9 @@ export default function BasicTable(props) {
                 </TableHead>
                 <TableBody>
                     {cohortStudents.map((row) => (
-                        <TableRow key={row.user.firstName}>
+                        <TableRow key={row.user.firstName} sx={{
+                            backgroundColor: "#808080fc"
+                        }}>
                             <TableCell>{row.user.id}</TableCell>
                             <TableCell >
                                 <Avatar>{row.user.firstName[0]} </Avatar>
