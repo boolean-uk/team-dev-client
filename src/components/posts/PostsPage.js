@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
@@ -52,7 +53,6 @@ const PostsPage = ({ role }) => {
 
   return (
     <>
-      <Header role={role} />
       <section className='posts-section'>
         {postResponse.status}
         <PostForm
