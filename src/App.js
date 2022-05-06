@@ -33,12 +33,12 @@ function App() {
 
 function isLoggedIn() {
   const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
-  return !(loadedToken === "" || loadedToken === null);
+  return !(loadedToken === '' || loadedToken === null);
 }
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = "/login" }) => {
+const AuthenticateUser = ({ children, redirectPath = '/login' }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
 import './style.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
