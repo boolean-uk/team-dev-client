@@ -1,5 +1,5 @@
 .posts-section {
-
+  margin-top: 15px;
 }
 
 .posts-list {
@@ -10,16 +10,102 @@
 }
 
 .post-item {
-  /*display: flex;
-  justify-content: center;*/
+  display: flex;
+  justify-content: center;
   padding: 3em;
+  margin-bottom: 10px;
 }
 
-.post-content {
+.post-item {
+  list-style: none;
   display: flex;
+  height: 100%;
+}
+
+form.post-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+textarea {
+  border-radius: 0.2rem;
+}
+
+li.post-item {
+  background-color: transparent;
+  border-radius: 0.2rem;
+  width: 25rem;
+  padding: .5rem;
+  margin: .2rem;
+  border-style: solid;
+  border-color: grey;
+  border-width: .1rem;
+}
+
+ul.posts-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+* {
+  list-style: none;
+}
+
+.post-content,
+.names-date {
+  display: flex;
+  color: whitesmoke;
+  font-family: helvetica;
+  font-style: normal;
 }
 
 li {
   list-style-type: none;
 }
 
+.post-author {
+  color: #ffa500;
+  text-decoration: none;
+}
+
+.post-author:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.posts-section {
+  font-family: helvetica;
+  font-style: normal;
+}
+
+.post-content {
+  background-color: transparent;
+  border-radius: 0.2rem;
+  width: 100%;
+  font-size: 13pt;
+  padding-bottom: .5rem;
+  margin: 0;
+
+}
+
+.names-date {
+  margin-top: 0.4rem;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 10pt;
+}
+
+.MuiBox-root {
+width:100%
+}
+
+.fullname {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.date-time {
+  display: flex;
+  justify-content: flex-end;
+}
