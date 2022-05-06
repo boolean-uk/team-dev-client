@@ -21,11 +21,9 @@ export default function SearchPage({ searchInput }) {
     client
       .get(`/user?first_name=${searchInput}`)
       .then((res) => {
-        console.log('go results:', res);
         setSearchResults(res.data.data.users);
       })
       .catch((err) => console.log('Error', err));
-    console.log('Search page', searchInput);
   }, [searchInput]);
 
 
