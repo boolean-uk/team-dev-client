@@ -26,7 +26,7 @@ const PostsPage = ({ role }) => {
         setPosts((posts) => [res.data.data.post, ...posts])
       })
       .catch((data) => {
-        res
+      console.log(data)
       })
     setPost(() => ({ content: '' }))
   }
