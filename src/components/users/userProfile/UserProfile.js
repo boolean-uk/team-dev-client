@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
-import { useParams, Link } from 'react-router-dom';
-import Header from '../../Header/Header';
+import { useParams } from 'react-router-dom';
 import './style.css';
+import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
@@ -11,7 +11,6 @@ const UserProfile = () => {
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
   const loggedInId = localStorage.getItem('userId');
-  const role = profile.role;
 
   useEffect(() => {
     handleProfile();
@@ -42,7 +41,6 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Header role={role} />
       <h1>User Profile</h1>
       <div className='profile'>
         <div>
