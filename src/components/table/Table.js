@@ -29,7 +29,7 @@ console.log('passing', props.cohortStudents)
                 <TableBody>
                     {props.cohortStudents.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row.id}
                         >
                             <TableCell component="th" scope="row">
                                 {row.name}
