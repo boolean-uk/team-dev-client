@@ -62,7 +62,7 @@ export default function ViewCohort() {
                   onClick={() => {
                     addStudent(student.user.id);
                   }}
-                  value={student.id}
+                  value={student.user.id}
                 >
                   Add
                 </button>
