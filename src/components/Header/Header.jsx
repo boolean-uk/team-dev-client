@@ -1,13 +1,14 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ role }) => {
+const Header = ({ role, userId }) => {
   let navigate = useNavigate();
 
   const signOut = (event) => {
@@ -18,6 +19,11 @@ const Header = ({ role }) => {
 
   const addCohortHandle = () => {
     client.post('/cohort', {}).catch((err) => console.log(err.response));
+  };
+
+  const handleMyProfileLink = () => {
+    const userId = localStorage.getItem('userId');
+    navigate(`../user/${userId}`);
   };
 
   return (
@@ -46,7 +52,10 @@ const Header = ({ role }) => {
           }}
         >
           <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+            <InputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </Box>
           <Box>
             <Button variant='contained'>Search User</Button>
@@ -60,9 +69,21 @@ const Header = ({ role }) => {
                 Add Cohort
               </Button>
             )}
-            <Button id='user-signout-button' variant='contained' onClick={signOut}>
+            <Button
+              id='my-profile'
+              variant='contained'
+              onClick={handleMyProfileLink}
+            >
+              My Profile
+            </Button>
+            <Button
+              id='user-signout-button'
+              variant='contained'
+              onClick={signOut}
+            >
               Logout
             </Button>
+            <Avatar />
           </Stack>
         </Box>
       </Box>
