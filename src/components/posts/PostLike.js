@@ -3,17 +3,20 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './style.css';
 
-const divStyle = {
-    color: 'blue',
-    backgroundImage: 'url(' + imgUrl + ')',
+let divStyle = {
+  backgroundColor: 'grey'
   };
 
 const PostLike = () => {
         const [isLiked, updateLike] = useState(false);
       
     useEffect(() => {
-        client.get('/posts').then((res) => setPosts(res.data.data.posts));
-          }, []);
+      if (divStyle.backgroundColor === `#1976d2`){
+        divStyle = {backgroundColor: 'grey'};
+      }
+      else (divStyle = {backgroundColor:`#1976d2`})
+      return;
+      }, [isLiked]);
 
     function toggleLike() {
         updateLike(!isLiked)
