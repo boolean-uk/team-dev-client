@@ -15,10 +15,10 @@ function CohortList() {
 
   return (
     <>
-      <div className='side-bar'>
-        <section className='cohort-container'>
-          <h3 className='cohortList-title'>Cohort List</h3>
-          <ul className='cohort-list'>
+      <div className="side-bar">
+        <section className="cohort-container">
+          <h3 className="cohortList-title">Cohort List</h3>
+          <ul className="cohort-list">
             {cohort != null &&
               cohort.map((cohort) => (
                 <li key={cohort.id}>
@@ -27,7 +27,7 @@ function CohortList() {
                     to={`/cohort/${cohort.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    <Button variant='contained'> Cohort {cohort.id}</Button>
+                    <Button variant="contained"> Cohort {cohort.id}</Button>
                   </Link>
                 </li>
               ))}
