@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box } from "@mui/system"
 import Button from "@mui/material/Button"
 import InputBase from "@mui/material/InputBase"
