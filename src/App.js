@@ -17,17 +17,17 @@ function App() {
 
  
   return (
-    <div className="App">
+    <div className='App'>
      <Header role={role} setSearchInput={setSearchInput}/>
       <Routes>
-        <Route path="/login" element={<LoginPage setRole={setRole} />} />
-        <Route path="/signup" element={<RegistrationPage />} />
+        <Route path='/login' element={<LoginPage setRole={setRole} />} />
+        <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/" element={<PostsPage role={role} />} />
-          <Route path="/user/:id" element={<ProfilePage />} />
-          <Route path="/user/edit/:id" element={<EditUser />} />
-          <Route path="/cohort/:id" element={<ViewCohort />} />
-          <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
+          <Route path='/' element={<PostsPage role={role} />} />
+          <Route path='/user/:id' element={<ProfilePage />} />
+          <Route path='/user/edit/:id' element={<EditUser />} />
+          <Route path='/cohort/:id' element={<ViewCohort />} />
+          <Route path='/search' element={<SearchPage searchInput={searchInput} />} /> 
         </Route>
       </Routes>
     </div>
