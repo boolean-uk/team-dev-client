@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = ({ role, setSearchInput }) => {
   let navigate = useNavigate();
 
-  console.log("This is the role", role)
+  console.log('This is the role', role)
 
   if (!role) {
     return <></>
