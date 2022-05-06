@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent'
@@ -72,6 +73,7 @@ const Header = ({ role, setSearchInput }) => {
             >
               Logout
             </Button>
+            <Avatar />
           </Stack>
         </Box>
       </Box>

@@ -7,11 +7,14 @@ import './style.css';
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
+  const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-
+  const loggedInId = localStorage.getItem('userId');
+  const role = profile.role;
 
   useEffect(() => {
     handleProfile();
+    handleEditProfileLink();
   }, [id]);
 
   const handleProfile = () => {
@@ -30,6 +33,12 @@ const UserProfile = () => {
       .catch((err) => console.log(err.response));
   };
 
+  const handleEditProfileLink = () => {
+    if (id === loggedInId) {
+      return setCheckId(true);
+    }
+  };
+
   return (
     <div>
       <h1>User Profile</h1>
@@ -44,6 +53,15 @@ const UserProfile = () => {
           <p>Email: {profile.email}</p>
           <p>Bio: {profile.biography}</p>
           <p>Github: {profile.githubUrl}</p>
+          {checkId && (
+            <Link
+              id='edit-profile-button'
+              to={`/user/edit/${id}`}
+              className='link'
+            >
+              Edit Profile
+            </Link>
+          )}
         </div>
       </div>
     </div>

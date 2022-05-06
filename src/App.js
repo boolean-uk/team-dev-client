@@ -3,6 +3,7 @@ import "./App.css";
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
+import EditUser from "./components/users/userProfile/EditUserProfile";
 import ProfilePage from "./components/users/userProfile/UserProfile";
 import ViewCohort from "./components/users/viewCohorts/viewCohorts"
 import { useState } from "react";
@@ -22,8 +23,9 @@ function App() {
         <Route path="/login" element={<LoginPage setRole={setRole} />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/" element={<PostsPage role={role}/>} />
+          <Route path="/" element={<PostsPage role={role} />} />
           <Route path="/user/:id" element={<ProfilePage />} />
+          <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
           <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
         </Route>
