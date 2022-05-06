@@ -1,18 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Header from '../../Header/Header';
 import './style.css';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
+  const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  let role = profile.role;
+  const loggedInId = localStorage.getItem('userId');
+  const role = profile.role;
 
   useEffect(() => {
     handleProfile();
+    handleEditProfileLink();
   }, [id]);
 
   const handleProfile = () => {
@@ -31,6 +34,12 @@ const UserProfile = () => {
       .catch((err) => console.log(err.response));
   };
 
+  const handleEditProfileLink = () => {
+    if (id === loggedInId) {
+      return setCheckId(true);
+    }
+  };
+
   return (
     <div>
       <Header role={role} />
@@ -46,6 +55,15 @@ const UserProfile = () => {
           <p>Email: {profile.email}</p>
           <p>Bio: {profile.biography}</p>
           <p>Github: {profile.githubUrl}</p>
+          {checkId && (
+            <Link
+              id='edit-profile-button'
+              to={`/user/edit/${id}`}
+              className='link'
+            >
+              Edit Profile
+            </Link>
+          )}
         </div>
       </div>
     </div>

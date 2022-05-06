@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
@@ -82,6 +83,7 @@ const Header = ({ role, userId }) => {
             >
               Logout
             </Button>
+            <Avatar />
           </Stack>
         </Box>
       </Box>
