@@ -2,7 +2,7 @@ import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import React from "react"
 
-const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue}) => {
+const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue, registrationError}) => {
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -74,6 +74,7 @@ const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue})
         />
         <h4>Teacher</h4>
       </label>
+      {registrationError && <p>{registrationError}</p>}
       <Button id="user-submit-button" type="submit" variant="contained">
         Submit
       </Button>
