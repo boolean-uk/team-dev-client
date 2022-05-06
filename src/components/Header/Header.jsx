@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import SearchComponent from './SearchComponent'
+import SearchComponent from '../search/SearchComponent'
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 

@@ -33,7 +33,6 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Header role={role} />
       <h1>User Profile</h1>
       <div className='profile'>
         <div>

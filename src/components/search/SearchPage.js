@@ -7,9 +7,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { useNavigate } from 'react-router-dom'
 
 export default function SearchPage({ searchInput }) {
   const [searchResults, setSearchResults] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!searchInput) {
@@ -24,6 +27,7 @@ export default function SearchPage({ searchInput }) {
       .catch((err) => console.log('Error', err));
     console.log('Search page', searchInput);
   }, [searchInput]);
+
 
   return (
     <>
@@ -41,7 +45,7 @@ export default function SearchPage({ searchInput }) {
               <ListItem key={user.id}>
                 <ListItemButton
                   component='a'
-                  href={`http://localhost:4000/user/${user.id}`}
+                  onClick={() => navigate(`../user/${user.id}`)}
                   color='white'
                   variant='contained'
                 >
