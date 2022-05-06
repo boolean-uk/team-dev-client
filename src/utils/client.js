@@ -22,6 +22,7 @@ const client = {
     return axios.post(url, data, { headers })
   },
 
+
   put:(path, data) => {
     const url = `${host}${path}`
     const headers = {

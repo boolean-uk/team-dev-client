@@ -8,10 +8,10 @@ import './style.css';
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
-  const [checkId, setCheckId] = useState(false)
+  const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  const loggedInId = localStorage.getItem('userId')
-  let role = profile.role;
+  const loggedInId = localStorage.getItem('userId');
+  const role = profile.role;
 
   useEffect(() => {
     handleProfile();
@@ -36,9 +36,9 @@ const UserProfile = () => {
 
   const handleEditProfileLink = () => {
     if (id === loggedInId) {
-      return setCheckId(true)
+      return setCheckId(true);
     }
-  }
+  };
 
   return (
     <div>
@@ -55,9 +55,15 @@ const UserProfile = () => {
           <p>Email: {profile.email}</p>
           <p>Bio: {profile.biography}</p>
           <p>Github: {profile.githubUrl}</p>
-          {checkId && <Link id="edit-profile-button" to={`/user/edit/${id}`} className='link'>
-        Edit Profile
-      </Link>}
+          {checkId && (
+            <Link
+              id='edit-profile-button'
+              to={`/user/edit/${id}`}
+              className='link'
+            >
+              Edit Profile
+            </Link>
+          )}
         </div>
       </div>
     </div>
