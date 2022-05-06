@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
 import './style.css'
-import Header from '../Header/Header'
 import Post from './Post'
 
 const PostsPage = ({ role }) => {
@@ -27,7 +26,7 @@ const PostsPage = ({ role }) => {
         setPosts((posts) => [res.data.data.post, ...posts])
       })
       .catch((data) => {
-        console.log(data)
+        res
       })
     setPost(() => ({ content: '' }))
   }
