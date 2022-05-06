@@ -2,14 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
-import Header from '../../Header/Header';
 import './style.css';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
   const { id } = useParams();
-  let role = profile.role;
+
 
   useEffect(() => {
     handleProfile();

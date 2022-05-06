@@ -2,20 +2,10 @@ import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-/* 
-TO DO:-
-* Check get route is working using TC
-* Work out where the component is going to live 
-* Write onSubmit function that sends a GET request to the server with
-  the search term in the body 
-* Return the search results into state array
-* Send state up to App
-* Send state as props from App to Seach Component / Search Page for rendering
-*/
 
-export default function SearchComponent({ setSearchInput, searchInput }) {
+export default function SearchComponent({ setSearchInput }) {
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
