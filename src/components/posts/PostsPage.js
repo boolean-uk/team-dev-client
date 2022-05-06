@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
 import { Box, Stack } from '@mui/material';
 import dateTimetoRelativeTime from './helperfunctions';
+import { Link } from 'react-router-dom';
 import CohortList from '../cohort/CohortList';
 
 const PostsPage = () => {
