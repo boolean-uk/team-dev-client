@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./viewCohort.css";
-import Header from "../../Header/Header.jsx";
 import client from "../../../utils/client";
 
 export default function ViewCohort() {
