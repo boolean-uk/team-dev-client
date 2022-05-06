@@ -5,7 +5,6 @@ import PostForm from "./PostForm";
 import client from "../../utils/client";
 import "./style.css";
 import { Box, Stack } from "@mui/material";
-import Header from "../Header/Header";
 import dateTimetoRelativeTime from "./helperfunctions";
 import CohortList from "../cohort/CohortList";
 

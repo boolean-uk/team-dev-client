@@ -20,6 +20,7 @@ const Header = ({ setSearchInput }) => {
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.setItem("role", '');
     navigate('../login', { replace: true });
   };
 
