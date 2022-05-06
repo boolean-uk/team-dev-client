@@ -6,13 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useState, useEffect } from "react";
+import { Avatar} from '@mui/material';
 //import client from '../../utils/client';
 
 
 export default function BasicTable(props) {
-
-    console.log('passing', props.cohortStudents)
     const { cohortStudents } = props
     return (
         <TableContainer component={Paper}>
@@ -20,6 +18,7 @@ export default function BasicTable(props) {
                 <TableHead>
                     <TableRow>
                         <TableCell>Student ID</TableCell>
+                        <TableCell>Profile</TableCell>
                         <TableCell >FirstName</TableCell>
                         <TableCell >LastName</TableCell>
                         <TableCell >Email</TableCell>
@@ -28,13 +27,14 @@ export default function BasicTable(props) {
                 </TableHead>
                 <TableBody>
                     {cohortStudents.map((row) => (
-                        <TableRow
-                            key={row.id}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.user.id}
+                        <TableRow key={row.user.firstName}>
+                            <TableCell>{row.user.id}</TableCell>
+                            <TableCell >
+                                <Avatar>{row.user.firstName[0]} </Avatar>
                             </TableCell>
-                            <TableCell >{row.user.firstName}</TableCell>
+                            <TableCell >
+                                {row.user.firstName}
+                            </TableCell>
                             <TableCell >{row.user.lastName}</TableCell>
                             <TableCell >{row.user.email}</TableCell>
                             <TableCell >{row.user.gitHub}</TableCell>
@@ -42,6 +42,6 @@ export default function BasicTable(props) {
                     ))}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     );
 }
