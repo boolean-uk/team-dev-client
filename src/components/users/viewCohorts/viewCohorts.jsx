@@ -24,13 +24,9 @@ export default function ViewCohort() {
   }, [resetStudents]);
 
   function addStudent(studentId) {
-    const options = {
-      body: JSON.stringify({
-        cohort_id: id,
-      }),
-    };
+    const data = { cohort_id: id };
     client
-      .patch(`/user/${studentId}/cohort`, options)
+      .patch(`/user/${studentId}/cohort`, data)
       .then((res) => {
         setResetStudents(resetStudents + 1)
         console.log(res.data)
