@@ -27,13 +27,30 @@ export default function SearchPage({ searchInput }) {
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center',
+          mt: 5,
+        }}
+      >
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
           {searchResults.map((user) => (
             <>
               <ListItem key={user.id}>
-                <ListItemButton  component='a' href='#simple-list' color="white" variant="contained">
-                  <ListItemText sx={{color: 'black'}} display="block" primary={`${user.firstName} ${user.lastName}`} secondary={`${user.role}`} />
+                <ListItemButton
+                  component='a'
+                  href={`http://localhost:4000/user/${user.id}`}
+                  color='white'
+                  variant='contained'
+                >
+                  <ListItemText
+                    sx={{ color: 'black' }}
+                    display='block'
+                    primary={`${user.firstName} ${user.lastName}`}
+                    secondary={`${user.role}`}
+                  />
                 </ListItemButton>
               </ListItem>
               <Divider />
