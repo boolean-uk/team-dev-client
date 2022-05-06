@@ -1,84 +1,97 @@
-import React from 'react';
-import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
-import client from '../../utils/client';
-import { useNavigate } from 'react-router-dom';
+import React from "react"
+import { Box } from "@mui/system"
+import Button from "@mui/material/Button"
+import Avatar from "@mui/material/Avatar"
+import Typography from "@mui/material/Typography"
+import { Stack } from "@mui/material"
+import InputBase from "@mui/material/InputBase"
+import client from "../../utils/client"
+import { useNavigate, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react"
 
 const Header = ({ role, userId }) => {
-  let navigate = useNavigate();
+  let navigate = useNavigate()
+  const location = useLocation()
+  const [buttonDisplay, setButtonDisplay] = useState()
 
   const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../login', { replace: true });
-  };
+    event.preventDefault()
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "")
+    navigate("../login", { replace: true })
+  }
 
   const addCohortHandle = () => {
-    client.post('/cohort', {}).catch((err) => console.log(err.response));
-  };
+    client.post("/cohort", {}).catch((err) => console.log(err.response))
+  }
 
   const handleMyProfileLink = () => {
-    const userId = localStorage.getItem('userId');
-    navigate(`../user/${userId}`);
-  };
+    const userId = localStorage.getItem("userId")
+    navigate(`../user/${userId}`)
+  }
+
+  useEffect(() => {
+    if (location.pathname.includes("/cohort") && role === "STUDENT") {
+      setButtonDisplay({ display: "none" })
+    }
+  }, [location, role])
 
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          backgroundColor: 'grey',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          width: '100vw',
-          padding: '1em',
+          display: "flex",
+          backgroundColor: "grey",
+          justifyContent: "space-between",
+          alignContent: "center",
+          width: "100vw",
+          padding: "1em",
         }}
       >
         <Box>
-          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
+          <Typography sx={{ fontWeight: "bold" }} variant="p" component="p">
             Cohort Manager 2.0
           </Typography>
         </Box>
 
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
           }}
         >
-          <Box sx={{ backgroundColor: 'white' }}>
+          <Box sx={{ backgroundColor: "white" }}>
             <InputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
             />
           </Box>
           <Box>
-            <Button variant='contained'>Search User</Button>
+            <Button variant="contained">Search User</Button>
           </Box>
         </Box>
 
         <Box>
-          <Stack spacing={2} direction='row'>
-            {role !== 'STUDENT' && (
-              <Button variant='contained' onClick={addCohortHandle}>
+          <Stack spacing={2} direction="row">
+            {role !== "STUDENT" && (
+              <Button
+                variant="contained"
+                onClick={addCohortHandle}
+                style={buttonDisplay}
+              >
                 Add Cohort
               </Button>
             )}
             <Button
-              id='my-profile'
-              variant='contained'
+              id="my-profile"
+              variant="contained"
               onClick={handleMyProfileLink}
             >
               My Profile
             </Button>
             <Button
-              id='user-signout-button'
-              variant='contained'
+              id="user-signout-button"
+              variant="contained"
               onClick={signOut}
             >
               Logout
@@ -88,7 +101,7 @@ const Header = ({ role, userId }) => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

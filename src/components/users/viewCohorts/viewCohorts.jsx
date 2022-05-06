@@ -24,7 +24,6 @@ function addStudent(studentId) {
     }
   client.patch(`/user/student/cohort/${id}`, options)
   .then((res) => console.log(res.data))
-  
   .catch((err) => console.log(err.response));
 }
 
