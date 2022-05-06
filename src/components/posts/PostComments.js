@@ -1,37 +1,37 @@
-import React from 'react'
-import { useState } from 'react'
-import client from '../../utils/client'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Box, Stack } from '@mui/material'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
+import React from 'react';
+import { useState } from 'react';
+import client from '../../utils/client';
+import dateTimetoRelativeTime from './helperfunctions';
+import { Box, Stack } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function PostComments({ onCommentAdded, post }) {
-  const [comment, setComment] = useState('')
-  const [showAll, setShowAll] = useState(false)
+  const [comment, setComment] = useState('');
+  const [showAll, setShowAll] = useState(false);
 
   const createComment = (event, postId) => {
-    event.preventDefault()
+    event.preventDefault();
     client
       .post(`/post/${postId}/comment`, { content: comment })
       .then((res) => {
-        setComment('')
-        onCommentAdded(post, res.data.data.comment)
+        setComment('');
+        onCommentAdded(post, res.data.data.comment);
       })
       .catch((data) => {
-        console.log(data)
-      })
-  }
+        console.log(data);
+      });
+  };
 
   const toggleCommentsList = () => {
-    setShowAll((toggle) => !toggle)
-  }
+    setShowAll((toggle) => !toggle);
+  };
 
   const handleComment = (event) => {
-    event.preventDefault()
-    const { value } = event.target
-    setComment(value)
-  }
+    event.preventDefault();
+    const { value } = event.target;
+    setComment(value);
+  };
 
   return (
     <div className='comments-section'>
@@ -110,7 +110,7 @@ function PostComments({ onCommentAdded, post }) {
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default PostComments
+export default PostComments;

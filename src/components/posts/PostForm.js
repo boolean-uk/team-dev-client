@@ -20,7 +20,7 @@ const PostForm = ({ handleSubmit, handleChange, inputValue }) => {
         </Button>
       </form>
     </Box>
-  )
-}
+  );
+};
 
-export default PostForm
+export default PostForm;

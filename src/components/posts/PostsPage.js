@@ -1,35 +1,35 @@
 
-import React from 'react'
-import { useState, useEffect } from 'react'
-import PostForm from './PostForm'
-import client from '../../utils/client'
-import './style.css'
-import Post from './Post'
+import React from 'react';
+import { useState, useEffect } from 'react';
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import './style.css';
+import Post from './Post';
 
 const PostsPage = ({ role }) => {
-  const [post, setPost] = useState({ content: '' })
-  const [postResponse, setPostResponse] = useState('')
-  const [posts, setPosts] = useState([])
-  console.log(posts)
+  const [post, setPost] = useState({ content: '' });
+  const [postResponse, setPostResponse] = useState('');
+  const [posts, setPosts] = useState([]);
+  console.log(posts);
   useEffect(() => {
     client.get('/posts').then((res) => {
-      setPosts(res.data.data.posts)
-    })
-  }, [postResponse])
+      setPosts(res.data.data.posts);
+    });
+  }, [postResponse]);
 
   const createPost = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     client
       .post('/post', post)
       .then((res) => {
-        setPostResponse(res.data)
-        setPosts((posts) => [res.data.data.post, ...posts])
+        setPostResponse(res.data);
+        setPosts((posts) => [res.data.data.post, ...posts]);
       })
       .catch((data) => {
-      console.log(data)
-      })
-    setPost(() => ({ content: '' }))
-  }
+      console.log(data);
+      });
+    setPost(() => ({ content: '' }));
+  };
 
   const onCommentAdded = (post, comment) => {
     setPosts(
@@ -38,17 +38,17 @@ const PostsPage = ({ role }) => {
           ? { ...post, postComments: [comment, ...post.postComments] }
           : updatedPost
       )
-    )
-  }
+    );
+  };
 
   const handleChange = (event) => {
-    event.preventDefault()
-    const { value, name } = event.target
+    event.preventDefault();
+    const { value, name } = event.target;
     setPost({
       ...post,
       [name]: value,
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -68,7 +68,7 @@ const PostsPage = ({ role }) => {
         </ul>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default PostsPage
+export default PostsPage;
