@@ -8,26 +8,31 @@ import client from "../../../utils/client";
 export default function ViewCohort() {
   const { id } = useParams();
   const [noCohort, setNoCohort] = useState([]);
+  const [cohortStudents, setCohortStudents] = useState([]);
+  const [resetStudents, setResetStudents] = useState(0);
 
   useEffect(() => {
-    client.get(`/user/student?cohort=none`)
+    client
+      .get(`/user/student?cohort=none`)
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
-  }, [id]);
 
+    client
+      .get(`/user/student?cohort=${id}`)
+      .then((res) => setCohortStudents(res.data.data))
+      .catch((err) => console.log(err.response));
+  }, [resetStudents]);
 
-function addStudent(studentId) {
-    const options = {
-      body: JSON.stringify({
-        student_Id: studentId
+  function addStudent(studentId) {
+    const data = { cohort_id: id };
+    client
+      .patch(`/user/${studentId}/cohort`, data)
+      .then((res) => {
+        setResetStudents(resetStudents + 1)
+        console.log(res.data)
       })
-    }
-  client.patch(`/user/student/cohort/${id}`, options)
-  .then((res) => console.log(res.data))
-  
-  .catch((err) => console.log(err.response));
-}
-
+      .catch((err) => console.log(err.response));
+  }
 
   return (
     <>
@@ -35,6 +40,15 @@ function addStudent(studentId) {
       <div className="BigContainer">
         <div className="Container_cohorts">
           <h3>Cohort {id}</h3>
+          <div className="cohort-student-list-container">
+            {cohortStudents.map((student, key) => (
+              <div className="cohort-student-card" key={key}>
+                <div className="cohort-student">
+                  {student.user.firstName} {student.user.lastName}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="Container_addStudent">
           <div>
@@ -42,15 +56,18 @@ function addStudent(studentId) {
           </div>
           <div className="add-student-container">
             {noCohort.map((student, key) => (
-
               <div className="add-student-card" key={key}>
                 <div className="add-student">
                   {student.user.firstName} {student.user.lastName}
                 </div>
-                <button onClick={() => {addStudent(student.user.id)}} value={student.id}>
+                <button
+                  onClick={() => {
+                    addStudent(student.user.id);
+                  }}
+                  value={student.id}
+                >
                   Add
                 </button>
-                
               </div>
             ))}
           </div>
