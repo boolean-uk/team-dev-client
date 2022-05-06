@@ -4,10 +4,10 @@ import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
 import { Box, Stack } from '@mui/material';
-import Avatar from '@mui/material/Avatar'
 import Header from '../Header/Header';
 import dateTimetoRelativeTime from './helperfunctions';
 import { Link } from 'react-router-dom';
+import ProfileImg from '../ProfileImg/ProfileImg'
 
 const PostsPage = ({ role }) => {
 	const [post, setPost] = useState({ content: '' });
@@ -55,7 +55,7 @@ const PostsPage = ({ role }) => {
 							<Box>
 								<div className='post-content'>{post.content}</div>
 								<Stack className='names-date' spacing={2} direction='row'>
-									<Avatar />
+									{<ProfileImg/>}
 									<Link to={`/user/${post.user.id}`} className='post-author'>
 										<Box className='fullname' variant='contained'>
 											<strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
