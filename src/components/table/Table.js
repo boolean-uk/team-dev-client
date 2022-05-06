@@ -12,8 +12,8 @@ import { useState, useEffect } from "react";
 
 export default function BasicTable(props) {
 
-console.log('passing', props.cohortStudents)
-
+    console.log('passing', props.cohortStudents)
+    const { cohortStudents } = props
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,17 +27,17 @@ console.log('passing', props.cohortStudents)
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.cohortStudents.map((row) => (
+                    {cohortStudents.map((row) => (
                         <TableRow
                             key={row.id}
                         >
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {row.user.id}
                             </TableCell>
-                            <TableCell >{row.firstName}</TableCell>
-                            <TableCell >{row.lastName}</TableCell>
-                            <TableCell >{row.email}</TableCell>
-                            <TableCell >{row.gitHub}</TableCell>
+                            <TableCell >{row.user.firstName}</TableCell>
+                            <TableCell >{row.user.lastName}</TableCell>
+                            <TableCell >{row.user.email}</TableCell>
+                            <TableCell >{row.user.gitHub}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

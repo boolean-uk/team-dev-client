@@ -5,6 +5,7 @@ import "./viewCohort.css";
 import Header from "../../Header/Header.jsx";
 import client from "../../../utils/client";
 import Table from "../../table/Table";
+import Grid from "@mui/material/Grid";
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -38,12 +39,19 @@ export default function ViewCohort() {
   return (
     <>
       <Header />
-      <div className="BigContainer">
-        <div className="Container_cohorts">
-          <h3>Cohort {id}</h3>
-               <Table cohortStudents={cohortStudents}/>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+    
+        <div className="BigContainer">
+          <div className="Container_cohorts">
+            <h3>Cohort {id}</h3>
+            <Table cohortStudents={cohortStudents} />
           </div>
-        </div>
+        
         <div className="Container_addStudent">
           <div>
             <h3>Available students</h3>
@@ -66,6 +74,8 @@ export default function ViewCohort() {
             ))}
           </div>
         </div>
+        </div>
+      </Grid>
     </>
   );
 }
