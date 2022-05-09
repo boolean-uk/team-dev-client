@@ -11,7 +11,7 @@ const UserForm = ({handleSubmit, handleChange, loginError}) => {
       {loginError && <p className="login-error">{loginError}</p>}
       <Button id="user-submit-button" type="submit" variant="contained">Submit</Button>
     </form>
-  )
-}
+  );
+};
 
 export default UserForm;
