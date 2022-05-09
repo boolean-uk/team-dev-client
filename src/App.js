@@ -13,6 +13,7 @@ import SearchPage from './components/search/SearchPage';
 import storage from './utils/storage'
 
 function App() {
+<<<<<<< HEAD
   const [searchInput, setSearchInput] = useState('');
   const [storage, setStorage] = useState('');
   return (
@@ -22,6 +23,15 @@ function App() {
         <Route path="/login" element={<LoginPage setStorage={setStorage}/>} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
+=======
+   const [searchInput, setSearchInput] = useState('');
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+        <Route element={<AuthenticateUser setSearchInput={setSearchInput} />}>
+>>>>>>> main
           <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
@@ -37,11 +47,27 @@ function isLoggedIn() {
   return !(loadedToken === '' || loadedToken === null);
 }
 
+<<<<<<< HEAD
 const AuthenticateUser = ({ children, redirectPath = '/login' }) => {
+=======
+export default App;
+
+const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput }) => {
+>>>>>>> main
   if (!isLoggedIn()) {
-    return <Navigate to={redirectPath} replace />;
+    return <>
+    <Navigate to={redirectPath} replace />;
+    </>;
   }
+<<<<<<< HEAD
   return <Outlet />;
+=======
+
+  return <>
+  <Header setSearchInput={setSearchInput} />
+  <Outlet />
+  </>;
+>>>>>>> main
 };
 
 export default App;

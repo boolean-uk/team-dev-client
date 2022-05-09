@@ -9,6 +9,7 @@ import client from "../../utils/client";
 import { useNavigate } from "react-router-dom";
 import storage from "../../utils/storage";
 
+<<<<<<< HEAD
 const Header = ({ role, setSearchInput }) => {
 console.log('state prop', role)
   let navigate = useNavigate();
@@ -16,6 +17,18 @@ console.log('state prop', role)
     event.preventDefault();
     storage.clearStorage();
     navigate("../login", { replace: true });
+=======
+const Header = ({ setSearchInput }) => {
+  let navigate = useNavigate();
+
+  const role = localStorage.getItem('role');
+
+  const signOut = (event) => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.setItem('role', '');
+    navigate('../login', { replace: true });
+>>>>>>> main
   };
 
   const addCohortHandle = () => {
