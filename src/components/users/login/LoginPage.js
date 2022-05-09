@@ -34,9 +34,7 @@ const LoginPage = (props) => {
 					res.data.data.token
 				);
 				const userId = res.data.data.user.id;
-				const profileImgUrl = res.data.data.post.user.profile.profileImgUrl;
 				localStorage.setItem('userId', userId);
-				localStorage.setItem('profileImgUrl', profileImgUrl);
 				setLoginResponse(res.data);
 				navigate('../', { replace: true });
 			})

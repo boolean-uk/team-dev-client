@@ -49,7 +49,7 @@ const PostsPage = ({ role }) => {
               <Box>
                 <div className='post-content'>{post.content}</div>
                 <Stack className='names-date' spacing={2} direction='row'>
-                  <ProfileImg/>
+                  <ProfileImg avatar={post.user.profile.profileImgUrl}/>
                   <Link to={`/user/${post.user.id}`} className='post-author'>
                     <Box className='fullname' variant='contained'>
                       <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>

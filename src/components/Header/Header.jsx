@@ -1,15 +1,16 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent'
 import client from '../../utils/client';
+import ProfileImg from '../ProfileImg/ProfileImg'
 import { useNavigate } from 'react-router-dom';
 
 const Header = ({ role, setSearchInput }) => {
   let navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
 
   console.log('This is the role', role)
 
@@ -28,7 +29,6 @@ const Header = ({ role, setSearchInput }) => {
   };
 
   const handleMyProfileLink = () => {
-    const userId = localStorage.getItem('userId');
     navigate(`../user/${userId}`);
   };
 
@@ -73,7 +73,7 @@ const Header = ({ role, setSearchInput }) => {
             >
               Logout
             </Button>
-            <Avatar />
+            <ProfileImg userId={userId}/>
           </Stack>
         </Box>
       </Box>
