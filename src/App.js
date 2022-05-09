@@ -41,7 +41,7 @@ const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput })
   if (!isLoggedIn()) {
     return <>
     <Navigate to={redirectPath} replace />;
-    </>
+    </>;
   }
 
   return <>
