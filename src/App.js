@@ -13,16 +13,6 @@ import SearchPage from './components/search/SearchPage';
 import storage from './utils/storage'
 
 function App() {
-<<<<<<< HEAD
-  const [searchInput, setSearchInput] = useState('');
-  return (
-    <div className="App">
-     <Header setSearchInput={setSearchInput}/>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<RegistrationPage />} />
-        <Route element={<AuthenticateUser />}>
-=======
    const [searchInput, setSearchInput] = useState('');
   return (
     <div className="App">
@@ -30,7 +20,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser setSearchInput={setSearchInput} />}>
->>>>>>> main
           <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />

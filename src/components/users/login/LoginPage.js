@@ -24,7 +24,6 @@ const LoginPage = () => {
     client
       .post('/login', user)
       .then((res) => {
-<<<<<<< HEAD
         storage.saveStorage(res.data.data.token, res.data.data.user.id, res.data.data.user.role)
         // setRole(res.data.data.user.role);
         // localStorage.setItem(
@@ -33,15 +32,6 @@ const LoginPage = () => {
         // );
         // const userId = res.data.data.user.id;
         // localStorage.setItem('userId', userId);
-=======
-        localStorage.setItem(
-          process.env.REACT_APP_USER_TOKEN,
-          res.data.data.token
-        );
-        localStorage.setItem('role', res.data.data.user.role);
-        const userId = res.data.data.user.id;
-        localStorage.setItem('userId', userId);
->>>>>>> main
         setLoginResponse(res.data);
         navigate('../', { replace: true });
       })
