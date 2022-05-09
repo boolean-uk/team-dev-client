@@ -13,6 +13,7 @@ import SearchPage from './components/search/SearchPage';
 import storage from './utils/storage'
 
 function App() {
+<<<<<<< HEAD
   const [searchInput, setSearchInput] = useState('');
   return (
     <div className="App">
@@ -21,6 +22,15 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
+=======
+   const [searchInput, setSearchInput] = useState('');
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+        <Route element={<AuthenticateUser setSearchInput={setSearchInput} />}>
+>>>>>>> main
           <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
@@ -40,10 +50,15 @@ function isLoggedIn() {
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = '/login' }) => {
+const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput }) => {
   if (!isLoggedIn()) {
-    return <Navigate to={redirectPath} replace />;
+    return <>
+    <Navigate to={redirectPath} replace />;
+    </>;
   }
 
-  return <Outlet />;
+  return <>
+  <Header setSearchInput={setSearchInput} />
+  <Outlet />
+  </>;
 };

@@ -12,12 +12,21 @@ import storage from '../../utils/storage'
 const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
 
+<<<<<<< HEAD
   const role = storage.loadStorage().role
 
   const signOut = (event) => {
     event.preventDefault();
     storage.clearStorage()
     // localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+=======
+  const role = localStorage.getItem('role');
+
+  const signOut = (event) => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.setItem('role', '');
+>>>>>>> main
     navigate('../login', { replace: true });
   };
 
