@@ -27,8 +27,8 @@ export default function ViewCohort() {
     client
       .patch(`/user/${studentId}/cohort`, data)
       .then((res) => {
-        setResetStudents(resetStudents + 1)
-        console.log(res.data)
+        setResetStudents(resetStudents + 1);
+        console.log(res.data);
       })
       .catch((err) => console.log(err.response));
   }
@@ -38,24 +38,24 @@ export default function ViewCohort() {
       <div className="BigContainer">
         <div className="Container_cohorts">
           <h3>Cohort {id}</h3>
-          <div className="cohort-student-list-container">
+          <div className='cohort-student-list-container'>
             {cohortStudents.map((student, key) => (
-              <div className="cohort-student-card" key={key}>
-                <div className="cohort-student">
+              <div className='cohort-student-card' key={key}>
+                <div className='cohort-student'>
                   {student.user.firstName} {student.user.lastName}
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="Container_addStudent">
+        <div className='Container_addStudent'>
           <div>
             <h3>Available students</h3>
           </div>
-          <div className="add-student-container">
+          <div className='add-student-container'>
             {noCohort.map((student, key) => (
-              <div className="add-student-card" key={key}>
-                <div className="add-student">
+              <div className='add-student-card' key={key}>
+                <div className='add-student'>
                   {student.user.firstName} {student.user.lastName}
                 </div>
                 <button
