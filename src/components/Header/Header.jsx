@@ -12,9 +12,6 @@ const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
 
   const role = localStorage.getItem("role")
-  if (!role) {
-    return <></>
-  }
 
   const signOut = (event) => {
     event.preventDefault();
