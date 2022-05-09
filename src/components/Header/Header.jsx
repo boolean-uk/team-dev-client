@@ -73,7 +73,6 @@ const Header = ({ role, userId }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            {role !== "STUDENT" && (
               <Button
                 variant="contained"
                 onClick={addCohortHandle}
@@ -81,7 +80,6 @@ const Header = ({ role, userId }) => {
               >
                 Add Cohort
               </Button>
-            )}
             <Button
               id="my-profile"
               variant="contained"
