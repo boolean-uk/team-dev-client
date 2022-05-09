@@ -12,17 +12,10 @@ const client = {
     return axios.get(url, { headers })
   },
 
-<<<<<<< HEAD
-  post: (path, data, withToken = true) => {
-    const url = `${host}${path}`
-    const token = localStorage.getItem(tokenKey)
-    let headers = {}
-=======
   post: (path, data, withToken=true) => {
     const url = `${host}${path}`;
     const token = localStorage.getItem(tokenKey);
     let headers = {};
->>>>>>> 9daeac41cc42b781378b9962ad1a09d3dbff86f0
     if (withToken) {
       headers['Authorization'] = `Bearer ${token}`
     }

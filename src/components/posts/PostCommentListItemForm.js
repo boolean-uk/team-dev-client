@@ -26,6 +26,7 @@ function CommentForm({ post, onCommentAdded }) {
     const { value } = event.target
     setComment(value)
   }
+
   return (
     <>
       {post.id && (
