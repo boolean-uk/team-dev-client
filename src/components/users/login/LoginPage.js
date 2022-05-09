@@ -7,10 +7,9 @@ import client from '../../../utils/client';
 import { useNavigate } from 'react-router-dom';
 import storage from '../../../utils/storage'
 
-const LoginPage = (props) => {
-  const { setRole } = props;
+const LoginPage = () => {
+
   const [user, setUser] = useState(userBlankData());
-  
   const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
   const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();

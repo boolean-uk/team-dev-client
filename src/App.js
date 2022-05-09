@@ -14,36 +14,35 @@ import storage from './utils/storage'
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
+  const [storage, setStorage] = useState('');
   return (
     <div className="App">
-     <Header setSearchInput={setSearchInput}/>
+      <Header setSearchInput={setSearchInput} role={storage.role} />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage setStorage={setStorage}/>} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
-          <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
+          <Route path="/search" element={<SearchPage searchInput={searchInput} />} />
         </Route>
       </Routes>
     </div>
   );
 }
-
 function isLoggedIn() {
   const loadedToken = storage.loadStorage().token
-  // const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
   return !(loadedToken === '' || loadedToken === null);
 }
-
-export default App;
 
 const AuthenticateUser = ({ children, redirectPath = '/login' }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }
-
   return <Outlet />;
 };
+
+export default App;
+
