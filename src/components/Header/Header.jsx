@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
 
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem('role');
 
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    localStorage.setItem("role", '');
+    localStorage.setItem('role', '');
     navigate('../login', { replace: true });
   };
 

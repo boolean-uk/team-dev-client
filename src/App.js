@@ -12,7 +12,7 @@ import Header from './components/Header/Header';
 import SearchPage from './components/search/SearchPage';
 
 function App() {
-   const [searchInput, setSearchInput] = useState('')
+   const [searchInput, setSearchInput] = useState('');
   return (
     <div className="App">
       <Routes>
