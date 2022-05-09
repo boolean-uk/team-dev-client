@@ -5,7 +5,7 @@ import client from '../../utils/client';
 import './style.css';
 import Post from './Post';
 
-const PostsPage = ({ role }) => {
+const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -50,7 +50,6 @@ const PostsPage = ({ role }) => {
   };
 
   return (
-    <>
       <section className='posts-section'>
         {postResponse.status}
         <PostForm
@@ -66,7 +65,6 @@ const PostsPage = ({ role }) => {
           ))}
         </ul>
       </section>
-    </>
   );
 };
 
