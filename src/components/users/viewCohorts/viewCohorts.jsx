@@ -45,7 +45,6 @@ export default function ViewCohort() {
         justifyContent="center"
         alignItems="center"
       >
-    
         <div className="BigContainer">
           <div className="Container_cohorts">
             <h3 className="cohort-title">Cohort {id}</h3>
