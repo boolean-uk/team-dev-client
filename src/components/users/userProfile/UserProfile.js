@@ -1,17 +1,16 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
-import { useParams, Link } from 'react-router-dom';
-import Header from '../../Header/Header';
+import { useParams } from 'react-router-dom';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
-  const [checkId, setCheckId] = useState(false)
+  const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  const loggedInId = localStorage.getItem('userId')
-  let role = profile.role;
+  const loggedInId = localStorage.getItem('userId');
 
   useEffect(() => {
     handleProfile();
@@ -36,13 +35,12 @@ const UserProfile = () => {
 
   const handleEditProfileLink = () => {
     if (id === loggedInId) {
-      return setCheckId(true)
+      return setCheckId(true);
     }
-  }
+  };
 
   return (
     <div>
-      <Header role={role} />
       <h1>User Profile</h1>
       <div className='profile'>
         <div>
@@ -55,9 +53,15 @@ const UserProfile = () => {
           <p>Email: {profile.email}</p>
           <p>Bio: {profile.biography}</p>
           <p>Github: {profile.githubUrl}</p>
-          {checkId && <Link id="edit-profile-button" to={`/user/edit/${id}`} className='link'>
-        Edit Profile
-      </Link>}
+          {checkId && (
+            <Link
+              id='edit-profile-button'
+              to={`/user/edit/${id}`}
+              className='link'
+            >
+              Edit Profile
+            </Link>
+          )}
         </div>
       </div>
     </div>
