@@ -4,9 +4,6 @@ import PostForm from './PostForm';
 import Post from './Post';
 import client from '../../utils/client';
 import './style.css';
-import { Box, Stack } from '@mui/material';
-import dateTimetoRelativeTime from './helperfunctions';
-import { Link } from 'react-router-dom';
 
 const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' })
