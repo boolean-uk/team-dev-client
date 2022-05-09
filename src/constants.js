@@ -7,14 +7,12 @@ const constants = {
       'email',
       'password',
       'biography',
-      'github_url'
-    ]
+      'github_url',
+    ],
   },
   post: {
-    permittedProperties: [
-      'content'
-    ]
-  }
+    permittedProperties: ['content'],
+  },
 };
 
 export default constants;

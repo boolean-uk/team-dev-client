@@ -34,14 +34,13 @@ const Header = ({ setSearchInput }) => {
     <>
       <Box
         sx={{
-          display: "flex",
-          backgroundColor: "grey",
-          justifyContent: "space-between",
-          alignContent: "center",
-          width: "100vw",
-          padding: "1em",
-        }}
-      >
+          display: 'flex',
+          backgroundColor: 'grey',
+          justifyContent: 'space-between',
+          alignContent: 'center',
+          width: '100vw',
+          padding: '1em',
+        }}>
         <Box>
           <Typography sx={{ fontWeight: "bold" }} variant="p" component="p">
             Cohort Manager 2.0
@@ -58,17 +57,15 @@ const Header = ({ setSearchInput }) => {
               </Button>
             )}
             <Button
-              id="my-profile"
-              variant="contained"
-              onClick={handleMyProfileLink}
-            >
+              id='my-profile'
+              variant='contained'
+              onClick={handleMyProfileLink}>
               My Profile
             </Button>
             <Button
-              id="user-signout-button"
-              variant="contained"
-              onClick={signOut}
-            >
+              id='user-signout-button'
+              variant='contained'
+              onClick={signOut}>
               Logout
             </Button>
             <Avatar />
