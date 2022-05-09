@@ -2,12 +2,12 @@ import dateTimetoRelativeTime from './helperfunctions'
 import { Link } from 'react-router-dom'
 import { Box, Stack } from '@mui/material'
 import React from 'react'
-import PostComments from './MainCommentComponent.js'
+import PostComments from './PostComments'
 
 function Post({ post, onCommentAdded }) {
   return (
     <>
-      {post.user && (
+      {
         <Box>
           <div className='post-content'>{post.content}</div>
           <Stack className='names-date' spacing={2} direction='row'>
@@ -21,7 +21,7 @@ function Post({ post, onCommentAdded }) {
             </Box>
           </Stack>
         </Box>
-      )}
+      }
       <PostComments onCommentAdded={onCommentAdded} post={post} />
     </>
   )
