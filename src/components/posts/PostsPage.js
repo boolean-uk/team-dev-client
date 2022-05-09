@@ -54,6 +54,7 @@ const PostsPage = () => {
     <>
     <div className='home-container'>
     <section className='posts-section'>
+      <div>
         {postResponse.status}
         <PostForm
           handleSubmit={createPost}
@@ -67,9 +68,12 @@ const PostsPage = () => {
             </li>
           ))}
         </ul>
+        </div>
       </section>
-      <section>{localStorage.getItem('role') === 'TEACHER' && <CohortList />}</section>
-    </div>
+    
+    {localStorage.getItem('role') === 'TEACHER' && <CohortList />}
+    
+    </div> 
   </>
   );
 };
