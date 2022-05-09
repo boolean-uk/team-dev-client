@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import PostForm from './PostForm'
 import client from '../../utils/client'
 import './style.css'
-import Header from '../Header/Header'
 import Post from './Post'
 
-const PostsPage = ({ role }) => {
+const PostsPage = () => {
   const [post, setPost] = useState({ content: '' })
   const [postResponse, setPostResponse] = useState('')
   const [posts, setPosts] = useState([])
@@ -26,7 +25,7 @@ const PostsPage = ({ role }) => {
         setPosts((posts) => [res.data.data.post, ...posts])
       })
       .catch((err) => {
-        console.log(err.message, 'Invalid post')
+        .log(err.message, 'Invalid post')
       })
     setPost(() => ({ content: '' }))
   }
@@ -52,7 +51,6 @@ const PostsPage = ({ role }) => {
 
   return (
     <>
-      <Header role={role} />
       <section className='posts-section'>
         {postResponse.status}
         <PostForm

@@ -36,9 +36,9 @@ const LoginPage = (props) => {
         navigate('../', { replace: true });
       })
       .catch((err) => {
-        console.log(err.response)
-        const errorMessage = err.response.data.data.email
-        setLoginError(errorMessage)
+        console.log(err.response);
+        const errorMessage = err.response.data.data.email;
+        setLoginError(errorMessage);
       });
   };
 
