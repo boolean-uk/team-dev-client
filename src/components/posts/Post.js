@@ -2,7 +2,7 @@ import dateTimetoRelativeTime from './helperfunctions'
 import { Link } from 'react-router-dom'
 import { Box, Stack } from '@mui/material'
 import React from 'react'
-import PostComments from './PostComments'
+import PostComments from './MainCommentComponent.js'
 
 function Post({ post, onCommentAdded }) {
   return (
