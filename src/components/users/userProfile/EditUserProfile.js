@@ -3,12 +3,11 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
-import Header from '../../Header/Header';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
-const UserForm = ({ role }) => {
+const UserForm = () => {
 	const initialFormData = {
 		firstName: '',
 		lastName: '',
@@ -66,7 +65,6 @@ const UserForm = ({ role }) => {
 
 	return (
 		<>
-			<Header role={role} />
 			<section className='edit-user-form'>
 				<h1> Edit Profile Details </h1>
 				<form onSubmit={onSubmit}>

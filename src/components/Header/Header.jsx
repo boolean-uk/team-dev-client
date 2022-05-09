@@ -9,20 +9,17 @@ import client from '../../utils/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Header = ({ role, setSearchInput }) => {
+const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
   const location = useLocation();
   const [buttonDisplay, setButtonDisplay] = useState();
 
-  console.log("This is the role", role)
-
-  if (!role) {
-    return <></>
-  }
+  const role = localStorage.getItem('role');
 
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.setItem('role', '');
     navigate('../login', { replace: true });
   };
 
