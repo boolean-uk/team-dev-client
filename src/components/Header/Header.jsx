@@ -73,7 +73,7 @@ const Header = ({ role, setSearchInput }) => {
             >
               Logout
             </Button>
-            <ProfileImg userId={userId}/>
+            <ProfileImg />
           </Stack>
         </Box>
       </Box>

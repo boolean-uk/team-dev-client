@@ -5,31 +5,40 @@ import { useState, useEffect } from 'react';
 import client from '../../utils/client';
 
 function ProfileImg({ avatar }) {
-	console.log(avatar);
+	
 	const userId = localStorage.getItem('userId');
 	const [profileImg, setProfileImg] = useState('');
-	console.log('can you see me: ', profileImg);
-	useEffect(() => {
-		client
-			.get(`/user/${userId}`)
-			.then((res) => {
-				setProfileImg(res.data.data.user.profileImgUrl);
-			})
-			.catch((err) => console.log(err.response));
-	}, []);
-	if (profileImg === '') {
-		return <Avatar className='profile-img' />;
-	} else if (avatar === undefined) {
-		avatar = profileImg;
+
+	// useEffect(() => {
+	// 	client
+	// 		.get(`/user/${userId}`)
+	// 		.then((res) => {
+	// 			setProfileImg(res.data.data.user.profileImgUrl);
+	// 		})
+	// 		.catch((err) => console.log(err.response));
+	// }, []);
+	
+	// if (profileImg === '') {
+	// 	return <Avatar />
+	// }
+	if (avatar !== undefined) {
+		return <img
+		src={avatar}
+		alt='user avatar'
+		className='profile-img'
+		width='60px'
+	/>
 	}
-	return (
-		<img
-			src={avatar}
+	else {
+		return < Avatar />
+	}
+	return <img
+			src={profileImg}
 			alt='user avatar'
 			className='profile-img'
 			width='60px'
 		/>
-	);
-}
+	}
+	
 
 export default ProfileImg;
