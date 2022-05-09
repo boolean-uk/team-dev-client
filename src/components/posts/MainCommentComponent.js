@@ -12,9 +12,13 @@ function PostComments({ onCommentAdded, post }) {
     setShowAll((toggle) => !toggle);
   };
 
+  if (!post.id) {
+    return <></>;
+  }
+
   return (
     <div className='comments-section'>
-      {post.id && <CommentForm post={post} onCommentAdded={onCommentAdded} />}
+      <CommentForm post={post} onCommentAdded={onCommentAdded} />
       <div className='first-comment'>
         {post.postComments && post.postComments.length > 1 && !showAll && (
           <ShowAll post={post} toggleCommentsList={toggleCommentsList} />
