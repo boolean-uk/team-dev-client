@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./viewCohort.css";
-import Header from "../../Header/Header.jsx";
 import client from "../../../utils/client";
 
 export default function ViewCohort() {
@@ -36,7 +35,6 @@ export default function ViewCohort() {
 
   return (
     <>
-      <Header />
       <div className="BigContainer">
         <div className="Container_cohorts">
           <h3>Cohort {id}</h3>
@@ -64,7 +62,7 @@ export default function ViewCohort() {
                   onClick={() => {
                     addStudent(student.user.id);
                   }}
-                  value={student.id}
+                  value={student.user.id}
                 >
                   Add
                 </button>
