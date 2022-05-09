@@ -16,6 +16,7 @@ const UserForm = ({ role }) => {
 		password: '',
 		biography: '',
 		githubUrl: '',
+		profileImgUrl: ''
 	};
 
 	const [profile, setProfile] = useState(initialFormData);
@@ -51,6 +52,7 @@ const UserForm = ({ role }) => {
 			lastName: profile.lastName,
 			bio: profile.biography,
 			githubUrl: profile.githubUrl,
+			profileImgUrl: profile.profileImgUrl
 		};
 		client
 			.put('/user', putBody)

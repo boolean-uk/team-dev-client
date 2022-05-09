@@ -4,10 +4,11 @@ import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
 import './style.css';
 import { Link } from 'react-router-dom';
+import ProfileImg from '../../ProfileImg/ProfileImg'
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
-  const [profileImg, setProfileImg] = useState('');
+  // const [profileImg, setProfileImg] = useState('');
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
   const loggedInId = localStorage.getItem('userId');
@@ -22,13 +23,6 @@ const UserProfile = () => {
       .get(`/user/${id}`)
       .then((res) => {
         setProfile(res.data.data.user);
-        const firstName = res.data.data.user.firstName;
-        const lastName = res.data.data.user.lastName;
-        fetch(`https://ui-avatars.com/api/?name=${firstName}+${lastName}`).then(
-          (res) => {
-            setProfileImg(res.url);
-          }
-        );
       })
       .catch((err) => console.log(err.response));
   };
@@ -44,7 +38,7 @@ const UserProfile = () => {
       <h1>User Profile</h1>
       <div className='profile'>
         <div>
-          <img className='profile-img' src={profileImg} alt='avatar' />
+          {<ProfileImg/>}
         </div>
         <div className='profile-info'>
           <h2>
