@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import './style.css';
 
-const PostLike = () => {
+const PostLike = ({likes}) => {
       
 const [divStyle, updateLike] = useState({
   backgroundColor: 'grey'
@@ -15,7 +15,7 @@ function toggleLike() {
 }
 
     return <div className = 'like-section'>
-    <p>Likes: 3</p>
+    <p>Likes: {likes.length}</p>
     <div className = 'icon-container' onClick={toggleLike} style={divStyle}>
       <img className='post-like' src={like} alt='like'/>
       </div>

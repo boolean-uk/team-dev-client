@@ -23,7 +23,8 @@ function Post({ post, onCommentAdded }) {
         </Stack>
       </Box> }
       <div id="grid">
-        <PostLike/>
+        <PostLike likes={post.postLike}  />
+        
         <PostComments onCommentAdded={onCommentAdded} post={post} />
       </div>
     </>
