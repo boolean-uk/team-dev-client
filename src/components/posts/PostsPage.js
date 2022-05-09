@@ -69,10 +69,8 @@ const PostsPage = () => {
           ))}
         </ul>
         </div>
-      </section>
-    
-    {localStorage.getItem('role') === 'TEACHER' && <CohortList />}
-    
+      </section>   
+    {localStorage.getItem('role') === 'TEACHER' && <CohortList />}   
     </div> 
   </>
   );
