@@ -5,7 +5,19 @@ import "./viewCohort.css";
 import Header from "../../Header/Header.jsx";
 import client from "../../../utils/client";
 import Table from "../../table/Table";
-import Grid from "@mui/material/Grid";
+import {
+  Box,
+  Button,
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  IconButton,
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -30,8 +42,8 @@ export default function ViewCohort() {
     client
       .patch(`/user/${studentId}/cohort`, data)
       .then((res) => {
-        setResetStudents(resetStudents + 1)
-        console.log(res.data)
+        setResetStudents(resetStudents + 1);
+        console.log(res.data);
       })
       .catch((err) => console.log(err.response));
   }
@@ -45,36 +57,70 @@ export default function ViewCohort() {
         justifyContent="center"
         alignItems="center"
       >
-        <div className="BigContainer">
-          <div className="Container_cohorts">
+        <Box className="BigContainer">
+          <Box className="Container_cohorts">
             <h3 className="cohort-title">Cohort {id}</h3>
             <Table cohortStudents={cohortStudents} />
-          </div>
-        
-        <div className="Container_addStudent">
-          <div>
-            <h3>Available students</h3>
-          </div>
-          <div className="add-student-container">
-            {noCohort.map((student, key) => (
-              <div className="add-student-card" key={key}>
-                <div className="add-student">
-                  {student.user.firstName} {student.user.lastName}
-               
-                <button
-                  onClick={() => {
-                    addStudent(student.user.id);
-                  }}
-                  value={student.id}
-                >
-                  Add
-                </button>
-                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        </div>
+          </Box>
+
+          <Box className="Container_addStudent">
+            <Box>
+              <h3>Available students</h3>
+            </Box>
+            <Box className="add-student-container">
+              <List>
+                {noCohort.map((student, key) => (
+                  <ListItem
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItem: "center",
+                    }}
+                  >
+                    {/* <ListItemAvatar> */}
+                    <Box sx={{ display: "flex" }}>
+                      <Box>
+                        <Avatar></Avatar>
+                      </Box>
+                      <Box>
+                        {`${student.user.firstName} ${student.user.lastName}`}
+                      </Box>
+                      <Box>
+                        <AddCircleIcon
+                          onClick={() => {
+                            addStudent(student.user.id);
+                          }}
+                          value={student.id}
+                          color="success"
+                          fontSize="large"
+                        >
+                          Add
+                        </AddCircleIcon>
+                      </Box>
+                    </Box>
+                    {/* </ListItemAvatar> */}
+                    <ListItemText />
+                  </ListItem>
+                ))}
+              </List>
+              {/* {noCohort.map((student, key) => (
+                <Box className="add-student-card" key={key}>
+                  <Box className="add-student">
+                    {student.user.firstName} {student.user.lastName}
+                    <Button
+                      onClick={() => {
+                        addStudent(student.user.id);
+                      }}
+                      value={student.id}
+                    >
+                      Add
+                    </Button>
+                  </Box>
+                </Box>
+              ))} */}
+            </Box>
+          </Box>
+        </Box>
       </Grid>
     </>
   );
