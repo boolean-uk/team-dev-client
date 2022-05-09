@@ -1,8 +1,8 @@
-import TextField from "@mui/material/TextField"
-import Button from "@mui/material/Button"
-import React from "react"
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import React from 'react';
 
-const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue}) => {
+const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue, registrationError}) => {
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -63,22 +63,23 @@ const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue})
           type="radio"
           value="STUDENT"
           onChange={handleFilter}
-          checked={radioButtonValue === "STUDENT"}
+          checked={radioButtonValue === 'STUDENT'}
         />
         <h4>Student</h4>
         <input
           type="radio"
           value="TEACHER"
           onChange={handleFilter}
-          checked={radioButtonValue === "TEACHER"}
+          checked={radioButtonValue === 'TEACHER'}
         />
         <h4>Teacher</h4>
       </label>
+      {registrationError && <p>{registrationError}</p>}
       <Button id="user-submit-button" type="submit" variant="contained">
         Submit
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default UserForm
+export default UserForm;

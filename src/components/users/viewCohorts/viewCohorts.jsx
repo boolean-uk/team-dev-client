@@ -11,6 +11,7 @@ export default function ViewCohort() {
   const { id } = useParams();
   const [noCohort, setNoCohort] = useState([]);
   const [cohortStudents, setCohortStudents] = useState([]);
+  const [resetStudents, setResetStudents] = useState(0);
 
   useEffect(() => {
     client
@@ -22,17 +23,16 @@ export default function ViewCohort() {
       .get(`/user/student?cohort=${id}`)
       .then((res) => setCohortStudents(res.data.data))
       .catch((err) => console.log(err.response));
-  }, [id]);
+  }, [resetStudents]);
 
   function addStudent(studentId) {
-    const options = {
-      body: JSON.stringify({
-        student_Id: studentId,
-      }),
-    };
+    const data = { cohort_id: id };
     client
-      .patch(`/user/student/cohort/${id}`, options)
-      .then((res) => console.log(res.data))
+      .patch(`/user/${studentId}/cohort`, data)
+      .then((res) => {
+        setResetStudents(resetStudents + 1)
+        console.log(res.data)
+      })
       .catch((err) => console.log(err.response));
   }
 
