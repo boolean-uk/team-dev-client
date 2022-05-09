@@ -47,7 +47,7 @@ const UserForm = ({ handleSubmit, handleChange, handleFilter, radioButtonValue, 
         className='user-form-input'
         label='Avatar URL'
         variant='outlined'
-        name='avatar'
+        name='profileImgUrl'
         onChange={handleChange}
       />
       <TextField

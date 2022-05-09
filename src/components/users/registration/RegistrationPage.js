@@ -16,7 +16,10 @@ const RegistrationPage = () => {
     event.preventDefault();
     client
       .post('/user', user, false)
-      .then((res) => setRegisterResponse(res.data))
+      .then((res) => {
+        console.log(res.data)
+        setRegisterResponse(res.data)
+      })
       .catch((err) => {
         const errorMessage = err.response.data.data.email;
         console.log(err.response.data.data.email);
