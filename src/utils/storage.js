@@ -6,13 +6,13 @@ const storage = {
     },
 
     loadStorage: () => {
-        const localStorage = {
+        const local = {
             token: localStorage.getItem(process.env.REACT_APP_USER_TOKEN),
             userId: localStorage.getItem('userId'),
             role: localStorage.getItem('role'),
         }
 
-        return localStorage
+        return local
     },
 
     clearStorage: () => {

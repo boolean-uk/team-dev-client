@@ -7,19 +7,17 @@ import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent'
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
+import storage from '../../utils/storage'
 
-const Header = ({ role, setSearchInput }) => {
+const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
 
-  console.log("This is the role", role)
-
-  if (!role) {
-    return <></>
-  }
+  const role = storage.loadStorage().role
 
   const signOut = (event) => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    storage.clearStorage()
+    // localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
     navigate('../login', { replace: true });
   };
 
@@ -28,7 +26,7 @@ const Header = ({ role, setSearchInput }) => {
   };
 
   const handleMyProfileLink = () => {
-    const userId = localStorage.getItem('userId');
+    const userId = storage.loadStorage().userId;
     navigate(`../user/${userId}`);
   };
 
@@ -54,7 +52,7 @@ const Header = ({ role, setSearchInput }) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
-            {role !== 'STUDENT' && (
+            {role === 'TEACHER' && (
               <Button variant='contained' onClick={addCohortHandle}>
                 Add Cohort
               </Button>

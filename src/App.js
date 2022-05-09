@@ -10,20 +10,18 @@ import { useState } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import SearchPage from './components/search/SearchPage';
+import storage from './utils/storage'
 
 function App() {
-  const [role, setRole] = useState('');
   const [searchInput, setSearchInput] = useState('');
-
- 
   return (
     <div className="App">
-     <Header role={role} setSearchInput={setSearchInput}/>
+     <Header setSearchInput={setSearchInput}/>
       <Routes>
-        <Route path="/login" element={<LoginPage setRole={setRole} />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
-          <Route path="/" element={<PostsPage role={role} />} />
+          <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
@@ -35,7 +33,8 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
+  const loadedToken = storage.loadStorage().token
+  // const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
   return !(loadedToken === '' || loadedToken === null);
 }
 

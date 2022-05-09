@@ -4,13 +4,14 @@ import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
 import './style.css';
 import { Link } from 'react-router-dom';
+import storage from '../../../utils/storage'
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  const loggedInId = localStorage.getItem('userId');
+  const loggedInId = storage.loadStorage().userId;
 
   useEffect(() => {
     handleProfile();
