@@ -1,8 +1,8 @@
-import dateTimetoRelativeTime from './helperfunctions'
-import { Link } from 'react-router-dom'
-import { Box, Stack } from '@mui/material'
-import React from 'react'
-import PostComments from './MainCommentComponent'
+import dateTimetoRelativeTime from './helperfunctions';
+import { Link } from 'react-router-dom';
+import { Box, Stack } from '@mui/material';
+import React from 'react';
+import PostComments from './MainCommentComponent';
 
 function Post({ post, onCommentAdded }) {
   return (
@@ -24,7 +24,7 @@ function Post({ post, onCommentAdded }) {
       }
       <PostComments onCommentAdded={onCommentAdded} post={post} />
     </>
-  )
+  );
 }
 
-export default Post
+export default Post;

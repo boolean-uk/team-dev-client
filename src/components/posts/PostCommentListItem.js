@@ -1,10 +1,10 @@
-import React from 'react'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Box, Stack } from '@mui/material'
+import React from 'react';
+import dateTimetoRelativeTime from './helperfunctions';
+import { Box, Stack } from '@mui/material';
 
 function CommentItem({ comment }) {
   if (!comment.user) {
-    return <></>
+    return <></>;
   }
   return (
     <li className='comment-item'>
@@ -20,6 +20,6 @@ function CommentItem({ comment }) {
         </Stack>
       </Box>
     </li>
-  )
+  );
 }
-export default CommentItem
+export default CommentItem;

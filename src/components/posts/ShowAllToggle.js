@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function ShowAll({ toggleCommentsList, post }) {
   return (
@@ -6,7 +6,7 @@ function ShowAll({ toggleCommentsList, post }) {
       show all
       <span className='commentCount'>{` (${post.postComments.length})`}</span>
     </div>
-  )
+  );
 }
 
-export default ShowAll
+export default ShowAll;

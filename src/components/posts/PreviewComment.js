@@ -1,6 +1,6 @@
-import React from 'react'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Box, Stack } from '@mui/material'
+import React from 'react';
+import dateTimetoRelativeTime from './helperfunctions';
+import { Box, Stack } from '@mui/material';
 
 function PreviewComment({ post }) {
   return (
@@ -15,7 +15,7 @@ function PreviewComment({ post }) {
         </Box>
       </Stack>
     </Box>
-  )
+  );
 }
 
-export default PreviewComment
+export default PreviewComment;

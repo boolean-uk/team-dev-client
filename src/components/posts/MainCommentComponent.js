@@ -1,16 +1,16 @@
-import React from 'react'
-import { useState } from 'react'
-import CommentForm from './PostCommentListItemForm'
-import PreviewComment from './PreviewComment'
-import CommentList from './PostCommentList'
-import ShowAll from './ShowAllToggle'
+import React from 'react';
+import { useState } from 'react';
+import CommentForm from './PostCommentListItemForm';
+import PreviewComment from './PreviewComment';
+import CommentList from './PostCommentList';
+import ShowAll from './ShowAllToggle';
 
 function PostComments({ onCommentAdded, post }) {
-  const [showAll, setShowAll] = useState(false)
+  const [showAll, setShowAll] = useState(false);
 
   const toggleCommentsList = () => {
-    setShowAll((toggle) => !toggle)
-  }
+    setShowAll((toggle) => !toggle);
+  };
 
   return (
     <div className='comments-section'>
@@ -28,7 +28,7 @@ function PostComments({ onCommentAdded, post }) {
         {showAll && <CommentList post={post} />}
       </div>
     </div>
-  )
+  );
 }
 
-export default PostComments
+export default PostComments;

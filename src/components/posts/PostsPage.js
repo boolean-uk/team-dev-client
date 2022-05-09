@@ -9,7 +9,7 @@ const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);
@@ -25,7 +25,7 @@ const PostsPage = ({ role }) => {
         setPosts((posts) => [res.data.data.post, ...posts]);
       })
       .catch((err) => {
-      console.log(err.message,'Invalid Post');
+        console.log(err.message, 'Invalid Post');
       });
     setPost(() => ({ content: '' }));
   };
