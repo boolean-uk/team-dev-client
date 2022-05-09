@@ -116,12 +116,22 @@ width:100%
   
 }
 
+.like-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .icon-container {
   height: 1.3em;
   width: 1.3em;
   background-color: #1976d2;
   opacity: 0.5;
   border-radius: 50%;
+}
+
+#grid {
+  display: grid;
+  grid-auto-columns: auto;
 }
 
 .single-comment {

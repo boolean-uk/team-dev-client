@@ -14,7 +14,12 @@ function toggleLike() {
   updateLike(updatedStyle);
 }
 
-    return <div className = 'icon-container' onClick={toggleLike} style={divStyle}><img className='post-like' src={like} alt='like'/></div>
+    return <div className = 'like-section'>
+    <p>Likes: 3</p>
+    <div className = 'icon-container' onClick={toggleLike} style={divStyle}>
+      <img className='post-like' src={like} alt='like'/>
+      </div>
+    </div>
 }
 
 export default PostLike

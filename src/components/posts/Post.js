@@ -22,10 +22,10 @@ function Post({ post, onCommentAdded }) {
           </Box>
         </Stack>
       </Box> }
-      <Stack direction="row">
-      <PostLike/>
-      <PostComments onCommentAdded={onCommentAdded} post={post} />
-      </Stack>
+      <div id="grid">
+        <PostLike/>
+        <PostComments onCommentAdded={onCommentAdded} post={post} />
+      </div>
     </>
   );
 }
