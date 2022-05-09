@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
-
   const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
   const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();

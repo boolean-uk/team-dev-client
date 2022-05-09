@@ -23,7 +23,7 @@ function App() {
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
-          <Route path="/search" element={<SearchPage  searchInput={searchInput}/>} /> 
+          <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
         </Route>
       </Routes>
     </div>
