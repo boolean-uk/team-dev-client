@@ -25,13 +25,6 @@ const LoginPage = () => {
       .post('/login', user)
       .then((res) => {
         storage.saveStorage(res.data.data.token, res.data.data.user.id, res.data.data.user.role)
-        // setRole(res.data.data.user.role);
-        // localStorage.setItem(
-        //   process.env.REACT_APP_USER_TOKEN,
-        //   res.data.data.token
-        // );
-        // const userId = res.data.data.user.id;
-        // localStorage.setItem('userId', userId);
         setLoginResponse(res.data);
         navigate('../', { replace: true });
       })
