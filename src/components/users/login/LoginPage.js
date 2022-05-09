@@ -7,68 +7,76 @@ import client from '../../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = (props) => {
-  const { setRole } = props;
-  const [user, setUser] = useState(userBlankData());
-  
-  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
-  const [loginError, setLoginError] = useState(false);
-  let navigate = useNavigate();
+	const { setRole } = props;
+	const [user, setUser] = useState(userBlankData());
 
-  useEffect(() => {
-    const loadedToken =
-      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
-    setLoginResponse({ data: { token: loadedToken } });
-  }, []);
+	const [loginResponse, setLoginResponse] = useState({
+		data: { token: '', user: {} },
+	});
+	const [loginError, setLoginError] = useState(false);
+	let navigate = useNavigate();
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    client
-      .post('/login', user)
-      .then((res) => {
-        setRole(res.data.data.user.role);
-        localStorage.setItem(
-          process.env.REACT_APP_USER_TOKEN,
-          res.data.data.token
-        );
-        const userId = res.data.data.user.id;
-        localStorage.setItem('userId', userId);
-        setLoginResponse(res.data);
-        navigate('../', { replace: true });
-      })
-      .catch((err) => {
-        console.log(err.response);
-        const errorMessage = err.response.data.data.email;
-        setLoginError(errorMessage);
-      });
-  };
+	useEffect(() => {
+		const loadedToken =
+			localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
+		setLoginResponse({ data: { token: loadedToken } });
+	}, []);
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
+	const loginUser = (event) => {
+		event.preventDefault();
+		client
+    .post('/login', user)
+    .then((res) => {
+        console.log(res.data.data.user)
+				setRole(res.data.data.user.role);
+				localStorage.setItem(
+					process.env.REACT_APP_USER_TOKEN,
+					res.data.data.token
+				);
+				const userId = res.data.data.user.id;
+				const profileImgUrl = res.data.data.post.user.profile.profileImgUrl;
+				localStorage.setItem('userId', userId);
+				localStorage.setItem('profileImgUrl', profileImgUrl);
+				setLoginResponse(res.data);
+				navigate('../', { replace: true });
+			})
+			.catch((err) => {
+				console.log(err);
+				const errorMessage = err.response.data.data.email;
+				setLoginError(errorMessage);
+			});
+	};
 
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
+	const handleChange = (event) => {
+		event.preventDefault();
+		const { value, name } = event.target;
 
-  return (
-    <div className='login-page'>
-      <div>
-        <h1>Cohort Manager 2.0</h1>
-      </div>
-      <Link id='user-registration-link' to='/signup'>
-        sign up
-      </Link>
-      <Link id='user-login-link' to='/login'>
-        login
-      </Link>
-      <h1>Login</h1>
-      <p>Status: {loginResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} loginError={loginError} />
-    </div>
-  );
+		setUser({
+			...user,
+			[name]: value,
+		});
+	};
+
+	return (
+		<div className='login-page'>
+			<div>
+				<h1>Cohort Manager 2.0</h1>
+			</div>
+			<Link id='user-registration-link' to='/signup'>
+				sign up
+			</Link>
+			<Link id='user-login-link' to='/login'>
+				login
+			</Link>
+			<h1>Login</h1>
+			<p>Status: {loginResponse.status}</p>
+			<UserForm
+				handleChange={handleChange}
+				handleSubmit={loginUser}
+				loginError={loginError}
+			/>
+		</div>
+	);
 };
-
 
 export default LoginPage;

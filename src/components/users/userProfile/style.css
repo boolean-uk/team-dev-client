@@ -15,8 +15,9 @@
   gap: 1rem;
 }
 
-.profile-img {
-  border-radius: 50%;
+.profile-img-container {
+  width: 100px;
+  height: 100px;
 }
 
 /* EDIT USER PROFILE */

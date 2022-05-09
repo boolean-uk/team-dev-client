@@ -37,8 +37,8 @@ const UserProfile = () => {
     <div>
       <h1>User Profile</h1>
       <div className='profile'>
-        <div>
-          {<ProfileImg/>}
+        <div className='profile-img-container'>
+          {<ProfileImg profileImgUrl={profile.profileImgUrl}/>}
         </div>
         <div className='profile-info'>
           <h2>
