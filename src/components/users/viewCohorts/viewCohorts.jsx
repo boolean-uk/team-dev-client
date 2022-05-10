@@ -1,9 +1,10 @@
-import React from "react"
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import "./viewCohort.css"
-import client from "../../../utils/client"
-import Table from "../../table/Table"
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./viewCohort.css";
+import client from "../../../utils/client";
+import Table from "../../table/Table";
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -15,36 +16,36 @@ import {
   ListItemText,
   Avatar,
   IconButton,
-} from "@mui/material"
-import AddCircleIcon from "@mui/icons-material/AddCircle"
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function ViewCohort() {
-  const { id } = useParams()
-  const [noCohort, setNoCohort] = useState([])
-  const [cohortStudents, setCohortStudents] = useState([])
-  const [resetStudents, setResetStudents] = useState(0)
+  const { id } = useParams();
+  const [noCohort, setNoCohort] = useState([]);
+  const [cohortStudents, setCohortStudents] = useState([]);
+  const [resetStudents, setResetStudents] = useState(0);
 
   useEffect(() => {
     client
-      .get('/user/student?cohort=none')
+      .get("/user/student?cohort=none")
       .then((res) => setNoCohort(res.data.data))
-      .catch((err) => console.log(err.response))
+      .catch((err) => console.log(err.response));
 
     client
       .get(`/user/student?cohort=${id}`)
       .then((res) => setCohortStudents(res.data.data))
-      .catch((err) => console.log(err.response))
-  }, [resetStudents])
+      .catch((err) => console.log(err.response));
+  }, [resetStudents]);
 
   function addStudent(studentId) {
-    const data = { cohort_id: id }
+    const data = { cohort_id: id };
     client
       .patch(`/user/${studentId}/cohort`, data)
       .then((res) => {
         setResetStudents(resetStudents + 1);
         console.log(res.data);
       })
-      .catch((err) => console.log(err.response))
+      .catch((err) => console.log(err.response));
   }
 
   return (
@@ -61,7 +62,10 @@ export default function ViewCohort() {
               <div className="cohort-title">
                 <h3>Cohort {id}</h3>{" "}
               </div>
-              <div className="cohort-size-text"> Number of students: 0</div>
+              <div className="cohort-size-text">
+                {" "}
+                Number of students: {cohortStudents.length}
+              </div>
             </div>
             <div className="cohort-student-big-table">
               <Table cohortStudents={cohortStudents} />
@@ -81,6 +85,7 @@ export default function ViewCohort() {
                       justifyContent: "flex-end",
                       alignItem: "center",
                     }}
+                    key={key}
                   >
                     {/* <ListItemAvatar> */}
                     <Box
@@ -88,7 +93,9 @@ export default function ViewCohort() {
                       className="individual-student-box"
                     >
                       <Box>
-                        <Avatar></Avatar>
+                        <Link to={`/user/${student.user.id}`}>
+                          <Avatar></Avatar>
+                        </Link>
                       </Box>
                       <Box>
                         {`${student.user.firstName}
@@ -97,7 +104,7 @@ export default function ViewCohort() {
                       <Box className="add-student-icon">
                         <AddCircleIcon
                           onClick={() => {
-                            addStudent(student.user.id)
+                            addStudent(student.user.id);
                           }}
                           value={student.id}
                           color="string"
@@ -132,5 +139,5 @@ export default function ViewCohort() {
         </Box>
       </Grid>
     </>
-  )
+  );
 }
