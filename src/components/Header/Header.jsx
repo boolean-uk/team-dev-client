@@ -5,8 +5,8 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
-import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
@@ -18,14 +18,12 @@ const Header = ({ setSearchInput }) => {
     navigate('../login', { replace: true });
   };
 
-  const addCohortHandle = () => {
-    client.post('/cohort', {}).catch((err) => console.log(err.response));
-  };
-
   const handleMyProfileLink = () => {
     const userId = localStorage.getItem('userId');
     navigate(`../user/${userId}`);
   };
+
+  const addCohortBtn = { color: 'white', textDecoration: 'none' };
 
   return (
     <>
@@ -49,8 +47,10 @@ const Header = ({ setSearchInput }) => {
         <Box>
           <Stack spacing={2} direction='row'>
             {role !== 'STUDENT' && (
-              <Button variant='contained' onClick={addCohortHandle}>
-                Add Cohort
+              <Button variant='contained'>
+                <Link to='/add-cohort' style={addCohortBtn}>
+                  Add Cohort
+                </Link>
               </Button>
             )}
             <Button
