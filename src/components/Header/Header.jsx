@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import storage from "../../utils/storage";
 import { Link } from "react-router-dom";
 
-const Header = ({ setSearchInput, role }) => {
+const Header = ({ setSearchInput, role, userId}) => {
 
   let navigate = useNavigate();
   const signOut = (event) => {
@@ -20,7 +20,6 @@ const Header = ({ setSearchInput, role }) => {
   };
 
   const handleMyProfileLink = () => {
-    const userId = storage.loadStorage().userId;
     navigate(`../user/${userId}`);
   };
 

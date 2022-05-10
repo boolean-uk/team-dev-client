@@ -5,9 +5,8 @@ import client from '../../utils/client';
 import './style.css';
 import Post from './Post';
 import CohortList from '../cohort/CohortList'
-import storage from '../../utils/storage'
 
-const PostsPage = () => {
+const PostsPage = ({ role }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -53,27 +52,27 @@ const PostsPage = () => {
 
   return (
     <>
-    <div className='home-container'>
-    <section className='posts-section'>
-      <div>
-        {postResponse.status}
-        <PostForm
-          handleSubmit={createPost}
-          handleChange={handleChange}
-          inputValue={post.content}
-        />
-        <ul className='posts-list'>
-          {posts.map((post, index) => (
-            <li key={index} className='post-item'>
-              <Post post={post} onCommentAdded={onCommentAdded} />
-            </li>
-          ))}
-        </ul>
-        </div>
-      </section>   
-    {storage.loadStorage().role === 'TEACHER' && <CohortList />}   
-    </div> 
-  </>
+      <div className='home-container'>
+        <section className='posts-section'>
+          <div>
+            {postResponse.status}
+            <PostForm
+              handleSubmit={createPost}
+              handleChange={handleChange}
+              inputValue={post.content}
+            />
+            <ul className='posts-list'>
+              {posts.map((post, index) => (
+                <li key={index} className='post-item'>
+                  <Post post={post} onCommentAdded={onCommentAdded} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        {role === 'TEACHER' && <CohortList />}
+      </div>
+    </>
   );
 };
 

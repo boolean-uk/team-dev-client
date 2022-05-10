@@ -11,7 +11,9 @@ const storage = {
             userId: localStorage.getItem('userId'),
             role: localStorage.getItem('role'),
         }
-
+        if (!local.token) {
+            return false
+        }
         return local
     },
 
@@ -20,6 +22,6 @@ const storage = {
         localStorage.setItem('userId', '');
         localStorage.setItem('role', '');
     }
-  };
-  
-  export default storage;
+};
+
+export default storage;

@@ -15,17 +15,24 @@ import storage from './utils/storage'
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
-  const [localStorage, setLocalStorage] = useState('')
+  const [loggedInUser, setLoggedInUser] = useState(null)
+ 
+  useEffect(() => {
+   setLoggedInUser(storage.loadStorage())
+  }, [])
 
-  console.log('app', localStorage)
+  if (loggedInUser === null) {
+    return <div className='App'></div>
+  }
+
   return (
     <div className='App'>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage token={loggedInUser.token} setLoggedInUser={setLoggedInUser} />} />
         <Route path="/signup" element={<RegistrationPage />} />
-        <Route element={<AuthenticateUser setSearchInput={setSearchInput} setLocalStorage={setLocalStorage} localStorage={localStorage} />}>
-          <Route path="/" element={<PostsPage />} />
-          <Route path="/user/:id" element={<ProfilePage />} />
+        <Route element={<AuthenticateUser setSearchInput={setSearchInput} loggedInUser={loggedInUser} />}>
+          <Route path="/" element={<PostsPage role={loggedInUser.role} />} />
+          <Route path="/user/:id" element={<ProfilePage userId={loggedInUser.userId} />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
           <Route path="/add-cohort" element={<AddCohort />} />
@@ -36,25 +43,19 @@ function App() {
   );
 }
 
-function isLoggedIn(setLocalStorage, localStorage) {
-  const loadedToken = storage.loadStorage().token
-  useEffect(() => {
-    if (localStorage.userId !== storage.loadStorage().userId) {
-      setLocalStorage(storage.loadStorage())
-    }
-  }, [])
-  return !(loadedToken === '' || loadedToken === null);
+function isLoggedIn(loggedInUser) {
+  return loggedInUser !== false
 }
 
-const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput, setLocalStorage, localStorage }) => {
-  if (!isLoggedIn(setLocalStorage, localStorage)) {
+const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput, loggedInUser }) => {
+  if (!isLoggedIn( loggedInUser)) {
     return <>
       <Navigate to={redirectPath} replace />;
     </>;
   }
 
   return <>
-    <Header setSearchInput={setSearchInput} role={localStorage.role} />
+    <Header setSearchInput={setSearchInput} role={loggedInUser.role} userId={loggedInUser.userId} />
     <Outlet />
   </>;
 };
