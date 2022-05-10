@@ -39,7 +39,6 @@ export default function ViewCohort() {
 
   return (
     <>
-      <Header />
       <Grid
         container
         direction="row"
