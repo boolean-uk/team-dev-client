@@ -23,7 +23,8 @@ const Header = ({ setSearchInput }) => {
     navigate(`../user/${userId}`);
   };
 
-  const addCohortBtn = { color: 'white', textDecoration: 'none' };
+  const ButtonStyle = { height: '30px', color: 'white', textDecoration: 'none' };
+  const LinkStyle = { color: 'white', textDecoration: 'none' };
 
   return (
     <>
@@ -33,38 +34,52 @@ const Header = ({ setSearchInput }) => {
           backgroundColor: 'grey',
           justifyContent: 'space-between',
           alignContent: 'center',
+          alignItems: 'baseline',
           width: '100vw',
           padding: '1em',
-        }}>
+        }}
+      >
+        {/* Logo */}
         <Box>
           <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
             Cohort Manager 2.0
           </Typography>
         </Box>
 
+        {/* SearchBar */}
         <SearchComponent setSearchInput={setSearchInput} />
 
         <Box>
           <Stack spacing={2} direction='row'>
-            {role !== 'STUDENT' && (
-              <Button variant='contained'>
-                <Link to='/add-cohort' style={addCohortBtn}>
+            {/* !!!! - change back NOT EQUAL TO STUDENT */}
+            {role === 'STUDENT' && (
+              <Button style={ButtonStyle} variant='contained'>
+                <Link style={LinkStyle} to='/add-cohort'>
                   Add Cohort
                 </Link>
               </Button>
             )}
+
+            {/* // PROFILE BUTTON */}
             <Button
+              style={ButtonStyle}
               id='my-profile'
               variant='contained'
-              onClick={handleMyProfileLink}>
+              onClick={handleMyProfileLink}
+            >
               My Profile
             </Button>
+
+            {/* // SIGNOUT BUTTON */}
             <Button
+              style={ButtonStyle}
               id='user-signout-button'
               variant='contained'
-              onClick={signOut}>
+              onClick={signOut}
+            >
               Logout
             </Button>
+
             <Avatar />
           </Stack>
         </Box>
