@@ -37,19 +37,18 @@ const RegistrationPage = () => {
   const handleFilter = (event) => {
     const inputValue = event.target.value;
     setRadioButtonValue(inputValue);
-    console.log(radioButtonValue);
-    setUser({ ...user, role: radioButtonValue });
+    setUser({ ...user, role: inputValue });
   };
 
   return (
-    <div className="registration-page">
+    <div className='registration-page'>
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id="user-registration-link" to="/signup">
+      <Link id='user-registration-link' to='/signup'>
         sign up
       </Link>{' '}
-      <Link id="user-login-link" to="/login">
+      <Link id='user-login-link' to='/login'>
         login
       </Link>
       <h1>Sign up</h1>
