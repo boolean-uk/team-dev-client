@@ -1,18 +1,17 @@
 import React from "react";
-import { useState} from "react";
-import client from '../../utils/client'
-import dateTimetoRelativeTime from './helperfunctions'
-import { Box, Stack } from '@mui/material'
+import { useState } from "react";
+import client from "../../utils/client";
+import dateTimetoRelativeTime from "./helperfunctions";
+import { Box, Stack } from "@mui/material";
 
-
-function PostComments({onCommentAdded, post}) {
+function PostComments({ onCommentAdded, post }) {
   const [comment, setComment] = useState("");
   const [showAll, setShowAll] = useState(false);
 
   const createComment = (event, postId) => {
     event.preventDefault();
     client
-      .post(`/post/${postId}/comment`, { content:comment })
+      .post(`/post/${postId}/comment`, { content: comment })
       .then((res) => {
         setComment("");
         onCommentAdded(post, res.data.data.comment);
@@ -34,20 +33,21 @@ function PostComments({onCommentAdded, post}) {
 
   return (
     <div className="comments-section">
-      { post.id &&
-      <form onSubmit={(event) => createComment(event, post.id)}>
-        <input
-          id={post.id}
-          type="text"
-          className="post__comment"
-          onChange={handleComment}
-          name="comment"
-          label="New Comment"
-          variant="outlined"
-          value={comment}
-        />
-        <button className="comment-button">Comment</button>
-      </form> }
+      {post.id && (
+        <form onSubmit={(event) => createComment(event, post.id)}>
+          <input
+            id={post.id}
+            type="text"
+            className="post__comment"
+            onChange={handleComment}
+            name="comment"
+            label="New Comment"
+            variant="outlined"
+            value={comment}
+          />
+          <button className="comment-button">Comment</button>
+        </form>
+      )}
       <div className="single-comment">
         {post.postComments && post.postComments.length > 1 && !showAll && (
           <div onClick={() => toggleCommentsList()}>
