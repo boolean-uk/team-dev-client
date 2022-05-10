@@ -1,23 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import "./viewCohort.css";
-import client from "../../../utils/client";
-import Table from "../../table/Table";
-import { Link } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
-  Avatar,
-  IconButton,
-} from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import './viewCohort.css';
+import client from '../../../utils/client';
+import Table from './components/Table';
+import { Box, Grid } from '@mui/material';
+import NoCohortList from './components/NoCohortList';
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -27,7 +15,7 @@ export default function ViewCohort() {
 
   useEffect(() => {
     client
-      .get("/user/student?cohort=none")
+      .get('/user/student?cohort=none')
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
 
@@ -52,90 +40,25 @@ export default function ViewCohort() {
     <>
       <Grid
         container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Box className="BigContainer">
-          <div className="Container_cohorts">
-            <div className="Parent-title-container">
-              <div className="cohort-title">
-                <h3>Cohort {id}</h3>{" "}
+        <Box className='BigContainer'>
+          <div className='Container_cohorts'>
+            <div className='Parent-title-container'>
+              <div className='cohort-title'>
+                <h3>Cohort {id}</h3>
               </div>
-              <div className="cohort-size-text">
-                {" "}
+              <div className='cohort-size-text'>
                 Number of students: {cohortStudents.length}
               </div>
             </div>
-            <div className="cohort-student-big-table">
+            <div className='cohort-student-big-table'>
               <Table cohortStudents={cohortStudents} />
             </div>
           </div>
-
-          <Box className="Container_addStudent">
-            <div className="box-title">
-              <h3>Available students</h3>
-            </div>
-            <Box className="add-student-container">
-              <List>
-                {noCohort.map((student, key) => (
-                  <ListItem
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItem: "center",
-                    }}
-                    key={key}
-                  >
-                    {/* <ListItemAvatar> */}
-                    <Box
-                      sx={{ display: "flex" }}
-                      className="individual-student-box"
-                    >
-                      <Box>
-                        <Link to={`/user/${student.user.id}`}>
-                          <Avatar></Avatar>
-                        </Link>
-                      </Box>
-                      <Box>
-                        {`${student.user.firstName}
-                        ${student.user.lastName}`}
-                      </Box>
-                      <Box className="add-student-icon">
-                        <AddCircleIcon
-                          onClick={() => {
-                            addStudent(student.user.id);
-                          }}
-                          value={student.id}
-                          color="string"
-                          fontSize="large"
-                        >
-                          Add
-                        </AddCircleIcon>
-                      </Box>
-                    </Box>
-                    {/* </ListItemAvatar> */}
-                    <ListItemText />
-                  </ListItem>
-                ))}
-              </List>
-              {/* {noCohort.map((student, key) => (
-                <Box className='add-student-card' key={key}>
-                  <Box className='add-student'>
-                    {student.user.firstName} {student.user.lastName}
-                    <Button
-                      onClick={() => {
-                        addStudent(student.user.id);
-                      }}
-                      value={student.id}
-                    >
-                      Add
-                    </Button>
-                  </Box>
-                </Box>
-              ))} */}
-            </Box>
-          </Box>
+          <NoCohortList noCohort={noCohort} addStudent={addStudent} />
         </Box>
       </Grid>
     </>
