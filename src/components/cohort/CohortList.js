@@ -4,11 +4,12 @@ import Button from '@mui/material/Button';
 import './CohortList.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import storage from '../../utils/storage'
 
 function CohortList() {
   const [cohort, setCohort] = useState();
   useEffect(() => {
-    const role = localStorage.getItem('role');
+    const role = storage.loadStorage().role;
     if (role === 'TEACHER') {
       client.get('/cohort').then((res) => setCohort(res.data.data));
     }
