@@ -8,20 +8,16 @@ function ProfileImg({ avatar }) {
 	const userId = localStorage.getItem('userId');
 	const [profileImg, setProfileImg] = useState('');
 
-	// useEffect(() => {
-	// 	client
-	// 		.get(`/user/${userId}`)
-	// 		.then((res) => {
-	// 			setProfileImg(res.data.data.user.profileImgUrl);
-	// 		})
-	// 		.catch((err) => console.log(err.response));
-	// }, []);
+	useEffect(() => {
+		client
+			.get(`/user/${userId}`)
+			.then((res) => {
+				setProfileImg(res.data.data.user.profileImgUrl);
+			})
+			.catch((err) => console.log(err.response));
+	}, []);
 
-	// if (profileImg === '') {
-	// 	return <Avatar />
-	// }
-	if (avatar !== '' && avatar !== undefined) {
-		console.log(avatar);
+	if (avatar) {
 		return (
 			<img
 				src={avatar}
@@ -30,16 +26,16 @@ function ProfileImg({ avatar }) {
 				width='60px'
 			/>
 		);
-	} else {
-		return <Avatar />;
+	} else if (profileImg) {
+		return <img
+		src={profileImg}
+		alt='user avatar'
+		className='profile-img'
+		width='60px'
+	/>;
 	}
 	return (
-		<img
-			src={profileImg}
-			alt='user avatar'
-			className='profile-img'
-			width='60px'
-		/>
+		<Avatar />
 	);
 }
 

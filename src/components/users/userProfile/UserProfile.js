@@ -8,7 +8,6 @@ import ProfileImg from '../../ProfileImg/ProfileImg'
 
 const UserProfile = () => {
   const [profile, setProfile] = useState('');
-  // const [profileImg, setProfileImg] = useState('');
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
   const loggedInId = localStorage.getItem('userId');

@@ -37,7 +37,7 @@ function CommentForm({ post, onCommentAdded }) {
         height: '2em',
         margin: '0',
       }}>
-      <form onSubmit={(event) => createComment(event, post.id)}>
+      <form className='comment-form' onSubmit={(event) => createComment(event, post.id)}>
         <TextField
           id={String(post.id)}
           type='text'
