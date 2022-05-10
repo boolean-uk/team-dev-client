@@ -20,24 +20,16 @@ function Post({ post, onCommentAdded }) {
             <Box className='date-time' variant='contained'>
               {dateTimetoRelativeTime(post.createdAt)}
             </Box>
-<<<<<<< HEAD
-          </Link>
           <Box className="date-time" variant="contained">
             {dateTimetoRelativeTime(post.createdAt)}
           </Box>
         </Stack>
-      </Box> }
+        </Box>}
       <div id="grid">
         <PostLike likes={post.postLike} postId={post.id}  />
         
         <PostComments onCommentAdded={onCommentAdded} post={post} />
       </div>
-=======
-          </Stack>
-        </Box>
-      }
-      <PostComments onCommentAdded={onCommentAdded} post={post} />
->>>>>>> b8318539fa4170638885b121c23230936695deea
     </>
   );
 }

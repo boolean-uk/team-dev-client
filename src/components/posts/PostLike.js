@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import client from '../../utils/client';
 import './style.css';
 
-const PostLike = ({likes, postId}) => {
+const PostLike = ({likes=[], postId}) => {
       
 const [divStyle, updateLike] = useState({
   backgroundColor: 'grey'
