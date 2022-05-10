@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import client from '../../utils/client';
 
 function ProfileImg({ avatar }) {
-	
 	const userId = localStorage.getItem('userId');
 	const [profileImg, setProfileImg] = useState('');
 
@@ -17,28 +16,31 @@ function ProfileImg({ avatar }) {
 	// 		})
 	// 		.catch((err) => console.log(err.response));
 	// }, []);
-	
+
 	// if (profileImg === '') {
 	// 	return <Avatar />
 	// }
-	if (avatar !== undefined) {
-		return <img
-		src={avatar}
-		alt='user avatar'
-		className='profile-img'
-		width='60px'
-	/>
+	if (avatar !== '' && avatar !== undefined) {
+		console.log(avatar);
+		return (
+			<img
+				src={avatar}
+				alt='user avatar'
+				className='profile-img'
+				width='60px'
+			/>
+		);
+	} else {
+		return <Avatar />;
 	}
-	else {
-		return < Avatar />
-	}
-	return <img
+	return (
+		<img
 			src={profileImg}
 			alt='user avatar'
 			className='profile-img'
 			width='60px'
 		/>
-	}
-	
+	);
+}
 
 export default ProfileImg;
