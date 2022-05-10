@@ -1,8 +1,8 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import "./viewCohort.css";
-import client from "../../../utils/client";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import './viewCohort.css';
+import client from '../../../utils/client';
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ export default function ViewCohort() {
 
   useEffect(() => {
     client
-      .get(`/user/student?cohort=none`)
+      .get('/user/student?cohort=none')
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
 
@@ -35,8 +35,8 @@ export default function ViewCohort() {
 
   return (
     <>
-      <div className="BigContainer">
-        <div className="Container_cohorts">
+      <div className='BigContainer'>
+        <div className='Container_cohorts'>
           <h3>Cohort {id}</h3>
           <div className='cohort-student-list-container'>
             {cohortStudents.map((student, key) => (
