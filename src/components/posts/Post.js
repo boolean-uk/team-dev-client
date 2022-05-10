@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import PostLike from './PostLike';
 import dateTimetoRelativeTime from './helperfunctions';
 import { Link } from 'react-router-dom';

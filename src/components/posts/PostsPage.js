@@ -1,10 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import PostForm from './PostForm';
 import Post from './Post';
 import client from '../../utils/client';
 import './style.css';
-import CohortList from '../cohort/CohortList'
+import CohortList from '../cohort/CohortList';
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });

@@ -45,9 +45,9 @@ const client = {
     const token = localStorage.getItem(tokenKey);
     let headers = {};
     if (withToken) {
-      headers[`Authorization`] = `Bearer ${token}`;
+      headers['Authorization'] = `Bearer ${token}`;
     }
-    return axios.delete(url, {headers})
+    return axios.delete(url, {headers});
   }
 };
 
