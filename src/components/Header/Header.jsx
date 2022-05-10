@@ -29,7 +29,9 @@ const Header = ({ setSearchInput }) => {
 		<>
 			<Box className='main-container-header'>
 				<div className='header-logo'>
-					<h1>Cohort Manager 2.0</h1>
+					<Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+						<h1>Cohort Manager 2.0</h1>
+					</Link>
 				</div>
 				<div className='header-search-bar'>
 					<SearchComponent setSearchInput={setSearchInput} />
