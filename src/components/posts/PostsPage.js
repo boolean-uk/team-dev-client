@@ -4,7 +4,6 @@ import PostForm from "./PostForm";
 import Post from "./Post";
 import client from "../../utils/client";
 import "./style.css";
-import Post from "./Post";
 import CohortList from "../cohort/CohortList";
 
 const PostsPage = () => {

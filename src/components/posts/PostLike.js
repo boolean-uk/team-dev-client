@@ -18,9 +18,10 @@ const PostLike = () => {
 
   return (
     <div className="like-section">
+      <div></div>
       <p className="like-label">Likes: 3</p>
       <div className="icon-container" onClick={toggleLike} style={divStyle}>
-        <img className="post-like" src={like} alt="like" />
+        <img className="like-img" src={like} alt="like" />
       </div>
     </div>
   );

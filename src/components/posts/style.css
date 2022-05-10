@@ -121,14 +121,19 @@ li {
     justify-content: flex-end;
 }
 
-.post-like {
-    height: 0.85em;
-    margin-top: 2.67px;
+.like-img {
+  height: 0.85em;
+  margin-top: 2.67px;
+}
+
+.like-label {
+  padding-right: 7px;
 }
 
 .like-section {
-    display: flex;
-    justify-content: flex-end;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
     padding: 10px;
 }
 
@@ -138,11 +143,6 @@ li {
     background-image: radial-gradient(blue 90%, orange 10%);
     opacity: 0.5;
     border-radius: 50%;
-}
-
-#grid {
-    display: grid;
-    grid-auto-columns: auto;
 }
 
 .first-comment {
