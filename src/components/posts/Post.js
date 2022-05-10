@@ -17,9 +17,6 @@ function Post({ post, onCommentAdded }) {
                 <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
               </Box>
             </Link>
-            <Box className='date-time' variant='contained'>
-              {dateTimetoRelativeTime(post.createdAt)}
-            </Box>
           <Box className="date-time" variant="contained">
             {dateTimetoRelativeTime(post.createdAt)}
           </Box>
