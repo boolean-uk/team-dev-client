@@ -14,7 +14,7 @@ import SearchPage from './components/search/SearchPage';
 function App() {
    const [searchInput, setSearchInput] = useState('');
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
