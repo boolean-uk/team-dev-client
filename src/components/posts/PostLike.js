@@ -1,6 +1,6 @@
 import like from "./like.png"
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import client from '../../utils/client';
 import './style.css';
 
