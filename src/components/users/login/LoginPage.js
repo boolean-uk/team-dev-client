@@ -6,10 +6,8 @@ import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = (props) => {
-  const { setRole } = props;
+const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
-  
   const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
   const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();
@@ -25,20 +23,20 @@ const LoginPage = (props) => {
     client
       .post('/login', user)
       .then((res) => {
-        setRole(res.data.data.user.role);
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
         );
+        localStorage.setItem('role', res.data.data.user.role);
         const userId = res.data.data.user.id;
         localStorage.setItem('userId', userId);
         setLoginResponse(res.data);
         navigate('../', { replace: true });
       })
       .catch((err) => {
-        console.log(err.response)
-        const errorMessage = err.response.data.data.email
-        setLoginError(errorMessage)
+        console.log(err.response);
+        const errorMessage = err.response.data.data.email;
+        setLoginError(errorMessage);
       });
   };
 
@@ -69,6 +67,5 @@ const LoginPage = (props) => {
     </div>
   );
 };
-
 
 export default LoginPage;
