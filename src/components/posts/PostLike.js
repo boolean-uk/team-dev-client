@@ -38,7 +38,6 @@ useEffect(()=>{
 
   function unlikePost(event){
     updateTalkStatus(true)
-    console.log('test')
     client.delete(`/post/like/${id}`)
     .then(_ => {
       updateLikes(likes => likes.filter(like => like.id !== id))
