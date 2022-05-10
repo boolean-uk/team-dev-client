@@ -4,14 +4,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
-import client from '../../utils/client';
 import ProfileImg from '../ProfileImg/ProfileImg';
-import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Header = ({ setSearchInput }) => {
 	let navigate = useNavigate();
+	const userId = localStorage.getItem('userId');
 	const role = localStorage.getItem('role');
 	const signOut = (event) => {
 		event.preventDefault();
