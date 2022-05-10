@@ -1,4 +1,12 @@
+.home-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 2.5rem;
+}
+
 .posts-section {
+    margin-top: 15px;
+    flex: 1;
     margin-top: 15px;
 }
 
@@ -84,11 +92,12 @@ li {
 
 .post-content {
     background-color: transparent;
-    border-radius: 0.2rem;
     width: 100%;
     font-size: 13pt;
     padding-bottom: 0.5rem;
     margin: 0;
+    border-radius: 0.2rem;
+    overflow-y: auto;
 }
 
 .names-date {
@@ -136,23 +145,60 @@ li {
     grid-auto-columns: auto;
 }
 
-.single-comment {
+.first-comment {
     font-size: 10pt;
+    margin-top: 1em;
 }
 
 li.comment-item {
-    border-bottom: 1px solid;
+    border-top: 1px solid;
     border-color: grey;
+    padding-top: 0.3em;
+    min-height: 6em;
 }
 
 .comments-section {
     width: 100%;
+    border-top: 1px solid grey;
+    padding-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 .post__comment {
-    width: 19rem;
+    width: 70%;
+    background-color: #fff;
+    height: 2em;
+    margin-right: 1em;
 }
 
-.like-label {
-    padding-right: 7px;
+.MuiInputBase-root {
+    height: 2em;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.MuiButton-outlined {
+    height: 2em;
+    border-radius: 10px;
+}
+
+.Mui-focused {
+    height: 2em;
+    border-radius: 10px;
+}
+
+.MuiBox-root {
+    width: 100%;
+    height: 100%;
+}
+
+.MuiButton-contained {
+    margin-left: 1em;
+}
+
+.comment-content {
+    margin-bottom: 9%;
+    width: 100%;
+    overflow-y: auto;
 }
