@@ -20,7 +20,8 @@ function App() {
   useEffect(() => {
    setLoggedInUser(storage.loadStorage())
   }, [])
-
+  
+  //This if statment is here to stop user Authenticate running before the information is set
   if (loggedInUser === null) {
     return <div className='App'></div>
   }

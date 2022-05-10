@@ -5,7 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import SearchComponent from "../search/SearchComponent";
-import client from "../../utils/client";
 import { useNavigate } from "react-router-dom";
 import storage from "../../utils/storage";
 import { Link } from "react-router-dom";
