@@ -15,8 +15,8 @@ const [id, updateId] = useState("");
 const [talkingToServer, updateTalkStatus] = useState(false)
 
 useEffect(()=>{
-  const like = likes.find(like => String(like.userId) === localStorage.getItem('userId'))
-  if (likes.find(like => String(like.userId) === localStorage.getItem('userId'))){
+  const like = likes.find(like => String(like.userId) === localStorage.getItem('userId')) // checks if user has liked the post
+  if (like){
     updateStyle({backgroundColor: blue})
     updateId(like.id)
   }
