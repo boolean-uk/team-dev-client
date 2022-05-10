@@ -4,22 +4,17 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import SearchComponent from '../search/SearchComponent'
+import SearchComponent from '../search/SearchComponent';
 import client from '../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ role, setSearchInput }) => {
+const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
-
-  console.log("This is the role", role)
-
-  if (!role) {
-    return <></>
-  }
-
+  const role = localStorage.getItem('role');
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.setItem('role', '');
     navigate('../login', { replace: true });
   };
 
@@ -42,8 +37,7 @@ const Header = ({ role, setSearchInput }) => {
           alignContent: 'center',
           width: '100vw',
           padding: '1em',
-        }}
-      >
+        }}>
         <Box>
           <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
             Cohort Manager 2.0
@@ -62,15 +56,13 @@ const Header = ({ role, setSearchInput }) => {
             <Button
               id='my-profile'
               variant='contained'
-              onClick={handleMyProfileLink}
-            >
+              onClick={handleMyProfileLink}>
               My Profile
             </Button>
             <Button
               id='user-signout-button'
               variant='contained'
-              onClick={signOut}
-            >
+              onClick={signOut}>
               Logout
             </Button>
             <Avatar />

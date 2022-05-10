@@ -57,8 +57,7 @@ const UserProfile = () => {
             <Link
               id='edit-profile-button'
               to={`/user/edit/${id}`}
-              className='link'
-            >
+              className='link'>
               Edit Profile
             </Link>
           )}

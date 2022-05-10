@@ -6,13 +6,13 @@ const client = {
   get: (path) => {
     const url = `${host}${path}`;
     const headers = {
-      'Authorization': `Bearer ${localStorage.getItem(tokenKey)}`
+      Authorization: `Bearer ${localStorage.getItem(tokenKey)}`,
     };
 
     return axios.get(url, { headers });
   },
 
-  post: (path, data, withToken=true) => {
+  post: (path, data, withToken = true) => {
     const url = `${host}${path}`;
     const token = localStorage.getItem(tokenKey);
     let headers = {};
@@ -22,13 +22,12 @@ const client = {
     return axios.post(url, data, { headers });
   },
 
-
-  put:(path, data) => {
+  put: (path, data) => {
     const url = `${host}${path}`;
     const headers = {
-      'Authorization': `Bearer ${localStorage.getItem(tokenKey)}`
+      Authorization: `Bearer ${localStorage.getItem(tokenKey)}`,
     };
-    return axios.put(url, data, {headers});
+    return axios.put(url, data, { headers });
   },
 
   patch: (path, data, withToken = true) => {
