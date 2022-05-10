@@ -3,82 +3,73 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import SearchComponent from '../search/SearchComponent'
+import SearchComponent from '../search/SearchComponent';
 import client from '../../utils/client';
-import ProfileImg from '../ProfileImg/ProfileImg'
+import ProfileImg from '../ProfileImg/ProfileImg';
+import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Header = ({ role, setSearchInput }) => {
-  let navigate = useNavigate();
-  const userId = localStorage.getItem('userId');
+const Header = ({ setSearchInput }) => {
+	let navigate = useNavigate();
+	const role = localStorage.getItem('role');
+	const signOut = (event) => {
+		event.preventDefault();
+		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+		localStorage.setItem('role', '');
+		navigate('../login', { replace: true });
+	};
 
-  console.log('This is the role', role)
+	const handleMyProfileLink = () => {
+		navigate(`../user/${userId}`);
+	};
 
-  if (!role) {
-    return <></>
-  }
+	const addCohortBtn = { color: 'white', textDecoration: 'none' };
 
-  const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../login', { replace: true });
-  };
+	return (
+		<Box
+			sx={{
+				display: 'flex',
+				backgroundColor: 'grey',
+				justifyContent: 'space-between',
+				alignContent: 'center',
+				width: '100vw',
+				padding: '1em',
+			}}>
+			<Box>
+				<Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
+					Cohort Manager 2.0
+				</Typography>
+			</Box>
 
-  const addCohortHandle = () => {
-    client.post('/cohort', {}).catch((err) => console.log(err.response));
-  };
+			<SearchComponent setSearchInput={setSearchInput} />
 
-  const handleMyProfileLink = () => {
-    navigate(`../user/${userId}`);
-  };
-
-  return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          backgroundColor: 'grey',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          width: '100vw',
-          padding: '1em',
-        }}
-      >
-        <Box>
-          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
-            Cohort Manager 2.0
-          </Typography>
-        </Box>
-
-        <SearchComponent setSearchInput={setSearchInput} />
-
-        <Box>
-          <Stack spacing={2} direction='row'>
-            {role !== 'STUDENT' && (
-              <Button variant='contained' onClick={addCohortHandle}>
-                Add Cohort
-              </Button>
-            )}
-            <Button
-              id='my-profile'
-              variant='contained'
-              onClick={handleMyProfileLink}
-            >
-              My Profile
-            </Button>
-            <Button
-              id='user-signout-button'
-              variant='contained'
-              onClick={signOut}
-            >
-              Logout
-            </Button>
-            <ProfileImg />
-          </Stack>
-        </Box>
-      </Box>
-    </>
-  );
+			<Box>
+				<Stack spacing={2} direction='row'>
+					{role !== 'STUDENT' && (
+						<Button variant='contained'>
+							<Link to='/add-cohort' style={addCohortBtn}>
+								Add Cohort
+							</Link>
+						</Button>
+					)}
+					<Button
+						id='my-profile'
+						variant='contained'
+						onClick={handleMyProfileLink}>
+						My Profile
+					</Button>
+					<Button
+						id='user-signout-button'
+						variant='contained'
+						onClick={signOut}>
+						Logout
+					</Button>
+					<ProfileImg />
+				</Stack>
+			</Box>
+		</Box>
+	);
 };
 
 export default Header;

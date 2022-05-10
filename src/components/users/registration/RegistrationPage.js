@@ -40,8 +40,7 @@ const RegistrationPage = () => {
   const handleFilter = (event) => {
     const inputValue = event.target.value;
     setRadioButtonValue(inputValue);
-    console.log(radioButtonValue);
-    setUser({ ...user, role: radioButtonValue });
+    setUser({ ...user, role: inputValue });
   };
 
   return (

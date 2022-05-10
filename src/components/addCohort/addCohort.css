@@ -1,0 +1,13 @@
+.Big_container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-cohort-txt h4{
+    font-size: 3rem;
+    margin-right: 1vw;
+    color: white
+}

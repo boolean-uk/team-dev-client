@@ -12,12 +12,10 @@ import Header from './components/Header/Header';
 import SearchPage from './components/search/SearchPage';
 
 function App() {
-  const [role, setRole] = useState('');
-  const [searchInput, setSearchInput] = useState('');
-
- 
+   const [searchInput, setSearchInput] = useState('');
   return (
     <div className='App'>
+<<<<<<< HEAD
      <Header role={role} setSearchInput={setSearchInput}/>
       <Routes>
         <Route path='/login' element={<LoginPage setRole={setRole} />} />
@@ -28,6 +26,17 @@ function App() {
           <Route path='/user/edit/:id' element={<EditUser />} />
           <Route path='/cohort/:id' element={<ViewCohort />} />
           <Route path='/search' element={<SearchPage searchInput={searchInput} />} /> 
+=======
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+        <Route element={<AuthenticateUser setSearchInput={setSearchInput} />}>
+          <Route path="/" element={<PostsPage />} />
+          <Route path="/user/:id" element={<ProfilePage />} />
+          <Route path="/user/edit/:id" element={<EditUser />} />
+          <Route path="/cohort/:id" element={<ViewCohort />} />
+          <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
+>>>>>>> main
         </Route>
       </Routes>
     </div>
@@ -41,10 +50,15 @@ function isLoggedIn() {
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = '/login' }) => {
+const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput }) => {
   if (!isLoggedIn()) {
-    return <Navigate to={redirectPath} replace />;
+    return <>
+    <Navigate to={redirectPath} replace />;
+    </>;
   }
 
-  return <Outlet />;
+  return <>
+  <Header setSearchInput={setSearchInput} />
+  <Outlet />
+  </>;
 };

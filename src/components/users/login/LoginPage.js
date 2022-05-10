@@ -6,10 +6,8 @@ import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = (props) => {
-	const { setRole } = props;
+const LoginPage = () => {
 	const [user, setUser] = useState(userBlankData());
-
 	const [loginResponse, setLoginResponse] = useState({
 		data: { token: '', user: {} },
 	});
@@ -21,25 +19,23 @@ const LoginPage = (props) => {
 			localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
 		setLoginResponse({ data: { token: loadedToken } });
 	}, []);
-
 	const loginUser = (event) => {
 		event.preventDefault();
 		client
-    .post('/login', user)
-    .then((res) => {
-        console.log(res.data.data.user)
-				setRole(res.data.data.user.role);
+			.post('/login', user)
+			.then((res) => {
 				localStorage.setItem(
 					process.env.REACT_APP_USER_TOKEN,
 					res.data.data.token
 				);
+				localStorage.setItem('role', res.data.data.user.role);
 				const userId = res.data.data.user.id;
 				localStorage.setItem('userId', userId);
 				setLoginResponse(res.data);
 				navigate('../', { replace: true });
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log(err.response);
 				const errorMessage = err.response.data.data.email;
 				setLoginError(errorMessage);
 			});

@@ -3,12 +3,11 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../../utils/client';
-import Header from '../../Header/Header';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
-const UserForm = ({ role }) => {
+const UserForm = () => {
 	const initialFormData = {
 		firstName: '',
 		lastName: '',
@@ -16,7 +15,7 @@ const UserForm = ({ role }) => {
 		password: '',
 		biography: '',
 		githubUrl: '',
-		profileImgUrl: ''
+		profileImgUrl: '',
 	};
 
 	const [profile, setProfile] = useState(initialFormData);
@@ -52,7 +51,7 @@ const UserForm = ({ role }) => {
 			lastName: profile.lastName,
 			bio: profile.biography,
 			githubUrl: profile.githubUrl,
-			profileImgUrl: profile.profileImgUrl
+			profileImgUrl: profile.profileImgUrl,
 		};
 		client
 			.put('/user', putBody)
@@ -68,7 +67,6 @@ const UserForm = ({ role }) => {
 
 	return (
 		<>
-			<Header role={role} />
 			<section className='edit-user-form'>
 				<h1> Edit Profile Details </h1>
 				<form onSubmit={onSubmit}>
@@ -110,7 +108,40 @@ const UserForm = ({ role }) => {
 						label='Avatar URL'
 						variant='outlined'
 						name='avatar'
-            onChange={handleChange}
+						onChange={handleChange}
+						placeholder='First name'
+					/>
+					<TextField
+						className='user-form-input'
+						value={profile.lastName}
+						variant='outlined'
+						name='lastName'
+						onChange={handleChange}
+						placeholder='Last name'
+					/>
+					<TextField
+						className='user-form-input'
+						value={profile.biography}
+						variant='outlined'
+						name='biography'
+						onChange={handleChange}
+						placeholder='Bio'
+					/>
+					<TextField
+						className='user-form-input'
+						type='url'
+						value={profile.githubUrl}
+						variant='outlined'
+						name='githubUrl'
+						onChange={handleChange}
+						placeholder='GitHub URL'
+					/>
+					<TextField
+						className='user-form-input'
+						label='Avatar URL'
+						variant='outlined'
+						name='profileImgUrl'
+						onChange={handleChange}
 					/>
 					<Button id='user-submit-button' type='submit' variant='contained'>
 						Update Profile
