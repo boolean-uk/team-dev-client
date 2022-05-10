@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
@@ -24,37 +23,26 @@ const Header = ({ setSearchInput }) => {
     navigate(`../user/${userId}`);
   };
 
-  const ButtonStyle = { height: '30px', color: 'white', textDecoration: 'none' };
   const LinkStyle = { color: 'white', textDecoration: 'none' };
 
   return (
     <>
-      <Box className = 'main-container-header'
-        sx={{
-          // display: 'flex',
-          // backgroundColor: 'grey',
-          // justifyContent: 'space-between',
-          // alignContent: 'center',
-          // alignItems: 'baseline',
-          // width: '100vw',
-          // padding: '1em',
-        }}
-      >
+      <Box className = 'main-container-header'>
         {/* Logo */}
-        <div className="header-logo">
+        <div className='header-logo'>
            <h1>Cohort Manager 2.0</h1>
         </div>
 
         {/* SearchBar */}
-        <div className="header-search-bar-middle-component">
+        <div className='header-search-bar'>
         <SearchComponent setSearchInput={setSearchInput}/>
         </div>
 
-        <Box className='header-search-bar'>
+        <Box className='header-right-buttons'>
           <Stack spacing={2} direction='row' >
             {/* !!!! - change back NOT EQUAL TO STUDENT */}
             {/* {role === 'STUDENT' && ( */}
-              <Button style={ButtonStyle} variant='contained'>
+              <Button  variant='contained'>
                 <Link style={LinkStyle} to='/add-cohort'>
                   Add Cohort
                 </Link>
@@ -63,7 +51,6 @@ const Header = ({ setSearchInput }) => {
 
             {/* // PROFILE BUTTON */}
             <Button
-              style={ButtonStyle}
               id='my-profile'
               variant='contained'
               onClick={handleMyProfileLink}
@@ -73,7 +60,6 @@ const Header = ({ setSearchInput }) => {
 
             {/* // SIGNOUT BUTTON */}
             <Button
-              style={ButtonStyle}
               id='user-signout-button'
               variant='contained'
               onClick={signOut}

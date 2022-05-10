@@ -1,7 +1,8 @@
 .main-container-header {
-    background-color: red;
+    background-color: rgb(97, 101, 107);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    width: 99.4vw;
 }
 
 .header-logo {
@@ -13,10 +14,17 @@
     font-size: 2rem;
 }
 
-.header-search-bar-middle-component {
+.header-search-bar {
     display: flex;
     align-content: center;
     justify-content: center;
+}
+
+.header-right-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 40px;
 }
 
 .search-form {
