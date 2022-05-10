@@ -38,6 +38,7 @@ const UserProfile = () => {
     if (id === loggedInId) {
       return setCheckId(true);
     }
+    setCheckId(false)
   };
 
   return (

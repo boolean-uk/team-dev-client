@@ -21,14 +21,12 @@ const Header = ({ setSearchInput }) => {
     navigate('../login', { replace: true });
   };
 
-  const addCohortHandle = () => {
-    client.post("/cohort", {}).catch((err) => console.log(err.response));
-  };
-
   const handleMyProfileLink = () => {
     const userId = storage.loadStorage().userId;
     navigate(`../user/${userId}`);
   };
+
+  const addCohortBtn = { color: 'white', textDecoration: 'none' };
 
   return (
     <>
@@ -50,10 +48,12 @@ const Header = ({ setSearchInput }) => {
         <SearchComponent setSearchInput={setSearchInput} />
 
         <Box>
-          <Stack spacing={2} direction="row">
-            {role === "TEACHER" && (
-              <Button variant="contained" onClick={addCohortHandle}>
-                Add Cohort
+          <Stack spacing={2} direction='row'>
+            {role !== 'STUDENT' && (
+              <Button variant='contained'>
+                <Link to='/add-cohort' style={addCohortBtn}>
+                  Add Cohort
+                </Link>
               </Button>
             )}
             <Button
