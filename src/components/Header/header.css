@@ -1,0 +1,29 @@
+.main-container-header {
+    background-color: red;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.header-logo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.header-logo h1 {
+    font-size: 2rem;
+}
+
+.header-search-bar-middle-component {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.search-form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem
+}

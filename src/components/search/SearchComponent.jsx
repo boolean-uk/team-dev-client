@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
+import '../Header/header.css'
 
 export default function SearchComponent({ setSearchInput }) {
   let navigate = useNavigate();
@@ -14,12 +15,12 @@ export default function SearchComponent({ setSearchInput }) {
     navigate('/search');
   };
 
-  const searchBarStyle = { display: 'flex', justifyContent: 'center', alignContent: 'center' };
+  const searchBarStyle = {  };
 
   return (
     <Box>
       <form style={searchBarStyle} className='search-form' onSubmit={handleSubmit}>
-        <Box style={{ height: '30px', width: '400px' }} sx={{ backgroundColor: 'white' }}>
+        <Box style={{ height: '30px', width: '400px'  }} sx={{ backgroundColor: 'white' }}>
           <InputBase placeholder='Enter The Student Name' inputProps={{ 'aria-label': 'search' }} />
         </Box>
         <Button style={{ height: '30px' }} variant='contained' type='submit'>

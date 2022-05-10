@@ -2,3 +2,8 @@
     padding-top: 20px;
     color: orange;
 }
+
+#MuiInputBase-root {
+   height: 20px;
+
+}

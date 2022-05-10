@@ -7,6 +7,7 @@ import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './header.css'
 
 const Header = ({ setSearchInput }) => {
   let navigate = useNavigate();
@@ -28,37 +29,37 @@ const Header = ({ setSearchInput }) => {
 
   return (
     <>
-      <Box
+      <Box className = 'main-container-header'
         sx={{
-          display: 'flex',
-          backgroundColor: 'grey',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          alignItems: 'baseline',
-          width: '100vw',
-          padding: '1em',
+          // display: 'flex',
+          // backgroundColor: 'grey',
+          // justifyContent: 'space-between',
+          // alignContent: 'center',
+          // alignItems: 'baseline',
+          // width: '100vw',
+          // padding: '1em',
         }}
       >
         {/* Logo */}
-        <Box>
-          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
-            Cohort Manager 2.0
-          </Typography>
-        </Box>
+        <div className="header-logo">
+           <h1>Cohort Manager 2.0</h1>
+        </div>
 
         {/* SearchBar */}
-        <SearchComponent setSearchInput={setSearchInput} />
+        <div className="header-search-bar-middle-component">
+        <SearchComponent setSearchInput={setSearchInput}/>
+        </div>
 
-        <Box>
-          <Stack spacing={2} direction='row'>
+        <Box className='header-search-bar'>
+          <Stack spacing={2} direction='row' >
             {/* !!!! - change back NOT EQUAL TO STUDENT */}
-            {role === 'STUDENT' && (
+            {/* {role === 'STUDENT' && ( */}
               <Button style={ButtonStyle} variant='contained'>
                 <Link style={LinkStyle} to='/add-cohort'>
                   Add Cohort
                 </Link>
               </Button>
-            )}
+            {/* )} */}
 
             {/* // PROFILE BUTTON */}
             <Button
