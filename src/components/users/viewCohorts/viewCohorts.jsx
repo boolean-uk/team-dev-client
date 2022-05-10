@@ -2,7 +2,6 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import "./viewCohort.css"
-import Header from "../../Header/Header.jsx"
 import client from "../../../utils/client"
 import Table from "../../table/Table"
 import {
@@ -27,7 +26,7 @@ export default function ViewCohort() {
 
   useEffect(() => {
     client
-      .get("/user/student?cohort=none")
+      .get('/user/student?cohort=none')
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response))
 
@@ -42,15 +41,14 @@ export default function ViewCohort() {
     client
       .patch(`/user/${studentId}/cohort`, data)
       .then((res) => {
-        setResetStudents(resetStudents + 1)
-        console.log(res.data)
+        setResetStudents(resetStudents + 1);
+        console.log(res.data);
       })
       .catch((err) => console.log(err.response))
   }
 
   return (
     <>
-      <Header />
       <Grid
         container
         direction="row"

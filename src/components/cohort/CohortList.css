@@ -1,0 +1,16 @@
+.cohort-container {
+  border: solid white 3px;
+  margin: 20px 50px;
+  padding: 2rem;
+  max-width: 20rem;
+}
+.cohortList-title {
+  margin-bottom: 15px;
+}
+.cohort-list {
+  display: grid;
+  row-gap: 5px;
+}
+
+.list-btn {
+}
