@@ -7,48 +7,55 @@ import EditUser from './components/users/userProfile/EditUserProfile';
 import ProfilePage from './components/users/userProfile/UserProfile';
 import ViewCohort from './components/users/viewCohorts/viewCohorts';
 import AddCohort from './components/addCohort/AddCohort';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import SearchPage from './components/search/SearchPage';
 import storage from './utils/storage'
 
 function App() {
-   const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [localStorage, setLocalStorage] = useState('')
+
+  console.log('app', localStorage)
   return (
     <div className='App'>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
-        <Route element={<AuthenticateUser setSearchInput={setSearchInput} />}>
+        <Route element={<AuthenticateUser setSearchInput={setSearchInput} setLocalStorage={setLocalStorage} localStorage={localStorage} />}>
           <Route path="/" element={<PostsPage />} />
           <Route path="/user/:id" element={<ProfilePage />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />
           <Route path="/add-cohort" element={<AddCohort />} />
-          <Route path="/search" element={<SearchPage searchInput={searchInput} />} /> 
+          <Route path="/search" element={<SearchPage searchInput={searchInput} />} />
         </Route>
       </Routes>
     </div>
   );
 }
 
-function isLoggedIn() {
+function isLoggedIn(setLocalStorage, localStorage) {
   const loadedToken = storage.loadStorage().token
+  useEffect(() => {
+    if (localStorage.userId !== storage.loadStorage().userId) {
+      setLocalStorage(storage.loadStorage())
+    }
+  }, [])
   return !(loadedToken === '' || loadedToken === null);
 }
 
-
-const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput }) => {
-  if (!isLoggedIn()) {
+const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput, setLocalStorage, localStorage }) => {
+  if (!isLoggedIn(setLocalStorage, localStorage)) {
     return <>
-    <Navigate to={redirectPath} replace />;
+      <Navigate to={redirectPath} replace />;
     </>;
   }
 
   return <>
-  <Header setSearchInput={setSearchInput} />
-  <Outlet />
+    <Header setSearchInput={setSearchInput} role={localStorage.role} />
+    <Outlet />
   </>;
 };
 
