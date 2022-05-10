@@ -4,6 +4,7 @@ import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
 import Post from './Post';
+import CohortList from '../cohort/CohortList'
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
@@ -50,7 +51,10 @@ const PostsPage = () => {
   };
 
   return (
-      <section className='posts-section'>
+    <>
+    <div className='home-container'>
+    <section className='posts-section'>
+      <div>
         {postResponse.status}
         <PostForm
           handleSubmit={createPost}
@@ -64,8 +68,13 @@ const PostsPage = () => {
             </li>
           ))}
         </ul>
-      </section>
+        </div>
+      </section>   
+    {localStorage.getItem('role') === 'TEACHER' && <CohortList />}   
+    </div> 
+  </>
   );
 };
+
 
 export default PostsPage;
