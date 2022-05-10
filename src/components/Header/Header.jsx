@@ -6,73 +6,61 @@ import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './header.css'
+import './header.css';
 
 const Header = ({ setSearchInput }) => {
-  let navigate = useNavigate();
-  const role = localStorage.getItem('role');
-  const signOut = (event) => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    localStorage.setItem('role', '');
-    navigate('../login', { replace: true });
-  };
+	let navigate = useNavigate();
+	const role = localStorage.getItem('role');
+	const signOut = (event) => {
+		event.preventDefault();
+		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+		localStorage.setItem('role', '');
+		navigate('../login', { replace: true });
+	};
 
-  const handleMyProfileLink = () => {
-    const userId = localStorage.getItem('userId');
-    navigate(`../user/${userId}`);
-  };
+	const handleMyProfileLink = () => {
+		const userId = localStorage.getItem('userId');
+		navigate(`../user/${userId}`);
+	};
 
-  const LinkStyle = { color: 'white', textDecoration: 'none' };
+	const LinkStyle = { color: 'white', textDecoration: 'none' };
 
-  return (
-    <>
-      <Box className = 'main-container-header'>
-        {/* Logo */}
-        <div className='header-logo'>
-           <h1>Cohort Manager 2.0</h1>
-        </div>
-
-        {/* SearchBar */}
-        <div className='header-search-bar'>
-        <SearchComponent setSearchInput={setSearchInput}/>
-        </div>
-
-        <Box className='header-right-buttons'>
-          <Stack spacing={2} direction='row' >
-            {/* !!!! - change back NOT EQUAL TO STUDENT */}
-            {/* {role === 'STUDENT' && ( */}
-              <Button  variant='contained'>
-                <Link style={LinkStyle} to='/add-cohort'>
-                  Add Cohort
-                </Link>
-              </Button>
-            {/* )} */}
-
-            {/* // PROFILE BUTTON */}
-            <Button
-              id='my-profile'
-              variant='contained'
-              onClick={handleMyProfileLink}
-            >
-              My Profile
-            </Button>
-
-            {/* // SIGNOUT BUTTON */}
-            <Button
-              id='user-signout-button'
-              variant='contained'
-              onClick={signOut}
-            >
-              Logout
-            </Button>
-
-            <Avatar />
-          </Stack>
-        </Box>
-      </Box>
-    </>
-  );
+	return (
+		<>
+			<Box className='main-container-header'>
+				<div className='header-logo'>
+					<h1>Cohort Manager 2.0</h1>
+				</div>
+				<div className='header-search-bar'>
+					<SearchComponent setSearchInput={setSearchInput} />
+				</div>
+				<Box className='header-right-buttons'>
+					<Stack spacing={2} direction='row'>
+						{role !== 'STUDENT' && (
+							<Button variant='contained'>
+								<Link style={LinkStyle} to='/add-cohort'>
+									Add Cohort
+								</Link>
+							</Button>
+						)}
+						<Button
+							id='my-profile'
+							variant='contained'
+							onClick={handleMyProfileLink}>
+							My Profile
+						</Button>
+						<Button
+							id='user-signout-button'
+							variant='contained'
+							onClick={signOut}>
+							Logout
+						</Button>
+						<Avatar />
+					</Stack>
+				</Box>
+			</Box>
+		</>
+	);
 };
 
 export default Header;
