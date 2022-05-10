@@ -37,9 +37,11 @@ const Header = ({ setSearchInput }) => {
           padding: '1em',
         }}>
         <Box>
-          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p'>
+          <Link to='/' style={{textDecoration: 'none', color: 'white'}}>
+          <Typography sx={{ fontWeight: 'bold' }} variant='p' component='p' >
             Cohort Manager 2.0
           </Typography>
+          </Link>
         </Box>
 
         <SearchComponent setSearchInput={setSearchInput} />
