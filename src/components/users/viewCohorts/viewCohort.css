@@ -19,6 +19,11 @@
   margin-bottom: 20px;
 }
 
+.cohort-student-big-table {
+  width: 100%;
+  margin-right: 5%;
+}
+
 .cohort-title {
   width: 100%;
   display: flex;
