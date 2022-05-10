@@ -47,11 +47,7 @@ const AuthenticateUser = ({
 	setSearchInput,
 }) => {
 	if (!isLoggedIn()) {
-		return (
-			<>
-				<Navigate to={redirectPath} replace />;
-			</>
-		);
+		return <Navigate to={redirectPath} replace />;
 	}
 
 	return (
