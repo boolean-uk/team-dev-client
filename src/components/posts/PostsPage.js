@@ -5,6 +5,7 @@ import client from '../../utils/client';
 import './style.css';
 import Post from './Post';
 import CohortList from '../cohort/CohortList'
+import storage from '../../utils/storage'
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
@@ -70,7 +71,7 @@ const PostsPage = () => {
         </ul>
         </div>
       </section>   
-    {localStorage.getItem('role') === 'TEACHER' && <CohortList />}   
+    {storage.loadStorage().role === 'TEACHER' && <CohortList />}   
     </div> 
   </>
   );
