@@ -6,7 +6,6 @@ import PostsPage from './components/posts/PostsPage';
 import EditUser from './components/users/userProfile/EditUserProfile';
 import ProfilePage from './components/users/userProfile/UserProfile';
 import ViewCohort from './components/users/viewCohorts/viewCohorts';
-import AddCohort from './components/addCohort/AddCohort';
 import { useState } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
