@@ -68,7 +68,6 @@
   display: none;
 }
 
-
 .individual-student-box {
   /* border: 2px solid white; */
   display: flex;
@@ -81,11 +80,9 @@
   justify-content: flex-end;
 }
 
-
-.cohort-title h3{
-  font-size: 2rem
+.cohort-title h3 {
+  font-size: 2rem;
 }
-
 
 .add-student {
   /* display: flex;
@@ -102,11 +99,9 @@
 .add-student-card button {
   /* margin: 6px 3px;
   border-radius: 4px; */
-
 }
-
 
 /* STYLES */
 .box-title {
-  background-color: #23232c
+  background-color: #23232c;
 }
