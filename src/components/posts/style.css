@@ -119,6 +119,29 @@ li {
   justify-content: flex-end;
 }
 
+.post-like {
+  height: 1em;
+  
+}
+
+.like-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon-container {
+  height: 1.3em;
+  width: 1.3em;
+  background-color: #1976d2;
+  opacity: 0.5;
+  border-radius: 50%;
+}
+
+#grid {
+  display: grid;
+  grid-auto-columns: auto;
+}
+
 .first-comment {
   font-size: 10pt;
   margin-top: 1em;

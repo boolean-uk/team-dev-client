@@ -8,7 +8,7 @@ function PreviewComment({ post }) {
       <div className='comment-content'>{post.postComments[0].content}</div>
       <Stack className='names-date' spacing={2} direction='row'>
         <Box className='fullname' variant='contained'>
-          <strong>{`${post.user.profile.firstName} ${post.user.profile.lastName}`}</strong>
+          <strong>{`${post.postComments[0].user.profile.firstName} ${post.postComments[0].user.profile.lastName}`}</strong>
         </Box>
         <Box className='date-time' variant='contained'>
           {dateTimetoRelativeTime(post.postComments[0].createdAt)}
