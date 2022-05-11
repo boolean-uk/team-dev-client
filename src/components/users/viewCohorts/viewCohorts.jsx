@@ -1,8 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import './viewCohort.css';
-import client from '../../../utils/client';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./viewCohort.css";
+import client from "../../../utils/client";
+import Table from "./components/Table";
+import { Box, Grid } from "@mui/material";
+import NoCohortList from "./components/NoCohortList";
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -12,7 +15,7 @@ export default function ViewCohort() {
 
   useEffect(() => {
     client
-      .get('/user/student?cohort=none')
+      .get("/user/student?cohort=none")
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
 
@@ -35,42 +38,29 @@ export default function ViewCohort() {
 
   return (
     <>
-      <div className='BigContainer'>
-        <div className='Container_cohorts'>
-          <h3>Cohort {id}</h3>
-          <div className='cohort-student-list-container'>
-            {cohortStudents.map((student, key) => (
-              <div className='cohort-student-card' key={key}>
-                <div className='cohort-student'>
-                  {student.user.firstName} {student.user.lastName}
-                </div>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box className="BigContainer">
+          <div className="Container_cohorts">
+            <div className="Parent-title-container">
+              <div className="cohort-title">
+                <h3>Cohort {id}</h3>
               </div>
-            ))}
-          </div>
-        </div>
-        <div className='Container_addStudent'>
-          <div>
-            <h3>Available students</h3>
-          </div>
-          <div className='add-student-container'>
-            {noCohort.map((student, key) => (
-              <div className='add-student-card' key={key}>
-                <div className='add-student'>
-                  {student.user.firstName} {student.user.lastName}
-                </div>
-                <button
-                  onClick={() => {
-                    addStudent(student.user.id);
-                  }}
-                  value={student.user.id}
-                >
-                  Add
-                </button>
+              <div className="cohort-size-text">
+                Number of students: {cohortStudents.length}
               </div>
-            ))}
+            </div>
+            <div className="cohort-student-big-table">
+              <Table cohortStudents={cohortStudents} />
+            </div>
           </div>
-        </div>
-      </div>
+          <NoCohortList noCohort={noCohort} addStudent={addStudent} />
+        </Box>
+      </Grid>
     </>
   );
-}
+};
