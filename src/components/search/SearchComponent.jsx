@@ -15,13 +15,11 @@ export default function SearchComponent({ setSearchInput }) {
     navigate('/search');
   };
 
-  const searchBarStyle = {  };
-
   return (
     <Box >
-      <form className='search-form' onSubmit={handleSubmit} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', gap: '1rem'}}>
-        <Box style={{ height: '30px', width: '400px'  }} sx={{ backgroundColor: 'white'}}>
-          <InputBase placeholder='  Enter The Student Name' inputProps={{ 'aria-label': 'search' }} fullWidth="true" />
+      <form className='search-form' onSubmit={handleSubmit} style={{display: 'flex', gap: '1rem'}}>
+        <Box sx={{ backgroundColor: 'white', height: '30px', width: '350px'}}>
+          <InputBase placeholder='Enter The Student Name' inputProps={{ 'aria-label': 'search' }} sx={{ display: 'flex', alignItems: 'center', pl: '7px' }} />
         </Box>
         <Button style={{ height: '30px', minWidth: 130 }} variant='contained' type='submit'>
           Search
