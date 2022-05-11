@@ -38,7 +38,7 @@ const UserProfile = ({ userId }) => {
       <h1>User Profile</h1>
       <div className='profile'>
         <div className='profile-img-container'>
-          {<ProfileImg avatar={profile.profileImgUrl}/>}
+          <ProfileImg avatar={profile.profileImgUrl}/>
         </div>
         <div className='profile-info'>
           <h2>

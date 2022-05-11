@@ -17,7 +17,6 @@ const RegistrationPage = () => {
     client
       .post('/user', user, false)
       .then((res) => {
-        console.log(res.data)
         setRegisterResponse(res.data)
       })
       .catch((err) => {
