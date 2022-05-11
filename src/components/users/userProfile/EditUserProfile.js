@@ -8,14 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 const UserForm = () => {
-	const initialFormData = {
-		firstName: '',
-		lastName: '',
-		email: '',
-		password: '',
-		biography: '',
-		githubUrl: '',
-	};
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    biography: '',
+    githubUrl: '',
+    profileImgUrl: '',
+  };
 
   const [profile, setProfile] = useState(initialFormData);
   const [editUserResponse, setEditUserResponse] = useState('');
@@ -50,6 +51,7 @@ const UserForm = () => {
       lastName: profile.lastName,
       bio: profile.biography,
       githubUrl: profile.githubUrl,
+      profileImgUrl: profile.profileImgUrl,
     };
     client
       .put('/user', putBody)
@@ -63,49 +65,16 @@ const UserForm = () => {
       });
   };
 
-	return (
-		<>
-			<section className='edit-user-form'>
-				<h1> Edit Profile Details </h1>
-				<form onSubmit={onSubmit}>
-					<TextField
-						className='user-form-input'
-						value={profile.firstName}
-						variant='outlined'
-						name='firstName'
-						onChange={handleChange}
-						placeholder='First name'
-					/>
-					<TextField
-						className='user-form-input'
-						value={profile.lastName}
-						variant='outlined'
-						name='lastName'
-						onChange={handleChange}
-						placeholder='Last name'
-					/>
-					<TextField
-						className='user-form-input'
-						value={profile.biography}
-						variant='outlined'
-						name='biography'
-						onChange={handleChange}
-						placeholder='Bio'
-					/>
-					<TextField
-						className='user-form-input'
-						type='url'
-						value={profile.githubUrl}
-						variant='outlined'
-						name='githubUrl'
-						onChange={handleChange}
-						placeholder='GitHub URL'
-					/>
-					<TextField
-						className='user-form-input'
-						label='Avatar URL'
-						variant='outlined'
-						name='avatar'
+  return (
+    <>
+      <section className='edit-user-form'>
+        <h1> Edit Profile Details </h1>
+        <form onSubmit={onSubmit}>
+          <TextField
+            className='user-form-input'
+            value={profile.firstName}
+            variant='outlined'
+            name='firstName'
             onChange={handleChange}
             placeholder='First name'
           />
@@ -139,6 +108,39 @@ const UserForm = () => {
             label='Avatar URL'
             variant='outlined'
             name='avatar'
+            onChange={handleChange}
+            placeholder='First name'
+          />
+          <TextField
+            className='user-form-input'
+            value={profile.lastName}
+            variant='outlined'
+            name='lastName'
+            onChange={handleChange}
+            placeholder='Last name'
+          />
+          <TextField
+            className='user-form-input'
+            value={profile.biography}
+            variant='outlined'
+            name='biography'
+            onChange={handleChange}
+            placeholder='Bio'
+          />
+          <TextField
+            className='user-form-input'
+            type='url'
+            value={profile.githubUrl}
+            variant='outlined'
+            name='githubUrl'
+            onChange={handleChange}
+            placeholder='GitHub URL'
+          />
+          <TextField
+            className='user-form-input'
+            label='Avatar URL'
+            variant='outlined'
+            name='profileImgUrl'
             onChange={handleChange}
           />
           <Button id='user-submit-button' type='submit' variant='contained'>
