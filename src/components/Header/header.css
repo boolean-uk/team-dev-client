@@ -1,11 +1,11 @@
-.main-container-header {
+/* .main-container-header {
     background-color: rgb(97, 101, 107);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 99.4vw;
-}
+} */
 
-.header-logo {
+/* .header-logo {
     display: flex;
     justify-content: flex-start;
 }
@@ -34,4 +34,4 @@
     align-items: center;
     justify-content: center;
     gap: 1rem
-}
+} */

@@ -28,7 +28,7 @@ export default function SearchPage({ searchInput }) {
   }, [searchInput])
 
   return (
-    <>
+    <Box sx={{minWidth: '100vh'}}>
       {searchResults.length !== 0 ? (
         <TableContainer
           component={Paper}
@@ -110,6 +110,6 @@ export default function SearchPage({ searchInput }) {
           Please enter a search query
         </Box>
       )}
-    </>
+    </Box>
   );
 };
