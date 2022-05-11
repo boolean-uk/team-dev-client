@@ -43,14 +43,14 @@ textarea {
 }
 
 li.post-item {
-    background-color: transparent;
-    border-radius: 0.2rem;
-    width: 25rem;
-    padding: 0.5rem;
-    margin: 0.2rem;
-    border-style: solid;
-    border-color: grey;
-    border-width: 0.1rem;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  width: 25rem;
+  padding: 0.5rem;
+  margin: 0.2rem;
+  border-style: solid;
+  border-color: grey;
+  border-width: 0.1rem;
 }
 
 ul.posts-list {
@@ -91,13 +91,13 @@ li {
 }
 
 .post-content {
-    background-color: transparent;
-    width: 100%;
-    font-size: 13pt;
-    padding-bottom: 0.5rem;
-    margin: 0;
-    border-radius: 0.2rem;
-    overflow-y: auto;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  font-size: 13pt;
+  padding-bottom: 0.5rem;
+  margin: 0;
+  width: 100%;
+  overflow-y: auto;
 }
 
 .names-date {
@@ -108,7 +108,7 @@ li {
 }
 
 .MuiBox-root {
-    width: 100%;
+  width: 100%;
 }
 
 .fullname {
@@ -147,58 +147,52 @@ li {
 
 .first-comment {
   font-size: 10pt;
-  margin-top:1em;
+  margin-top: 1em;
 }
 
 li.comment-item {
-    border-top: 1px solid;
-    border-color: grey;
-    padding-top: 0.3em;
-    min-height: 6em;
+  border-top: 1px solid;
+  border-color: grey;
+  padding-top: 0.3em;
+  min-height: 6em;
 }
 
 .comments-section {
-    width: 100%;
-    border-top: 1px solid grey;
-    padding-top: 0.5em;
-    margin-top: 0.5em;
+  width: 100%;
+  border-top: 1px solid grey;
+  padding-top: 0.5em;
+  margin-top: 0.5em;
 }
 
 .post__comment {
-    width: 70%;
-    background-color: #fff;
-    height: 2em;
-    margin-right: 1em;
+  width: 70%;
+  background-color: #fff;
+  height: 2em;
+  margin-right: 1em;
 }
-
 .MuiInputBase-root {
-    height: 2em;
-    margin: 0;
-    padding: 0;
-    border-radius: 10px;
+  /* height:2em; */
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
 }
-
 .MuiButton-outlined {
-    height: 2em;
-    border-radius: 10px;
+  height: 2em;
+  border-radius: 10px;
 }
-
 .Mui-focused {
-    height: 2em;
-    border-radius: 10px;
+  height: 2em;
+  border-radius: 10px;
 }
-
 .MuiBox-root {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
 .MuiButton-contained {
-    margin-left: 1em;
+  margin-left: 1em;
 }
-
 .comment-content {
-    margin-bottom: 9%;
-    width: 100%;
-    overflow-y: auto;
+  margin-bottom: 9%;
+  width: 100%;
+  overflow-y: auto;
 }

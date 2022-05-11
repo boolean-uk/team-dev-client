@@ -6,7 +6,7 @@ import client from '../../utils/client';
 import './style.css';
 import CohortList from '../cohort/CohortList';
 
-const PostsPage = () => {
+const PostsPage = ({ role, userId }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -52,8 +52,8 @@ const PostsPage = () => {
 
   return (
     <>
-      <div className="home-container">
-        <section className="posts-section">
+      <div className='home-container'>
+        <section className='posts-section'>
           <div>
             {postResponse.status}
             <PostForm
@@ -61,16 +61,16 @@ const PostsPage = () => {
               handleChange={handleChange}
               inputValue={post.content}
             />
-            <ul className="posts-list">
+            <ul className='posts-list'>
               {posts.map((post, index) => (
-                <li key={index} className="post-item">
-                  <Post post={post} onCommentAdded={onCommentAdded} />
+                <li key={index} className='post-item'>
+                  <Post post={post} onCommentAdded={onCommentAdded} userId={userId} />
                 </li>
               ))}
             </ul>
           </div>
         </section>
-        {localStorage.getItem('role') === 'TEACHER' && <CohortList />}
+        {role === 'TEACHER' && <CohortList />}
       </div>
     </>
   );

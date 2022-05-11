@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-const UserProfile = () => {
+const UserProfile = ({ userId }) => {
   const [profile, setProfile] = useState('');
   const [profileImg, setProfileImg] = useState('');
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  const loggedInId = localStorage.getItem('userId');
+  const loggedInId = userId;
 
   useEffect(() => {
     handleProfile();
