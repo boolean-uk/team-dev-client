@@ -132,22 +132,22 @@ li {
 
 .like-section {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
 }
 
 .icon-container {
     height: 1.3em;
     width: 1.3em;
-    background-image: radial-gradient(blue 90%, orange 10%);
+    background-image: radial-gradient(grey 60%, #61656b 40%);
     opacity: 0.5;
     border-radius: 50%;
 }
 
 .first-comment {
-    font-size: 10pt;
-    margin-top: 1em;
+  font-size: 10pt;
+  margin-top:1em;
 }
 
 li.comment-item {
