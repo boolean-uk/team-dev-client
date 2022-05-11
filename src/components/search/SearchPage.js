@@ -10,7 +10,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 
 export default function SearchPage({ searchInput }) {
