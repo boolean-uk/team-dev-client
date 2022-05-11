@@ -13,108 +13,103 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 export default function SearchPage({ searchInput }) {
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([])
 
   useEffect(() => {
     if (!searchInput) {
-      return;
+      return
     }
     client
       .get(`/user?first_name=${searchInput}`)
       .then((res) => {
-        setSearchResults(res.data.data.users);
+        setSearchResults(res.data.data.users)
       })
-      .catch((err) => console.log('Error', err));
-  }, [searchInput]);
-
-  console.log(searchResults)
+      .catch((err) => console.log('Error', err))
+  }, [searchInput])
 
   return (
     <>
-    {searchResults.length !== 0 ? (
-      <TableContainer
-      component={Paper}
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        m: 'auto',
-        mt: 5,
-        maxWidth: '40%',
-      }}
-    >
-      <Table aria-label="Search Results">
-      <TableHead sx={{backgroundColor: '#23232c'}} >
-        <TableRow>
-        <TableCell
-                sx={{
+      {searchResults.length !== 0 ? (
+        <TableContainer
+          component={Paper}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            m: 'auto',
+            mt: 5,
+            maxWidth: '40%',
+          }}
+        >
+          <Table aria-label='Search Results'>
+            <TableHead sx={{ backgroundColor: '#23232c' }}>
+              <TableRow>
+                <TableCell
+                  sx={{
                     color: '#ffffff',
                     fontWeight: 'bold',
                     borderBlockColor: '#23232c',
                     textAlign: 'center',
+                  }}
+                >
+                  Search Results
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody sx={{ width: '100%', bgcolor: 'background.paper' }}>
+              {searchResults.map((user, key) => (
+                <Link
+                  to={`/user/${user.id}`}
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  <TableRow
+                    key={key}
+                    sx={{
+                      backgroundColor: '#464657',
                     }}
-              >
-              Search Results
-            </TableCell>
-          </TableRow>
-          </TableHead>
-      <TableBody sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        {searchResults.map((user, key) => (
-             <Link to={`/user/${user.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-             <TableRow
-             key={key}
-             sx={{
-                 backgroundColor: '#464657',
-             }}
-         >
-           <TableCell
-                 sx={{
-                     color: '#ffffff',
-                     borderBlockColor: '#464657',
-                     textAlign: 'center',
-                 }}
-             >
-
-                     <Avatar>
-                         {user.firstName[0].toUpperCase()}
-                         {user.lastName[0].toUpperCase()}
-                     </Avatar>
-      
-
-             </TableCell>
-             <TableCell
-                 sx={{
-                     color: '#ffffff',
-                     borderBlockColor: '#464657',
-                     textAlign: 'left',
-                     width: '50%',
-                 }}
-             >
-                 {user.firstName} {user.lastName} 
-             </TableCell>
-             <TableCell
-                 sx={{
-                     color: '#ffffff',
-                     borderBlockColor: '#464657',
-                     textAlign: 'center',
-                     width: '100%',
-                 }}
-             >
-                 {user.role}
-             </TableCell>
-            
-             </TableRow>
-             </Link>
-          ))}
-          
-      </TableBody>
-      
-      </Table>
-    </TableContainer> 
-    ) : <Box sx={{ m:5, fontWeight: 'bold', color: '#61656B', fontSize: 30}}>
-      Please enter a search query
-    </Box> }
+                  >
+                    <TableCell
+                      sx={{
+                        color: '#ffffff',
+                        borderBlockColor: '#464657',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Avatar>
+                        {user.firstName[0].toUpperCase()}
+                        {user.lastName[0].toUpperCase()}
+                      </Avatar>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: '#ffffff',
+                        borderBlockColor: '#464657',
+                        textAlign: 'left',
+                        width: '50%',
+                      }}
+                    >
+                      {user.firstName} {user.lastName}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: '#ffffff',
+                        borderBlockColor: '#464657',
+                        textAlign: 'center',
+                        width: '100%',
+                      }}
+                    >
+                      {user.role}
+                    </TableCell>
+                  </TableRow>
+                </Link>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Box sx={{ m: 5, fontWeight: 'bold', color: '#61656B', fontSize: 30 }}>
+          Please enter a search query
+        </Box>
+      )}
     </>
   );
-}
-
-
+};
