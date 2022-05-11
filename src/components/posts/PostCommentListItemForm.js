@@ -37,7 +37,7 @@ function CommentForm({ post, onCommentAdded }) {
         height: '2em',
         margin: '0',
       }}>
-      <form className='comment-form' onSubmit={(event) => createComment(event, post.id)}>
+      <form onSubmit={(event) => createComment(event, post.id)} className="form-comment">
         <TextField
           id={String(post.id)}
           type='text'
@@ -46,6 +46,7 @@ function CommentForm({ post, onCommentAdded }) {
           name='comment'
           value={comment}
           placeholder='Write a comment...'
+          style={{height: '2em'}}
         />
         <Button
           className='comment-button'
