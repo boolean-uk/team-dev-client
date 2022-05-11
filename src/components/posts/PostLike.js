@@ -3,13 +3,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../utils/client';
 import './style.css';
-
-const blue = '#1976d2';
+import colours from '../../utils/colours';
 
 const PostLike = ({likes=[], postId}) => { 
-const [divStyle, updateStyle] = useState({
-  backgroundColor: 'grey'
-  });
+
+const blue = colours.blue;
+const grey = colours.grey;
+
+const [divStyle, updateStyle] = useState({ backgroundColor: grey });
 const [postLikes,updateLikes] = useState(likes);
 const [id, updateId] = useState('');
 const [talkingToServer, updateTalkStatus] = useState(false);
@@ -31,7 +32,7 @@ useEffect(()=>{
     updateStyle({backgroundColor: blue});
   })
   .catch((err) => {
-    console.log({error: err.message});
+    console.log({error: `when liking post: ${err.message}`});
   })
   .finally(() => updateTalkStatus(false));
   }
@@ -41,18 +42,18 @@ useEffect(()=>{
     client.delete(`/post/like/${id}`)
     .then(_ => {
       updateLikes(likes => likes.filter(like => like.id !== id));
-      updateStyle({backgroundColor: 'grey'});
+      updateStyle({backgroundColor: grey});
     })
     .catch((err) => {
-      console.log({error: err.message});
+      console.log({error: `when unliking post: ${err.message}`});
     })
     .finally(() => updateTalkStatus(false));
   }
 
 function toggleLike(event) {
   if (talkingToServer) return;
-  if (divStyle.backgroundColor === 'grey') likePost(event);
-  else if (divStyle.backgroundColor !== 'grey') unlikePost(event);
+  if (divStyle.backgroundColor === grey) likePost(event);
+  else if (divStyle.backgroundColor !== grey) unlikePost(event);
 }
 
     return <div className = 'like-section'>
