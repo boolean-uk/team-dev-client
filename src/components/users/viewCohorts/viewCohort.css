@@ -42,7 +42,6 @@
   margin-top: 100px;
   display: grid;
   grid-template-rows: 60px 1fr;
-  /* border: 2px solid white; */
 }
 
 .box-title {
@@ -69,7 +68,6 @@
 }
 
 .individual-student-box {
-  /* border: 2px solid white; */
   display: flex;
   align-items: center;
   padding: 10px;
@@ -80,28 +78,10 @@
   justify-content: flex-end;
 }
 
-.cohort-title h3 {
-  font-size: 2rem;
+.cohort-title h3{
+  font-size: 2rem
 }
 
-.add-student {
-  /* display: flex;
-  align-items: center;
-  margin-left: 0.7rem; */
-}
-
-.add-student-card {
-  /* display: grid;
-  grid-template-columns: 1fr 3rem;
-  height: 3rem; */
-}
-
-.add-student-card button {
-  /* margin: 6px 3px;
-  border-radius: 4px; */
-}
-
-/* STYLES */
 .box-title {
   background-color: #23232c;
 }
