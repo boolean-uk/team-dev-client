@@ -21,7 +21,7 @@ export default function SearchComponent({ setSearchInput }) {
     <Box>
       <form style={searchBarStyle} className='search-form' onSubmit={handleSubmit}>
         <Box style={{ height: '30px', width: '400px'  }} sx={{ backgroundColor: 'white' }}>
-          <InputBase placeholder='Enter The Student Name' inputProps={{ 'aria-label': 'search' }} />
+          <InputBase placeholder='  Enter The Student Name' inputProps={{ 'aria-label': 'search' }} fullWidth="true" />
         </Box>
         <Button style={{ height: '30px' }} variant='contained' type='submit'>
           Search
