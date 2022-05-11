@@ -1,7 +1,6 @@
 import axios from 'axios';
 import storage from './storage'
 const host = process.env.REACT_APP_API_URL;
-// const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
 const client = {
   get: (path) => {
@@ -43,7 +42,7 @@ const client = {
 
   delete: (path,withToken = true) => {
     const url = `${host}${path}`;
-    const token = localStorage.getItem(tokenKey);
+    const token = storage.loadStorage().token;
     let headers = {};
     if (withToken) {
       headers['Authorization'] = `Bearer ${token}`;
