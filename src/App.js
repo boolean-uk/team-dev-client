@@ -32,7 +32,7 @@ function App() {
         <Route path="/login" element={<LoginPage token={loggedInUser.token} setLoggedInUser={setLoggedInUser} />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser setSearchInput={setSearchInput} loggedInUser={loggedInUser} />}>
-          <Route path="/" element={<PostsPage role={loggedInUser.role} />} />
+          <Route path="/" element={<PostsPage role={loggedInUser.role} userId={loggedInUser.userId} />} />
           <Route path="/user/:id" element={<ProfilePage userId={loggedInUser.userId} />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
           <Route path="/cohort/:id" element={<ViewCohort />} />

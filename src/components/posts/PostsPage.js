@@ -6,7 +6,7 @@ import client from '../../utils/client';
 import './style.css';
 import CohortList from '../cohort/CohortList';
 
-const PostsPage = ({ role }) => {
+const PostsPage = ({ role, userId }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -64,7 +64,7 @@ const PostsPage = ({ role }) => {
             <ul className='posts-list'>
               {posts.map((post, index) => (
                 <li key={index} className='post-item'>
-                  <Post post={post} onCommentAdded={onCommentAdded} />
+                  <Post post={post} onCommentAdded={onCommentAdded} userId={userId} />
                 </li>
               ))}
             </ul>
