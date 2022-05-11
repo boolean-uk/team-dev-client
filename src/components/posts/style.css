@@ -167,19 +167,16 @@ li.comment-item {
   height: 2em;
   margin-right: 1em;
 }
-.MuiInputBase-root {
-  /* height:2em; */
-  margin: 0;
-  padding: 0;
-  border-radius: 10px;
+.form-comment .MuiOutlinedInput-root {
+  height: 2em;
+  border:0;
 }
 .MuiButton-outlined {
   height: 2em;
   border-radius: 10px;
 }
-.Mui-focused {
+.form-comment .Mui-focused {
   height: 2em;
-  border-radius: 10px;
 }
 .MuiBox-root {
   width: 100%;
