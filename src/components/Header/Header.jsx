@@ -25,31 +25,33 @@ const Header = ({ setSearchInput, role, userId}) => {
 
 	return (
 		<>
-			<Box className='main-container-header'>
-				<div className='header-logo'>
+			<Box className='main-container-header' >
+				<Box className='header-logo'>
 					<Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
 						<h1>Cohort Manager 2.0</h1>
 					</Link>
-				</div>
-				<div className='header-search-bar'>
+				</Box>
+				<Box className='header-search-bar' sx={{marginRight: 4}}>
 					<SearchComponent setSearchInput={setSearchInput} />
-				</div>
-				<Box className='header-right-buttons'>
+				</Box>
+				<Box className='header-right-buttons' sx={{display: 'flex', alignItems: 'center'}}>
 					<Stack spacing={2} direction='row'>
 						{role !== 'STUDENT' && (
-							<Button variant='contained'>
+							<Button variant='contained' sx={{minWidth: 130, maxHeight: 30}}>
 								<Link style={LinkStyle} to='/add-cohort'>
 									Add Cohort
 								</Link>
 							</Button>
 						)}
 						<Button
+							sx={{minWidth: 130, height: 30}}
 							id='my-profile'
 							variant='contained'
 							onClick={handleMyProfileLink}>
 							My Profile
 						</Button>
 						<Button
+							sx={{minWidth: 130, height: 30}}
 							id='user-signout-button'
 							variant='contained'
 							onClick={signOut}>
