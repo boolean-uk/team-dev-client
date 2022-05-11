@@ -2,11 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./viewCohort.css";
-import Header from "../../Header/Header.jsx";
 import client from "../../../utils/client";
-import Table from "../../table/Table";
-import { Box, Grid, List, ListItem, ListItemText, Avatar } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Table from "./components/Table";
+import { Box, Grid } from "@mui/material";
+import NoCohortList from "./components/NoCohortList";
 
 export default function ViewCohort() {
   const { id } = useParams();
@@ -49,59 +48,17 @@ export default function ViewCohort() {
           <div className="Container_cohorts">
             <div className="Parent-title-container">
               <div className="cohort-title">
-                <h3>Cohort {id}</h3>{" "}
+                <h3>Cohort {id}</h3>
               </div>
-              <div className="cohort-size-text"> Number of students: 0</div>
+              <div className="cohort-size-text">
+                Number of students: {cohortStudents.length}
+              </div>
             </div>
             <div className="cohort-student-big-table">
-              <Table cohortStudents={cohortStudents} sx={{ height: "100vh" }} />
+              <Table cohortStudents={cohortStudents} />
             </div>
           </div>
-
-          <Box className="Container_addStudent">
-            <div className="box-title">
-              <h3>Available students</h3>
-            </div>
-            <Box className="add-student-container">
-              <List>
-                {noCohort.map((student, key) => (
-                  <ListItem
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItem: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{ display: "flex" }}
-                      className="individual-student-box"
-                    >
-                      <Box>
-                        <Avatar></Avatar>
-                      </Box>
-                      <Box>
-                        {`${student.user.firstName}
-                        ${student.user.lastName}`}
-                      </Box>
-                      <Box className="add-student-icon">
-                        <AddCircleIcon
-                          onClick={() => {
-                            addStudent(student.user.id);
-                          }}
-                          value={student.id}
-                          color="string"
-                          fontSize="large"
-                        >
-                          Add
-                        </AddCircleIcon>
-                      </Box>
-                    </Box>
-                    <ListItemText />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          </Box>
+          <NoCohortList noCohort={noCohort} addStudent={addStudent} />
         </Box>
       </Grid>
     </>
