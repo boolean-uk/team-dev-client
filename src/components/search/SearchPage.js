@@ -41,7 +41,10 @@ export default function SearchPage({ searchInput }) {
       <TableContainer
         component={Paper}
         sx={{
-          m: 5,
+          display: 'flex',
+          justifyContent: 'center',
+          m: 'auto',
+          mt: 5,
           maxWidth: '40%',
         }}
       >
@@ -68,6 +71,21 @@ export default function SearchPage({ searchInput }) {
                    backgroundColor: '#464657',
                }}
            >
+             <TableCell
+                   sx={{
+                       color: '#ffffff',
+                       borderBlockColor: '#464657',
+                       textAlign: 'center',
+                   }}
+               >
+  
+                       <Avatar>
+                           {user.firstName[0].toUpperCase()}
+                           {user.lastName[0].toUpperCase()}
+                       </Avatar>
+        
+
+               </TableCell>
                <TableCell
                    sx={{
                        color: '#ffffff',
@@ -82,27 +100,13 @@ export default function SearchPage({ searchInput }) {
                    sx={{
                        color: '#ffffff',
                        borderBlockColor: '#464657',
-                       textAlign: 'left',
+                       textAlign: 'center',
                        width: '100%',
                    }}
                >
                    {user.role}
                </TableCell>
-               <TableCell
-                   sx={{
-                       color: '#ffffff',
-                       borderBlockColor: '#464657',
-                       textAlign: 'center',
-                   }}
-               >
-  
-                       <Avatar>
-                           {user.firstName[0].toUpperCase()}{' '}
-                           {user.lastName[0].toUpperCase()}{' '}
-                       </Avatar>
-        
-
-               </TableCell>
+              
                </TableRow>
                </Link>
             ))}
