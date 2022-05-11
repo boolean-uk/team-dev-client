@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
 import PostComments from './MainCommentComponent';
 
-function Post({ post, onCommentAdded }) {
+function Post({ post, onCommentAdded, userId }) {
   return (
     <>
       {
@@ -23,7 +23,7 @@ function Post({ post, onCommentAdded }) {
         </Stack>
         </Box>}
       <Stack>
-        <PostLike likes={post.postLike} postId={post.id}  />
+        <PostLike likes={post.postLike} postId={post.id} userId={userId} />
         <PostComments onCommentAdded={onCommentAdded} post={post} />
       </Stack>
     </>

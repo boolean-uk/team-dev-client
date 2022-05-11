@@ -5,7 +5,7 @@ import client from '../../utils/client';
 import './style.css';
 import colours from '../../utils/colours';
 
-const PostLike = ({likes=[], postId}) => { 
+const PostLike = ({likes=[], postId, userId}) => { 
 
 const blue = colours.blue;
 const grey = colours.grey;
@@ -16,7 +16,7 @@ const [id, updateId] = useState('');
 const [talkingToServer, updateTalkStatus] = useState(false);
 
 useEffect(()=>{
-  const like = likes.find(like => String(like.userId) === localStorage.getItem('userId')); // checks if user has liked the post
+  const like = likes.find(like => String(like.userId) === userId); // checks if user has liked the post
   if (like){
     updateStyle({backgroundColor: blue});
     updateId(like.id);
