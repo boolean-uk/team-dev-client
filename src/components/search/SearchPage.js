@@ -8,6 +8,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
 
 export default function SearchPage({ searchInput }) {
   const [searchResults, setSearchResults] = useState([]);
@@ -29,37 +38,80 @@ export default function SearchPage({ searchInput }) {
 
   return (
     <>
-      <Box
+      <TableContainer
+        component={Paper}
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignContent: 'center',
-          mt: 5,
+          m: 5,
+          maxWidth: '40%',
         }}
       >
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {searchResults.map((user) => (
-            <>
-              <ListItem key={user.id}>
-                <ListItemButton
-                  component='a'
-                  onClick={() => navigate(`../user/${user.id}`)}
-                  color='white'
-                  variant='contained'
+        <Table aria-label="Search Results">
+        <TableHead sx={{backgroundColor: '#23232c'}} >
+          <TableRow>
+          <TableCell
+                  sx={{
+                      color: '#ffffff',
+                      fontWeight: 'bold',
+                      borderBlockColor: '#23232c',
+                      textAlign: 'center',
+                      }}
                 >
-                  <ListItemText
-                    sx={{ color: 'black' }}
-                    display='block'
-                    primary={`${user.firstName} ${user.lastName}`}
-                    secondary={`${user.role}`}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </Box>
+                Search Results
+              </TableCell>
+            </TableRow>
+        <TableBody sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          {searchResults.map((user, key) => (
+               <Link to={`/user/${user.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+               <TableRow
+               key={key}
+               sx={{
+                   backgroundColor: '#464657',
+               }}
+           >
+               <TableCell
+                   sx={{
+                       color: '#ffffff',
+                       borderBlockColor: '#464657',
+                       textAlign: 'left',
+                       width: '50%',
+                   }}
+               >
+                   {user.firstName} {user.lastName} 
+               </TableCell>
+               <TableCell
+                   sx={{
+                       color: '#ffffff',
+                       borderBlockColor: '#464657',
+                       textAlign: 'left',
+                       width: '100%',
+                   }}
+               >
+                   {user.role}
+               </TableCell>
+               <TableCell
+                   sx={{
+                       color: '#ffffff',
+                       borderBlockColor: '#464657',
+                       textAlign: 'center',
+                   }}
+               >
+  
+                       <Avatar>
+                           {user.firstName[0].toUpperCase()}{' '}
+                           {user.lastName[0].toUpperCase()}{' '}
+                       </Avatar>
+        
+
+               </TableCell>
+               </TableRow>
+               </Link>
+            ))}
+        </TableBody>
+        </TableHead>
+        </Table>
+      </TableContainer>
     </>
   );
 }
+
+
