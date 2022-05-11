@@ -6,7 +6,7 @@ import { Box, Stack } from '@mui/material';
 import PostComments from './MainCommentComponent';
 import ProfileImg from '../ProfileImg/ProfileImg';
 
-function Post({ post, onCommentAdded }) {
+function Post({ post, onCommentAdded, userId }) {
   return (
     <>
       <Box>
@@ -24,7 +24,7 @@ function Post({ post, onCommentAdded }) {
         </Stack>
       </Box>
       <Stack>
-        <PostLike likes={post.postLike} postId={post.id} />
+        <PostLike likes={post.postLike} postId={post.id} userId={userId} />
         <PostComments onCommentAdded={onCommentAdded} post={post} />
       </Stack>
     </>

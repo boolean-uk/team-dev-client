@@ -50,11 +50,11 @@ li.post-item {
   background-color: transparent;
   border-radius: 0.2rem;
   width: 25rem;
-  padding: .5rem;
-  margin: .2rem;
+  padding: 0.5rem;
+  margin: 0.2rem;
   border-style: solid;
   border-color: grey;
-  border-width: .1rem;
+  border-width: 0.1rem;
 }
 
 ul.posts-list {
@@ -101,7 +101,7 @@ li {
   background-color: transparent;
   border-radius: 0.2rem;
   font-size: 13pt;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
   margin: 0;
   width: 100%;
   overflow-y: auto;
@@ -178,9 +178,8 @@ li.comment-item {
   height: 2em;
   margin-right: 1em;
 }
-
-.MuiInputBase-root{
-  height: 2em;
+.MuiInputBase-root {
+  /* height:2em; */
   margin: 0;
   padding: 0;
   border-radius: 10px;

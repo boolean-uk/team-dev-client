@@ -7,22 +7,20 @@ import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './header.css';
+import storage from "../../utils/storage";
 
-const Header = ({ setSearchInput }) => {
-	let navigate = useNavigate();
-	const role = localStorage.getItem('role');
-	const signOut = (event) => {
-		event.preventDefault();
-		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-		localStorage.setItem('role', '');
-		navigate('../login', { replace: true });
-	};
+const Header = ({ setSearchInput, role, userId}) => {
 
-	const handleMyProfileLink = () => {
-		const userId = localStorage.getItem('userId');
-		navigate(`../user/${userId}`);
-	};
+  let navigate = useNavigate();
+  const signOut = (event) => {
+    event.preventDefault();
+    storage.clearStorage();
+    navigate("../login", { replace: true });
+  };
 
+  const handleMyProfileLink = () => {
+    navigate(`../user/${userId}`);
+  };
 	const LinkStyle = { color: 'white', textDecoration: 'none' };
 
 	return (

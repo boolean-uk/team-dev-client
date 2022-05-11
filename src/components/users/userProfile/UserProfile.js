@@ -6,11 +6,11 @@ import './style.css';
 import { Link } from 'react-router-dom';
 import ProfileImg from '../../ProfileImg/ProfileImg'
 
-const UserProfile = () => {
+const UserProfile = ({ userId }) => {
   const [profile, setProfile] = useState('');
   const [checkId, setCheckId] = useState(false);
   const { id } = useParams();
-  const loggedInId = localStorage.getItem('userId');
+  const loggedInId = userId;
 
   useEffect(() => {
     handleProfile();
