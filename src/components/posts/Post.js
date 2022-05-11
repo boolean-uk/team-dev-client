@@ -1,9 +1,9 @@
-import dateTimetoRelativeTime from "./helperfunctions";
-import { Link } from "react-router-dom";
-import { Box, Stack } from "@mui/material";
-import React from "react";
-import PostComments from "./MainCommentComponent";
-import PostLike from "./PostLike";
+import dateTimetoRelativeTime from './helperfunctions';
+import { Link } from 'react-router-dom';
+import { Box, Stack } from '@mui/material';
+import React from 'react';
+import PostComments from './MainCommentComponent';
+import PostLike from './PostLike';
 
 function Post({ post, onCommentAdded }) {
   return (

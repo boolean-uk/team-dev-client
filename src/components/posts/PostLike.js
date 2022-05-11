@@ -1,18 +1,18 @@
-import like from "./like.png";
-import React from "react";
-import { useState } from "react";
-import "./style.css";
+import like from './like.png';
+import React from 'react';
+import { useState } from 'react';
+import './style.css';
 
 const PostLike = () => {
   const [divStyle, updateLike] = useState({
-    backgroundImage: "radial-gradient(lightgrey 60%, darkgrey 40%)",
+    backgroundImage: 'radial-gradient(lightgrey 60%, darkgrey 40%)',
   });
 
   function toggleLike() {
     const updatedStyle =
-      divStyle.backgroundImage === "radial-gradient(#1976d2 60%, orange 40%)"
-        ? { backgroundImage: "radial-gradient(lightgrey 60%, darkgrey 40%)" }
-        : { backgroundImage: "radial-gradient(#1976d2 60%, orange 40%)" };
+      divStyle.backgroundImage === 'radial-gradient(#1976d2 60%, orange 40%)'
+        ? { backgroundImage: 'radial-gradient(lightgrey 60%, darkgrey 40%)' }
+        : { backgroundImage: 'radial-gradient(#1976d2 60%, orange 40%)' };
     updateLike(updatedStyle);
   }
 

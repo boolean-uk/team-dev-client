@@ -1,10 +1,10 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import { Box } from "@mui/system";
+import React from 'react';
+import Button from '@mui/material/Button';
+import { Box } from '@mui/system';
 
 const PostForm = ({ handleSubmit, handleChange, inputValue }) => {
   return (
-    <Box sx={{ width: "50vw", margin: "0 auto" }}>
+    <Box sx={{ width: '50vw', margin: '0 auto' }}>
       <form className="post-form" onSubmit={handleSubmit}>
         <textarea
           col="20"

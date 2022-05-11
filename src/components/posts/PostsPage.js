@@ -1,18 +1,18 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import PostForm from "./PostForm";
-import Post from "./Post";
-import client from "../../utils/client";
-import "./style.css";
-import CohortList from "../cohort/CohortList";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import PostForm from './PostForm';
+import Post from './Post';
+import client from '../../utils/client';
+import './style.css';
+import CohortList from '../cohort/CohortList';
 
 const PostsPage = () => {
-  const [post, setPost] = useState({ content: "" });
-  const [postResponse, setPostResponse] = useState("");
+  const [post, setPost] = useState({ content: '' });
+  const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    client.get("/posts").then((res) => {
+    client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);
     });
   }, [postResponse]);
@@ -20,15 +20,15 @@ const PostsPage = () => {
   const createPost = (event) => {
     event.preventDefault();
     client
-      .post("/post", post)
+      .post('/post', post)
       .then((res) => {
         setPostResponse(res.data);
         setPosts((posts) => [res.data.data.post, ...posts]);
       })
       .catch((err) => {
-        console.log(err.message, "Invalid Post");
+        console.log(err.message, 'Invalid Post');
       });
-    setPost(() => ({ content: "" }));
+    setPost(() => ({ content: '' }));
   };
 
   const onCommentAdded = (post, comment) => {
@@ -70,7 +70,7 @@ const PostsPage = () => {
             </ul>
           </div>
         </section>
-        {localStorage.getItem("role") === "TEACHER" && <CohortList />}
+        {localStorage.getItem('role') === 'TEACHER' && <CohortList />}
       </div>
     </>
   );
