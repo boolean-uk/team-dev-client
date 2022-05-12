@@ -25,6 +25,11 @@ export default function StudentList(props) {
       .catch((err) => console.log(err.response));
   }
 
+  // Added this for students who have not yet been assigned a cohort
+  if(cohortId === null) {
+    return <></>
+  }
+
   return (
     <>
       <div className='big-container-student-table'>

@@ -71,8 +71,7 @@ const PostsPage = ({ role, userId }) => {
             </ul>
           </div>
         </section>
-        {role === 'TEACHER' && <CohortList />}
-        <StudentList userId={userId}/>
+        {role === 'TEACHER' ? <CohortList /> : <StudentList userId={userId}/>}
       </div>
     </>
   );
