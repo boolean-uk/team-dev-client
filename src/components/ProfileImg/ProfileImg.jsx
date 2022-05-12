@@ -30,7 +30,7 @@ function ProfileImg({ avatar }) {
         width='60px'
       />
     );
-  } else if (profileImg) {
+  } else if (profileImg && avatar !== '') {
     return <img
     src={profileImg}
     alt='user avatar'
