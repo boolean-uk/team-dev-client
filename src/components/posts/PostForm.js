@@ -17,7 +17,7 @@ const PostForm = ({ handleSubmit, handleChange, inputValue }) => {
           name='content'
           onChange={handleChange}
         />
-        <Button type="submit" variant="contained">
+        <Button type='submit' variant='contained'>
           Post
         </Button>
       </form>
