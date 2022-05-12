@@ -21,7 +21,7 @@ const Header = ({ setSearchInput, role, userId }) => {
     navigate(`../user/${userId}`);
   };
   const LinkStyle = { color: 'white', textDecoration: 'none' };
-  const ButtonStyle = { minWidth: 130, maxHeight: 30, mr: 2 };
+  const ButtonStyle = { minWidth: 130, maxHeight: 30 };
 
   return (
     <>
@@ -39,7 +39,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             display: 'flex',
             justifyItems: 'flex-start',
             fontSize: '1.5rem',
-			fontWeight: 'bold',
+			      fontWeight: 'bold',
             margin: 2,
           }}
         >
@@ -53,8 +53,11 @@ const Header = ({ setSearchInput, role, userId }) => {
         <Box
           sx={{
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
             alignItems: 'center',
             justifyContent: 'flex-end',
+            mr: 2
           }}
         >
           {role !== 'STUDENT' && (
@@ -80,8 +83,8 @@ const Header = ({ setSearchInput, role, userId }) => {
           >
             Logout
           </Button>
-          <Avatar sx={{ mr: 2 }} />
         </Box>
+        <Avatar sx={{ mr: 2 }} />
       </Box>
     </>
   );

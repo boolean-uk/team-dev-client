@@ -28,7 +28,7 @@ export default function SearchPage({ searchInput }) {
   }, [searchInput])
 
   return (
-    <Box sx={{minWidth: '100vh'}}>
+    <Box sx={{minWidth: '100vw'}}>
       {searchResults.length !== 0 ? (
         <TableContainer
           component={Paper}
