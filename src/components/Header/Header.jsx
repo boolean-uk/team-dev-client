@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './header.css';
 import storage from '../../utils/storage';
 
 const Header = ({ setSearchInput, role, userId }) => {
