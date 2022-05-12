@@ -1,15 +1,15 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import client from "../../utils/client";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import client from '../../utils/client';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function AddCohort() {
   const blankForm = {
-    cohortName: "",
-    startDate: "",
-    endDate: "",
+    cohortName: '',
+    startDate: '',
+    endDate: '',
   };
   const [cohort, setCohort] = useState(blankForm);
 
@@ -20,14 +20,12 @@ export default function AddCohort() {
       [name]: value,
     });
   };
-
   let navigate = useNavigate();
 
   const addCohortHandle = (e) => {
     e.preventDefault();
-    console.log("on submit");
     client
-      .post("/cohort", cohort)
+      .post('/cohort', cohort)
       .then((res) => {
         let id = res.data.data.cohort.id;
         navigate(`/cohort/${id}`);
@@ -37,40 +35,40 @@ export default function AddCohort() {
 
   return (
     <>
-      <section className="edit-user-form">
+      <section className='edit-user-form'>
         <h1> Add Cohort Details </h1>
         <form onSubmit={addCohortHandle}>
           <TextField
-            className="user-form-input"
+            className='user-form-input'
             value={cohort.cohortName}
-            variant="outlined"
-            name="cohortName"
+            variant='outlined'
+            name='cohortName'
             onChange={handleChange}
-            placeholder="Cohort name"
+            placeholder='Cohort name'
           />
           <TextField
-            className="user-form-input"
-            type="date"
+            className='user-form-input'
+            type='date'
             value={cohort.startDate}
-            variant="outlined"
-            name="startDate"
+            variant='outlined'
+            name='startDate'
             onChange={handleChange}
-            placeholder="Start date"
+            placeholder='Start date'
           />
           <TextField
-            className="user-form-input"
-            type="date"
+            className='user-form-input'
+            type='date'
             value={cohort.endDate}
-            variant="outlined"
-            name="endDate"
+            variant='outlined'
+            name='endDate'
             onChange={handleChange}
-            placeholder="End date"
+            placeholder='End date'
           />
-          <Button id="user-submit-button" type="submit" variant="contained">
+          <Button id='user-submit-button' type='submit' variant='contained'>
             Create Cohort
           </Button>
         </form>
       </section>
     </>
   );
-}
+};
