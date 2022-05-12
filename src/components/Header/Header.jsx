@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import ProfileImg from '../ProfileImg/ProfileImg'
 import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,7 @@ const Header = ({ setSearchInput, role, userId}) => {
 							onClick={signOut}>
 							Logout
 						</Button>
-						<Avatar />
+						<ProfileImg />
 					</Stack>
 				</Box>
 			</Box>

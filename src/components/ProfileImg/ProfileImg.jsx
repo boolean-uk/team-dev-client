@@ -22,6 +22,7 @@ function ProfileImg({ avatar }) {
   }, []);
 
   if (avatar) {
+    console.log('this is avatar: ', avatar);
     return (
       <img
         src={avatar}
@@ -30,7 +31,8 @@ function ProfileImg({ avatar }) {
         width='60px'
       />
     );
-  } else if (profileImg) {
+  } else if (profileImg && avatar !== '') {
+    console.log('this is profileImg: ', profileImg);
     return <img
     src={profileImg}
     alt='user avatar'
