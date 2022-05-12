@@ -12,6 +12,7 @@ export default function ViewCohort() {
   const [noCohort, setNoCohort] = useState([]);
   const [cohortStudents, setCohortStudents] = useState([]);
   const [resetStudents, setResetStudents] = useState(0);
+  const [cohortInfo, setCohortInfo] = useState({});
 
   useEffect(() => {
     client
@@ -23,8 +24,12 @@ export default function ViewCohort() {
       .get(`/user/student?cohort=${id}`)
       .then((res) => setCohortStudents(res.data.data))
       .catch((err) => console.log(err.response));
-  }, [resetStudents]);
 
+    client
+      .get(`/cohort?id=${id}`)
+      .then((res) => setCohortInfo(res.data.data))
+      .catch((err) => console.log(err.response));
+  }, [resetStudents]);
   function addStudent(studentId) {
     const data = { cohort_id: id };
     client
@@ -50,6 +55,10 @@ export default function ViewCohort() {
               <div className="cohort-title">
                 <h3>Cohort {id}</h3>
               </div>
+              <div>
+                <h3>{cohortInfo.cohortName}{cohortInfo.startDate}</h3>
+              </div>
+
               <div className="cohort-size-text">
                 Number of students: {cohortStudents.length}
               </div>
@@ -63,4 +72,4 @@ export default function ViewCohort() {
       </Grid>
     </>
   );
-};
+}

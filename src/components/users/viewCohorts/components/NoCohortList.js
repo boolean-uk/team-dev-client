@@ -11,8 +11,10 @@ export default function NoCohortList({ noCohort, addStudent }) {
             </div>
             <Box className='add-student-container'>
                 <List>
-                    {noCohort.map((student, key) => (
-                        <NoCohortListItem student={student} key={key} addStudent={addStudent} />
+                    {noCohort.map((student, index) => (
+                        <React.Fragment key={index}>
+                            <NoCohortListItem student={student} addStudent={addStudent} />
+                        </React.Fragment>
                     ))}
                 </List>
             </Box>

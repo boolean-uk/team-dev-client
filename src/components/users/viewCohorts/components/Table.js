@@ -15,8 +15,10 @@ export default function BasicTable(props) {
             <Table aria-label='simple table'>
                 <TableHeader />
                 <TableBody>
-                    {cohortStudents.map((row, key) => (
-                        <TableRows row={row} key={key} />
+                    {cohortStudents.map((row, index) => (
+                        <React.Fragment key={index}>
+                            <TableRows row={row} />
+                        </React.Fragment>
                     ))}
                 </TableBody>
             </Table>
