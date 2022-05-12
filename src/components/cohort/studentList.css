@@ -1,0 +1,71 @@
+.big-container-student-table {
+    height: 50vh;
+    width: 30%;
+    margin-right: 20px;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+}
+
+.big-container-title {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#list-of-students-main-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+.student-in-list-main-page {
+    height: 80px;
+    display: grid;
+    grid-template-columns: 28% 1fr;
+}
+
+.list-of-students-main-page-avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-of-students-main-page-fullName {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+    align-items: center;
+}
+
+/* STYLE */
+.big-container-title {
+ background-color: #23232c;
+ font-size: 1.5rem
+}
+
+.list-of-students-main-page-avatar a,
+.list-of-students-main-page-fullName a{
+    text-decoration: none;
+}
+
+.list-of-students-main-page-fullName h4{
+    font-size: 1.5rem;
+    color: white;
+}
+
+.list-of-students-main-page-avatar,
+.list-of-students-main-page-fullName {
+    background-color: #464657;
+    border: 1px solid #23232c
+}
+
+/* HOVER */
+.list-of-students-main-page-avatar:hover,
+.list-of-students-main-page-fullName:hover {
+    background-color: #535363
+}
