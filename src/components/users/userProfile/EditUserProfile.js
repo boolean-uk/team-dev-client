@@ -105,39 +105,7 @@ const UserForm = () => {
           />
           <TextField
             className='user-form-input'
-            label='Avatar URL'
-            variant='outlined'
-            name='avatar'
-            onChange={handleChange}
-            placeholder='First name'
-          />
-          <TextField
-            className='user-form-input'
-            value={profile.lastName}
-            variant='outlined'
-            name='lastName'
-            onChange={handleChange}
-            placeholder='Last name'
-          />
-          <TextField
-            className='user-form-input'
-            value={profile.biography}
-            variant='outlined'
-            name='biography'
-            onChange={handleChange}
-            placeholder='Bio'
-          />
-          <TextField
-            className='user-form-input'
-            type='url'
-            value={profile.githubUrl}
-            variant='outlined'
-            name='githubUrl'
-            onChange={handleChange}
-            placeholder='GitHub URL'
-          />
-          <TextField
-            className='user-form-input'
+            value={profile.profileImgUrl}
             label='Avatar URL'
             variant='outlined'
             name='profileImgUrl'
