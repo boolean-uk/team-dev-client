@@ -29,7 +29,7 @@ const Header = ({ setSearchInput, role, userId }) => {
           display: 'flex',
           alignItems: 'center',
           backgroundColor: 'rgb(97, 101, 107)',
-          minWidth: '99.1vw',
+          minWidth: '100vw',
           padding: '7px',
         }}
       >

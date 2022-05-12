@@ -1,27 +1,33 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import "./viewCohort.css";
-import client from "../../../utils/client";
-import Table from "./components/Table";
-import { Box, Grid } from "@mui/material";
-import NoCohortList from "./components/NoCohortList";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import './viewCohort.css';
+import client from '../../../utils/client';
+import Table from './components/Table';
+import { Box, Grid } from '@mui/material';
+import NoCohortList from './components/NoCohortList';
 
 export default function ViewCohort() {
   const { id } = useParams();
   const [noCohort, setNoCohort] = useState([]);
   const [cohortStudents, setCohortStudents] = useState([]);
   const [resetStudents, setResetStudents] = useState(0);
+  const [cohortInfo, setCohortInfo] = useState({});
 
   useEffect(() => {
     client
-      .get("/user/student?cohort=none")
+      .get('/user/student?cohort=none')
       .then((res) => setNoCohort(res.data.data))
       .catch((err) => console.log(err.response));
 
     client
       .get(`/user/student?cohort=${id}`)
       .then((res) => setCohortStudents(res.data.data))
+      .catch((err) => console.log(err.response));
+
+    client
+      .get(`/cohort?id=${id}`)
+      .then((res) => setCohortInfo(res.data.data))
       .catch((err) => console.log(err.response));
   }, [resetStudents]);
 
@@ -40,21 +46,21 @@ export default function ViewCohort() {
     <>
       <Grid
         container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Box className="BigContainer">
-          <div className="Container_cohorts">
-            <div className="Parent-title-container">
-              <div className="cohort-title">
-                <h3>Cohort {id}</h3>
+        <Box className='BigContainer'>
+          <div className='Container_cohorts'>
+            <div className='Parent-title-container'>
+              <div className='cohort-title'>
+              <h3>{cohortInfo.cohortName ? cohortInfo.cohortName: `Cohort ${id}`} </h3>
               </div>
-              <div className="cohort-size-text">
+              <div className='cohort-size-text'>
                 Number of students: {cohortStudents.length}
               </div>
             </div>
-            <div className="cohort-student-big-table">
+            <div className='cohort-student-big-table'>
               <Table cohortStudents={cohortStudents} />
             </div>
           </div>

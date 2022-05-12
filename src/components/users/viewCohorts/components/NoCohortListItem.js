@@ -4,16 +4,14 @@ import { Box, ListItem } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ProfileLink from './ProfileLink';
 
-export default function NoCohortListItem({ student, key, addStudent }) {
+export default function NoCohortListItem({ student, addStudent }) {
     const ListStyle = {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItem: 'center'
     };
     return (
-        <ListItem
-            sx={ListStyle}
-            key={key}>
+        <ListItem sx={ListStyle}>
             <Box sx={{ display: 'flex' }} className='individual-student-box'>
                 <Box>
                     <ProfileLink person={student} />
