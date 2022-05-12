@@ -9,7 +9,9 @@ import storage from '../../../utils/storage'
 
 const LoginPage = ({ token, setLoggedInUser }) => {
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
+  const [loginResponse, setLoginResponse] = useState({
+    data: { token: '', user: {} },
+  });
   const [loginError, setLoginError] = useState(false);
   let navigate = useNavigate();
 
@@ -17,7 +19,6 @@ const LoginPage = ({ token, setLoggedInUser }) => {
     const loadedToken = token || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
-
   const loginUser = (event) => {
     event.preventDefault();
     client
@@ -58,7 +59,11 @@ const LoginPage = ({ token, setLoggedInUser }) => {
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} loginError={loginError} />
+      <UserForm
+        handleChange={handleChange}
+        handleSubmit={loginUser}
+        loginError={loginError}
+      />
     </div>
   );
 };

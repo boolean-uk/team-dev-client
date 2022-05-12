@@ -10,7 +10,7 @@ const PostsPage = ({ role, userId }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-
+  
   useEffect(() => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);

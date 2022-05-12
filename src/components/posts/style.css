@@ -15,6 +15,10 @@
     justify-content: center;
     flex-direction: column;
     margin: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1rem auto;
 }
 
 .post-item {
@@ -33,13 +37,18 @@
 }
 
 form.post-form {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 textarea {
     border-radius: 0.2rem;
+}
+
+.user-form-input {
+  resize: none;
+  padding: 0.5rem;
 }
 
 li.post-item {
@@ -65,10 +74,12 @@ ul.posts-list {
 
 .post-content,
 .names-date {
-    display: flex;
-    color: whitesmoke;
-    font-family: helvetica;
-    font-style: normal;
+  display: flex;
+  color: whitesmoke;
+  font-family: helvetica;
+  font-style: normal;
+  align-items: center;
+  text-align: left;
 }
 
 li {
@@ -76,8 +87,9 @@ li {
 }
 
 .post-author {
-    color: #ffa500;
-    text-decoration: none;
+  color: #ffa500;
+  text-decoration: none;
+  width: 100%;
 }
 
 .post-author:hover {
@@ -112,8 +124,10 @@ li {
 }
 
 .fullname {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 }
 
 .date-time {
@@ -170,29 +184,36 @@ li.comment-item {
   height: 2em;
   margin-right: 1em;
 }
-.MuiInputBase-root {
-  /* height:2em; */
-  margin: 0;
-  padding: 0;
-  border-radius: 10px;
+.form-comment .MuiOutlinedInput-root {
+  height: 2em;
+  border:0;
 }
-.MuiButton-outlined {
+
+.MuiButton-outlined{
   height: 2em;
   border-radius: 10px;
 }
-.Mui-focused {
+.form-comment .Mui-focused {
   height: 2em;
-  border-radius: 10px;
 }
-.MuiBox-root {
+
+.MuiBox-root{
   width: 100%;
   height: 100%;
 }
-.MuiButton-contained {
+
+.MuiButton-contained{
   margin-left: 1em;
 }
-.comment-content {
+
+.comment-content{
   margin-bottom: 9%;
   width: 100%;
   overflow-y: auto;
+}
+
+.comment-form {
+  display: flex;
+  place-content: center;
+  gap: 0.6rem;
 }
