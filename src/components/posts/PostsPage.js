@@ -5,6 +5,7 @@ import Post from './Post';
 import client from '../../utils/client';
 import './style.css';
 import CohortList from '../cohort/CohortList';
+import StudentList from '../cohort/StudentList.jsx';
 
 const PostsPage = ({ role, userId }) => {
   const [post, setPost] = useState({ content: '' });
@@ -70,7 +71,7 @@ const PostsPage = ({ role, userId }) => {
             </ul>
           </div>
         </section>
-        {role === 'TEACHER' && <CohortList />}
+        {role === 'TEACHER' ? <CohortList /> : <StudentList userId={userId}/>}
       </div>
     </>
   );
