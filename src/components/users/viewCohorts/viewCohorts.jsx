@@ -12,7 +12,7 @@ export default function ViewCohort() {
   const [noCohort, setNoCohort] = useState([]);
   const [cohortStudents, setCohortStudents] = useState([]);
   const [resetStudents, setResetStudents] = useState(0);
-
+  const [cohortInfo, setCohortInfo] = useState({});
 
   useEffect(() => {
     client
@@ -54,7 +54,7 @@ export default function ViewCohort() {
           <div className='Container_cohorts'>
             <div className='Parent-title-container'>
               <div className='cohort-title'>
-                <h3>Cohort {id}</h3>
+              <h3>{cohortInfo.cohortName ? cohortInfo.cohortName: `Cohort ${id}`} </h3>
               </div>
               <div className='cohort-size-text'>
                 Number of students: {cohortStudents.length}
