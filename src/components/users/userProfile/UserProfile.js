@@ -4,7 +4,7 @@ import client from '../../../utils/client';
 import { useParams } from 'react-router-dom';
 import './style.css';
 import { Link } from 'react-router-dom';
-import ProfileImg from '../../ProfileImg/ProfileImg'
+import ProfileImg from '../../ProfileImg/ProfileImg';
 
 const UserProfile = ({ userId }) => {
   const [profile, setProfile] = useState('');

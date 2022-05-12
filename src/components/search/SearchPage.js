@@ -13,19 +13,19 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 export default function SearchPage({ searchInput }) {
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     if (!searchInput) {
-      return
+      return;
     }
     client
       .get(`/user?first_name=${searchInput}`)
       .then((res) => {
-        setSearchResults(res.data.data.users)
+        setSearchResults(res.data.data.users);
       })
-      .catch((err) => console.log('Error', err))
-  }, [searchInput])
+      .catch((err) => console.log('Error', err));
+  }, [searchInput]);
 
   return (
     <>

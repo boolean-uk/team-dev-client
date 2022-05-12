@@ -24,7 +24,7 @@ export default function NoCohortListItem({ student, key, addStudent }) {
                 <Box className='add-student-icon'>
                     <AddCircleIcon
                         style={{ cursor: 'pointer' }}
-                        onClick={() => { addStudent(student.user.id) }}
+                        onClick={() => { addStudent(student.user.id); }}
                         value={student.id}
                         color='string'
                         fontSize='large'>
