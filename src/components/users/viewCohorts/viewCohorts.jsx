@@ -12,7 +12,7 @@ export default function ViewCohort() {
   const [noCohort, setNoCohort] = useState([]);
   const [cohortStudents, setCohortStudents] = useState([]);
   const [resetStudents, setResetStudents] = useState(0);
-  const [cohortInfo, setCohortInfo] = useState({});
+
 
   useEffect(() => {
     client
