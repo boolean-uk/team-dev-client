@@ -3,7 +3,6 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
-import '../Header/header.css'
 
 export default function SearchComponent({ setSearchInput }) {
   let navigate = useNavigate();
