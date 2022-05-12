@@ -6,22 +6,22 @@ import { Stack } from '@mui/material';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './header.css';
-import storage from "../../utils/storage";
+import storage from '../../utils/storage';
 
-const Header = ({ setSearchInput, role, userId}) => {
-
+const Header = ({ setSearchInput, role, userId }) => {
   let navigate = useNavigate();
+
   const signOut = (event) => {
     event.preventDefault();
     storage.clearStorage();
-    navigate("../login", { replace: true });
+    navigate('../login', { replace: true });
   };
 
   const handleMyProfileLink = () => {
     navigate(`../user/${userId}`);
   };
-	const LinkStyle = { color: 'white', textDecoration: 'none' };
+  const LinkStyle = { color: 'white', textDecoration: 'none' };
+  const ButtonStyle = { minWidth: 130, maxHeight: 30 };
 
 	return (
 		<>
