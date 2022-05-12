@@ -56,9 +56,6 @@ export default function ViewCohort() {
               <div className='cohort-title'>
                 <h3>Cohort {id}</h3>
               </div>
-              <div className='cohort-title'>
-                <h4>{cohortInfo.cohortName}{cohortInfo.startDate}</h4>
-              </div>
               <div className='cohort-size-text'>
                 Number of students: {cohortStudents.length}
               </div>
