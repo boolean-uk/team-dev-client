@@ -7,60 +7,60 @@ import colours from '../../utils/colours';
 
 const PostLike = ({likes=[], postId, userId}) => { 
 
-const blue = colours.blue;
-const grey = colours.grey;
+const blue = colours.blueRadGradient;
+const grey = colours.greyRadGradient;
 
-const [divStyle, updateStyle] = useState({ backgroundColor: grey });
-const [postLikes,updateLikes] = useState(likes);
-const [id, updateId] = useState('');
-const [talkingToServer, updateTalkStatus] = useState(false);
+const [divStyle, setStyle] = useState({ backgroundImage: grey });
+const [postLikes,setLikes] = useState(likes);
+const [id, setId] = useState('');
+const [talkingToServer, setTalkStatus] = useState(false);
 
 useEffect(()=>{
   const like = likes.find(like => String(like.userId) === userId); // checks if user has liked the post
   if (like){
-    updateStyle({backgroundColor: blue});
-    updateId(like.id);
+    setStyle({backgroundImage: blue});
+    setId(like.id);
   }
 },[]);
 
-  function likePost(event){
-  updateTalkStatus(true);
-  client.post(`/post/${postId}/like/`)
-  .then(res => {
-    updateId(_ => res.data.data.id);
-    updateLikes(likes => [res.data.data, ...likes]);
-    updateStyle({backgroundColor: blue});
+function likePost(event){
+setTalkStatus(true);
+client.post(`/post/${postId}/like/`)
+.then(res => {
+  setId(_ => res.data.data.id);
+  setLikes(likes => [res.data.data, ...likes]);
+  setStyle({backgroundImage: blue});
+})
+.catch((err) => {
+  console.log({error: `when liking post: ${err.message}`});
+})
+.finally(() => setTalkStatus(false));
+}
+
+function unlikePost(event){
+  setTalkStatus(true);
+  client.delete(`/post/like/${id}`)
+  .then(_ => {
+    setLikes(likes => likes.filter(like => like.id !== id));
+    setStyle({backgroundImage: grey});
   })
   .catch((err) => {
-    console.log({error: `when liking post: ${err.message}`});
+    console.log({error: `when unliking post: ${err.message}`});
   })
-  .finally(() => updateTalkStatus(false));
-  }
-
-  function unlikePost(event){
-    updateTalkStatus(true);
-    client.delete(`/post/like/${id}`)
-    .then(_ => {
-      updateLikes(likes => likes.filter(like => like.id !== id));
-      updateStyle({backgroundColor: grey});
-    })
-    .catch((err) => {
-      console.log({error: `when unliking post: ${err.message}`});
-    })
-    .finally(() => updateTalkStatus(false));
-  }
+  .finally(() => setTalkStatus(false));
+}
 
 function toggleLike(event) {
   if (talkingToServer) return;
-  if (divStyle.backgroundColor === grey) likePost(event);
-  else if (divStyle.backgroundColor !== grey) unlikePost(event);
+  if (divStyle.backgroundImage === grey) likePost(event);
+  else if (divStyle.backgroundImage === blue) unlikePost(event);
 }
 
     return <div className = 'like-section'>
-    <p>Likes: {postLikes.length}</p>
-    <div className = 'icon-container' onClick={toggleLike} style={divStyle}>
-      <img className='post-like' src={like} alt='like'/>
-      </div>
+    <p className='like-label'>Likes: {postLikes.length}</p>
+    <div className='icon-container' onClick={toggleLike} style={divStyle}>
+      <img className='like-img' src={like} alt='like'/>
+    </div>
     </div>;
 };
 
