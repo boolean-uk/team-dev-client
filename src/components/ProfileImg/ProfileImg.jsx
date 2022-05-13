@@ -8,6 +8,7 @@ function ProfileImg({ avatar, userId }) {
   const [profileImg, setProfileImg] = useState('');
 
   useEffect(() => {
+    if(userId) {
     client
       .get(`/user/${userId}`)
       .then((res) => {
@@ -16,6 +17,7 @@ function ProfileImg({ avatar, userId }) {
       .catch((err) => {
         console.log('Something went wrong when loading the profile image...', err.response)
       });
+    };
   }, []);
 
   if (avatar) {
