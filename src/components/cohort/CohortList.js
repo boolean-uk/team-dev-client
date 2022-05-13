@@ -29,7 +29,7 @@ function CohortList() {
                   <Link
                     to={`/cohort/${cohort.id}`}
                     style={{ textDecoration: 'none' }}>
-                    <Button variant='contained' sx={{ minWidth: 125 }}>
+                    <Button variant='contained' sx={{ width: 125 }}>
                       {cohort.cohortName ? cohort.cohortName : `Cohort ${cohort.id}`}
                     </Button>
                   </Link>
