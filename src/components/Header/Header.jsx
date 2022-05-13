@@ -84,7 +84,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             Logout
           </Button>
         </Box>
-        <ProfileImg />
+        <ProfileImg userId={userId}/>
       </Box>
     </>
   );

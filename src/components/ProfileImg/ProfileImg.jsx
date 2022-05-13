@@ -3,12 +3,9 @@ import React from 'react';
 import './style.css';
 import { useState, useEffect } from 'react';
 import client from '../../utils/client';
-import storage from '../../utils/storage';
 
-function ProfileImg({ avatar }) {
+function ProfileImg({ avatar, userId }) {
   const [profileImg, setProfileImg] = useState('');
-  const localStorageResponse = storage.loadStorage()
-  const userId = localStorageResponse.userId;
 
   useEffect(() => {
     client

@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
+import ProfileImg from '../ProfileImg/ProfileImg';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 
@@ -74,10 +74,7 @@ export default function SearchPage({ searchInput }) {
                         textAlign: 'center',
                       }}
                     >
-                      <Avatar>
-                        {user.firstName[0].toUpperCase()}
-                        {user.lastName[0].toUpperCase()}
-                      </Avatar>
+                      <ProfileImg avatar={user.profileImgUrl}/>
                     </TableCell>
                     <TableCell
                       sx={{
