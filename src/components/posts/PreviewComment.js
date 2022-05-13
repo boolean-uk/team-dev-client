@@ -9,7 +9,7 @@ function PreviewComment({ post }) {
       <div className='comment-content'>{post.postComments[0].content}</div>
       <Stack className='names-date' spacing={2} direction='row'>
         <Box className='fullname' variant='contained'>
-          <ProfileImg />
+        <ProfileImg avatar={post.postComments[0].user.profile.profileImgUrl}/>
           <strong>{`${post.postComments[0].user.profile.firstName} ${post.postComments[0].user.profile.lastName}`}</strong>
         </Box>
         <Box className='date-time' variant='contained'>
