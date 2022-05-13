@@ -4,6 +4,8 @@
     margin-right: 20px;
     display: grid;
     grid-template-rows: 60px 1fr;
+    overflow: scroll;
+    scroll-behavior: smooth;
 }
 
 .big-container-title {
@@ -19,12 +21,11 @@
     height: 100%;
     display: flex;
     flex-flow: column wrap;
-    overflow: auto;
-    scroll-behavior: smooth;
 }
 
 .student-in-list-main-page {
     height: 80px;
+    width: 100%;
     display: grid;
     grid-template-columns: 28% 1fr;
 }
