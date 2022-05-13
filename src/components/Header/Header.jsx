@@ -31,6 +31,7 @@ const Header = ({ setSearchInput, role, userId }) => {
           backgroundColor: 'rgb(97, 101, 107)',
           minWidth: '100vw',
           padding: '7px',
+          paddingRight: '14px'
         }}
       >
         <Box
@@ -83,7 +84,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             Logout
           </Button>
         </Box>
-        <ProfileImg sx={{ mr: 2 }} />
+        <ProfileImg />
       </Box>
     </>
   );
