@@ -8,7 +8,7 @@ export default function TableHeader() {
         color: '#ffffff',
         fontWeight: 'bold',
         borderBlockColor: '#23232c',
-        textAlign: 'center'
+        textAlign: 'left'
     };
     const headerBackground = {
         backgroundColor: '#23232c'

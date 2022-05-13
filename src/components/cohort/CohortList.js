@@ -4,17 +4,18 @@ import Button from '@mui/material/Button';
 import './CohortList.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import storage from '../../utils/storage'
+import storage from '../../utils/storage';
 
 function CohortList() {
   const [cohort, setCohort] = useState();
   useEffect(() => {
     const role = storage.loadStorage().role;
     if (role === 'TEACHER') {
-      client.get('/cohort').then((res) => setCohort(res.data.data));
+      client.get('/cohort').then((res) => {
+        setCohort(res.data.data)
+      });
     }
   }, []);
-
   return (
     <>
       <div className='side-bar'>
@@ -27,9 +28,10 @@ function CohortList() {
                   {' '}
                   <Link
                     to={`/cohort/${cohort.id}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Button variant='contained'> Cohort {cohort.id}</Button>
+                    style={{ textDecoration: 'none' }}>
+                    <Button variant='contained' sx={{ width: 125 }}>
+                      {cohort.cohortName ? cohort.cohortName : `Cohort ${cohort.id}`}
+                    </Button>
                   </Link>
                 </li>
               ))}
@@ -38,6 +40,6 @@ function CohortList() {
       </div>
     </>
   );
-}
+};
 
 export default CohortList;
