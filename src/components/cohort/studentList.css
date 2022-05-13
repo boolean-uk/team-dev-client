@@ -4,6 +4,7 @@
     margin-right: 20px;
     display: grid;
     grid-template-rows: 60px 1fr;
+    overflow: auto;
     overflow: scroll;
     scroll-behavior: smooth;
 }
@@ -62,7 +63,7 @@
 .list-of-students-main-page-avatar,
 .list-of-students-main-page-fullName {
     background-color: #464657;
-    border: 1px solid #23232c
+    border-bottom: 1px solid #23232c
 }
 
 /* HOVER */
