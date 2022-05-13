@@ -17,7 +17,7 @@ const RegistrationPage = () => {
     client
       .post('/user', user, false)
       .then((res) => {
-        setRegisterResponse(res.data)
+        setRegisterResponse(res.data);
       })
       .catch((err) => {
         const errorMessage = err.response.data.data.email;

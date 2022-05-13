@@ -11,19 +11,19 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import SearchPage from './components/search/SearchPage';
-import storage from './utils/storage'
+import storage from './utils/storage';
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
-  const [loggedInUser, setLoggedInUser] = useState(null)
+  const [loggedInUser, setLoggedInUser] = useState(null);
  
   useEffect(() => {
-   setLoggedInUser(storage.loadStorage())
-  }, [])
+   setLoggedInUser(storage.loadStorage());
+  }, []);
   
   //This if statment is here to stop user Authenticate running before the information is set
   if (loggedInUser === null) {
-    return <div className='App'></div>
+    return <div className='App'></div>;
   }
 
 
@@ -46,7 +46,7 @@ function App() {
 }
 
 function isLoggedIn(loggedInUser) {
-  return loggedInUser !== false
+  return loggedInUser !== false;
 }
 
 const AuthenticateUser = ({ children, redirectPath = '/login', setSearchInput, loggedInUser }) => {

@@ -10,11 +10,11 @@ const storage = {
             token: localStorage.getItem(process.env.REACT_APP_USER_TOKEN),
             userId: localStorage.getItem('userId'),
             role: localStorage.getItem('role'),
-        }
+        };
         if (!local.token) {
-            return false
+            return false;
         }
-        return local
+        return local;
     },
 
     clearStorage: () => {

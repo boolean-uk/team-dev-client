@@ -5,7 +5,7 @@ import UserForm from './UserForm';
 import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
 import { useNavigate } from 'react-router-dom';
-import storage from '../../../utils/storage'
+import storage from '../../../utils/storage';
 
 const LoginPage = ({ token, setLoggedInUser }) => {
   const [user, setUser] = useState(userBlankData());
@@ -24,9 +24,9 @@ const LoginPage = ({ token, setLoggedInUser }) => {
     client
       .post('/login', user)
       .then((res) => {
-        storage.saveStorage(res.data.data.token, res.data.data.user.id, res.data.data.user.role)
+        storage.saveStorage(res.data.data.token, res.data.data.user.id, res.data.data.user.role);
         setLoginResponse(res.data);
-        setLoggedInUser(storage.loadStorage())
+        setLoggedInUser(storage.loadStorage());
         navigate('../', { replace: true });
       })
       .catch((err) => {

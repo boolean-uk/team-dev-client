@@ -1,7 +1,7 @@
 import React from 'react';
 import dateTimetoRelativeTime from './helperfunctions';
 import { Box, Stack } from '@mui/material';
-import ProfileImg from '../ProfileImg/ProfileImg'
+import ProfileImg from '../ProfileImg/ProfileImg';
 
 function CommentItem({ comment }) {
   if (!comment.user) {

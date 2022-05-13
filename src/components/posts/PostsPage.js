@@ -63,8 +63,8 @@ const PostsPage = ({ role, userId }) => {
               inputValue={post.content}
             />
             <ul className='posts-list'>
-              {posts.map((post, index) => (
-                <li key={index} className='post-item'>
+              {posts.map(post => (
+                <li key={post.id} className='post-item'>
                   <Post post={post} onCommentAdded={onCommentAdded} userId={userId} />
                 </li>
               ))}
