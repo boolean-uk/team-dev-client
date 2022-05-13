@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import client from '../../utils/client';
 import './studentList.css';
-import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import ProfileImg from '../ProfileImg/ProfileImg';
 
 export default function StudentList(props) {
   const { userId } = props;
@@ -41,10 +41,7 @@ export default function StudentList(props) {
             <div key={index} className='student-in-list-main-page'>
               <div className='list-of-students-main-page-avatar'>
                 <Link to={`/user/${student.user.id}`}>
-                  <Avatar>
-                    {student.user.firstName[0].toUpperCase()}
-                    {student.user.lastName[0].toUpperCase()}
-                  </Avatar>
+                  <ProfileImg avatar={student.user.profileImgUrl} />
                 </Link>
               </div>
               <div className='list-of-students-main-page-fullName'>
@@ -64,3 +61,5 @@ export default function StudentList(props) {
     </>
   );
 };
+
+      
