@@ -1,5 +1,5 @@
 import axios from 'axios';
-import storage from './storage'
+import storage from './storage';
 const host = process.env.REACT_APP_API_URL;
 
 const client = {
