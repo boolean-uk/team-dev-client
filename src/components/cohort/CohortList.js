@@ -11,10 +11,11 @@ function CohortList() {
   useEffect(() => {
     const role = storage.loadStorage().role;
     if (role === 'TEACHER') {
-      client.get('/cohort').then((res) => setCohort(res.data.data));
+      client.get('/cohort').then((res) => {
+        setCohort(res.data.data)
+      });
     }
   }, []);
-
   return (
     <>
       <div className='side-bar'>
@@ -29,7 +30,9 @@ function CohortList() {
                     to={`/cohort/${cohort.id}`}
                     style={{ textDecoration: 'none' }}
                   >
-                    <Button variant='contained'> Cohort {cohort.id}</Button>
+                    <Button variant='contained' sx={{ minWidth: 125 }}>
+                      {cohort.cohortName ? cohort.cohortName : `Cohort ${cohort.id}`}
+                    </Button>
                   </Link>
                 </li>
               ))}

@@ -1,5 +1,6 @@
 .cohort-container {
-  border: solid white 3px;
+  border: solid #616171 3px;
+  border-radius: 5px;
   margin: 20px 50px;
   padding: 2rem;
   max-width: 20rem;
@@ -10,7 +11,4 @@
 .cohort-list {
   display: grid;
   row-gap: 5px;
-}
-
-.list-btn {
 }

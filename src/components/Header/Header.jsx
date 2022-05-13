@@ -1,15 +1,15 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
-import ProfileImg from '../ProfileImg/ProfileImg'
+import ProfileImg from '../ProfileImg/ProfileImg';
 import SearchComponent from '../search/SearchComponent';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import storage from '../../utils/storage';
 
 const Header = ({ setSearchInput, role, userId }) => {
+  
   let navigate = useNavigate();
-
   const signOut = (event) => {
     event.preventDefault();
     storage.clearStorage();
@@ -31,6 +31,7 @@ const Header = ({ setSearchInput, role, userId }) => {
           backgroundColor: 'rgb(97, 101, 107)',
           minWidth: '100vw',
           padding: '7px',
+          paddingRight: '14px',
         }}
       >
         <Box
@@ -38,7 +39,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             display: 'flex',
             justifyItems: 'flex-start',
             fontSize: '1.5rem',
-			      fontWeight: 'bold',
+            fontWeight: 'bold',
             margin: 2,
           }}
         >
@@ -56,7 +57,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             gap: '0.5rem',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            mr: 2
+            mr: 2,
           }}
         >
           {role !== 'STUDENT' && (
@@ -83,7 +84,7 @@ const Header = ({ setSearchInput, role, userId }) => {
             Logout
           </Button>
         </Box>
-        <ProfileImg sx={{ mr: 2 }} />
+        <ProfileImg />
       </Box>
     </>
   );
