@@ -7,14 +7,19 @@ export default function TableRows({ row }) {
     const rowStyle = {
         color: '#ffffff',
         borderBlockColor: '#464657',
-        textAlign: 'center',
+        textAlign: 'left'
     };
     const rowBackground = {
         backgroundColor: '#464657',
     };
     return (<TableRow
         sx={rowBackground}>
-        <TableCell sx={rowStyle} >
+        <TableCell sx={{
+            color: '#ffffff',
+            borderBlockColor: '#464657',
+            textAlign: 'left',
+            pl: 5
+        }} >
             {row.user.id}
         </TableCell>
         <TableCell sx={rowStyle} >
