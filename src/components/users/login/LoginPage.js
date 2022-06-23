@@ -23,6 +23,7 @@ const LoginPage = () => {
       .post('/login', user)
       .then((res) => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
+        localStorage.setItem('loggedInUser', JSON.stringify(res.data.data.user));
         setLoggedInUser(res.data.data.user)
         setLoginResponse(res.data);
         navigate('../posts', { replace: true });
