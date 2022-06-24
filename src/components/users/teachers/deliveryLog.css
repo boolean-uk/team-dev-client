@@ -27,6 +27,10 @@
   border-style: none;
 }
 
+.log-form-btn:hover {
+  background-color: #1862ac;
+}
+
 .deliveryLog-existingLogs {
   margin: 1rem;
   padding: 1rem;

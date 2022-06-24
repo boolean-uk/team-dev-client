@@ -5,19 +5,31 @@ import PostsPage from './components/posts/PostsPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash'
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { loggedInUserContext } from './Helper/loggedInUserContext';
+import { useEffect, useState } from "react";
+
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'))  
+    setLoggedInUser(user)
+  },[])
+
   return (
-    <div className='App'>
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/signup' element={<RegistrationPage />} />
-        <Route element={<AuthenticateUser />}>
-          <Route path='/posts' element={<PostsPage />} />
-        </Route>
+    <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+      <div className='App'>
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+          <Route path='/signup' element={<RegistrationPage />} />
+          <Route element={<AuthenticateUser />}>
+            <Route path='/posts' element={<PostsPage />} />
+          </Route>
         <Route path='/log' element={<DeliveryLogDash />} />
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </loggedInUserContext.Provider>
   );
 }
 
