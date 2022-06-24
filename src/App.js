@@ -24,9 +24,9 @@ function App() {
           <Route path='/signup' element={<RegistrationPage />} />
           <Route element={<AuthenticateUser />}>
             <Route path='/posts' element={<PostsPage />} />
+            <Route path='/edit-profile' element={<EditProfile />} />
+            <Route path='/profile/:id' element={<Profile />} />
           </Route>
-          <Route path='/edit-profile' element={<EditProfile />} />
-          <Route path='/profile/:id' element={<Profile />} />
         </Routes>
       </div>
     </loggedInUserContext.Provider>
