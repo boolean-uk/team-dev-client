@@ -3,8 +3,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { loggedInUserContext } from "../../Helper/loggedInUserContext";
 
 const Header = ({ companyName }) => {
+  const { loggedInUser } = useContext(loggedInUserContext);
+
   return (
     <>
       <Box
@@ -43,7 +48,10 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            <Button variant="contained">Profile</Button>
+            <Link to={`/profile/${loggedInUser.id}`}>
+              <Button variant="contained">Profile</Button>
+            </Link>
+
             <Button variant="contained">Add Cohort</Button>
             <Button variant="contained">Logout</Button>
           </Stack>

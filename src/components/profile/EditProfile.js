@@ -2,16 +2,27 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Header from "../Header/Header";
+import client from "../../utils/client";
+import { useContext } from "react";
+import { loggedInUserContext } from "../../Helper/loggedInUserContext";
 
-const EditProfile = ({ currentUser, setCurrentUser }) => {
-  const handleSubmit = () => {};
+const EditProfile = () => {
+  const { loggedInUser, setLoggedInUser } = useContext(loggedInUserContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    client
+      .patch(`/user/update/${loggedInUser.id}`, loggedInUser, false)
+      .then((res) => setLoggedInUser(res.data))
+      .catch((err) => console.log(err.response));
+  };
 
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
 
-    setCurrentUser({
-      ...currentUser,
+    setLoggedInUser({
+      ...loggedInUser,
       [name]: value,
     });
   };
@@ -25,7 +36,7 @@ const EditProfile = ({ currentUser, setCurrentUser }) => {
           label="First Name"
           variant="outlined"
           name="first_name"
-          value={currentUser.first_name}
+          value={loggedInUser.first_name}
           onChange={handleChange}
         />
         <TextField
@@ -33,7 +44,7 @@ const EditProfile = ({ currentUser, setCurrentUser }) => {
           label="Last Name"
           variant="outlined"
           name="last_name"
-          value={currentUser.last_name}
+          value={loggedInUser.last_name}
           onChange={handleChange}
         />
         <TextField
@@ -42,7 +53,7 @@ const EditProfile = ({ currentUser, setCurrentUser }) => {
           label="Email"
           variant="outlined"
           name="email"
-          value={currentUser.email}
+          value={loggedInUser.email}
           onChange={handleChange}
         />
 
@@ -51,7 +62,7 @@ const EditProfile = ({ currentUser, setCurrentUser }) => {
           label="Bio"
           variant="outlined"
           name="biography"
-          value={currentUser.biography}
+          value={loggedInUser.biography}
           onChange={handleChange}
         />
         <TextField
@@ -60,7 +71,7 @@ const EditProfile = ({ currentUser, setCurrentUser }) => {
           label="GitHub URL"
           variant="outlined"
           name="github_url"
-          value={currentUser.first_name}
+          value={loggedInUser.github_url}
           onChange={handleChange}
         />
         <Button id="user-submit-button" type="submit" variant="contained">

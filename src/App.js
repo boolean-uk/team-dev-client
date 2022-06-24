@@ -27,7 +27,12 @@ function App() {
           </Route>
           <Route
             path="/edit-profile"
-            element={<EditProfile loggedInUser={loggedInUser} />}
+            element={
+              <EditProfile
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            }
           />
           <Route
             path="/profile/:id"
