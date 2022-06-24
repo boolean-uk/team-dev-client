@@ -16,22 +16,22 @@ const Header = ({ companyName }) => {
   let navigate = useNavigate();
 
 
-  const  displayMsgTwoSecs = () => {
-    setMsgIsDisplayed(true)
+  const displayMsgTwoSecs = () => {
+    setMsgIsDisplayed(true);
 
-    setTimeout(() => setMsgIsDisplayed(false), 2000)
-  }
+    setTimeout(() => setMsgIsDisplayed(false), 2000);
+  };
 
   const addCohort = (event) => {
     event.preventDefault();
     client
       .post('/cohort', {})
       .then((res) => {
-        setResponseMsg(res.data.status) 
-        displayMsgTwoSecs()
+        setResponseMsg(res.data.status);
+        displayMsgTwoSecs();
       })
       .catch((err) => console.log(err.response));
-  }
+  };
 
   const onGotoDeliveryLogsPageRequested  = () => {
     navigate('../log');
@@ -46,19 +46,27 @@ const Header = ({ companyName }) => {
           justifyContent: 'space-between',
           alignContent: 'center',
           width: '100vw',
-          padding: '1em'
+          padding: '1em',
         }}
       >
-
         <Box>
           <Typography>
             <p>{companyName}</p>
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-          <Box sx={{backgroundColor: 'white'}}>
-          <InputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
+        >
+          <Box sx={{ backgroundColor: 'white' }}>
+            <InputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </Box>
           <Box>
             <Button variant='contained'>Search User</Button>
