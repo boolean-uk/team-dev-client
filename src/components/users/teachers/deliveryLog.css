@@ -1,0 +1,51 @@
+.deliveryLog-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.log-form {
+  height: 15rem;
+  margin: 1rem;
+  padding: 1rem;
+  border: 5px solid #2a2c30;
+  border-style: outset;
+  overflow-y: scroll;
+}
+
+.log-form::-webkit-scrollbar {
+  display: none;
+}
+
+.log-form select,
+.log-form-btn {
+  width: 100%;
+}
+
+.log-form-btn {
+  color: #fff;
+  background-color: #1976d2;
+  border-style: none;
+}
+
+.deliveryLog-existingLogs {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.log {
+  margin-bottom: 1rem;
+}
+
+.log-header,
+.log-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.log-header {
+  background-color: #1c1d20;
+}
+
+.log-status {
+  margin-top: 2rem;
+}

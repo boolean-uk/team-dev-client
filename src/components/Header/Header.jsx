@@ -35,6 +35,7 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
+          <Button variant='contained'>Delivery Logs</Button>
           <Button variant='contained'>Add Cohort</Button>
           <Button variant='contained'>Logout</Button>
           </Stack>
