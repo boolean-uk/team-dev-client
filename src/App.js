@@ -25,19 +25,8 @@ function App() {
           <Route element={<AuthenticateUser />}>
             <Route path="/posts" element={<PostsPage />} />
           </Route>
-          <Route
-            path="/edit-profile"
-            element={
-              <EditProfile
-                loggedInUser={loggedInUser}
-                setLoggedInUser={setLoggedInUser}
-              />
-            }
-          />
-          <Route
-            path="/profile/:id"
-            element={<Profile loggedInUser={loggedInUser} />}
-          />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </div>
     </loggedInUserContext.Provider>
