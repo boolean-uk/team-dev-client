@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import LogForm from "./LogForm";
 import Log from "./Log"
+import Header from "../../Header/Header"
 import client from "../../../utils/client";
 import "./deliveryLog.css"
 
@@ -14,7 +15,9 @@ export default function DeliveryLogDash() {
   }, []);
 
   return (
-    <div className="deliveryLog-dashboard">
+    <>
+      <Header companyName={`Cohort Manager 2.0`} />
+      <div className="deliveryLog-dashboard">
       <LogForm
         cohorts={cohortsAvailable}
         logsData={logsData}
@@ -27,5 +30,6 @@ export default function DeliveryLogDash() {
         ))}
       </div>
     </div>
+    </>
   );
 }

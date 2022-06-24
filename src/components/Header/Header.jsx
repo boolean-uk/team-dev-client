@@ -68,8 +68,11 @@ const Header = ({ companyName }) => {
         <Box>
           <Stack spacing={2} direction='row'>
             {msgIsDisplayed && <p>{responseMsg}</p>}
-            {loggedInUser?.role === 'TEACHER' && <Button variant='contained' onClick={handleLogClick}>Delivery Logs</Button>}
-            {loggedInUser?.role === 'TEACHER' && (<Button variant='contained' onClick={addCohort}>Add Cohort</Button>)}
+            {loggedInUser?.role === 'TEACHER' && 
+            <>
+              <Button variant='contained' onClick={handleLogClick}>Delivery Logs</Button>
+              <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
+            </>}
             <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>

@@ -4,7 +4,7 @@
 }
 
 .log-form {
-  height: 15rem;
+  height: 20rem;
   margin: 1rem;
   padding: 1rem;
   border: 5px solid #2a2c30;
@@ -17,8 +17,14 @@
 }
 
 .log-form select,
-.log-form-btn {
+.log-form-btn,
+.form-line {
   width: 100%;
+}
+
+.form-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 
 .log-form-btn {

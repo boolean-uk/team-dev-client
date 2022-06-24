@@ -2,11 +2,10 @@ export default function Line(props) {
   const { index, value, handleLineChange, removeFormLine } = props;
 
   return (
-    <div className="field input-field">
+    <div className="form-line">
       <input
         type="text"
         placeholder="Log info here"
-        className="log-line"
         value={value}
         onChange={(e) => handleLineChange(index, e)}
       />
