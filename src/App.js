@@ -5,16 +5,11 @@ import PostsPage from './components/posts/PostsPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash'
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loggedInUser'))  
-    setLoggedInUser(user)
-  },[])
+  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))  );
 
   return (
     <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
@@ -25,7 +20,9 @@ function App() {
           <Route element={<AuthenticateUser />}>
             <Route path='/posts' element={<PostsPage />} />
           </Route>
-        <Route path='/log' element={<DeliveryLogDash />} />
+          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
+            <Route path='/log' element={<DeliveryLogDash />} />
+          </Route>
         </Routes>
       </div>
     </loggedInUserContext.Provider>
@@ -39,8 +36,13 @@ function isLoggedIn() {
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = '/' }) => {
-  if (!isLoggedIn()) {
+
+const AuthenticateUser = ({ children, redirectPath = '/', requiredRole=['STUDENT', 'TEACHER'] }) => {
+  const { loggedInUser } = useContext(loggedInUserContext);
+
+  const userRoleMatchesRequiredRole = requiredRole.includes(loggedInUser.role)
+
+  if (!isLoggedIn() || !userRoleMatchesRequiredRole) {
     return <Navigate to={redirectPath} replace />;
   }
 

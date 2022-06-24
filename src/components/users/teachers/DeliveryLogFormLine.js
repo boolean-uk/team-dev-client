@@ -1,4 +1,4 @@
-export default function Line(props) {
+export default function DeliveryLogFormLine(props) {
   const { index, value, handleLineChange, removeFormLine } = props;
 
   return (

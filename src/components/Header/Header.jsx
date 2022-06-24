@@ -33,7 +33,7 @@ const Header = ({ companyName }) => {
       .catch((err) => console.log(err.response));
   }
 
-  const handleLogClick = () => {
+  const onGotoDeliveryLogsPageRequested  = () => {
     navigate('../log');
   }
 
@@ -70,7 +70,7 @@ const Header = ({ companyName }) => {
             {msgIsDisplayed && <p>{responseMsg}</p>}
             {loggedInUser?.role === 'TEACHER' && 
             <>
-              <Button variant='contained' onClick={handleLogClick}>Delivery Logs</Button>
+              <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
               <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
             </>}
             <Button variant='contained'>Logout</Button>

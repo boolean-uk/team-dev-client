@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import LogForm from "./LogForm";
-import Log from "./Log"
+import DeliveryLogCreateForm from "./DeliveryLogCreateForm";
+import DeliveryLog from "./DeliveryLog"
 import Header from "../../Header/Header"
 import client from "../../../utils/client";
 import "./deliveryLog.css"
@@ -18,7 +18,7 @@ export default function DeliveryLogDash() {
     <>
       <Header companyName={`Cohort Manager 2.0`} />
       <div className="deliveryLog-dashboard">
-      <LogForm
+      <DeliveryLogCreateForm
         cohorts={cohortsAvailable}
         logsData={logsData}
         setLogsData={setLogsData}
@@ -26,7 +26,7 @@ export default function DeliveryLogDash() {
       <div className="deliveryLog-existingLogs">
         <header><h2>Logs</h2></header>
         {logsData.map((log, i) => (
-          <Log key={log.id} data={logsData[i]} />
+          <DeliveryLog key={log.id} data={logsData[i]} />
         ))}
       </div>
     </div>

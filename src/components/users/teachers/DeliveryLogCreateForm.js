@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Line from "./Line";
+import DeliveryLogFormLine from "./DeliveryLogFormLine";
 
-export default function LogForm({ cohorts, logsData, setLogsData }) {
+export default function DeliveryLogCreateForm({ cohorts, logsData, setLogsData }) {
   const [cohort, setCohort] = useState();
   const [linesData, setLinesData] = useState([""]);
   const [submissionStatus, setSubmissionStatus] = useState("N/A");
@@ -74,7 +74,7 @@ export default function LogForm({ cohorts, logsData, setLogsData }) {
           </div>
 
           {linesData.map((line, index) => (
-            <Line
+            <DeliveryLogFormLine
               key={index}
               index={index}
               value={linesData[index]}

@@ -1,5 +1,4 @@
-export default function Log({ data }) {
-  console.log("data in LOG: ", data)
+export default function DeliveryLog({ data }) {
   const author = `${data.author.first_name[0]}. ${data.author.last_name}`
   const date = data.date.split('T')[0]
   
