@@ -3,12 +3,32 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
+import { useContext, useState } from 'react';
+import client from '../../utils/client';
+import { Link } from 'react-router-dom';
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
+  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false);
+  const [responseMsg, setResponseMsg] = useState(null);
+
+  const displayMsgTwoSecs = () => {
+    setMsgIsDisplayed(true);
+
+    setTimeout(() => setMsgIsDisplayed(false), 2000);
+  };
+
+  const addCohort = (event) => {
+    event.preventDefault();
+    client
+      .post('/cohort', {})
+      .then((res) => {
+        setResponseMsg(res.data.status);
+        displayMsgTwoSecs();
+      })
+      .catch((err) => console.log(err.response));
+  };
 
   return (
     <>
@@ -52,7 +72,12 @@ const Header = ({ companyName }) => {
               <Button variant='contained'>Profile</Button>
             </Link>
 
-            <Button variant='contained'>Add Cohort</Button>
+            {msgIsDisplayed && <p>{responseMsg}</p>}
+            {loggedInUser?.role === 'TEACHER' && (
+              <Button variant='contained' onClick={addCohort}>
+                Add Cohort
+              </Button>
+            )}
             <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>
