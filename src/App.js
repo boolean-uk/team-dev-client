@@ -5,10 +5,15 @@ import PostsPage from './components/posts/PostsPage';
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'))  
+    setLoggedInUser(user)
+  },[])
 
   return (
     <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
