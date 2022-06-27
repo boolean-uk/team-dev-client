@@ -38,6 +38,7 @@ const PostsPage = () => {
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.removeItem('loggedInUser')
     navigate('../', { replace: true });
   };
 
