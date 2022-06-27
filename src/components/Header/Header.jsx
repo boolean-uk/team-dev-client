@@ -6,7 +6,7 @@ import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext, useState } from 'react';
 import client from '../../utils/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const Header = ({ companyName }) => {
@@ -30,7 +30,7 @@ const Header = ({ companyName }) => {
         setResponseMsg(res.data.status);
         displayMsgTwoSecs();
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => console.error(err.response));
   };
 
   const onGotoDeliveryLogsPageRequested  = () => {
@@ -75,6 +75,9 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
+            <Link to={`/profile/${loggedInUser.id}`}>
+              <Button variant='contained'>Profile</Button>
+            </Link>
             {msgIsDisplayed && <p>{responseMsg}</p>}
             {loggedInUser?.role === 'TEACHER' && 
             <>
