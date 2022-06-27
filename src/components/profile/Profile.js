@@ -6,7 +6,6 @@ import { Link, useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import './profile.css';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
