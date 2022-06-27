@@ -63,7 +63,7 @@ const Profile = () => {
 
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
-    const { currentPassword, newPassword, newPasswordConfirmation } = passwords;
+    const { newPassword, newPasswordConfirmation } = passwords;
 
     if (newPassword !== newPasswordConfirmation) {
       return;
