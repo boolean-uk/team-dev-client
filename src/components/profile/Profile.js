@@ -10,6 +10,7 @@ import client from '../../utils/client';
 const Profile = () => {
   const params = useParams();
   const [userData, setUserData] = useState({});
+  const [cohortsAvailable, setCohortsAvailable] = useState([])
 
   useEffect(() => {
     client
@@ -17,6 +18,22 @@ const Profile = () => {
       .then((res) => setUserData(res.data.data.user))
       .catch((err) => console.log(err.response));
   }, [params]);
+
+  useEffect(() => {
+    client
+      .get('/cohort')
+      .then((res) => setCohortsAvailable(res.data.data))
+      .catch((err) => console.error(err.response));
+  }, [])
+
+  console.log(userData)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    console.log(e.target[0].value)
+    client.patch(`/user/${userData.id}`, { cohort_id: e.target[0].value })
+  }
 
   return (
     <>
@@ -50,6 +67,18 @@ const Profile = () => {
           variant='outlined'
           value={userData.github_url}
         />
+
+        <form onSubmit={handleSubmit}>
+          <span>Add student to cohort: </span> 
+          <select>
+          <option value={""} selected={userData.cohort_id === null ? "selected" : ""}>Please select a cohort</option>
+          {cohortsAvailable && cohortsAvailable.map((cohort) => (
+            <option key={cohort.id} value={cohort.id} selected={userData.cohort_id === cohort.id ? "selected" : ""}>{cohort.id}</option>
+          ))}
+        </select>
+        <button type='submit'>Confirm</button>
+        </form>
+
         <Button id='user-submit-button' type='submit' variant='contained'>
           Submit
         </Button>
