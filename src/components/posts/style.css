@@ -1,29 +1,26 @@
 .posts-section {
-
 }
 
-.post-list {
+.posts-list {
+  width: 100vw;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 375px);
+  grid-template-rows: repeat(auto-fill, auto);
+  grid-template-columns: 100vw;
   gap: 15px;
-  justify-content: center;
-  justify-items: center;
-
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .post-item {
-  width: 100%;
+  width: 60%;
   justify-self: center;
-
-  border: 1px solid #252525;
-  border-radius: 8px;
-  background-color: #fff;
-  /* text would be black */
-  ;
-
+  text-align: left;
+  border-radius: 12px;
+  list-style: none;
   cursor: pointer;
-  margin-top: 100px;
-  margin-left: 750px;
+
+  background-color: black;
+  padding: 2rem 0;
+  padding-left: 20px;
+  margin-bottom: 2rem;
 }
