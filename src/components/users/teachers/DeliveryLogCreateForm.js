@@ -84,7 +84,7 @@ export default function DeliveryLogCreateForm({ cohorts, logsData, setLogsData }
           ))}
 
           <div>
-            <button className="log-form-btn" onClick={(e) => addFormLine(e)}>Add Line</button>
+            <button className="log-form-btn" onClick={addFormLine}>Add Line</button>
             <button className="log-form-btn" onClick={handleSubmit}>Submit</button>
           </div>
         </form>
