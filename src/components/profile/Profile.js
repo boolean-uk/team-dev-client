@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { Stack } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Header from '../Header/Header';
 import client from '../../utils/client';
@@ -23,17 +23,21 @@ const Profile = () => {
     client
       .get(`/user/${params.id}`)
       .then((res) => setUserData(res.data.data.user))
-      .catch((err) => console.log(err.response));
+      .catch((err) => console.error(err.response));
   }, [params]);
 
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
 
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
+    if (editingProfile) {
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
+    }
+
+    return false;
   };
 
   const handlePasswordChange = (event) => {
@@ -47,32 +51,21 @@ const Profile = () => {
     });
   };
 
-  console.log(passwords);
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
     client
       .patch(`/user/update/${userData.id}`, userData, false)
       .then((res) => setUserData(res.data.data.user))
-      .catch((err) => console.log(err.response))
+      .catch((err) => console.error(err.response))
       .finally(() => setEditingProfile(false));
   };
-  // currentPassword,
-  // userData.passwordHash
 
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     const { currentPassword, newPassword, newPasswordConfirmation } = passwords;
-    console.log('currentPassword : ', currentPassword);
-
-    alert('Outside isPasswordValid');
-
-    console.log('userData.passwordHash : ', userData.passwordHash);
 
     if (newPassword !== newPasswordConfirmation) {
-      alert('Passwords do not match');
-
       return;
     }
   };
@@ -89,7 +82,7 @@ const Profile = () => {
             label='First Name'
             name='first_name'
             value={userData.first_name}
-            onChange={editingProfile ? handleChange : undefined}
+            onChange={handleChange}
             variant={fieldVariant}
           />
           <TextField
@@ -97,7 +90,7 @@ const Profile = () => {
             label='Last Name'
             name='last_name'
             value={userData.last_name}
-            onChange={editingProfile ? handleChange : undefined}
+            onChange={handleChange}
             variant={fieldVariant}
           />
           <TextField
@@ -106,7 +99,7 @@ const Profile = () => {
             label='Email'
             name='email'
             value={userData.email}
-            onChange={editingProfile ? handleChange : undefined}
+            onChange={handleChange}
             variant={fieldVariant}
           />
 
@@ -115,7 +108,7 @@ const Profile = () => {
             label='Bio'
             name='biography'
             value={userData.biography}
-            onChange={editingProfile ? handleChange : undefined}
+            onChange={handleChange}
             variant={fieldVariant}
           />
           <TextField
@@ -124,7 +117,7 @@ const Profile = () => {
             label='GitHub URL'
             name='github_url'
             value={userData.github_url}
-            onChange={editingProfile ? handleChange : undefined}
+            onChange={handleChange}
             variant={fieldVariant}
           />
           {editingProfile && (
