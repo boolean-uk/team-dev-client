@@ -6,12 +6,15 @@ import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext, useState } from 'react';
 import client from '../../utils/client';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
-  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false);
-  const [responseMsg, setResponseMsg] = useState(null);
+  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
+  const [responseMsg, setResponseMsg] = useState(null)
+  let navigate = useNavigate();
+
 
   const displayMsgTwoSecs = () => {
     setMsgIsDisplayed(true);
@@ -29,6 +32,10 @@ const Header = ({ companyName }) => {
       })
       .catch((err) => console.log(err.response));
   };
+
+  const onGotoDeliveryLogsPageRequested  = () => {
+    navigate('../log');
+  }
 
   return (
     loggedInUser && (
@@ -74,11 +81,12 @@ const Header = ({ companyName }) => {
               </Link>
 
               {msgIsDisplayed && <p>{responseMsg}</p>}
-              {loggedInUser?.role === 'TEACHER' && (
-                <Button variant='contained' onClick={addCohort}>
-                  Add Cohort
-                </Button>
-              )}
+              {loggedInUser?.role === 'TEACHER' && 
+                <>
+                  <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
+                  <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
+                </>
+              }
               <Button variant='contained'>Logout</Button>
             </Stack>
           </Box>
