@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
 import client from './utils/client';
 import SearchBar from './components/searchBar/SearchBar';
+import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
   const [userDataToRender ,setUserDataToRender] = useState({})
@@ -30,7 +31,7 @@ function App() {
     
   }, [userName] )
     
-    console.log('userdata', userDataToRender);
+   
     return (
       <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, setUserName,userName }}>
         <div className='App'>
@@ -40,7 +41,7 @@ function App() {
             <Route element={<AuthenticateUser />}>
               <Route path='/posts' element={<PostsPage />} />
               
-              <Route path='/users-list' element={<SearchBar/>} />
+              <Route path='/users-list' element={<RenderListOfStudents/>} />
             <Route path='/profile/:id' element={<Profile />} />
           </Route>
           <Route
