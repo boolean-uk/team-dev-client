@@ -1,11 +1,10 @@
 import { React, useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import { Box } from '@mui/system';
-import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
+import { Button, Stack, TextField } from '@mui/material';
+import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
+import './profile.css'
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -19,6 +18,8 @@ const Profile = () => {
   const params = useParams();
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([])
+  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
+  const [responseMsg, setResponseMsg] = useState(null)
 
   useEffect(() => {
     client
@@ -27,7 +28,6 @@ const Profile = () => {
       .catch((err) => console.error(err.response));
   }, [params]);
 
-<<<<<<< HEAD
   useEffect(() => {
     client
       .get('/cohort')
@@ -35,15 +35,25 @@ const Profile = () => {
       .catch((err) => console.error(err.response));
   }, [])
 
-  console.log(userData)
+  const displayMsgTwoSecs = () => {
+    setMsgIsDisplayed(true);
 
-  const handleSubmit = (e) => {
+    setTimeout(() => setMsgIsDisplayed(false), 2000);
+  };
+
+  const handleSubmitAddStudentToCohort = (e) => {
     e.preventDefault()
 
-    console.log(e.target[0].value)
-    client.patch(`/user/${userData.id}`, { cohort_id: e.target[0].value })
+    const selectedCohortId = Number(e.target[0].value)
+
+    client
+      .patch(`/user/${userData.id}`, { cohort_id: selectedCohortId })
+      .then((res) => {
+        setResponseMsg(res.data.status)
+        displayMsgTwoSecs()
+      })
   }
-=======
+
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
@@ -89,11 +99,27 @@ const Profile = () => {
   };
 
   const fieldVariant = editingProfile ? 'outlined' : 'standard';
->>>>>>> main
 
   return (
     <>
       <Header />
+
+      <form onSubmit={handleSubmitAddStudentToCohort} className='add-user-to-cohort-form'>
+        <span>Add student to cohort: </span> 
+        <select>
+          <option value={null}>
+            Please select a cohort...
+          </option>
+          {cohortsAvailable && cohortsAvailable.map((cohort) => (
+            <option key={cohort.id} value={cohort.id}>
+              {cohort.id}
+            </option>
+          ))}
+        </select>
+        <button type='submit' className='add-user-to-cohort-btn'>Confirm</button>
+        <span>{msgIsDisplayed && responseMsg}</span>
+      </form>
+      
       {!editingPassword && (
         <form className='user-form'>
           <TextField
@@ -122,34 +148,6 @@ const Profile = () => {
             variant={fieldVariant}
           />
 
-<<<<<<< HEAD
-        <TextField
-          className='user-form-input'
-          variant='outlined'
-          value={userData.biography}
-        />
-        <TextField
-          className='user-form-input'
-          type='url'
-          variant='outlined'
-          value={userData.github_url}
-        />
-
-        <form onSubmit={handleSubmit}>
-          <span>Add student to cohort: </span> 
-          <select>
-          <option value={""} selected={userData.cohort_id === null ? "selected" : ""}>Please select a cohort</option>
-          {cohortsAvailable && cohortsAvailable.map((cohort) => (
-            <option key={cohort.id} value={cohort.id} selected={userData.cohort_id === cohort.id ? "selected" : ""}>{cohort.id}</option>
-          ))}
-        </select>
-        <button type='submit'>Confirm</button>
-        </form>
-
-        <Button id='user-submit-button' type='submit' variant='contained'>
-          Submit
-        </Button>
-=======
           <TextField
             className='user-form-input'
             label='Bio'
@@ -177,7 +175,6 @@ const Profile = () => {
               Submit
             </Button>
           )}
->>>>>>> main
 
           {!editingProfile && (
             <Box>

@@ -30,7 +30,7 @@ const Header = ({ companyName }) => {
         setResponseMsg(res.data.status);
         displayMsgTwoSecs();
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => console.error(err.response));
   };
 
   const onGotoDeliveryLogsPageRequested  = () => {
