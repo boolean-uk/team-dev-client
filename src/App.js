@@ -12,11 +12,10 @@ import client from './utils/client';
 import SearchBar from './components/searchBar/SearchBar';
 
 function App() {
-  const [userDataToRender, setUserDataToRender] = useState({});
-  const [userName, setUserName] = useState({
-    userName: '',
-  });
-
+  const [userDataToRender ,setUserDataToRender] = useState({})
+  const [ userName, setUserName] = useState({
+    userName: ""
+  })
   const [loggedInUser, setLoggedInUser] = useState(
     JSON.parse(localStorage.getItem('loggedInUser'))
   );

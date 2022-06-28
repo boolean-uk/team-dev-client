@@ -2,7 +2,6 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext, useState } from 'react';
 import client from '../../utils/client';
@@ -62,7 +61,7 @@ const Header = ({ companyName }) => {
             alignContent: 'center',
           }}
         >
-          <SearchBar setUserDataToRender={setUserDataToRender} />
+          <SearchBar/>
         </Box>
 
         <Box>
