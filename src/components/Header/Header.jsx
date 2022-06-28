@@ -37,6 +37,13 @@ const Header = ({ companyName }) => {
     navigate('../log');
   }
 
+  const signOut = (event) => {
+  event.preventDefault();
+  localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+  localStorage.removeItem('loggedInUser')
+  navigate('../', { replace: true });
+ };
+
   return (
     <>
       <Box
@@ -84,7 +91,7 @@ const Header = ({ companyName }) => {
               <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
               <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
             </>}
-            <Button variant='contained'>Logout</Button>
+            <Button variant='contained' onClick={signOut}>Logout</Button>
           </Stack>
         </Box>
       </Box>
