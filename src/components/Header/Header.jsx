@@ -7,14 +7,14 @@ import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext, useState } from 'react';
 import client from '../../utils/client';
 import { useNavigate, Link } from 'react-router-dom';
-
+import SearchBar from '../searchBar/SearchBar';
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
-  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
-  const [responseMsg, setResponseMsg] = useState(null)
+  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false);
+  const [responseMsg, setResponseMsg] = useState(null);
+  const [userDataToRender, setUserDataToRender] = useState([]);
   let navigate = useNavigate();
-
 
   const displayMsgTwoSecs = () => {
     setMsgIsDisplayed(true);
@@ -33,9 +33,9 @@ const Header = ({ companyName }) => {
       .catch((err) => console.error(err.response));
   };
 
-  const onGotoDeliveryLogsPageRequested  = () => {
+  const onGotoDeliveryLogsPageRequested = () => {
     navigate('../log');
-  }
+  };
 
   return (
     <>
@@ -62,15 +62,7 @@ const Header = ({ companyName }) => {
             alignContent: 'center',
           }}
         >
-          <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Box>
-          <Box>
-            <Button variant='contained'>Search User</Button>
-          </Box>
+          <SearchBar setUserDataToRender={setUserDataToRender} />
         </Box>
 
         <Box>
@@ -79,11 +71,19 @@ const Header = ({ companyName }) => {
               <Button variant='contained'>Profile</Button>
             </Link>
             {msgIsDisplayed && <p>{responseMsg}</p>}
-            {loggedInUser?.role === 'TEACHER' && 
-            <>
-              <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
-              <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
-            </>}
+            {loggedInUser?.role === 'TEACHER' && (
+              <>
+                <Button
+                  variant='contained'
+                  onClick={onGotoDeliveryLogsPageRequested}
+                >
+                  Delivery Logs
+                </Button>
+                <Button variant='contained' onClick={addCohort}>
+                  Add Cohort
+                </Button>
+              </>
+            )}
             <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>
