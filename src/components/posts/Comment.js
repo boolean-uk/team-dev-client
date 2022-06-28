@@ -1,6 +1,8 @@
-export default function Comment({ comment, formatDate }) {
+import { formatDate } from "../../Helper/dateFormatter";
+
+export default function Comment({ comment }) {
 	return (
-		<li key={comment.id}>
+		<li>
 			<div className="name-time-container">
 				<div className="name">
 					{comment.profile.firstName + " "}
