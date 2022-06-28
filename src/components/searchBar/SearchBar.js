@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 
-const SearchBar = ({}) => {
+const SearchBar = () => {
     
     const {nameToSearch, setNameToSearch} = useContext(loggedInUserContext)
   
