@@ -16,7 +16,6 @@ const SearchBar = () => {
     const handleChange = (event) =>{
         event.preventDefault()
         const {value, name} = event.target
-        console.log("HI");
         setUserDataFromInput({
             ...nameToSearch,
             [name]: value,
