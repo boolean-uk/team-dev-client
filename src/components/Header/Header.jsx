@@ -44,57 +44,61 @@ const Header = ({ companyName }) => {
  };
 
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          backgroundColor: 'grey',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          width: '100vw',
-          padding: '1em',
-        }}
-      >
-        <Box>
-          <Typography>
-            <p>{companyName}</p>
-          </Typography>
-        </Box>
-
+    loggedInUser && (
+      <>
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: 'grey',
+            justifyContent: 'space-between',
             alignContent: 'center',
+            width: '100vw',
+            padding: '1em',
           }}
         >
-          <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Box>
           <Box>
-            <Button variant='contained'>Search User</Button>
+            <Typography>
+              <span>{companyName}</span>
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          >
+            <Box sx={{ backgroundColor: 'white' }}>
+              <InputBase
+                placeholder='Search…'
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Box>
+            <Box>
+              <Button variant='contained'>Search User</Button>
+            </Box>
+          </Box>
+
+          <Box>
+            <Stack spacing={2} direction='row'>
+              <Link to={`/profile/${loggedInUser.id}`}>
+                <Button variant='contained'>Profile</Button>
+              </Link>
+
+              {msgIsDisplayed && <p>{responseMsg}</p>}
+              {loggedInUser?.role === 'TEACHER' && 
+                <>
+                  <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
+                  <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
+                </>
+              }
+              <Button variant='contained' onClick={signOut}>Logout</Button>
+            </Stack>
           </Box>
         </Box>
-
-        <Box>
-          <Stack spacing={2} direction='row'>
-            <Link to={`/profile/${loggedInUser.id}`}>
-              <Button variant='contained'>Profile</Button>
-            </Link>
-            {msgIsDisplayed && <p>{responseMsg}</p>}
-            {loggedInUser?.role === 'TEACHER' && 
-            <>
-              <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
-              <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
-            </>}
-            <Button variant='contained' onClick={signOut}>Logout</Button>
-          </Stack>
-        </Box>
-      </Box>
-    </>
+      </>
+    )
   );
 };
 
