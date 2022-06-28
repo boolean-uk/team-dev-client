@@ -93,7 +93,7 @@ const Header = ({ companyName }) => {
                   <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
                 </>
               }
-              <Button variant='contained' onClick={signOut}>Logout</Button>
+              <Button variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
             </Stack>
           </Box>
         </Box>
