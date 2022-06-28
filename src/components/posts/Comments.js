@@ -15,7 +15,7 @@ export default function Comments({ post, showAllComments, commentLength }) {
 					}
 				})}
 			</div>
-			{commentLength > 0 && (
+			{commentLength > 1 && (
 				<div className="btn">
 					<Button
 						onClick={(e) => showAllComments(e, post.id)}

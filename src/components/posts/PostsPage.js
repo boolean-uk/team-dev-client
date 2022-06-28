@@ -25,7 +25,13 @@ const PostsPage = () => {
 		event.preventDefault();
 		client
 			.post("/post", post)
-			.then((res) => setPostResponse(res.data))
+			.then((res) => {
+				setPostResponse(res.data);
+				client.get("/posts").then((res) => {
+					console.log(res);
+					setPosts(res.data.data.posts);
+				});
+			})
 			.catch((data) => {
 				console.log(data);
 			});
