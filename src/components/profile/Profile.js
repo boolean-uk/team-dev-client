@@ -18,8 +18,6 @@ const Profile = () => {
   const params = useParams();
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([])
-  const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
-  const [responseMsg, setResponseMsg] = useState(null)
 
   useEffect(() => {
     client
@@ -35,12 +33,6 @@ const Profile = () => {
       .catch((err) => console.error(err.response));
   }, [])
 
-  const displayMsgTwoSecs = () => {
-    setMsgIsDisplayed(true);
-
-    setTimeout(() => setMsgIsDisplayed(false), 2000);
-  };
-
   const handleSubmitAddStudentToCohort = (e) => {
     e.preventDefault()
 
@@ -48,10 +40,6 @@ const Profile = () => {
 
     client
       .patch(`/user/${userData.id}`, { cohort_id: selectedCohortId })
-      .then((res) => {
-        setResponseMsg(res.data.status)
-        displayMsgTwoSecs()
-      })
   }
 
   const handleChange = (event) => {
@@ -117,7 +105,6 @@ const Profile = () => {
           ))}
         </select>
         <button type='submit' className='add-user-to-cohort-btn'>Confirm</button>
-        <span>{msgIsDisplayed && responseMsg}</span>
       </form>
       
       {!editingPassword && (
