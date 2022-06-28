@@ -23,34 +23,25 @@ function App() {
 
   useEffect(() => {
     client
-      .get(`/users?first_name=${userName.searchInput}`)
-      .then((res) => {
-        console.log(res.data.data.users);
-        setUserDataToRender(res.data.users);
-      })
-      .catch((err) => console.error(err.response));
-  }, [userName]);
-
-  console.log('34........', loggedInUser);
-  return (
-    <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <div className='App'>
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/signup' element={<RegistrationPage />} />
-          <Route element={<AuthenticateUser />}>
-            <Route path='/posts' element={<PostsPage />} />
-            <Route
-              path='/users-list'
-              element={
-                <SearchBar
-                  setUserName={setUserName}
-                  userName={userName}
-                  loggedInUser={loggedInUser}
-                  string={'string'}
-                />
-              }
-            />
+    .get(`/users?first_name=${userName}`)
+    .then((res) => {
+        setUserDataToRender(res.data.data.users) 
+    } )
+    .catch((err) => console.error(err.response))
+    
+  }, [userName] )
+    
+    console.log('userdata', userDataToRender);
+    return (
+      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, setUserName,userName }}>
+        <div className='App'>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/signup' element={<RegistrationPage />} />
+            <Route element={<AuthenticateUser />}>
+              <Route path='/posts' element={<PostsPage />} />
+              
+              <Route path='/users-list' element={<SearchBar/>} />
             <Route path='/profile/:id' element={<Profile />} />
           </Route>
           <Route
