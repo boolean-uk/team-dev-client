@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { loggedInUserContext } from "../../Helper/loggedInUserContext"
+import { Link } from "react-router-dom"
 
 
 const RenderListOfStudents = () =>{
@@ -9,7 +10,7 @@ const RenderListOfStudents = () =>{
     return(
         <>
         <header>
-          <h2>lp</h2>
+          <h2>List of students with first name</h2>
         </header>
         <ul className="contacts-list">
           {userDataToRender.map((student, index) => {
@@ -17,9 +18,11 @@ const RenderListOfStudents = () =>{
             return (
               
               <li className="contact" key={index}>
-                <a href="">
+                <Link to={`/profile/${student.id}`}>
+                <p>
                   {first_name} {last_name}
-                </a>
+                </p>
+                </Link>
               </li>
             )
           })}
