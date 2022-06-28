@@ -1,14 +1,13 @@
-import { useState, useContext } from "react"
-import { Box } from "@mui/system"
-import { Button } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { useState, useContext } from 'react'
+import { Box } from '@mui/system'
+import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import InputBase from '@mui/material/InputBase';
-import { loggedInUserContext } from "../../Helper/loggedInUserContext"
-
+import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 
 const SearchBar = ({}) => {
     
-    const {setUserName, userName} = useContext(loggedInUserContext)
+    const {nameToSearch, setNameToSearch} = useContext(loggedInUserContext)
   
     const navigate = useNavigate()
   
@@ -19,14 +18,13 @@ const SearchBar = ({}) => {
         const {value, name} = event.target
         console.log("HI");
         setUserDataFromInput({
-            ...userName,
+            ...nameToSearch,
             [name]: value,
         });
-        console.log('welcome',userDataFromInput.searchInput);
     }
     
     const setActiveSearchUser  = () => {
-        setUserName(userDataFromInput.searchInput)
+        setNameToSearch(userDataFromInput.searchInput)
         navigate('/users-list')
     }
     
@@ -37,7 +35,7 @@ const SearchBar = ({}) => {
             <InputBase
               placeholder='Search…'
               inputProps={{ 'aria-label': 'search' }}
-              value={userName.searchInput}
+              value={nameToSearch.searchInput}
               name="searchInput"
               onChange={handleChange}
             />

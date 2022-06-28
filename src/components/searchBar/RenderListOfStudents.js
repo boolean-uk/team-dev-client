@@ -1,12 +1,12 @@
-import { useContext } from "react"
-import { loggedInUserContext } from "../../Helper/loggedInUserContext"
-import { Link } from "react-router-dom"
+import { useContext } from 'react'
+import { loggedInUserContext } from '../../Helper/loggedInUserContext'
+import { Link } from 'react-router-dom'
 
 
 const RenderListOfStudents = () =>{
 
     const {userDataToRender} = useContext(loggedInUserContext)
-    console.log('userdata', userDataToRender);
+    
     return(
         <>
         <header>
@@ -27,16 +27,7 @@ const RenderListOfStudents = () =>{
             )
           })}
         </ul>
-      </>
-
-        
-        // <ul>
-        //     {userDataToRender.map((students, index) = {
-        //     return (
-        //         <li>{students.first_name}</li>
-        //     )
-        //     })}
-        // </ul>        
+      </>      
         
     )
 }

@@ -9,12 +9,12 @@ import { loggedInUserContext } from './Helper/loggedInUserContext';
 import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
 import client from './utils/client';
-import SearchBar from './components/searchBar/SearchBar';
+
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
   const [userDataToRender ,setUserDataToRender] = useState({})
-  const [ userName, setUserName] = useState({
+  const [ nameToSearch, setNameToSearch] = useState({
     userName: ""
   })
   const [loggedInUser, setLoggedInUser] = useState(
@@ -23,17 +23,17 @@ function App() {
 
   useEffect(() => {
     client
-    .get(`/users?first_name=${userName}`)
+    .get(`/users?first_name=${nameToSearch}`)
     .then((res) => {
         setUserDataToRender(res.data.data.users) 
     } )
     .catch((err) => console.error(err.response))
     
-  }, [userName] )
+  }, [nameToSearch] )
     
    
     return (
-      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, setUserName,userName }}>
+      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, nameToSearch, setNameToSearch }}>
         <div className='App'>
           <Routes>
             <Route path='/' element={<LoginPage />} />

@@ -12,7 +12,6 @@ const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
   const [msgIsDisplayed, setMsgIsDisplayed] = useState(false);
   const [responseMsg, setResponseMsg] = useState(null);
-  const [userDataToRender, setUserDataToRender] = useState([]);
   let navigate = useNavigate();
 
   const displayMsgTwoSecs = () => {
