@@ -48,6 +48,7 @@
 }
 
 .comments {
+	position: relative;
 	color: black;
 	width: 50vw;
 	margin: 0 auto;
@@ -59,6 +60,8 @@
 	overflow-wrap: break-word;
 	display: flex;
 	flex-direction: column;
+	max-height: 40vh;
+	overflow-y: scroll;
 }
 
 .comments li {
@@ -79,4 +82,11 @@
 }
 .name {
 	font-weight: bold;
+}
+
+.btn {
+	display: flex;
+	width: 100%;
+	background-color: red;
+	flex-direction: column;
 }
