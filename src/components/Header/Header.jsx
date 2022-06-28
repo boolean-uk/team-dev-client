@@ -52,7 +52,7 @@ const Header = ({ companyName }) => {
         >
           <Box>
             <Typography>
-              <p>{companyName}</p>
+              <span>{companyName}</span>
             </Typography>
           </Box>
 
