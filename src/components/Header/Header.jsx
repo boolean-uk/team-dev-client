@@ -8,7 +8,6 @@ import { useContext, useState } from 'react';
 import client from '../../utils/client';
 import { useNavigate, Link } from 'react-router-dom';
 
-
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
   const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
@@ -36,6 +35,13 @@ const Header = ({ companyName }) => {
   const onGotoDeliveryLogsPageRequested  = () => {
     navigate('../log');
   }
+
+  const signOut = (event) => {
+  event.preventDefault();
+  localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+  localStorage.removeItem('loggedInUser')
+  navigate('../', { replace: true });
+ };
 
   return (
     loggedInUser && (
@@ -87,7 +93,7 @@ const Header = ({ companyName }) => {
                   <Button variant='contained' onClick={addCohort}>Add Cohort</Button>
                 </>
               }
-              <Button variant='contained'>Logout</Button>
+              <Button variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
             </Stack>
           </Box>
         </Box>
