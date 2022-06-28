@@ -8,7 +8,6 @@ import { useContext, useState } from 'react';
 import client from '../../utils/client';
 import { useNavigate, Link } from 'react-router-dom';
 
-
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
   const [msgIsDisplayed, setMsgIsDisplayed] = useState(false)
