@@ -44,7 +44,7 @@ export default App;
 const AuthenticateUser = ({ children, redirectPath = '/', requiredRole=['STUDENT', 'TEACHER'] }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
 
-  const userRoleMatchesRequiredRole = requiredRole.includes(loggedInUser.role)
+  const userRoleMatchesRequiredRole = requiredRole.includes(loggedInUser?.role)
 
   if (!isLoggedIn() || !userRoleMatchesRequiredRole) {
     return <Navigate to={redirectPath} replace />;
