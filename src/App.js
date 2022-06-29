@@ -3,11 +3,13 @@ import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
+import CohortPage from './components/cohorts/CohortPage'
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash'
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
 
 import Profile from './components/profile/Profile';
+import AddCohortForm from './components/cohorts/AddCohortForm';
 
 
 function App() {
@@ -27,6 +29,16 @@ function App() {
           <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
             <Route path='/log' element={<DeliveryLogDash />} />
           </Route>
+
+          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
+            <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
+          </Route>
+
+          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
+           <Route path='/cohorts/:id' element={<CohortPage />} />
+          </Route>
+          
+            
         </Routes>
       </div>
     </loggedInUserContext.Provider>
