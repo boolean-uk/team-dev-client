@@ -29,7 +29,7 @@ const PostsPage = () => {
 				});
 			})
 			.catch((data) => {
-				console.log(data);
+				console.error(data);
 			});
 	};
 
@@ -59,7 +59,7 @@ const PostsPage = () => {
 				});
 			})
 			.catch((data) => {
-				console.log(data);
+				console.error(data);
 			});
 		event.target.reset();
 	};
