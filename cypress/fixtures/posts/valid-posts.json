@@ -1,35 +1,53 @@
 {
-  "status": "success",
-  "data": {
-    "posts": [
-      {
-        "id": 1,
-        "content": "Hello world!",
-        "author": {
-          "id": 5,
-          "cohortId": null,
-          "firstName": "Nathan",
-          "lastName": "King",
-          "email": "ngk2@gmail.com",
-          "bio": "Hello world",
-          "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
-        }
-      },
-      {
-        "id": 2,
-        "content": "Hello from the void!",
-        "author": {
-          "id": 5,
-          "cohortId": null,
-          "firstName": "Nathan",
-          "lastName": "King",
-          "email": "ngk2@gmail.com",
-          "bio": "Hello world",
-          "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
-        }
-      }
-    ]
-  }
+	"status": "success",
+	"data": {
+		"posts": [
+			{
+				"userId": 1,
+				"content": "dasds",
+				"id": 9,
+				"createdAt": "2022-06-29T10:17:25.621Z",
+				"postComments": [
+					{
+						"id": 34,
+						"content": "dsadsa",
+						"userId": 1,
+						"postId": 9,
+						"profileId": 1,
+						"createdAt": "2022-06-29T10:17:28.205Z",
+						"updatedAt": "2022-06-29T10:17:28.206Z",
+						"profile": {
+							"id": 1,
+							"userId": 1,
+							"firstName": "Nathan",
+							"lastName": "King",
+							"bio": "",
+							"githubUrl": "",
+							"createdAt": "2022-06-28T11:50:09.900Z",
+							"updatedAt": "2022-06-28T11:50:09.902Z"
+						}
+					},
+					{
+						"id": 35,
+						"content": "fse",
+						"userId": 1,
+						"postId": 9,
+						"profileId": 1,
+						"createdAt": "2022-06-29T10:17:30.578Z",
+						"updatedAt": "2022-06-29T10:17:30.579Z",
+						"profile": {
+							"id": 1,
+							"userId": 1,
+							"firstName": "Nathan",
+							"lastName": "King",
+							"bio": "",
+							"githubUrl": "",
+							"createdAt": "2022-06-28T11:50:09.900Z",
+							"updatedAt": "2022-06-28T11:50:09.902Z"
+						}
+					}
+				]
+			}
+		]
+	}
 }
