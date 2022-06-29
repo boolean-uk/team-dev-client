@@ -29,7 +29,7 @@ function App() {
     } )
     .catch((err) => console.error(err.response))
     
-  }, [nameToSearch] )
+  }, [nameToSearch] ) 
     
    
     return (
