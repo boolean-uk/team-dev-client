@@ -1,11 +1,11 @@
-import Button from "@mui/material/Button";
-import Comment from "./Comment";
-import "./style.css";
+import Button from '@mui/material/Button';
+import Comment from './Comment';
+import './style.css';
 
 export default function Comments({ post, showAllComments, commentLength }) {
 	return (
 		<>
-			<div className="comments">
+			<div className='comments'>
 				{post.postComments.map((comment, i, arr) => {
 					commentLength = arr.length;
 					if (post.showAllComments) {
@@ -16,15 +16,15 @@ export default function Comments({ post, showAllComments, commentLength }) {
 				})}
 			</div>
 			{commentLength > 1 && (
-				<div className="btn">
+				<div className='btn'>
 					<Button
 						onClick={(e) => showAllComments(e, post.id)}
-						type="submit"
-						variant="contained"
-						color="success"
+						type='submit'
+						variant='contained'
+						color='success'
 					>
 						{post.showAllComments
-							? "Hide Comments"
+							? 'Hide Comments'
 							: `Show All Comments (${commentLength})`}
 					</Button>
 				</div>

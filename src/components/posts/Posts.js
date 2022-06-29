@@ -1,5 +1,5 @@
-import Comments from "./Comments";
-import CommentForm from "./CommentForm";
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 export default function Posts({
 	posts,
@@ -9,15 +9,14 @@ export default function Posts({
 }) {
 	let commentLength = 0;
 	return (
-		<ul className="posts-list">
+		<ul className='posts-list'>
 			{posts &&
 				posts.map((post, index) => (
-					<div className="post-comment-container">
-						<li key={index} className="post-item">
+					<div key={post.id} className='post-comment-container'>
+						<li key={index} className='post-item'>
 							{post.content}
 						</li>
 						<Comments
-							key={post.id}
 							post={post}
 							showAllComments={showAllComments}
 							commentLength={commentLength}

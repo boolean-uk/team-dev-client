@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import PostForm from "./PostForm";
-import client from "../../utils/client";
-import Posts from "./Posts";
-import "./style.css";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import Posts from './Posts';
+import './style.css';
 
-import Header from "../Header/Header";
+import Header from '../Header/Header';
 
 const PostsPage = () => {
-	const [post, setPost] = useState({ content: "" });
-	const [postResponse, setPostResponse] = useState("");
+	const [post, setPost] = useState({ content: '' });
+	const [postResponse, setPostResponse] = useState('');
 	const [posts, setPosts] = useState([]);
-	const [comment, setComment] = useState({ content: "" });
+	const [comment, setComment] = useState({ content: '' });
 	let navigate = useNavigate();
 
 	useEffect(() => {
-		client.get("/posts").then((res) => {
-			console.log(res);
+		client.get('/posts').then((res) => {
 			setPosts(res.data.data.posts);
 		});
 	}, []);
@@ -24,11 +23,10 @@ const PostsPage = () => {
 	const createPost = async (event) => {
 		event.preventDefault();
 		client
-			.post("/post", post)
+			.post('/post', post)
 			.then((res) => {
 				setPostResponse(res.data);
-				client.get("/posts").then((res) => {
-					console.log(res);
+				client.get('/posts').then((res) => {
 					setPosts(res.data.data.posts);
 				});
 			})
@@ -48,8 +46,8 @@ const PostsPage = () => {
 
 	const signOut = (event) => {
 		event.preventDefault();
-		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-		navigate("../", { replace: true });
+		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+		navigate('../', { replace: true });
 	};
 
 	const createComment = (event, postId) => {
@@ -100,8 +98,8 @@ const PostsPage = () => {
 	return (
 		<>
 			<Header companyName={`Cohort Manager 2.0`} />
-			<section className="posts-section">
-				<button id="user-signout-button" onClick={signOut}>
+			<section className='posts-section'>
+				<button id='user-signout-button' onClick={signOut}>
 					sign out
 				</button>
 				<p>Status: {postResponse.status}</p>
