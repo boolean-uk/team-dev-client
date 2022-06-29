@@ -29,8 +29,12 @@ const Profile = () => {
   useEffect(() => {
     client
       .get('/cohort')
-      .then((res) => setCohortsAvailable(res.data.data))
+      .then((res) => {
+        console.log('hellooooo', res.data.data);
+        setCohortsAvailable(res.data.data)
+      })
       .catch((err) => console.error(err.response));
+      
   }, [])
 
   const handleSubmitAddStudentToCohort = (e) => {
