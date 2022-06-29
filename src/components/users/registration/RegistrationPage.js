@@ -8,13 +8,14 @@ import './style.css';
 const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [registerResponse, setRegisterResponse] = useState('');
+  const [errorResponse, setErrorResponse] = useState('')
 
   const registerUser = (event) => {
     event.preventDefault();
     client
       .post('/user', user, false)
       .then((res) => setRegisterResponse(res.data))
-      .catch((err) => console.log(err.response));
+      .catch((err) => setErrorResponse(err.response));
   };
 
   const handleChange = (event) => {
@@ -36,7 +37,7 @@ const RegistrationPage = () => {
         login
       </Link>
       <h1>Sign up</h1>
-      <p>Status: {registerResponse.status}</p>
+      <p>{errorResponse.status === 400 ? errorResponse.data.data.email: registerResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={registerUser} />
     </div>
   );
