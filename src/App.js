@@ -9,26 +9,19 @@ import { loggedInUserContext } from './Helper/loggedInUserContext';
 import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
 import client from './utils/client';
-
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
-  const [userDataToRender ,setUserDataToRender] = useState({})
-  const [ nameToSearch, setNameToSearch] = useState({
-    userName: ""
-  })
-  const [loggedInUser, setLoggedInUser] = useState(
-    JSON.parse(localStorage.getItem('loggedInUser'))
+  const [userDataToRender, setUserDataToRender] = useState({})
+  const [nameToSearch, setNameToSearch] = useState({ userName: ""})
+  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))
   );
 
   useEffect(() => {
     client
     .get(`/users?first_name=${nameToSearch}`)
-    .then((res) => {
-        setUserDataToRender(res.data.data.users) 
-    } )
+    .then((res) => setUserDataToRender(res.data.data.users))
     .catch((err) => console.error(err.response))
-    
   }, [nameToSearch] ) 
     
    
@@ -40,9 +33,8 @@ function App() {
             <Route path='/signup' element={<RegistrationPage />} />
             <Route element={<AuthenticateUser />}>
               <Route path='/posts' element={<PostsPage />} />
-              
               <Route path='/users-list' element={<RenderListOfStudents/>} />
-            <Route path='/profile/:id' element={<Profile />} />
+              <Route path='/profile/:id' element={<Profile />} />
           </Route>
           <Route
             element={

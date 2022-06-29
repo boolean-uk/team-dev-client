@@ -6,13 +6,10 @@ import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 
 const SearchBar = () => {
-    
     const {nameToSearch, setNameToSearch} = useContext(loggedInUserContext)
-  
     const navigate = useNavigate()
-  
     const [userDataFromInput, setUserDataFromInput] = useState()
-  
+    
     const handleChange = (event) =>{
         event.preventDefault()
         const {value, name} = event.target
@@ -21,16 +18,15 @@ const SearchBar = () => {
             [name]: value,
         });
     }
-    
+
     const setActiveSearchUser  = () => {
         setNameToSearch(userDataFromInput.searchInput)
         navigate('/users-list')
     }
-    
-  
+
     return(
         <>
-        <Box sx={{ backgroundColor: 'white' }}>
+          <Box sx={{ backgroundColor: 'white' }}>
             <InputBase
               placeholder='Search…'
               inputProps={{ 'aria-label': 'search' }}
@@ -46,7 +42,4 @@ const SearchBar = () => {
     )
   }
   
-  
-  
   export default SearchBar
-  

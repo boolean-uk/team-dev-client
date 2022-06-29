@@ -2,9 +2,7 @@ import { useContext } from 'react'
 import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 import { Link } from 'react-router-dom'
 
-
 const RenderListOfStudents = () =>{
-
     const {userDataToRender} = useContext(loggedInUserContext)
     
     return(
@@ -16,7 +14,6 @@ const RenderListOfStudents = () =>{
           {userDataToRender.map((student, index) => {
             const { first_name, last_name } = student
             return (
-              
               <li className="contact" key={index}>
                 <Link to={`/profile/${student.id}`}>
                 <p>
@@ -27,11 +24,8 @@ const RenderListOfStudents = () =>{
             )
           })}
         </ul>
-      </>      
-        
+      </>         
     )
 }
 
 export default RenderListOfStudents
-
-
