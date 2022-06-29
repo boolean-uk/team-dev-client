@@ -1,0 +1,19 @@
+.add-user-to-cohort-form {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  grid-template-columns: repeat(3, auto) 1fr;
+  height: 2rem;
+}
+
+.add-user-to-cohort-btn {
+  color: #fff;
+  background-color: #1976d2;
+  border-style: none;
+  border-radius: 3px;
+  padding: 0.3rem;
+}
+
+.add-user-to-cohort-btn:hover {
+  background-color: #1862ac;
+}
