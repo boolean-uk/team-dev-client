@@ -12,7 +12,7 @@ export default function Comments({ post, showAllComments, commentLength }) {
 						return <Comment key={comment.id} comment={comment} />;
 					} else if (i === arr.length - 1) {
 						return <Comment key={comment.id} comment={comment} />;
-					}
+					} else return null;
 				})}
 			</div>
 			{commentLength > 1 && (
