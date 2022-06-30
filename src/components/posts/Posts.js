@@ -6,6 +6,7 @@ export default function Posts({
 	showAllComments,
 	createComment,
 	handleChangeComment,
+	error,
 }) {
 	let commentLength = 0;
 	return (
@@ -26,6 +27,7 @@ export default function Posts({
 							handleSubmitComment={createComment}
 							postId={post.id}
 							handleChangeComment={handleChangeComment}
+							error={error}
 						/>
 					</div>
 				))}
