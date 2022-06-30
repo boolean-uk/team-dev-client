@@ -1,18 +1,18 @@
-import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Button, Stack, TextField } from "@mui/material";
-import { Box } from "@mui/system";
-import Header from "../Header/Header";
-import client from "../../utils/client";
-import "./profile.css";
+import { React, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Button, Stack, TextField } from '@mui/material';
+import { Box } from '@mui/system';
+import Header from '../Header/Header';
+import client from '../../utils/client';
+import './profile.css';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
   const [passwords, setPasswords] = useState({
-    currentPassword: "",
-    newPassword: "",
-    newPasswordConfirmation: "",
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirmation: '',
   });
 
   const params = useParams();
@@ -28,9 +28,8 @@ const Profile = () => {
 
   useEffect(() => {
     client
-      .get("/cohort")
+      .get('/cohort')
       .then((res) => {
-        console.log("hellooooo", res.data.data);
         setCohortsAvailable(res.data.data);
       })
       .catch((err) => console.error(err.response));
@@ -88,7 +87,7 @@ const Profile = () => {
     }
   };
 
-  const fieldVariant = editingProfile ? "outlined" : "standard";
+  const fieldVariant = editingProfile ? 'outlined' : 'standard';
 
   return (
     <>
@@ -177,7 +176,7 @@ const Profile = () => {
                   onClick={() => setEditingProfile(true)}
                 >
                   Edit Profile
-                </Button>{" "}
+                </Button>{' '}
               </Stack>
             </Box>
           )}
@@ -190,7 +189,7 @@ const Profile = () => {
                   onClick={() => setEditingPassword(true)}
                 >
                   Edit Password
-                </Button>{" "}
+                </Button>{' '}
               </Stack>
             </Box>
           )}
