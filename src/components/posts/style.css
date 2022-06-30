@@ -115,3 +115,7 @@
 .comments::-webkit-scrollbar-thumb:hover {
 	background: #2f2f2fc6;
 }
+
+a:-webkit-any-link {
+  text-decoration: none;
+}
