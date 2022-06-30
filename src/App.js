@@ -52,9 +52,6 @@ function App() {
 
           <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
             <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
-          </Route>
-
-          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
             <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
           
