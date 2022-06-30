@@ -15,9 +15,10 @@ const AddCohortForm = () => {
     client
       .post('/cohort', cohortFormData)
       .then((res) => {
-        navigate(`../cohorts/${res.data.data.cohort.id}`, { replace: true })
+        const cohortId  = res.data.data.cohort.id
+        navigate(`../cohorts/${cohortId}`, { replace: true })
       })
-      .catch((data) => console.log(data));
+      .catch((err) => console.error(err.response))
   };
 
   const handleChange = (event) => {

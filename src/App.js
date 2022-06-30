@@ -55,10 +55,9 @@ function App() {
           </Route>
 
           <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
-           <Route path='/cohorts/:id' element={<CohortPage />} />
+            <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
           
-            
         </Routes>
       </div>
     </loggedInUserContext.Provider>

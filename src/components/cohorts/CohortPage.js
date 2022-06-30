@@ -12,8 +12,8 @@ const CohortPage = () => {
     client
         .get(`/cohort/${params.id}`)
         .then((res) => {
-          console.log(res.data.data);
-            setCohort(res.data.data)
+          const cohort = res.data.data
+          setCohort(cohort)
         })
         .catch((err) => console.error(err.response));
   }, [params]);
