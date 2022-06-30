@@ -13,8 +13,6 @@ const PostsPage = () => {
 	const [comment, setComment] = useState({ content: '' });
 	const [error, setError] = useState(false);
 
-	console.log(comment);
-
 	useEffect(() => {
 		client.get('/posts').then((res) => {
 			setPosts(res.data.data.posts);
