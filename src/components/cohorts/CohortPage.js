@@ -21,7 +21,7 @@ const CohortPage = () => {
   return (
       <>
         <Header companyName={`Cohort Manager 2.0`} />
-        <p>Cohort Name: {cohort?.id}</p>
+        <p>Cohort Name: {cohort?.cohortName}</p>
       </>
   );
 };

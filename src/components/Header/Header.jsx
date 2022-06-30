@@ -2,10 +2,10 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import SearchBar from '../searchBar/SearchBar';
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
@@ -16,9 +16,9 @@ const Header = ({ companyName }) => {
     navigate('../cohorts/add-cohort', { replace: true });
   };
 
-  const onGotoDeliveryLogsPageRequested  = () => {
+  const onGotoDeliveryLogsPageRequested = () => {
     navigate('../log');
-  }
+  };
 
   const signOut = (event) => {
     event.preventDefault();
@@ -53,15 +53,7 @@ const Header = ({ companyName }) => {
               alignContent: 'center',
             }}
           >
-            <Box sx={{ backgroundColor: 'white' }}>
-              <InputBase
-                placeholder='Search…'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Box>
-            <Box>
-              <Button variant='contained'>Search User</Button>
-            </Box>
+            <SearchBar/>
           </Box>
 
           <Box>
