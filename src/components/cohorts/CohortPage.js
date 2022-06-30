@@ -12,8 +12,8 @@ const CohortPage = () => {
     client
         .get(`/cohort/${params.id}`)
         .then((res) => {
-            setCohort(res.data)
-            console.log(res.data)
+          console.log(res.data.data);
+            setCohort(res.data.data)
         })
         .catch((err) => console.error(err.response));
   }, [params]);
@@ -21,7 +21,7 @@ const CohortPage = () => {
   return (
       <>
         <Header companyName={`Cohort Manager 2.0`} />
-        <p>Cohort Name: {cohort?.data.id}</p>
+        <p>Cohort Name: {cohort?.id}</p>
       </>
   );
 };
