@@ -16,9 +16,9 @@ const Header = ({ companyName }) => {
     navigate('../cohorts/add-cohort', { replace: true });
   };
 
-  const onGotoDeliveryLogsPageRequested = () => {
-    navigate('../log');
-  };
+	const onGotoDeliveryLogsPageRequested = () => {
+		navigate('../log');
+	};
 
   const signOut = (event) => {
     event.preventDefault();
@@ -27,40 +27,40 @@ const Header = ({ companyName }) => {
     navigate('../', { replace: true });
   };
 
-  return (
-    loggedInUser && (
-      <>
-        <Box
-          sx={{
-            display: 'flex',
-            backgroundColor: 'grey',
-            justifyContent: 'space-between',
-            alignContent: 'center',
-            width: '100vw',
-            padding: '1em',
-          }}
-        >
-          <Box>
-            <Typography>
-              <span>{companyName}</span>
-            </Typography>
-          </Box>
+	return (
+		loggedInUser && (
+			<>
+				<Box
+					sx={{
+						display: 'flex',
+						backgroundColor: 'grey',
+						justifyContent: 'space-between',
+						alignContent: 'center',
+						width: '100vw',
+						padding: '1em',
+					}}
+				>
+					<Box>
+						<Typography>
+							<span>{companyName}</span>
+						</Typography>
+					</Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}
-          >
-            <SearchBar/>
-          </Box>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignContent: 'center',
+						}}
+					>
+						<SearchBar />
+					</Box>
 
-          <Box>
-            <Stack spacing={2} direction='row'>
-              <Link to={`/profile/${loggedInUser.id}`}>
-                <Button variant='contained'>Profile</Button>
-              </Link>
+					<Box>
+						<Stack spacing={2} direction='row'>
+							<Link to={`/profile/${loggedInUser.id} `}>
+								<Button variant='contained'>Profile</Button>
+							</Link>
 
               {loggedInUser?.role === 'TEACHER' && 
                 <>
