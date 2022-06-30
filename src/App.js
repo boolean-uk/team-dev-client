@@ -3,28 +3,47 @@ import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
-import DeliveryLogDash from './components/users/teachers/DeliveryLogDash'
+import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
-
+import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
-
+import client from './utils/client';
+import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))  );
+  const [userDataToRender, setUserDataToRender] = useState({})
+  const [nameToSearch, setNameToSearch] = useState({ userName: ""})
+  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))
+  );
 
-  return (
-    <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <div className='App'>
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/signup' element={<RegistrationPage />} />
-          <Route element={<AuthenticateUser />}>
-            <Route path='/posts' element={<PostsPage />} />
-
-            <Route path='/profile/:id' element={<Profile />} />
+  useEffect(() => {
+    client
+    .get(`/users?first_name=${nameToSearch}`)
+    .then((res) => setUserDataToRender(res.data.data.users))
+    .catch((err) => console.error(err.response))
+  }, [nameToSearch] ) 
+    
+   
+    return (
+      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, nameToSearch, setNameToSearch }}>
+        <div className='App'>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/signup' element={<RegistrationPage />} />
+            <Route element={<AuthenticateUser />}>
+              <Route path='/posts' element={<PostsPage />} />
+              <Route path='/users-list' element={<RenderListOfStudents/>} />
+              <Route path='/profile/:id' element={<Profile />} />
           </Route>
-          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
+          <Route
+            element={
+              <AuthenticateUser
+                redirectPath={'/posts'}
+                requiredRole={['TEACHER']}
+              />
+            }
+          >
             <Route path='/log' element={<DeliveryLogDash />} />
           </Route>
         </Routes>
@@ -40,11 +59,14 @@ function isLoggedIn() {
 
 export default App;
 
-
-const AuthenticateUser = ({ children, redirectPath = '/', requiredRole=['STUDENT', 'TEACHER'] }) => {
+const AuthenticateUser = ({
+  children,
+  redirectPath = '/',
+  requiredRole = ['STUDENT', 'TEACHER'],
+}) => {
   const { loggedInUser } = useContext(loggedInUserContext);
 
-  const userRoleMatchesRequiredRole = requiredRole.includes(loggedInUser?.role)
+  const userRoleMatchesRequiredRole = requiredRole.includes(loggedInUser?.role);
 
   if (!isLoggedIn() || !userRoleMatchesRequiredRole) {
     return <Navigate to={redirectPath} replace />;
