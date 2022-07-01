@@ -1,7 +1,10 @@
 .students-list {
   list-style: none;
 }
-
+.two-column-grid{
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
 .student-list-item {
   display: grid;
   height: 40px;
@@ -18,4 +21,16 @@
 
 .link:hover {
   color: blue;
+}
+
+.search-bar-img{
+  height: 25px;
+  border-radius: 25px;
+}
+
+.list-of-students-img{
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  margin-right: 10px;
 }

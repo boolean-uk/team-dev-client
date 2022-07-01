@@ -22,7 +22,6 @@ export default function Posts({
 							showAllComments={showAllComments}
 							commentLength={commentLength}
 						/>
-
 						<CommentForm
 							handleSubmitComment={createComment}
 							postId={post.id}
