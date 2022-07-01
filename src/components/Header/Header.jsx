@@ -73,6 +73,10 @@ const Header = ({ companyName }) => {
 
           <Box>
             <Stack spacing={2} direction='row'>
+              <Link to='/home'>
+                <Button variant='contained'>Home</Button>
+              </Link>
+
               <Link to={`/profile/${loggedInUser.id}`}>
                 <Button variant='contained'>Profile</Button>
               </Link>

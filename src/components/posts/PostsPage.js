@@ -4,8 +4,6 @@ import client from '../../utils/client';
 import Posts from './Posts';
 import './style.css';
 
-import Header from '../Header/Header';
-
 const PostsPage = () => {
 	const [post, setPost] = useState({ content: '' });
 	const [postResponse, setPostResponse] = useState('');
@@ -89,7 +87,6 @@ const PostsPage = () => {
 
 	return (
 		<>
-			<Header companyName={`Cohort Manager 2.0`} />
 			<section className='posts-section'>
 				<p>Status: {postResponse.status}</p>
 				<PostForm handleSubmit={createPost} handleChange={handleChange} />

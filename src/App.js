@@ -1,15 +1,14 @@
-import { useState, useContext } from 'react';
-import './App.css';
+import { useState, useContext, useEffect } from 'react';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
-import PostsPage from './components/posts/PostsPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { loggedInUserContext } from './Helper/loggedInUserContext';
-import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
-import client from './utils/client';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
+import HomePage from './components/Home';
+import client from './utils/client';
+import { loggedInUserContext } from './Helper/loggedInUserContext';
+import './App.css';
 
 function App() {
   const [userDataToRender, setUserDataToRender] = useState({})
@@ -32,21 +31,14 @@ function App() {
             <Route path='/' element={<LoginPage />} />
             <Route path='/signup' element={<RegistrationPage />} />
             <Route element={<AuthenticateUser />}>
-              <Route path='/posts' element={<PostsPage />} />
+              <Route path='/home' element={<HomePage />} />
               <Route path='/users-list' element={<RenderListOfStudents/>} />
               <Route path='/profile/:id' element={<Profile />} />
-          </Route>
-          <Route
-            element={
-              <AuthenticateUser
-                redirectPath={'/posts'}
-                requiredRole={['TEACHER']}
-              />
-            }
-          >
-            <Route path='/log' element={<DeliveryLogDash />} />
-          </Route>
-        </Routes>
+            </Route>
+            <Route element={<AuthenticateUser redirectPath={'/home'} requiredRole={['TEACHER']}/>}>
+              <Route path='/log' element={<DeliveryLogDash />} />
+            </Route>
+          </Routes>
       </div>
     </loggedInUserContext.Provider>
   );
