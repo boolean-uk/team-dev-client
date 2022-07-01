@@ -19,11 +19,18 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
+  const [isValidId, setIsValidId] = useState(true);
+
   useEffect(() => {
     client
       .get(`/user/${params.id}`)
-      .then((res) => setUserData(res.data.data.user))
-      .catch((err) => console.error(err.response));
+      .then((res) => {
+        setUserData(res.data.data.user);
+      })
+      .catch((err) => {
+        setIsValidId(false);
+        console.log(err.response);
+      });
   }, [params]);
 
   useEffect(() => {
@@ -70,7 +77,6 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     client
       .patch(`/user/update/${userData.id}`, userData, false)
       .then((res) => setUserData(res.data.data.user))
@@ -81,7 +87,6 @@ const Profile = () => {
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     const { newPassword, newPasswordConfirmation } = passwords;
-
     if (newPassword !== newPasswordConfirmation) {
       return;
     }
@@ -112,7 +117,9 @@ const Profile = () => {
         </button>
       </form>
 
-      {!editingPassword && (
+      {!isValidId && <h2>This is an invalid ID</h2>}
+
+      {!editingPassword && isValidId && (
         <div className='user-form'>
           <TextField
             className='user-form-input'
@@ -181,7 +188,7 @@ const Profile = () => {
             </Box>
           )}
 
-          {!editingPassword && (
+          {!editingPassword && isValidId && (
             <Box>
               <Stack spacing={2} direction='row'>
                 <Button
