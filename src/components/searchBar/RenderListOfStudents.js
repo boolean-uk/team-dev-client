@@ -18,7 +18,7 @@ const RenderListOfStudents = () => {
             <li className='student-list-item' key={index}>
               <Link to={`/profile/${student.id}`} className='link'>
                 <div className='two-column-grid'>
-                <img className='list-of-students-img' src={profile_url}/>
+                <img className='list-of-students-img' alt='students img'src={profile_url}/>
                 <p>
                  {first_name} {last_name}
                 </p>

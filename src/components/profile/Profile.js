@@ -86,7 +86,7 @@ const Profile = () => {
 
       {!editingPassword && (
         <div className='profile-form'>
-          <img className='img-profile' src={userData.profile_url}/>
+          <img className='img-profile' alt='img-profile'src={userData.profile_url}/>
           <TextField
             className='profile-user-text'
             label='First Name'
