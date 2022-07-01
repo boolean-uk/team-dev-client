@@ -27,8 +27,7 @@ const Header = ({ companyName }) => {
     localStorage.removeItem('loggedInUser')
     navigate('../', { replace: true });
   };
-
-  console.log('heellooo' , loggedInUser);
+  
 	return (
 		loggedInUser && (
 			<>

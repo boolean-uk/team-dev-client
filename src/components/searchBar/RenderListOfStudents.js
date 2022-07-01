@@ -22,7 +22,6 @@ const RenderListOfStudents = () => {
                 <p>
                  {first_name} {last_name}
                 </p>
-
                 </div>
               </Link>
             </li>
