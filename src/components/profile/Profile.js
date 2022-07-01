@@ -4,7 +4,7 @@ import { Button, Stack, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import './profile.css'
+import './profile.css';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -17,7 +17,7 @@ const Profile = () => {
 
   const params = useParams();
   const [userData, setUserData] = useState({});
-  const [cohortsAvailable, setCohortsAvailable] = useState([])
+  const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
   useEffect(() => {
     client
@@ -30,21 +30,18 @@ const Profile = () => {
     client
       .get('/cohort')
       .then((res) => {
-        console.log('hellooooo', res.data.data);
-        setCohortsAvailable(res.data.data)
+        setCohortsAvailable(res.data.data);
       })
       .catch((err) => console.error(err.response));
-      
-  }, [])
+  }, []);
 
   const handleSubmitAddStudentToCohort = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const selectedCohortId = Number(e.target[0].value)
+    const selectedCohortId = Number(e.target[0].value);
 
-    client
-      .patch(`/user/${userData.id}`, { cohort_id: selectedCohortId })
-  }
+    client.patch(`/user/${userData.id}`, { cohort_id: selectedCohortId });
+  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -96,23 +93,27 @@ const Profile = () => {
     <>
       <Header />
 
-      <form onSubmit={handleSubmitAddStudentToCohort} className='add-user-to-cohort-form'>
-        <span>Add student to cohort: </span> 
+      <form
+        onSubmit={handleSubmitAddStudentToCohort}
+        className='add-user-to-cohort-form'
+      >
+        <span>Add student to cohort: </span>
         <select>
-          <option value={null}>
-            Please select a cohort...
-          </option>
-          {cohortsAvailable && cohortsAvailable.map((cohort) => (
-            <option key={cohort.id} value={cohort.id}>
-              {cohort.id}
-            </option>
-          ))}
+          <option value={null}>Please select a cohort...</option>
+          {cohortsAvailable &&
+            cohortsAvailable.map((cohort) => (
+              <option key={cohort.id} value={cohort.id}>
+                {cohort.id}
+              </option>
+            ))}
         </select>
-        <button type='submit' className='add-user-to-cohort-btn'>Confirm</button>
+        <button type='submit' className='add-user-to-cohort-btn'>
+          Confirm
+        </button>
       </form>
-      
+
       {!editingPassword && (
-        <form className='user-form'>
+        <div className='user-form'>
           <TextField
             className='user-form-input'
             label='First Name'
@@ -192,7 +193,7 @@ const Profile = () => {
               </Stack>
             </Box>
           )}
-        </form>
+        </div>
       )}
 
       {editingPassword && (

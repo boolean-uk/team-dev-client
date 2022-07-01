@@ -1,0 +1,21 @@
+.students-list {
+  list-style: none;
+}
+
+.student-list-item {
+  display: grid;
+  height: 40px;
+  margin-bottom: 24px;
+  background-color: white;
+  border-radius: 8px;
+  place-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  color: blue;
+}

@@ -4,10 +4,12 @@ import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
 import Profile from './components/profile/Profile';
+import CohortPage from './components/cohorts/CohortPage'
+import AddCohortForm from './components/cohorts/AddCohortForm';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 import HomePage from './components/Home';
-import client from './utils/client';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
+import client from './utils/client';
 import './App.css';
 
 function App() {
@@ -30,15 +32,23 @@ function App() {
           <Routes>
             <Route path='/' element={<LoginPage />} />
             <Route path='/signup' element={<RegistrationPage />} />
+
             <Route element={<AuthenticateUser />}>
               <Route path='/home' element={<HomePage />} />
               <Route path='/users-list' element={<RenderListOfStudents/>} />
               <Route path='/profile/:id' element={<Profile />} />
             </Route>
+
             <Route element={<AuthenticateUser redirectPath={'/home'} requiredRole={['TEACHER']}/>}>
               <Route path='/log' element={<DeliveryLogDash />} />
             </Route>
-          </Routes>
+
+            <Route element={<AuthenticateUser redirectPath={'/home'} requiredRole={['TEACHER']}/>}>
+              <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
+              <Route path='/cohorts/:id' element={<CohortPage />} />
+            </Route>
+          
+        </Routes>
       </div>
     </loggedInUserContext.Provider>
   );

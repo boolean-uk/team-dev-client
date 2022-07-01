@@ -9,6 +9,7 @@ const PostsPage = () => {
 	const [postResponse, setPostResponse] = useState('');
 	const [posts, setPosts] = useState([]);
 	const [comment, setComment] = useState({ content: '' });
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		client.get('/posts').then((res) => {
@@ -17,21 +18,20 @@ const PostsPage = () => {
 	}, []);
 
 	const createPost = async (event) => {
+		setError(false);
 		event.preventDefault();
-		client
-			.post('/post', post)
-			.then((res) => {
-				setPostResponse(res.data);
-				client.get('/posts').then((res) => {
-					setPosts(res.data.data.posts);
-				});
-			})
-			.catch((data) => {
-				console.error(data);
-			});
+		try {
+			const res = await client.post('/post', post);
+			setPostResponse(res.data);
+			const res2 = await client.get('/posts');
+			setPosts(res2.data.data.posts);
+		} catch (err) {
+			setError(err.response.data.data.err);
+		}
 	};
 
 	const handleChange = (event) => {
+		setError(false);
 		event.preventDefault();
 		const { value, name } = event.target;
 		setPost({
@@ -42,6 +42,11 @@ const PostsPage = () => {
 
 	const createComment = (event, postId) => {
 		event.preventDefault();
+		setError(false);
+		if (comment.postId !== postId) {
+			setError(['Must provide content', postId]);
+			return;
+		}
 		client
 			.post(`/post/comment?postId=${postId}`, { ...comment })
 			.then((res) => {
@@ -56,18 +61,22 @@ const PostsPage = () => {
 					});
 				});
 			})
-			.catch((data) => {
-				console.error(data);
+			.catch((err) => {
+				setError([err.response.data.data.err, postId]);
+				console.error(err.response.data.data.err);
 			});
+		setComment({ content: '' });
 		event.target.reset();
 	};
 
-	const handleChangeComment = (event) => {
+	const handleChangeComment = (event, postId) => {
+		setError(false);
 		event.preventDefault();
 		const { value, name } = event.target;
 		setComment({
 			...comment,
 			[name]: value,
+			postId,
 		});
 	};
 
@@ -89,9 +98,14 @@ const PostsPage = () => {
 		<>
 			<section className='posts-section'>
 				<p>Status: {postResponse.status}</p>
-				<PostForm handleSubmit={createPost} handleChange={handleChange} />
+				<PostForm
+					error={error}
+					handleSubmit={createPost}
+					handleChange={handleChange}
+				/>
 				{posts && (
 					<Posts
+						error={error}
 						posts={posts}
 						showAllComments={showAllComments}
 						createComment={createComment}
