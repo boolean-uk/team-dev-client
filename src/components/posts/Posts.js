@@ -9,6 +9,7 @@ export default function Posts({
 	error,
 }) {
 	let commentLength = 0;
+	console.log("helloooo", posts);
 	return (
 		<ul className='posts-list'>
 			{posts &&

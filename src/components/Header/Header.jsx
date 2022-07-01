@@ -6,6 +6,7 @@ import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import SearchBar from '../searchBar/SearchBar';
+import '../Header/header.css'
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
@@ -27,6 +28,7 @@ const Header = ({ companyName }) => {
     navigate('../', { replace: true });
   };
 
+  console.log('heellooo' , loggedInUser);
 	return (
 		loggedInUser && (
 			<>
@@ -68,7 +70,11 @@ const Header = ({ companyName }) => {
                   <Button variant='contained' onClick={handleAddCohortClick}>Add Cohort</Button>
                 </>
               }
-              <Button variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
+              <Button className='signout-button' variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
+              <div>
+               <img  className='head-img-profile' alt="profile pic" src={loggedInUser.profile_url}/>
+              </div>
+			  
             </Stack>
           </Box>
         </Box>
