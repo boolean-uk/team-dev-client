@@ -7,6 +7,9 @@ export default function Posts({
 	createComment,
 	handleChangeComment,
 	error,
+	isEditing,
+	setIsEditing,
+	handlePostEdit
 }) {
 	let commentLength = 0;
 	return (
@@ -15,7 +18,11 @@ export default function Posts({
 				posts.map((post, index) => (
 					<div key={post.id} className='post-comment-container'>
 						<li key={index} className='post-item'>
-							{post.content}
+							{	(isEditing.editing && post.id === isEditing.postId  &&
+								<input value={post.content}></input>)
+							 ||
+							post.content}
+							<button className='post_edit_button' onClick={(e) => handlePostEdit(e,post.id)}>Edit Post</button>
 						</li>
 						<Comments
 							post={post}

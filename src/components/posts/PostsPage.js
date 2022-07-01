@@ -12,6 +12,7 @@ const PostsPage = () => {
 	const [posts, setPosts] = useState([]);
 	const [comment, setComment] = useState({ content: '' });
 	const [error, setError] = useState(false);
+  const [isEditing, setIsEditing] = useState({editing : false, postId: null})
 
 	useEffect(() => {
 		client.get('/posts').then((res) => {
@@ -41,6 +42,17 @@ const PostsPage = () => {
 			[name]: value,
 		});
 	};
+
+  const handlePostEdit = (event, postId) => {
+		event.preventDefault();
+    if (isEditing.editing === false) {
+      setIsEditing({ editing: true , postId: postId })
+      console.log(isEditing)
+    } else {
+      setIsEditing( { editing: false, postId: postId })
+      console.log(isEditing)
+    }
+  }
 
 	const createComment = (event, postId) => {
 		event.preventDefault();
@@ -105,14 +117,17 @@ const PostsPage = () => {
 					error={error}
 					handleSubmit={createPost}
 					handleChange={handleChange}
-				/>
+          />
 				{posts && (
-					<Posts
-						error={error}
-						posts={posts}
-						showAllComments={showAllComments}
-						createComment={createComment}
-						handleChangeComment={handleChangeComment}
+          <Posts
+          error={error}
+          posts={posts}
+          showAllComments={showAllComments}
+          createComment={createComment}
+          handleChangeComment={handleChangeComment}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          handlePostEdit={handlePostEdit}
 					/>
 				)}
 			</section>
