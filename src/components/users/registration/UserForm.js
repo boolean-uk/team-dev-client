@@ -11,6 +11,7 @@ const UserForm = ({handleSubmit, handleChange}) => {
       <TextField className="user-form-input" type="password" label="Password" variant="outlined" name="password" onChange={handleChange} />
       <TextField className="user-form-input" label="Bio" variant="outlined" name="biography" onChange={handleChange} />
       <TextField className="user-form-input" type="url" label="GitHub URL" variant="outlined" name="github_url" onChange={handleChange} />
+      <TextField className="user-form-input" type="url" label="Profile URL" variant="outlined" name="profile_url" onChange={handleChange} />
       <Button id="user-submit-button" type="submit" variant="contained">Submit</Button>
     </form>
   )
