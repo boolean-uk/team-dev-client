@@ -1,0 +1,6 @@
+{
+	"json.format.enable": true,
+	"typescript.format.enable": false,
+	"editor.tabSize": 2,
+	"editor.formatOnSave": true
+}
