@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
-import PostsPage from './components/posts/PostsPage';
 import CohortPage from './components/cohorts/CohortPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
 import { loggedInUserContext } from './Helper/loggedInUserContext';

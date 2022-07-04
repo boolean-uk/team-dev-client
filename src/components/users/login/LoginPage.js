@@ -39,7 +39,6 @@ const LoginPage = () => {
         navigate('../home', { replace: true });
       })
       .catch((err) => {
-        console.log(err.response.data.data.email);
         setLoginError(err.response.data.data.email);
       });
   };
