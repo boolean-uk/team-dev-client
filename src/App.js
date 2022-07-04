@@ -15,17 +15,18 @@ import client from './utils/client';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
-  const [userDataToRender, setUserDataToRender] = useState({})
+  const [userDataToRender, setUserDataToRender] = useState([])
   const [nameToSearch, setNameToSearch] = useState({ userName: ""})
   const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))
   );
 
   useEffect(() => {
-    client
-    .get(`/users?first_name=${nameToSearch}`)
-    .then((res) => setUserDataToRender(res.data.data.users))
-    .catch((err) => console.error(err.response))
-  }, [nameToSearch] ) 
+    if(nameToSearch.userName !== '') {
+      client
+      .get(`/users?first_name=${nameToSearch}`)
+      .then((res) => setUserDataToRender(res.data.data.users))
+      .catch((err) => console.error(err.response))
+    }}, [nameToSearch] ) 
     
    
     return (
