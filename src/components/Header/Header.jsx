@@ -3,44 +3,29 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
-import { useContext, useState } from 'react';
-import client from '../../utils/client';
+import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import SearchBar from '../searchBar/SearchBar';
 
 const Header = ({ companyName }) => {
-	const { loggedInUser } = useContext(loggedInUserContext);
-	const [msgIsDisplayed, setMsgIsDisplayed] = useState(false);
-	const [responseMsg, setResponseMsg] = useState(null);
-	let navigate = useNavigate();
+  const { loggedInUser } = useContext(loggedInUserContext);
+  let navigate = useNavigate();
 
-	const displayMsgTwoSecs = () => {
-		setMsgIsDisplayed(true);
-
-		setTimeout(() => setMsgIsDisplayed(false), 2000);
-	};
-
-	const addCohort = (event) => {
-		event.preventDefault();
-		client
-			.post('/cohort', {})
-			.then((res) => {
-				setResponseMsg(res.data.status);
-				displayMsgTwoSecs();
-			})
-			.catch((err) => console.error(err.response));
-	};
+  const handleAddCohortClick = (event) => {
+    event.preventDefault();
+    navigate('../cohorts/add-cohort', { replace: true });
+  };
 
 	const onGotoDeliveryLogsPageRequested = () => {
 		navigate('../log');
 	};
 
-	const signOut = (event) => {
-		event.preventDefault();
-		localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-		localStorage.removeItem('loggedInUser');
-		navigate('../', { replace: true });
-	};
+  const signOut = (event) => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    localStorage.removeItem('loggedInUser')
+    navigate('../', { replace: true });
+  };
 
 	return (
 		loggedInUser && (
@@ -77,33 +62,19 @@ const Header = ({ companyName }) => {
 								<Button variant='contained'>Profile</Button>
 							</Link>
 
-							{msgIsDisplayed && <p>{responseMsg}</p>}
-							{loggedInUser?.role === 'TEACHER' && (
-								<>
-									<Button
-										variant='contained'
-										onClick={onGotoDeliveryLogsPageRequested}
-									>
-										Delivery Logs
-									</Button>
-									<Button variant='contained' onClick={addCohort}>
-										Add Cohort
-									</Button>
-								</>
-							)}
-							<Button
-								variant='contained'
-								id='user-signout-button'
-								onClick={signOut}
-							>
-								Logout
-							</Button>
-						</Stack>
-					</Box>
-				</Box>
-			</>
-		)
-	);
+              {loggedInUser?.role === 'TEACHER' && 
+                <>
+                  <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
+                  <Button variant='contained' onClick={handleAddCohortClick}>Add Cohort</Button>
+                </>
+              }
+              <Button variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
+            </Stack>
+          </Box>
+        </Box>
+      </>
+    )
+  );
 };
 
 export default Header;

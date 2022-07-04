@@ -8,7 +8,7 @@ import './style.css';
 const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [registerResponse, setRegisterResponse] = useState('');
-  const [errorResponse, setErrorResponse] = useState('')
+  const [errorResponse, setErrorResponse] = useState('');
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -32,12 +32,16 @@ const RegistrationPage = () => {
     <div className='registration-page'>
       <Link id='user-registration-link' to='/signup'>
         sign up
-      </Link>{' '}
+      </Link>
       <Link id='user-login-link' to='/'>
         login
       </Link>
       <h1>Sign up</h1>
-      <p>{errorResponse.status === 400 ? errorResponse.data.data.email: registerResponse.status}</p>
+      <p>
+        {errorResponse.status === 400
+          ? errorResponse.data.data.email
+          : registerResponse.status}
+      </p>
       <UserForm handleChange={handleChange} handleSubmit={registerUser} />
     </div>
   );

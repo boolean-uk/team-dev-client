@@ -26,7 +26,6 @@
 	text-align: left;
 	border-radius: 12px;
 	list-style: none;
-	cursor: pointer;
 	font-size: 1.2rem;
 
 	background-color: rgb(237, 213, 163);
@@ -35,6 +34,7 @@
 	color: rgb(19, 19, 19);
 	max-height: 40vh;
 	overflow-y: auto;
+  position: relative;
 }
 
 .comment-form-input {
@@ -103,6 +103,25 @@
 	flex-direction: column;
 }
 
+.post_edit_button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: #f0f2f5;
+  color: black;
+  cursor: pointer;
+  padding: 5px;
+  transition: all .5s;
+}
+
+.post_edit_button:hover {
+  background-color: grey;
+  color: white
+}
+
 /* width */
 .post-item::-webkit-scrollbar,
 .comments::-webkit-scrollbar {
@@ -148,6 +167,7 @@
 	padding: 0.5rem;
 	margin-top: 0.5rem;
 }
+
 a:-webkit-any-link {
 	text-decoration: none;
 }
