@@ -3,8 +3,8 @@ import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
-import CohortPage from './components/cohorts/CohortPage'
-import DeliveryLogDash from './components/users/teachers/DeliveryLogDash'
+import CohortPage from './components/cohorts/CohortPage';
+import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
 import { useEffect } from 'react';
@@ -15,29 +15,37 @@ import client from './utils/client';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 
 function App() {
-  const [userDataToRender, setUserDataToRender] = useState({})
-  const [nameToSearch, setNameToSearch] = useState({ userName: ""})
-  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))
+  const [userDataToRender, setUserDataToRender] = useState({});
+  const [nameToSearch, setNameToSearch] = useState({ userName: '' });
+  const [loggedInUser, setLoggedInUser] = useState(
+    JSON.parse(localStorage.getItem('loggedInUser'))
   );
 
   useEffect(() => {
     client
-    .get(`/users?first_name=${nameToSearch}`)
-    .then((res) => setUserDataToRender(res.data.data.users))
-    .catch((err) => console.error(err.response))
-  }, [nameToSearch] ) 
-    
-   
-    return (
-      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, nameToSearch, setNameToSearch }}>
-        <div className='App'>
-          <Routes>
-            <Route path='/' element={<LoginPage />} />
-            <Route path='/signup' element={<RegistrationPage />} />
-            <Route element={<AuthenticateUser />}>
-              <Route path='/posts' element={<PostsPage />} />
-              <Route path='/users-list' element={<RenderListOfStudents/>} />
-              <Route path='/profile/:id' element={<Profile />} />
+      .get(`/users?first_name=${nameToSearch}`)
+      .then((res) => setUserDataToRender(res.data.data.users))
+      .catch((err) => console.error(err.response));
+  }, [nameToSearch]);
+
+  return (
+    <loggedInUserContext.Provider
+      value={{
+        loggedInUser,
+        setLoggedInUser,
+        userDataToRender,
+        nameToSearch,
+        setNameToSearch,
+      }}
+    >
+      <div className='App'>
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+          <Route path='/signup' element={<RegistrationPage />} />
+          <Route element={<AuthenticateUser />}>
+            <Route path='/posts' element={<PostsPage />} />
+            <Route path='/users-list' element={<RenderListOfStudents />} />
+            <Route path='/profile/:id' element={<Profile />} />
           </Route>
           <Route
             element={
@@ -50,11 +58,17 @@ function App() {
             <Route path='/log' element={<DeliveryLogDash />} />
           </Route>
 
-          <Route element={<AuthenticateUser redirectPath={'/posts'} requiredRole={['TEACHER']}/>}>
+          <Route
+            element={
+              <AuthenticateUser
+                redirectPath={'/posts'}
+                requiredRole={['TEACHER']}
+              />
+            }
+          >
             <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
             <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
-          
         </Routes>
       </div>
     </loggedInUserContext.Provider>

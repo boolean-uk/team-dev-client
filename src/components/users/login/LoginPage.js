@@ -9,11 +9,15 @@ import { loggedInUserContext } from '../../../Helper/loggedInUserContext';
 const LoginPage = () => {
   const { setLoggedInUser } = useContext(loggedInUserContext);
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
+  const [loginResponse, setLoginResponse] = useState({
+    data: { token: '', user: {} },
+  });
   let navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
 
   useEffect(() => {
-    const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
+    const loadedToken =
+      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
@@ -22,13 +26,22 @@ const LoginPage = () => {
     client
       .post('/login', user)
       .then((res) => {
-        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
-        localStorage.setItem('loggedInUser', JSON.stringify(res.data.data.user));
-        setLoggedInUser(res.data.data.user)
+        localStorage.setItem(
+          process.env.REACT_APP_USER_TOKEN,
+          res.data.data.token
+        );
+        localStorage.setItem(
+          'loggedInUser',
+          JSON.stringify(res.data.data.user)
+        );
+        setLoggedInUser(res.data.data.user);
         setLoginResponse(res.data);
         navigate('../posts', { replace: true });
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        console.log(err.response.data.data.email);
+        setLoginError(err.response.data.data.email);
+      });
   };
 
   const handleChange = (event) => {
@@ -54,7 +67,11 @@ const LoginPage = () => {
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+      <UserForm
+        loginError={loginError}
+        handleChange={handleChange}
+        handleSubmit={loginUser}
+      />
     </div>
   );
 };
