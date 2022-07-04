@@ -105,6 +105,9 @@ const Profile = () => {
             name='first_name'
             value={userData.first_name}
             onChange={handleChange}
+            inputProps={{ readOnly: !editingProfile ? true : false }}
+            InputLabelProps={{ shrink: true }}
+            variant='outlined'
           />
           <TextField
             className='profile-user-text'
@@ -112,29 +115,35 @@ const Profile = () => {
             name='last_name'
             value={userData.last_name}
             onChange={handleChange}
+            inputProps={{ readOnly: !editingProfile ? true : false }}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             className='profile-user-text'
-            type='email'
             label='Email'
             name='email'
             value={userData.email}
             onChange={handleChange}
+            inputProps={{ readOnly: !editingProfile ? true : false }}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             className='profile-user-text'
-            label='Bio'
+            label='Biography'
             name='biography'
             value={userData.biography}
             onChange={handleChange}
+            inputProps={{ readOnly: !editingProfile ? true : false }}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             className='profile-user-text'
-            type='url'
-            label='GitHub URL'
-            name='github_url'
+            label='Github URL'
+            name='gitgub_url'
             value={userData.github_url}
             onChange={handleChange}
+            inputProps={{ readOnly: !editingProfile ? true : false }}
+            InputLabelProps={{ shrink: true }}
           />
 
           {editingProfile && (
@@ -156,7 +165,7 @@ const Profile = () => {
                   onClick={() => setEditingProfile(true)}
                 >
                   Edit Profile
-                </Button>{' '}
+                </Button>
               </Stack>
             </Box>
           )}
@@ -169,7 +178,7 @@ const Profile = () => {
                   onClick={() => setEditingPassword(true)}
                 >
                   Edit Password
-                </Button>{' '}
+                </Button>
               </Stack>
             </Box>
           )}
