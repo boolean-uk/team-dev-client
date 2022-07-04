@@ -6,9 +6,9 @@ export default function StudentSummary({ id, handleClick }) {
   const [studentData, setStudentData] = useState(null);
 
   useEffect(() => {
-    client.get('/user/1') // TODO: add variable id
+    client.get(`/user/${id}`)
       .then(res => setStudentData(res.data.data.user))
-  }, []);
+  }, [id]);
 
   let name
   if (studentData) {

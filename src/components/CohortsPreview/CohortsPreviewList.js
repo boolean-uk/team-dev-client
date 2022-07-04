@@ -3,7 +3,7 @@ import client from '../../utils/client'
 import CohortsPreviewListItem from './CohortsPreviewListItem'
 
 export default function CohortsPreviewList({ handleClick }) {
-  const [cohortList, setCohortList] = useState([])
+  const [cohortList, setCohortList] = useState(null)
 
   useEffect(() => {
     client.get('/cohort')
@@ -13,7 +13,7 @@ export default function CohortsPreviewList({ handleClick }) {
 
   return (
     <ul className='cohorts-preview__list'>
-      {cohortList.map(cohort => (
+      {cohortList && cohortList.map(cohort => (
         <CohortsPreviewListItem key={cohort.id} {...cohort} handleClick={handleClick} />
       ))}
     </ul>
