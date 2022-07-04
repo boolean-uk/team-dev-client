@@ -36,7 +36,7 @@ const LoginPage = () => {
         );
         setLoggedInUser(res.data.data.user);
         setLoginResponse(res.data);
-        navigate('../posts', { replace: true });
+        navigate('../home', { replace: true });
       })
       .catch((err) => {
         console.log(err.response.data.data.email);

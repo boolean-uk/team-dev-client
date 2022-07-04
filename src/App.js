@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react';
-import './App.css';
+import { useState, useContext, useEffect } from 'react';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
@@ -9,66 +9,50 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
 import { useEffect } from 'react';
 import Profile from './components/profile/Profile';
+import CohortPage from './components/cohorts/CohortPage'
 import AddCohortForm from './components/cohorts/AddCohortForm';
-
-import client from './utils/client';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
+import HomePage from './components/Home';
+import { loggedInUserContext } from './Helper/loggedInUserContext';
+import client from './utils/client';
+import './App.css';
 
 function App() {
-  const [userDataToRender, setUserDataToRender] = useState({});
-  const [nameToSearch, setNameToSearch] = useState({ userName: '' });
-  const [loggedInUser, setLoggedInUser] = useState(
-    JSON.parse(localStorage.getItem('loggedInUser'))
+  const [userDataToRender, setUserDataToRender] = useState([])
+  const [nameToSearch, setNameToSearch] = useState({ userName: ""})
+  const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('loggedInUser'))
   );
 
   useEffect(() => {
-    client
+    if(nameToSearch.userName !== '') {
+      client
       .get(`/users?first_name=${nameToSearch}`)
       .then((res) => setUserDataToRender(res.data.data.users))
-      .catch((err) => console.error(err.response));
-  }, [nameToSearch]);
+      .catch((err) => console.error(err.response))
+    }}, [nameToSearch] ) 
+    
+   
+    return (
+      <loggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser, userDataToRender, nameToSearch, setNameToSearch }}>
+        <div className='App'>
+          <Routes>
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/signup' element={<RegistrationPage />} />
 
-  return (
-    <loggedInUserContext.Provider
-      value={{
-        loggedInUser,
-        setLoggedInUser,
-        userDataToRender,
-        nameToSearch,
-        setNameToSearch,
-      }}
-    >
-      <div className='App'>
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/signup' element={<RegistrationPage />} />
-          <Route element={<AuthenticateUser />}>
-            <Route path='/posts' element={<PostsPage />} />
-            <Route path='/users-list' element={<RenderListOfStudents />} />
-            <Route path='/profile/:id' element={<Profile />} />
-          </Route>
-          <Route
-            element={
-              <AuthenticateUser
-                redirectPath={'/posts'}
-                requiredRole={['TEACHER']}
-              />
-            }
-          >
-            <Route path='/log' element={<DeliveryLogDash />} />
-          </Route>
+            <Route element={<AuthenticateUser />}>
+              <Route path='/home' element={<HomePage />} />
+              <Route path='/users-list' element={<RenderListOfStudents/>} />
+              <Route path='/profile/:id' element={<Profile />} />
+            </Route>
 
-          <Route
-            element={
-              <AuthenticateUser
-                redirectPath={'/posts'}
-                requiredRole={['TEACHER']}
-              />
-            }
-          >
-            <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
-            <Route path='/cohorts/:id' element={<CohortPage />} />
-          </Route>
+            <Route element={<AuthenticateUser redirectPath={'/home'} requiredRole={['TEACHER']}/>}>
+              <Route path='/log' element={<DeliveryLogDash />} />
+            </Route>
+
+            <Route element={<AuthenticateUser redirectPath={'/home'} requiredRole={['TEACHER']}/>}>
+              <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
+              <Route path='/cohorts/:id' element={<CohortPage />} />
+            </Route>
         </Routes>
       </div>
     </loggedInUserContext.Provider>
