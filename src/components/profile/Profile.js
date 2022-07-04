@@ -4,13 +4,17 @@ import { Button, Stack, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import PasswordForm from '../profile/PasswordForm.js'
 import './profile.css';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
-  
+  const [passwords, setPasswords] = useState({
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirmation: '',
+  });
+
   const params = useParams();
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
@@ -42,13 +46,26 @@ const Profile = () => {
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
+    console.log
     if (editingProfile) {
       setUserData({
         ...userData,
         [name]: value,
       });
     }
+
     return false;
+  };
+
+  const handlePasswordChange = (event) => {
+    event.preventDefault();
+
+    const { value, name } = event.target;
+
+    setPasswords({
+      ...passwords,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (event) => {
@@ -60,6 +77,17 @@ const Profile = () => {
       .catch((err) => console.error(err.response))
       .finally(() => setEditingProfile(false));
   };
+
+  const handlePasswordSubmit = async (event) => {
+    event.preventDefault();
+    const { newPassword, newPasswordConfirmation } = passwords;
+
+    if (newPassword !== newPasswordConfirmation) {
+      return;
+    }
+  };
+
+  const fieldVariant = editingProfile ? 'outlined' : 'standard';
 
   return (
     <>
@@ -85,47 +113,50 @@ const Profile = () => {
       </form>
 
       {!editingPassword && (
-        <div className='profile-form'>
-          <img className='img-profile' alt='img-profile'src={userData.profile_url}/>
+        <div className='user-form'>
           <TextField
-            className='profile-user-text'
+            className='user-form-input'
             label='First Name'
             name='first_name'
             value={userData.first_name}
             onChange={handleChange}
+            variant={fieldVariant}
           />
           <TextField
-            className='profile-user-text'
+            className='user-form-input'
             label='Last Name'
             name='last_name'
             value={userData.last_name}
             onChange={handleChange}
-            
+            variant={fieldVariant}
           />
           <TextField
-            className='profile-user-text'
+            className='user-form-input'
             type='email'
             label='Email'
             name='email'
             value={userData.email}
             onChange={handleChange}
+            variant={fieldVariant}
           />
+
           <TextField
-            className='profile-user-text'
+            className='user-form-input'
             label='Bio'
             name='biography'
             value={userData.biography}
             onChange={handleChange}
+            variant={fieldVariant}
           />
           <TextField
-            className='profile-user-text'
+            className='user-form-input'
             type='url'
             label='GitHub URL'
             name='github_url'
             value={userData.github_url}
             onChange={handleChange}
+            variant={fieldVariant}
           />
-
           {editingProfile && (
             <Button
               id='user-submit-button'
@@ -166,7 +197,40 @@ const Profile = () => {
       )}
 
       {editingPassword && (
-        <PasswordForm userData={userData}/>
+        <form>
+          <TextField
+            className='user-form-input'
+            type='text'
+            label='current password'
+            name='currentPassword'
+            value={userData.github_url}
+            onChange={handlePasswordChange}
+          />
+          <TextField
+            className='user-form-input'
+            type='text'
+            label='new password'
+            name='newPassword'
+            value={userData.github_url}
+            onChange={handlePasswordChange}
+          />
+          <TextField
+            className='user-form-input'
+            type='text'
+            label='new password'
+            name='newPasswordConfirmation'
+            value={userData.github_url}
+            onChange={handlePasswordChange}
+          />
+          <Button
+            id='user-submit-button'
+            onClick={handlePasswordSubmit}
+            type='submit'
+            variant='contained'
+          >
+            Submit
+          </Button>
+        </form>
       )}
     </>
   );

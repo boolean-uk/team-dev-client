@@ -19,6 +19,7 @@ const LoginPage = () => {
 
   const loginUser = (event) => {
     event.preventDefault();
+    console.log("DATAAAA",user)
     client
       .post('/login', user)
       .then((res) => {
