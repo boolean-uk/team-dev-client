@@ -3,7 +3,6 @@
   "data": {
     "posts": [
       {
-        "userId": 1,
         "content": "dasds",
         "id": 9,
         "createdAt": "2022-06-29T10:17:25.621Z",
