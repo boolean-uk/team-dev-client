@@ -2,7 +2,7 @@
 }
 
 .posts-list {
-	width: 100vw;
+	width: 100%;
 	display: grid;
 	grid-template-rows: repeat(auto-fill, auto);
 	grid-template-columns: 1fr;

@@ -7,7 +7,7 @@ describe('User Login Logout', () => {
       cy.visit('/')
     })
 
-    it('can login a user and be redirected to the posts page', () => {
+    it('can login a user and be redirected to the home page', () => {
       cy.get('#user-registration-link').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/signup`)
 
@@ -26,7 +26,7 @@ describe('User Login Logout', () => {
       cy.get('input[name=password]').type('test12')
       cy.get('#user-submit-button').click()
 
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/posts`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
     })
 
     it('can log out after login', () => {
@@ -48,7 +48,7 @@ describe('User Login Logout', () => {
       cy.get('input[name=password]').type('test12')
       cy.get('#user-submit-button').click()
 
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/posts`)
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
 
       cy.get('#user-signout-button').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/`)

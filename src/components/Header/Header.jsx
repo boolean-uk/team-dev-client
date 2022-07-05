@@ -1,11 +1,10 @@
 import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import SearchBar from '../searchBar/SearchBar';
+import '../Header/header.css'
 
 const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
@@ -26,7 +25,7 @@ const Header = ({ companyName }) => {
     localStorage.removeItem('loggedInUser')
     navigate('../', { replace: true });
   };
-
+  
 	return (
 		loggedInUser && (
 			<>
@@ -56,11 +55,15 @@ const Header = ({ companyName }) => {
 						<SearchBar />
 					</Box>
 
-					<Box>
-						<Stack spacing={2} direction='row'>
-							<Link to={`/profile/${loggedInUser.id} `}>
-								<Button variant='contained'>Profile</Button>
-							</Link>
+          <Box>
+            <Stack spacing={2} direction='row'>
+              <Link to='/home'>
+                <Button variant='contained'>Home</Button>
+              </Link>
+
+              <Link to={`/profile/${loggedInUser.id}`}>
+                <Button variant='contained'>Profile</Button>
+              </Link>
 
               {loggedInUser?.role === 'TEACHER' && 
                 <>
@@ -68,7 +71,11 @@ const Header = ({ companyName }) => {
                   <Button variant='contained' onClick={handleAddCohortClick}>Add Cohort</Button>
                 </>
               }
-              <Button variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
+              <Button className='signout-button' variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>
+              <div>
+               <img  className='head-img-profile' alt="profile pic" src={loggedInUser.profile_url}/>
+              </div>
+			  
             </Stack>
           </Box>
         </Box>

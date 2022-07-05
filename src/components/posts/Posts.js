@@ -29,7 +29,6 @@ export default function Posts({
 							showAllComments={showAllComments}
 							commentLength={commentLength}
 						/>
-
 						<CommentForm
 							postId={post.id}
 							error={error}
