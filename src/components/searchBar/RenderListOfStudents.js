@@ -5,7 +5,7 @@ import './RenderListOfStudents.css';
 
 const RenderListOfStudents = () => {
   const { userDataToRender } = useContext(loggedInUserContext);
-
+  
   return (
     <>
       <header>

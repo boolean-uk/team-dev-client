@@ -4,23 +4,30 @@ import { Button, Stack, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import PasswordForm from '../profile/PasswordForm.js'
+import PasswordForm from '../profile/PasswordForm.js';
 import './profile.css';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
-  
+
   const params = useParams();
   const [cohortName, setCohortName] = useState()
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
+  const [isValidId, setIsValidId] = useState(true);
+
   useEffect(() => {
     client
-    .get(`/user/${params.id}`)
-    .then((res) => setUserData(res.data.data.user))
-    .catch((err) => console.error(err.response));
+      .get(`/user/${params.id}`)
+      .then((res) => {
+        setUserData(res.data.data.user);
+      })
+      .catch((err) => {
+        setIsValidId(false);
+        console.log(err.response);
+      });
   }, [params]);
   
   useEffect(() => {
@@ -63,7 +70,6 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     client
       .patch(`/user/update/${userData.id}`, userData, false)
       .then((res) => setUserData(res.data.data.user))
@@ -94,10 +100,18 @@ const Profile = () => {
         </button>
       </form>
 
-      {!editingPassword && (
+      {!isValidId && <h2>This is an invalid ID</h2>}
+
+      {!editingPassword && isValidId && (
         <div className='profile-form'>
-          <img className='img-profile' alt='img-profile'src={userData.profile_url}/>
+          <img 
+            className='img-profile' 
+            alt='img-profile'
+            src={userData.profile_url}
+          />
+          
           <h3>Cohort: {cohortName === undefined ? 'Not Assigned Cohort' : cohortName}</h3>
+
           <TextField
             className='profile-user-text'
             label='First Name'
@@ -111,7 +125,6 @@ const Profile = () => {
             name='last_name'
             value={userData.last_name}
             onChange={handleChange}
-            
           />
           <TextField
             className='profile-user-text'
@@ -161,7 +174,7 @@ const Profile = () => {
             </Box>
           )}
 
-          {!editingPassword && (
+          {!editingPassword && isValidId && (
             <Box>
               <Stack spacing={2} direction='row'>
                 <Button
@@ -176,9 +189,7 @@ const Profile = () => {
         </div>
       )}
 
-      {editingPassword && (
-        <PasswordForm userData={userData}/>
-      )}
+      {editingPassword && <PasswordForm userData={userData} />}
     </>
   );
 };
