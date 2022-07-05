@@ -1,29 +1,29 @@
 import Comments from './Comments';
 import CommentForm from './CommentForm';
+import Post from './Post';
 
 export default function Posts({
 	posts,
 	showAllComments,
-	createComment,
-	handleChangeComment,
 	error,
-	isEditing,
-	setIsEditing,
-	handlePostEdit
+	setPost,
+	setPosts,
+	setError,
 }) {
 	let commentLength = 0;
+
+	console.log(posts);
 	return (
 		<ul className='posts-list'>
 			{posts &&
 				posts.map((post, index) => (
 					<div key={post.id} className='post-comment-container'>
-						<li key={index} className='post-item'>
-							{	(isEditing.editing && post.id === isEditing.postId  &&
-								<input value={post.content}></input>)
-							 ||
-							post.content}
-							<button className='post_edit_button' onClick={(e) => handlePostEdit(e,post.id)}>Edit Post</button>
-						</li>
+						<Post
+							key={index}
+							post={post}
+							setPost={setPost}
+							setPosts={setPosts}
+						/>
 						<Comments
 							post={post}
 							showAllComments={showAllComments}
@@ -31,10 +31,10 @@ export default function Posts({
 						/>
 
 						<CommentForm
-							handleSubmitComment={createComment}
 							postId={post.id}
-							handleChangeComment={handleChangeComment}
 							error={error}
+							setError={setError}
+							setPosts={setPosts}
 						/>
 					</div>
 				))}

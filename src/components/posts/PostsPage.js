@@ -10,9 +10,7 @@ const PostsPage = () => {
 	const [post, setPost] = useState({ content: '' });
 	const [postResponse, setPostResponse] = useState('');
 	const [posts, setPosts] = useState([]);
-	const [comment, setComment] = useState({ content: '' });
 	const [error, setError] = useState(false);
-  const [isEditing, setIsEditing] = useState({editing : false, postId: null})
 
 	useEffect(() => {
 		client.get('/posts').then((res) => {
@@ -38,59 +36,7 @@ const PostsPage = () => {
 		event.preventDefault();
 		const { value, name } = event.target;
 		setPost({
-			...post,
 			[name]: value,
-		});
-	};
-
-  const handlePostEdit = (event, postId) => {
-		event.preventDefault();
-    if (isEditing.editing === false) {
-      setIsEditing({ editing: true , postId: postId })
-      console.log(isEditing)
-    } else {
-      setIsEditing( { editing: false, postId: postId })
-      console.log(isEditing)
-    }
-  }
-
-	const createComment = (event, postId) => {
-		event.preventDefault();
-		setError(false);
-		if (comment.postId !== postId) {
-			setError(['Must provide content', postId]);
-			return;
-		}
-		client
-			.post(`/post/comment?postId=${postId}`, { ...comment })
-			.then((res) => {
-				setPosts((prevPosts) => {
-					return prevPosts.map((post) => {
-						if (post.id === postId) {
-							post.postComments.push(res.data.data);
-							return post;
-						} else {
-							return post;
-						}
-					});
-				});
-			})
-			.catch((err) => {
-				setError([err.response.data.data.err, postId]);
-				console.error(err.response.data.data.err);
-			});
-		setComment({ content: '' });
-		event.target.reset();
-	};
-
-	const handleChangeComment = (event, postId) => {
-		setError(false);
-		event.preventDefault();
-		const { value, name } = event.target;
-		setComment({
-			...comment,
-			[name]: value,
-			postId,
 		});
 	};
 
@@ -117,17 +63,15 @@ const PostsPage = () => {
 					error={error}
 					handleSubmit={createPost}
 					handleChange={handleChange}
-          />
+				/>
 				{posts && (
-          <Posts
-          error={error}
-          posts={posts}
-          showAllComments={showAllComments}
-          createComment={createComment}
-          handleChangeComment={handleChangeComment}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          handlePostEdit={handlePostEdit}
+					<Posts
+						error={error}
+						posts={posts}
+						showAllComments={showAllComments}
+						setPost={setPost}
+						setPosts={setPosts}
+						setError={setError}
 					/>
 				)}
 			</section>
