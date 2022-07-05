@@ -12,9 +12,11 @@ export default function SudentList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    client
-      .get(`/users?cohort_id=${loggedInUser.cohort_id}`)
+    if (loggedInUser.cohort_id !== null && loggedInUser.cohort_id !== undefined) {
+      client
+      .get(`/users`)
       .then((res) => setCohort(res.data.data.users));
+    }
   }, [loggedInUser]);
 
   function handleClick(id) {
@@ -28,7 +30,7 @@ export default function SudentList() {
       <h2 className="number-student">{cohort.length}</h2>
       <ul className="student-list">
         {cohort.map((student) => (
-          <li>
+          <li key={student.id}>
             <div onClick={() => handleClick(student.id)}>
               {`${student.first_name} ${student.last_name}`}
               <div>
