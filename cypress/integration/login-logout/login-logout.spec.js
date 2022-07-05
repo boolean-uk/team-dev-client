@@ -19,14 +19,8 @@ describe('User Login Logout', () => {
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
       cy.get('#user-submit-button').click()
 
-      cy.get('#user-login-link').click()
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
-
-      cy.get('input[name=email]').type('test@test.com')
-      cy.get('input[name=password]').type('test12')
-      cy.get('#user-submit-button').click()
-
       cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
+
     })
 
     it('can log out after login', () => {
@@ -41,7 +35,8 @@ describe('User Login Logout', () => {
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
       cy.get('#user-submit-button').click()
 
-      cy.get('#user-login-link').click()
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
+      cy.get('#user-signout-button').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
 
       cy.get('input[name=email]').type('test@test.com')
