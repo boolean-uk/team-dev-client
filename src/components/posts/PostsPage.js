@@ -66,7 +66,6 @@ const PostsPage = () => {
 						error={error}
 						posts={posts}
 						showAllComments={showAllComments}
-						setPost={setPost}
 						setPosts={setPosts}
 						setError={setError}
 					/>

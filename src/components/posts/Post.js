@@ -1,7 +1,7 @@
 import { loggedInUserContext } from '../../Helper/loggedInUserContext';
 import { useContext, useState } from 'react';
 import client from '../../utils/client';
-export default function Post({ post, setPost, setPosts }) {
+export default function Post({ post, setPosts }) {
 	const { loggedInUser } = useContext(loggedInUserContext);
 	const checkIfEditing = (post) => {
 		return isEditing.editing && post.id === isEditing.postId;
@@ -16,7 +16,6 @@ export default function Post({ post, setPost, setPosts }) {
 			[name]: value,
 		});
 	};
-
 	const handlePostEdit = async (event, postId, content) => {
 		event.preventDefault();
 		if (event.target.innerText === 'Save') {
@@ -24,13 +23,12 @@ export default function Post({ post, setPost, setPosts }) {
 			const res2 = await client.get('/posts');
 			setPosts(res2.data.data.posts);
 			setIsEditing({ editing: false, postId: postId });
-			setPost({ content: '' });
+			setPostEdit({ content: '' });
 			return;
 		}
-
 		if (isEditing.editing === false) {
 			setIsEditing({ editing: true, postId: postId });
-			setPost({ content });
+			setPostEdit({ content });
 		} else {
 			setIsEditing({ editing: false, postId: postId });
 		}
@@ -47,7 +45,7 @@ export default function Post({ post, setPost, setPosts }) {
 				></textarea>
 			)) ||
 				post.content}
-			{loggedInUser.id === post.userId && (
+			{loggedInUser.id === post.user.id && (
 				<button
 					className='post_edit_button'
 					onClick={(e) => handlePostEdit(e, post.id, post.content)}

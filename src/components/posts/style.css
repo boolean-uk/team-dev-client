@@ -12,12 +12,18 @@
 	margin-top: 20px;
 }
 
+li.post-item:hover {
+	opacity: 1;
+	cursor: unset;
+}
+
 .post-comment-container {
 	background-color: #6a6a7c;
 	padding: 1rem;
 	display: grid;
 	gap: 0.5rem;
 	max-width: 55vw;
+
 	overflow-wrap: break-word;
 }
 
@@ -66,12 +72,18 @@
 }
 
 .comments li {
-	width: 100%;
+	max-width: 100%;
 	list-style-type: none;
 	padding: 0.5rem 1rem;
 	border: blue;
 	background-color: white;
 	display: flex;
+	margin: 0.3rem;
+}
+
+.comments li:hover {
+	cursor: unset;
+	opacity: 1;
 }
 .comment-container {
 	background-color: #f0f2f5;

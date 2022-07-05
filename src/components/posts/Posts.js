@@ -6,24 +6,17 @@ export default function Posts({
 	posts,
 	showAllComments,
 	error,
-	setPost,
 	setPosts,
 	setError,
 }) {
 	let commentLength = 0;
 
-	console.log(posts);
 	return (
 		<ul className='posts-list'>
 			{posts &&
 				posts.map((post, index) => (
 					<div key={post.id} className='post-comment-container'>
-						<Post
-							key={index}
-							post={post}
-							setPost={setPost}
-							setPosts={setPosts}
-						/>
+						<Post key={index} post={post} setPosts={setPosts} />
 						<Comments
 							post={post}
 							showAllComments={showAllComments}
