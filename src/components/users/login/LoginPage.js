@@ -11,7 +11,6 @@ const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
   let navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
-
   
   const loginUser = (event) => {
     event.preventDefault();
