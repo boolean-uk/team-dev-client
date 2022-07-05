@@ -9,9 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
-  // const [registerResponse, setRegisterResponse] = useState('');
   const [errorResponse, setErrorResponse] = useState({ status: '' });
-  console.log('Initial',errorResponse)
 
   const { setLoggedInUser } = useContext(loggedInUserContext);
   let navigate = useNavigate();
@@ -21,18 +19,12 @@ const RegistrationPage = () => {
     client
     .post('/user', user, false)
     .then((res) => {
-      console.log('In THEN',errorResponse)
-      console.log("HEREEE",res)
-      // setRegisterResponse(res.data)
-      // if (res) {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
         localStorage.setItem('loggedInUser', JSON.stringify(res.data.data.user));
-        // }
         setLoggedInUser(res.data.data.user)
         navigate('../home', { replace: true });
     })
     .catch((err) => { 
-      console.log('In CATCH',errorResponse)
       setErrorResponse(err.response)
     });
   };
