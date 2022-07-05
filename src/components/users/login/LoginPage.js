@@ -27,7 +27,7 @@ const LoginPage = () => {
         localStorage.setItem('loggedInUser', JSON.stringify(res.data.data.user));
         setLoggedInUser(res.data.data.user)
         setLoginResponse(res.data);
-        navigate('../posts', { replace: true });
+        navigate('../home', { replace: true });
       })
       .catch((err) => console.log(err.response));
   };

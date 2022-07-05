@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
 import './profile.css';
+import PasswordForm from './PasswordForm' 
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -19,11 +20,18 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
+  const [isValidId, setIsValidId] = useState(true);
+
   useEffect(() => {
     client
       .get(`/user/${params.id}`)
-      .then((res) => setUserData(res.data.data.user))
-      .catch((err) => console.error(err.response));
+      .then((res) => {
+        setUserData(res.data.data.user);
+      })
+      .catch((err) => {
+        setIsValidId(false);
+        console.log(err.response);
+      });
   }, [params]);
 
   useEffect(() => {
@@ -46,7 +54,6 @@ const Profile = () => {
   const handleChange = (event) => {
     event.preventDefault();
     const { value, name } = event.target;
-    console.log
     if (editingProfile) {
       setUserData({
         ...userData,
@@ -57,34 +64,13 @@ const Profile = () => {
     return false;
   };
 
-  const handlePasswordChange = (event) => {
-    event.preventDefault();
-
-    const { value, name } = event.target;
-
-    setPasswords({
-      ...passwords,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     client
       .patch(`/user/update/${userData.id}`, userData, false)
       .then((res) => setUserData(res.data.data.user))
       .catch((err) => console.error(err.response))
       .finally(() => setEditingProfile(false));
-  };
-
-  const handlePasswordSubmit = async (event) => {
-    event.preventDefault();
-    const { newPassword, newPasswordConfirmation } = passwords;
-
-    if (newPassword !== newPasswordConfirmation) {
-      return;
-    }
   };
 
   const fieldVariant = editingProfile ? 'outlined' : 'standard';
@@ -112,8 +98,15 @@ const Profile = () => {
         </button>
       </form>
 
-      {!editingPassword && (
-        <div className='user-form'>
+      {!isValidId && <h2>This is an invalid ID</h2>}
+
+      {!editingPassword && isValidId && (
+        <div className='profile-form'>
+          <img
+            className='img-profile'
+            alt='img-profile'
+            src={userData.profile_url}
+          />
           <TextField
             className='user-form-input'
             label='First Name'
@@ -128,7 +121,6 @@ const Profile = () => {
             name='last_name'
             value={userData.last_name}
             onChange={handleChange}
-            variant={fieldVariant}
           />
           <TextField
             className='user-form-input'
@@ -181,7 +173,7 @@ const Profile = () => {
             </Box>
           )}
 
-          {!editingPassword && (
+          {!editingPassword && isValidId && (
             <Box>
               <Stack spacing={2} direction='row'>
                 <Button
@@ -196,42 +188,7 @@ const Profile = () => {
         </div>
       )}
 
-      {editingPassword && (
-        <form>
-          <TextField
-            className='user-form-input'
-            type='text'
-            label='current password'
-            name='currentPassword'
-            value={userData.github_url}
-            onChange={handlePasswordChange}
-          />
-          <TextField
-            className='user-form-input'
-            type='text'
-            label='new password'
-            name='newPassword'
-            value={userData.github_url}
-            onChange={handlePasswordChange}
-          />
-          <TextField
-            className='user-form-input'
-            type='text'
-            label='new password'
-            name='newPasswordConfirmation'
-            value={userData.github_url}
-            onChange={handlePasswordChange}
-          />
-          <Button
-            id='user-submit-button'
-            onClick={handlePasswordSubmit}
-            type='submit'
-            variant='contained'
-          >
-            Submit
-          </Button>
-        </form>
-      )}
+      {editingPassword && <PasswordForm userData={userData} />}
     </>
   );
 };
