@@ -10,11 +10,6 @@ import PasswordForm from './PasswordForm'
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
-  const [passwords, setPasswords] = useState({
-    currentPassword: '',
-    newPassword: '',
-    newPasswordConfirmation: '',
-  });
 
   const params = useParams();
   const [userData, setUserData] = useState({});
