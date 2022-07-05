@@ -12,15 +12,25 @@ const Profile = () => {
   const [editingPassword, setEditingPassword] = useState(false);
   
   const params = useParams();
+  const [cohortName, setCohortName] = useState()
   const [userData, setUserData] = useState({});
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
   useEffect(() => {
     client
-      .get(`/user/${params.id}`)
-      .then((res) => setUserData(res.data.data.user))
-      .catch((err) => console.error(err.response));
+    .get(`/user/${params.id}`)
+    .then((res) => setUserData(res.data.data.user))
+    .catch((err) => console.error(err.response));
   }, [params]);
+  
+  useEffect(() => {
+    if(userData.cohort_id){
+      client
+          .get(`/cohort/${userData.cohort_id}`)
+          .then((res) => setCohortName(res.data.data.cohortName))
+          .catch((err) => console.error(err.response));
+    }
+  }, [userData]);
 
   useEffect(() => {
     client
@@ -87,6 +97,7 @@ const Profile = () => {
       {!editingPassword && (
         <div className='profile-form'>
           <img className='img-profile' alt='img-profile'src={userData.profile_url}/>
+          <h3>Cohort: {cohortName === undefined ? 'Not Assigned Cohort' : cohortName}</h3>
           <TextField
             className='profile-user-text'
             label='First Name'
