@@ -15,7 +15,7 @@ export default function HomePage() {
       <div className='home-page'>
         <PostsPage />
         {loggedInUser.role === 'TEACHER' && <CohortsPreview />}
-        {loggedInUser.role === "STUDENT" && <StudentList />}
+        {loggedInUser.role === 'STUDENT' && <StudentList />}
       </div>
     </>
   )
