@@ -1,16 +1,15 @@
 export const formatDate = (date) => {
-	date = new Date(date);
+	const dateToFormat = new Date(date);
 	const newDate =
-		date.getDate() +
-		'/' +
-		(date.getMonth() + 1) +
-		'/' +
-		date.getFullYear() +
+		('0' + dateToFormat.getDate()).slice(-2) +
+		'-' +
+		('0' + (dateToFormat.getMonth() + 1)).slice(-2) +
+		'-' +
+		dateToFormat.getFullYear() +
 		' ' +
-		(date.getHours() > 12 ? date.getHours() - 12 : date.getHours()) +
+		('0' + dateToFormat.getHours()).slice(-2) +
 		':' +
-		date.getMinutes() +
-		' ' +
-		(date.getHours() >= 12 ? 'PM' : 'AM');
+		('0' + dateToFormat.getMinutes()).slice(-2);
+
 	return newDate;
 };

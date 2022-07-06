@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const UserForm = ({ handleSubmit, handleChange }) => {
+const UserForm = ({ handleSubmit, handleChange, loginError }) => {
   return (
     <form className='user-form' onSubmit={handleSubmit}>
       <TextField
@@ -20,6 +20,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         name='password'
         onChange={handleChange}
       />
+      {loginError && <div className='error'>{loginError}</div>}
       <Button id='user-submit-button' type='submit' variant='contained'>
         Submit
       </Button>
