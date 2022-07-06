@@ -123,11 +123,7 @@ li.post-item:hover {
 }
 
 .post_edit_button {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	margin-right: 5px;
-	margin-bottom: 5px;
+	margin-left: 5px;
 	border-radius: 5px;
 	background-color: #f0f2f5;
 	color: black;
@@ -215,4 +211,12 @@ li textarea {
 	font-size: 0.8rem;
 	bottom: 6px;
 	left: 8px;
+}
+
+.button-container{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 }
