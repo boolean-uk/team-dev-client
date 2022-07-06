@@ -4,19 +4,20 @@ import Post from './Post';
 
 export default function Posts({
 	posts,
+	count,
+	setCount,
 	showAllComments,
 	error,
 	setPosts,
 	setError,
 }) {
 	let commentLength = 0;
-
 	return (
 		<ul className='posts-list'>
 			{posts &&
 				posts.map((post, index) => (
 					<div key={post.id} className='post-comment-container'>
-						<Post key={index} post={post} setPosts={setPosts} />
+						<Post key={index} post={post} setPosts={setPosts} posts={posts} count={count} setCount={setCount} />
 						<Comments
 							post={post}
 							showAllComments={showAllComments}

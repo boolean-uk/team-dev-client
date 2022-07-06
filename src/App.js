@@ -18,7 +18,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(
     JSON.parse(localStorage.getItem('loggedInUser'))
   );
-
+  
   useEffect(() => {
     if (nameToSearch.userName !== '') {
       client
@@ -35,7 +35,7 @@ function App() {
         setLoggedInUser,
         userDataToRender,
         nameToSearch,
-        setNameToSearch,
+        setNameToSearch
       }}
     >
       <div className='App'>
