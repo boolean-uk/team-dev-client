@@ -10,26 +10,27 @@ export default function Posts({
 }) {
 	let commentLength = 0;
 	return (
-		<ul className='posts-list'>
-			{posts &&
-				posts.map((post, index) => (
-					<div key={post.id} className='post-comment-container'>
-						<li key={index} className='post-item'>
-							{post.content}
-						</li>
-						<Comments
-							post={post}
-							showAllComments={showAllComments}
-							commentLength={commentLength}
-						/>
-						<CommentForm
-							handleSubmitComment={createComment}
-							postId={post.id}
-							handleChangeComment={handleChangeComment}
-							error={error}
-						/>
-					</div>
-				))}
-		</ul>
-	);
+    <ul className='posts-list'>
+      {posts &&
+        posts.map((post, index) => (
+          <div key={post.id} className='post-comment-container'>
+            <li key={index} className='post-item'>
+              <img src={post.user.profile.profileUrl} alt='user-avatar' />
+              <p>{post.content}</p>
+            </li>
+            <Comments
+              post={post}
+              showAllComments={showAllComments}
+              commentLength={commentLength}
+            />
+            <CommentForm
+              handleSubmitComment={createComment}
+              postId={post.id}
+              handleChangeComment={handleChangeComment}
+              error={error}
+            />
+          </div>
+        ))}
+    </ul>
+  );
 }
