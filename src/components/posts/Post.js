@@ -46,13 +46,16 @@ export default function Post({ post, setPosts }) {
 			)) ||
 				post.content}
 			{loggedInUser.id === post.user.id && (
-				<button
-					className='post_edit_button'
-					onClick={(e) => handlePostEdit(e, post.id, post.content)}
-				>
-					{checkIfEditing(post) ? 'Save' : 'Edit Post'}
-				</button>
+				<>
+					<button
+						className='post_edit_button'
+						onClick={(e) => handlePostEdit(e, post.id, post.content)}
+					>
+						{checkIfEditing(post) ? 'Save' : 'Edit Post'}
+					</button>
+				</>
 			)}
+			{<p className='edited'>{post.edited ? 'Edited' : ''}</p>}
 		</li>
 	);
 }

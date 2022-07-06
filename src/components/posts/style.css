@@ -202,3 +202,11 @@ li textarea {
 	height: 30vh;
 	transition: all 0.3s;
 }
+
+.edited {
+	position: absolute;
+	color: grey;
+	font-size: 0.8rem;
+	bottom: 6px;
+	left: 8px;
+}
