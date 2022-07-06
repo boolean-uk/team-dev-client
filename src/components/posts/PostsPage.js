@@ -10,12 +10,13 @@ const PostsPage = () => {
 	const [posts, setPosts] = useState([]);
 	const [comment, setComment] = useState({ content: '' });
 	const [error, setError] = useState(false);
+	const [count , setCount] = useState(0)
 
 	useEffect(() => {
 		client.get('/posts').then((res) => {
 			setPosts(res.data.data.posts);
 		});
-	}, []);
+	}, [count]);
 
 	const createPost = async (event) => {
 		setError(false);
@@ -107,6 +108,9 @@ const PostsPage = () => {
 					<Posts
 						error={error}
 						posts={posts}
+						count={count}
+						setCount={setCount}
+						setPosts={setPosts}
 						showAllComments={showAllComments}
 						createComment={createComment}
 						handleChangeComment={handleChangeComment}
