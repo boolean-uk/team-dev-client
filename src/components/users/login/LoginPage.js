@@ -62,6 +62,7 @@ const LoginPage = () => {
         login
       </Link>
       <h1>Login</h1>
+      <p>Status: {loginResponse.status}</p>
       <UserForm
         loginError={loginError}
         handleChange={handleChange}
