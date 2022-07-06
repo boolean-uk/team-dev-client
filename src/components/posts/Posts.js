@@ -2,6 +2,7 @@ import Comments from './Comments';
 import CommentForm from './CommentForm';
 import { Button } from '@mui/material';
 import client from '../../utils/client';
+import { useState } from 'react';
 
 export default function Posts({
 	setPosts,
@@ -13,20 +14,25 @@ export default function Posts({
 	count,
 	setCount
 }) {
+	const [isDeleteing, setIsDeleting] = useState(false)
+	
 
 	const deletePostHandler = (event, postId) => {
 		event.preventDefault();
-		client
-		  .delete(`/post/posts/${postId}`)
-		  .then((res) => {
-			if(posts.length === 1){
-				setPosts([])
-			}else{
-				setCount(count+1)
-			}
-		  })
-		  .catch((err) => console.error(err.response))
-		  
+		if(isDeleteing){
+			client
+			  .delete(`/post/posts/${postId}`)
+			  .then((res) => {
+				if(posts.length === 1){
+					setPosts([])
+				}else{
+					setCount(count+1)
+				}setIsDeleting(false)
+			  })
+			  .catch((err) => console.error(err.response))
+		}else{
+			setIsDeleting(true)
+		}
 	  };
 
 	let commentLength = 0;
@@ -37,7 +43,7 @@ export default function Posts({
 					<div key={post.id} className='post-comment-container'>
 						<li key={index} className='post-item'>
 							{post.content}
-						<Button variant='contained' onClick={(event) => deletePostHandler(event, post.id)}>Delete Post</Button>
+						<Button className='delete-btn' size='small' variant='contained' color={isDeleteing ? 'error' : 'primary'} onClick={(event) => deletePostHandler(event, post.id)}>{isDeleteing ? 'Confirm': 'Delete'}</Button>
 						</li>
 						<Comments
 							post={post}
