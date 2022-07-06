@@ -25,7 +25,6 @@ const RegistrationPage = () => {
         navigate('../home', { replace: true });
     })
     .catch((err) => { 
-      console.log('In CATCH for register',errorResponse)
       setErrorResponse(err.response)
     });
   };

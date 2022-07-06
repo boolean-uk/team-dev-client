@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import UserForm from './UserForm';
 import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
@@ -9,8 +9,14 @@ import { loggedInUserContext } from '../../../Helper/loggedInUserContext';
 const LoginPage = () => {
   const { setLoggedInUser } = useContext(loggedInUserContext);
   const [user, setUser] = useState(userBlankData());
+  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
   let navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
+
+  useEffect(() => {
+    const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
+    setLoginResponse({ data: { token: loadedToken } });
+  }, []);
   
   const loginUser = (event) => {
     event.preventDefault();
@@ -26,6 +32,7 @@ const LoginPage = () => {
           JSON.stringify(res.data.data.user)
         );
         setLoggedInUser(res.data.data.user);
+        setLoginResponse(res.data);
         navigate('../home', { replace: true });
       })
       .catch((err) => {
@@ -55,6 +62,7 @@ const LoginPage = () => {
         login
       </Link>
       <h1>Login</h1>
+      {/* <p>Status: {loginResponse}</p> */}
       <UserForm
         loginError={loginError}
         handleChange={handleChange}
