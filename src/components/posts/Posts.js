@@ -15,7 +15,7 @@ export default function Posts({
         posts.map((post, index) => (
           <div key={post.id} className='post-comment-container'>
             <li key={index} className='post-item'>
-              <img src={post.user.profile.profileUrl} alt='user-avatar' />
+              <img src={post.user.profile.profileUrl} alt='user-avatar' className='post-user-image'/>
               <p>{post.content}</p>
             </li>
             <Comments

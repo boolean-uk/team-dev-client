@@ -5,8 +5,9 @@ export default function Comment({ comment }) {
 		<li>
 			<div className='comment-container'>
 				<div className='name-time-container'>
+					<img src={comment.profile.profileUrl} alt='profile-avatar' className='comment-user-image'/>
 					<div className='name'>
-						{comment.profile.firstName} {comment.profile.lastName}
+                     {comment.profile.firstName} {comment.profile.lastName}
 					</div>
 					<div className='time'>
 						{formatDate(Date.parse(comment.createdAt))}
