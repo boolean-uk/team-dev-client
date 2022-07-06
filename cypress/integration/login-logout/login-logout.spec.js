@@ -7,7 +7,7 @@ describe('User Login Logout', () => {
       cy.visit('/')
     })
 
-    it('can login a user and be redirected to the home page', () => {
+    it('user is registered and automatically logged in and be redirected to the home page', () => {
       cy.get('#user-registration-link').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/signup`)
 
@@ -23,7 +23,7 @@ describe('User Login Logout', () => {
 
     })
 
-    it('can log out after login', () => {
+    it('can log out after automatic login and then logs in again with details', () => {
       cy.get('#user-registration-link').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/signup`)
 
