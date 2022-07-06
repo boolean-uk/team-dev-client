@@ -10,8 +10,6 @@ const PostsPage = () => {
 	const [posts, setPosts] = useState([]);
 	const [error, setError] = useState(false);
 
-	console.log(posts);
-
 	useEffect(() => {
 		client.get('/posts').then((res) => {
 			setPosts(res.data.data.posts);
