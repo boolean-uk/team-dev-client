@@ -14,7 +14,6 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
 
   useEffect(() => {
-
     const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
