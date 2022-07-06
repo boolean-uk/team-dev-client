@@ -10,7 +10,6 @@ export default function SudentsPreviewList({ id, handleClick }) {
       .get(`/users?cohort_id=${id}`)
       .then((res) => setStudentList(res.data.data.users));
   }, [id]);
-  console.log(studentList);
 
   return (
     <ul>
