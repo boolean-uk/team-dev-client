@@ -8,7 +8,6 @@ const PostsPage = () => {
 	const [post, setPost] = useState({ content: '' });
 	const [postResponse, setPostResponse] = useState('');
 	const [posts, setPosts] = useState([]);
-	const [comment, setComment] = useState({ content: '' });
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
@@ -35,48 +34,7 @@ const PostsPage = () => {
 		event.preventDefault();
 		const { value, name } = event.target;
 		setPost({
-			...post,
 			[name]: value,
-		});
-	};
-
-	const createComment = (event, postId) => {
-		event.preventDefault();
-		setError(false);
-		if (comment.postId !== postId) {
-			setError(['Must provide content', postId]);
-			return;
-		}
-		client
-			.post(`/post/comment?postId=${postId}`, { ...comment })
-			.then((res) => {
-				setPosts((prevPosts) => {
-					return prevPosts.map((post) => {
-						if (post.id === postId) {
-							post.postComments.push(res.data.data);
-							return post;
-						} else {
-							return post;
-						}
-					});
-				});
-			})
-			.catch((err) => {
-				setError([err.response.data.data.err, postId]);
-				console.error(err.response.data.data.err);
-			});
-		setComment({ content: '' });
-		event.target.reset();
-	};
-
-	const handleChangeComment = (event, postId) => {
-		setError(false);
-		event.preventDefault();
-		const { value, name } = event.target;
-		setComment({
-			...comment,
-			[name]: value,
-			postId,
 		});
 	};
 
@@ -108,8 +66,8 @@ const PostsPage = () => {
 						error={error}
 						posts={posts}
 						showAllComments={showAllComments}
-						createComment={createComment}
-						handleChangeComment={handleChangeComment}
+						setPosts={setPosts}
+						setError={setError}
 					/>
 				)}
 			</section>

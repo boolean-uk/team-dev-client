@@ -1,4 +1,3 @@
-
 .posts-list {
 	width: 100%;
 	display: grid;
@@ -9,13 +8,20 @@
 	margin-top: 20px;
 }
 
+li.post-item:hover {
+	opacity: 1;
+	cursor: unset;
+}
+
 .post-comment-container {
 	background-color: #6a6a7c;
 	padding: 1rem;
 	display: grid;
 	place-items: center;
 	gap: 0.5rem;
-	width: 100%;
+	max-width: 55vw;
+
+	overflow-wrap: break-word;
 }
 
 .post-item {
@@ -34,6 +40,7 @@
 	color: rgb(19, 19, 19);
 	max-height: 40vh;
 	overflow-y: auto;
+	position: relative;
 }
 
 .post-user-image,
@@ -71,12 +78,18 @@
 }
 
 .comments li {
-	width: 100%;
+	max-width: 100%;
 	list-style-type: none;
 	padding: 0.5rem 1rem;
 	border: blue;
 	background-color: white;
 	display: flex;
+	margin: 0.3rem;
+}
+
+.comments li:hover {
+	cursor: unset;
+	opacity: 1;
 }
 .comment-container {
 	background-color: #f0f2f5;
@@ -107,6 +120,25 @@
 	display: flex;
 	width: 100%;
 	flex-direction: column;
+}
+
+.post_edit_button {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	background-color: #f0f2f5;
+	color: black;
+	cursor: pointer;
+	padding: 5px;
+	transition: all 0.5s;
+}
+
+.post_edit_button:hover {
+	background-color: grey;
+	color: white;
 }
 
 /* width */
@@ -154,6 +186,33 @@
 	padding: 0.5rem;
 	margin-top: 0.5rem;
 }
+
 a:-webkit-any-link {
 	text-decoration: none;
+}
+
+li textarea {
+	border: none;
+	background-color: rgb(146, 202, 146);
+	outline: none;
+	font-size: 1.1rem;
+	overflow-x: none;
+	overflow-y: auto;
+	height: 100%;
+	width: 100%;
+}
+
+.editing {
+	background-color: rgb(146, 202, 146);
+	border: 3px solid #d8000c;
+	height: 30vh;
+	transition: all 0.3s;
+}
+
+.edited {
+	position: absolute;
+	color: grey;
+	font-size: 0.8rem;
+	bottom: 6px;
+	left: 8px;
 }
