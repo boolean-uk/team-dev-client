@@ -3,10 +3,10 @@
   "data": {
     "posts": [
       {
-        "userId": 1,
         "content": "dasds",
         "id": 9,
         "createdAt": "2022-06-29T10:17:25.621Z",
+        "edited": false,
         "postComments": [
           {
             "id": 34,
@@ -46,7 +46,27 @@
               "updatedAt": "2022-06-28T11:50:09.902Z"
             }
           }
-        ]
+        ],
+        "user": {
+          "cohortId": null,
+          "createdAt": "2022-07-06T09:22:59.820Z",
+          "email": "ttt@gmail.com",
+          "id": 3,
+          "password": "$2b$08$Wn5q1UxCby777KITOxziXenyt0BbbT16H9KdoQUinSUE03b7W7QNS",
+          "profile": {
+            "bio": "dasdasdsas",
+            "createdAt": "2022-07-06T09:22:59.820Z",
+            "firstName": "Tibor",
+            "githubUrl": "",
+            "id": 3,
+            "lastName": "Toth",
+            "profileUrl": "https://dottorato.dimes.unical.it/wp-content/uploads/2015/09/Unknown.jpg",
+            "updatedAt": "2022-07-06T09:22:59.822Z",
+            "userId": 3
+          },
+          "role": "STUDENT",
+          "updatedAt": "2022-07-06T09:22:59.821Z"
+        }
       }
     ]
   }
