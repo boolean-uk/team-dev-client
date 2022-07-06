@@ -7,7 +7,7 @@ describe('User Login Logout', () => {
       cy.visit('/')
     })
 
-    it('can login a user and be redirected to the home page', () => {
+    it('user is registered and automatically logged in and be redirected to the home page', () => {
       cy.get('#user-registration-link').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/signup`)
 
@@ -17,19 +17,13 @@ describe('User Login Logout', () => {
       cy.get('input[name=password]').type('test12')
       cy.get('input[name=biography]').type('a long bio')
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
-      cy.get('#user-submit-button').click()
-
-      cy.get('#user-login-link').click()
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
-
-      cy.get('input[name=email]').type('test@test.com')
-      cy.get('input[name=password]').type('test12')
       cy.get('#user-submit-button').click()
 
       cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
+
     })
 
-    it('can log out after login', () => {
+    it('can log out after automatic login and then logs in again with details', () => {
       cy.get('#user-registration-link').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/signup`)
 
@@ -41,7 +35,8 @@ describe('User Login Logout', () => {
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
       cy.get('#user-submit-button').click()
 
-      cy.get('#user-login-link').click()
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/home`)
+      cy.get('#user-signout-button').click()
       cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
 
       cy.get('input[name=email]').type('test@test.com')
