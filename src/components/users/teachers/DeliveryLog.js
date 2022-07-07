@@ -1,7 +1,7 @@
 export default function DeliveryLog({ data }) {
   const author = `${data.user.profile.firstName[0]}. ${data.user.profile.lastName}`
   const date = data.date.split('T')[0]
-  console.log("data delivery log: ", data)
+
   return (
     <div className="log">
       <header className="log-header">
