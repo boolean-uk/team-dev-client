@@ -38,3 +38,43 @@
   height: 200px;
   width: 200px;
 }
+
+.split-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+}
+
+.notes-list {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, auto);
+  grid-template-columns: 1fr;
+  gap: 15px;
+  place-items: center;
+  margin-top: 20px;
+}
+
+.note-item {
+  padding: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  width: 80%;
+  border-radius: 12px;
+  list-style: none;
+  font-size: 1.2rem;
+
+  background-color: rgb(237, 213, 163);
+  padding: 2rem 0.5rem;
+  padding-left: 100px;
+  color: rgb(19, 19, 19);
+  max-height: 40vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+li.note-item:hover {
+  opacity: 1;
+  cursor: unset;
+}

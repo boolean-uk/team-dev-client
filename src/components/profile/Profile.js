@@ -1,11 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Stack, TextField } from '@mui/material';
-import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import PasswordForm from '../profile/PasswordForm.js';
 import './profile.css';
+import { loggedInUserContext } from '../../Helper/loggedInUserContext';
+import ProfileNotes from './ProfileNotes';
+import ProfileSection from './profileSection';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -16,6 +16,7 @@ const Profile = () => {
   const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
   const [isValidId, setIsValidId] = useState(true);
+  const { loggedInUser } = useContext(loggedInUserContext);
 
   useEffect(() => {
     client
@@ -89,103 +90,19 @@ const Profile = () => {
           Confirm
         </button>
       </form>
-
-      {!isValidId && <h2>This is an invalid ID</h2>}
-
-      {!editingPassword && isValidId && (
-        <div className='profile-form'>
-          <img
-            className='img-profile'
-            alt='img-profile'
-            src={userData.profile_url}
-          />
-          <TextField
-            className='profile-user-text'
-            label='First Name'
-            name='first_name'
-            value={userData.first_name}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-            variant='outlined'
-          />
-          <TextField
-            className='profile-user-text'
-            label='Last Name'
-            name='last_name'
-            value={userData.last_name}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Email'
-            name='email'
-            value={userData.email}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Biography'
-            name='biography'
-            value={userData.biography}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Github URL'
-            name='gitgub_url'
-            value={userData.github_url}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-
-          {editingProfile && (
-            <Button
-              id='user-submit-button'
-              onClick={handleSubmit}
-              type='submit'
-              variant='contained'
-            >
-              Submit
-            </Button>
-          )}
-
-          {!editingProfile && (
-            <Box>
-              <Stack spacing={2} direction='row'>
-                <Button
-                  variant='contained'
-                  onClick={() => setEditingProfile(true)}
-                >
-                  Edit Profile
-                </Button>
-              </Stack>
-            </Box>
-          )}
-
-          {!editingPassword && isValidId && (
-            <Box>
-              <Stack spacing={2} direction='row'>
-                <Button
-                  variant='contained'
-                  onClick={() => setEditingPassword(true)}
-                >
-                  Edit Password
-                </Button>
-              </Stack>
-            </Box>
-          )}
-        </div>
-      )}
-
-      {editingPassword && <PasswordForm userData={userData} />}
+      <section className='split-two'>
+        <ProfileSection
+          isValidId={isValidId}
+          editingPassword={editingPassword}
+          setEditingPassword={setEditingPassword}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          userData={userData}
+          editingProfile={editingProfile}
+          setEditingProfile={setEditingProfile}
+        />
+        {loggedInUser.role === 'TEACHER' && <ProfileNotes />}
+      </section>
     </>
   );
 };
