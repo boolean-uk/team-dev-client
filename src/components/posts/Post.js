@@ -58,6 +58,11 @@ export default function Post({ post, setPosts, posts,count, setCount }) {
 
 	return (
 		<li className={checkIfEditing(post) ? 'editing post-item' : 'post-item'}>
+      <img
+        src={post.user.profile.profileUrl}
+        alt='user-avatar'
+        className='post-user-image'
+      />
 			{(checkIfEditing(post) && (
 				<textarea
 					name='content'
