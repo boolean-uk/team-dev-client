@@ -9,7 +9,7 @@ const CohortPage = () => {
   const navigate = useNavigate()
   const [cohortName, setCohortName] = useState()
   const [studentsInCohort, setStudentsInCohort] = useState()
-  const [availibleUsers, setAvailibleUsers] = useState()
+  const [availableUsers, setAvailableUsers] = useState()
 
   useEffect(() => {
     client
@@ -17,24 +17,24 @@ const CohortPage = () => {
         .then((res) => {
           setCohortName(res.data.data.cohortName)
           setStudentsInCohort(res.data.data.users)
-          setAvailibleUsers(res.data.data.availableStudents)
+          setAvailableUsers(res.data.data.availableStudents)
         })
         .catch((err) => console.error(err.response));
   }, [params]);
 
   const handleSubmitAddStudentToCohort = (e, userId) => {
     e.preventDefault();
+    client
+        .patch(`/user/${userId}`, { cohort_id: +params.id })
+        .then((res) => {
+          const targetStudent = availableUsers.find((user) => user.user.id === userId)
+          const updatedStudentsInCohort = [...studentsInCohort, targetStudent]
+          setStudentsInCohort(updatedStudentsInCohort)
 
-    client.patch(`/user/${userId}`, { cohort_id: +params.id })
-    .then((res) => {
-      const targetStudent = availibleUsers.find((user) => user.user.id === userId)
-      const updatedStudentsInCohort = [...studentsInCohort, targetStudent]
-      setStudentsInCohort(updatedStudentsInCohort)
-
-      const updatedAvailibleUsers = availibleUsers.filter((user) => user.user.id !== userId)
-      setAvailibleUsers(updatedAvailibleUsers)
-    })
-    .catch((err) => console.error(err.response));
+          const updatedAvailableUsers = availableUsers.filter((user) => user.user.id !== userId)
+          setAvailableUsers(updatedAvailableUsers)
+        })
+        .catch((err) => console.error(err.response));
   };
 
   const handleClick = (e, userId) => {
@@ -67,8 +67,8 @@ const CohortPage = () => {
           </div>
 
           <div className='border'>
-            <h2>Availible Users</h2>
-            {availibleUsers?.map((user, index) => (
+            <h2>Available Users</h2>
+            {availableUsers?.map((user, index) => (
               <div key={index}>
                 <p>{user.user.first_name} {user.user.last_name}</p>
                	<button onClick={(e) => handleSubmitAddStudentToCohort(e, user.user.id)}>Add to Cohort</button>
