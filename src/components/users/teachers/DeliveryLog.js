@@ -1,7 +1,7 @@
 export default function DeliveryLog({ data }) {
-  const author = `${data.author.first_name[0]}. ${data.author.last_name}`
+  const author = `${data.user.profile.firstName[0]}. ${data.user.profile.lastName}`
   const date = data.date.split('T')[0]
-  
+  console.log("data delivery log: ", data)
   return (
     <div className="log">
       <header className="log-header">
@@ -10,7 +10,7 @@ export default function DeliveryLog({ data }) {
         <span>{date}</span>
       </header>
       <div className="log-body">
-        <span>Cohort: {data.cohort_id}</span>
+        <span>Cohort: {data.cohortId}</span>
         <span></span>
         <div>
           {data.lines.map((line, i) => (

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import DeliveryLogFormLine from "./DeliveryLogFormLine";
+import client from "../../../utils/client";
 
 export default function DeliveryLogCreateForm({ cohorts, logsData, setLogsData }) {
   const [cohort, setCohort] = useState();
   const [linesData, setLinesData] = useState([""]);
-  const [submissionStatus, setSubmissionStatus] = useState("N/A");
 
   const handleCohortChange = (e) => setCohort(e.target.value);
 
@@ -28,35 +28,21 @@ export default function DeliveryLogCreateForm({ cohorts, logsData, setLogsData }
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const body = {
+    const data = {
       date: new Date().toISOString(),
       cohort_id: cohort,
       lines: linesData.map((line) => ({ content: line })),
     };
 
-    const opts = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(body),
-    };
+    const response = await client.post("/log", data)
+      .catch((err) => console.error(err))
 
-    try {
-      const fetchRes = await fetch("http://localhost:4000/log", opts);
-      const data = await fetchRes.json();
+    const id = response.data.data.deliveryLog.id
+    
+    const deliveryLogFullInfo = await client.get(`/log/${id}`)
+      .catch((err) => console.error(err))
 
-      setSubmissionStatus(data.status);
-      setLogsData([...logsData, data.data.log]);
-    } catch (e) {
-      setSubmissionStatus("fail");
-    }
-
-    setTimeout(() => {
-      setLinesData([""]);
-      setSubmissionStatus("N/A");
-    }, 3000);
+    setLogsData([...logsData, deliveryLogFullInfo.data.data]);
   };
 
   return (
@@ -88,9 +74,6 @@ export default function DeliveryLogCreateForm({ cohorts, logsData, setLogsData }
             <button className="log-form-btn" onClick={handleSubmit}>Submit</button>
           </div>
         </form>
-
-        <p className="log-status">Submission Status:</p>
-        <p>{submissionStatus}</p>
       </div>
     </div>
   );
