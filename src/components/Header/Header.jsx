@@ -12,7 +12,7 @@ const Header = ({ companyName }) => {
 
   const handleAddCohortClick = (event) => {
     event.preventDefault();
-    navigate('../cohorts/add-cohort', { replace: true });
+    navigate('../cohorts/new', { replace: true });
   };
 
 	const onGotoDeliveryLogsPageRequested = () => {
