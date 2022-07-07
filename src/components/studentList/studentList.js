@@ -30,7 +30,7 @@ export default function SudentList() {
       <h2 className='number-student'>{cohort.length}</h2>
       <ul className='student-list'>
         {cohort.map((student) => (
-          <li key={student.id}>
+          <li key={student.id} className='student-li'>
             <div onClick={() => handleClick(student.id)}>
               {`${student.first_name} ${student.last_name}`}
               <div>
