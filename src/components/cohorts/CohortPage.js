@@ -58,7 +58,7 @@ const CohortPage = () => {
                     alt='user profile pic' 
                     onClick={(e) => handleClick(e, user.user.id)}
                   />
-                <ul>
+                <ul className='student-links'>
                   <li><i>Email: {user.user.email}</i> </li>
                   <li><i>GitHub: {user.user.github_url}</i></li>
                 </ul>

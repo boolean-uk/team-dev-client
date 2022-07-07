@@ -5,13 +5,13 @@
     justify-content: center;
 }
 
-li {
+.student-li {
     background-color: #1976d2;
     border-radius: 5px;
     margin: 20px;
 }
 
-li:hover {
+.student-li:hover {
     cursor: pointer;
     opacity: 0.5;
 }

@@ -21,3 +21,11 @@ ul{
   max-width: 5rem;
 }
 
+.cohort-form{
+  background-color: aliceblue;
+}
+
+/* .student-links > *,
+.student-links > *:hover{
+  background-color: transparent;
+} */

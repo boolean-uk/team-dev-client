@@ -68,7 +68,7 @@ function App() {
               />
             }
           >
-            <Route path='/cohorts/add-cohort' element={<AddCohortForm />} />
+            <Route path='/cohorts/new' element={<AddCohortForm />} />
             <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
         </Routes>

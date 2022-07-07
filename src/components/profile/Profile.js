@@ -14,7 +14,6 @@ const Profile = () => {
   const params = useParams();
   const [cohortName, setCohortName] = useState()
   const [userData, setUserData] = useState({});
-  const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
   const [isValidId, setIsValidId] = useState(true);
 
@@ -38,23 +37,6 @@ const Profile = () => {
           .catch((err) => console.error(err.response));
     }
   }, [userData]);
-
-  useEffect(() => {
-    client
-      .get('/cohort')
-      .then((res) => {
-        setCohortsAvailable(res.data.data);
-      })
-      .catch((err) => console.error(err.response));
-  }, []);
-
-  const handleSubmitAddStudentToCohort = (e) => {
-    e.preventDefault();
-
-    const selectedCohortId = Number(e.target[0].value);
-
-    client.patch(`/user/${userData.id}`, { cohort_id: selectedCohortId });
-  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -80,25 +62,6 @@ const Profile = () => {
   return (
     <>
       <Header />
-
-      <form
-        onSubmit={handleSubmitAddStudentToCohort}
-        className='add-user-to-cohort-form'
-      >
-        <span>Add student to cohort: </span>
-        <select>
-          <option value={null}>Please select a cohort...</option>
-          {cohortsAvailable &&
-            cohortsAvailable.map((cohort) => (
-              <option key={cohort.id} value={cohort.id}>
-                {cohort.id}
-              </option>
-            ))}
-        </select>
-        <button type='submit' className='add-user-to-cohort-btn'>
-          Confirm
-        </button>
-      </form>
 
       {!isValidId && <h2>This is an invalid ID</h2>}
 
