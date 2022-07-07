@@ -17,5 +17,5 @@ describe('User Registration', () => {
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit/')
       cy.get('#user-submit-button').click()
     })
-  })
+})
 })

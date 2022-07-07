@@ -9,18 +9,15 @@ import { loggedInUserContext } from '../../../Helper/loggedInUserContext';
 const LoginPage = () => {
   const { setLoggedInUser } = useContext(loggedInUserContext);
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({
-    data: { token: '', user: {} },
-  });
+  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
   let navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
 
   useEffect(() => {
-    const loadedToken =
-      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
+    const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
-
+  
   const loginUser = (event) => {
     event.preventDefault();
     client

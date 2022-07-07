@@ -1,14 +1,10 @@
-.posts-section {
-}
-
 .posts-list {
 	width: 100%;
 	display: grid;
 	grid-template-rows: repeat(auto-fill, auto);
 	grid-template-columns: 1fr;
 	gap: 15px;
-	align-items: center;
-	justify-items: center;
+	place-items: center;
 	margin-top: 20px;
 }
 
@@ -21,6 +17,7 @@ li.post-item:hover {
 	background-color: #6a6a7c;
 	padding: 1rem;
 	display: grid;
+	place-items: center;
 	gap: 0.5rem;
 	max-width: 55vw;
 
@@ -28,20 +25,29 @@ li.post-item:hover {
 }
 
 .post-item {
-	width: 100%;
-	justify-self: center;
-	text-align: left;
+	padding: 8px;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	width: 80%;
 	border-radius: 12px;
 	list-style: none;
 	font-size: 1.2rem;
 
 	background-color: rgb(237, 213, 163);
 	padding: 2rem 0.5rem;
-	padding-left: 20px;
+	padding-left: 100px;
 	color: rgb(19, 19, 19);
 	max-height: 40vh;
 	overflow-y: auto;
 	position: relative;
+}
+
+.post-user-image,
+.comment-user-image {
+	height: 44px;
+    width: 44px;
+    border-radius: 50%;
 }
 
 .comment-form-input {
@@ -117,11 +123,7 @@ li.post-item:hover {
 }
 
 .post_edit_button {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	margin-right: 5px;
-	margin-bottom: 5px;
+	margin-left: 5px;
 	border-radius: 5px;
 	background-color: #f0f2f5;
 	color: black;
@@ -209,4 +211,12 @@ li textarea {
 	font-size: 0.8rem;
 	bottom: 6px;
 	left: 8px;
+}
+
+.button-container{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 }
