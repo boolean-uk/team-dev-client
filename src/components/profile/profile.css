@@ -18,7 +18,7 @@
   background-color: #1862ac;
 }
 
-.profile-form{
+.profile-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,13 +26,13 @@
   gap: 5px;
 }
 
-.profile-user-text{
+.profile-user-text {
   background-color: white;
   border-radius: 20px;
- 
+
 }
 
-.img-profile{
+.img-profile {
   margin: 40px;
   border-radius: 10px;
   height: 200px;
@@ -77,4 +77,50 @@
 li.note-item:hover {
   opacity: 1;
   cursor: unset;
+}
+
+.note_edit_button {
+  margin-left: 5px;
+  border-radius: 5px;
+  background-color: #f0f2f5;
+  color: black;
+  cursor: pointer;
+  padding: 5px;
+  transition: all 0.5s;
+}
+
+.note-container {
+  background-color: #f0f2f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.notes {
+  position: relative;
+  color: black;
+  width: 50vw;
+  margin: 0 auto;
+  text-align: left;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+
+  overflow-wrap: break-word;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.note-button {
+  max-width: 100px;
+  display: inline-block;
+}
+
+.auto-rows {
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.three-column-expand-one {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
 }
