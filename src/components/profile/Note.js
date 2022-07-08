@@ -19,11 +19,9 @@ export default function Note({ note, setNotes }) {
       client
         .delete(`/note/${noteId}`)
         .then(() => setIsDeleting(false))
-        .catch((err) => console.error(err.response))
         .then(() => client.get(`/user/${params.id}/notes`)
-        .then((res) => {
-          setNotes(res.data.data.notes);
-        }))
+        .then((res) => setNotes(res.data.data.notes)))
+        .catch((err) => console.error(err.response))
     }else{
       setIsDeleting(true)
     }
@@ -66,7 +64,10 @@ export default function Note({ note, setNotes }) {
         <div className='time'>
 						<p>Edited {formatDate(Date.parse(note.updatedAt))}</p>
 				</div>)}
-        {loggedInUser.role === 'TEACHER' && (<Button className='delete-btn note-button' size='small' variant='contained' color={isDeleting ? 'error' : 'primary'} onClick={(event) => deleteNoteHandler(event, note.id)}>{isDeleting ? 'Confirm': 'Delete'}</Button>)}
+        {loggedInUser.role === 'TEACHER' && (
+          <Button className='delete-btn note-button' size='small' variant='contained' color={isDeleting ? 'error' : 'primary'} 
+            onClick={(event) => deleteNoteHandler(event, note.id)}>{isDeleting ? 'Confirm': 'Delete'}
+          </Button>)}
         <button className='note_edit_button note-button' onClick={(e) => handleNoteEdit(e, note.id)}>{checkIfEditing ? 'Save' : 'Edit Post'}</button>
       </div>
     </li>
