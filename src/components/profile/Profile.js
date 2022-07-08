@@ -45,7 +45,7 @@ const Profile = () => {
     client.get(`/user/${params.id}/notes`).then((res) => {
       setNotes(res.data.data.notes);
     });
-  }, []);
+  }, [params]);
 
   const handleChange = (event) => {
     event.preventDefault();
