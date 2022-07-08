@@ -12,8 +12,8 @@ const Profile = () => {
   const [editingPassword, setEditingPassword] = useState(false);
 
   const params = useParams();
+  const [cohortName, setCohortName] = useState();
   const [userData, setUserData] = useState({});
-  const [cohortsAvailable, setCohortsAvailable] = useState([]);
 
   const [isValidId, setIsValidId] = useState(true);
   const { loggedInUser } = useContext(loggedInUserContext);
@@ -33,27 +33,19 @@ const Profile = () => {
   }, [params]);
 
   useEffect(() => {
-    client
-      .get('/cohort')
-      .then((res) => {
-        setCohortsAvailable(res.data.data);
-      })
-      .catch((err) => console.error(err.response));
-  }, []);
+    if (userData.cohort_id) {
+      client
+        .get(`/cohort/${userData.cohort_id}`)
+        .then((res) => setCohortName(res.data.data.cohortName))
+        .catch((err) => console.error(err.response));
+    }
+  }, [userData]);
 
   useEffect(() => {
     client.get(`/user/${params.id}/notes`).then((res) => {
       setNotes(res.data.data.notes);
     });
   }, []);
-
-  const handleSubmitAddStudentToCohort = (e) => {
-    e.preventDefault();
-
-    const selectedCohortId = Number(e.target[0].value);
-
-    client.patch(`/user/${userData.id}`, { cohort_id: selectedCohortId });
-  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -80,24 +72,6 @@ const Profile = () => {
     <>
       <Header />
 
-      <form
-        onSubmit={handleSubmitAddStudentToCohort}
-        className='add-user-to-cohort-form'
-      >
-        <span>Add student to cohort: </span>
-        <select>
-          <option value={null}>Please select a cohort...</option>
-          {cohortsAvailable &&
-            cohortsAvailable.map((cohort) => (
-              <option key={cohort.id} value={cohort.id}>
-                {cohort.id}
-              </option>
-            ))}
-        </select>
-        <button type='submit' className='add-user-to-cohort-btn'>
-          Confirm
-        </button>
-      </form>
       <section
         className={
           loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER'
@@ -114,6 +88,7 @@ const Profile = () => {
           userData={userData}
           editingProfile={editingProfile}
           setEditingProfile={setEditingProfile}
+          cohortName={cohortName}
         />
         {loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER' && (
           <ProfileNotes notes={notes} setNotes={setNotes} />

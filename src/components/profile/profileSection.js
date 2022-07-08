@@ -11,6 +11,7 @@ const ProfileSection = ({
   userData,
   editingProfile,
   setEditingProfile,
+  cohortName,
 }) => {
   return (
     <div>
@@ -23,6 +24,12 @@ const ProfileSection = ({
             alt='img-profile'
             src={userData.profile_url}
           />
+
+          <h3>
+            Cohort:{' '}
+            {cohortName === undefined ? 'Not Assigned Cohort' : cohortName}
+          </h3>
+
           <TextField
             className='profile-user-text'
             label='First Name'
