@@ -1,21 +1,24 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Stack, TextField } from '@mui/material';
-import { Box } from '@mui/system';
 import Header from '../Header/Header';
 import client from '../../utils/client';
-import PasswordForm from '../profile/PasswordForm.js';
 import './profile.css';
+import { loggedInUserContext } from '../../Helper/loggedInUserContext';
+import ProfileNotes from './ProfileNotes';
+import ProfileSection from './profileSection';
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
 
   const params = useParams();
-  const [cohortName, setCohortName] = useState()
+  const [cohortName, setCohortName] = useState();
   const [userData, setUserData] = useState({});
 
   const [isValidId, setIsValidId] = useState(true);
+  const { loggedInUser } = useContext(loggedInUserContext);
+
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     client
@@ -28,15 +31,21 @@ const Profile = () => {
         console.log(err.response);
       });
   }, [params]);
-  
+
   useEffect(() => {
-    if(userData.cohort_id){
+    if (userData.cohort_id) {
       client
-          .get(`/cohort/${userData.cohort_id}`)
-          .then((res) => setCohortName(res.data.data.cohortName))
-          .catch((err) => console.error(err.response));
+        .get(`/cohort/${userData.cohort_id}`)
+        .then((res) => setCohortName(res.data.data.cohortName))
+        .catch((err) => console.error(err.response));
     }
   }, [userData]);
+
+  useEffect(() => {
+    client.get(`/user/${params.id}/notes`).then((res) => {
+      setNotes(res.data.data.notes);
+    });
+  }, [params]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -63,105 +72,28 @@ const Profile = () => {
     <>
       <Header />
 
-      {!isValidId && <h2>This is an invalid ID</h2>}
-
-      {!editingPassword && isValidId && (
-        <div className='profile-form'>
-          <img 
-            className='img-profile' 
-            alt='img-profile'
-            src={userData.profile_url}
-          />
-          
-          <h3>Cohort: {cohortName === undefined ? 'Not Assigned Cohort' : cohortName}</h3>
-
-          <TextField
-            className='profile-user-text'
-            label='First Name'
-            name='first_name'
-            value={userData.first_name}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-            variant='outlined'
-          />
-          <TextField
-            className='profile-user-text'
-            label='Last Name'
-            name='last_name'
-            value={userData.last_name}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Email'
-            name='email'
-            value={userData.email}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Biography'
-            name='biography'
-            value={userData.biography}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            className='profile-user-text'
-            label='Github URL'
-            name='gitgub_url'
-            value={userData.github_url}
-            onChange={handleChange}
-            inputProps={{ readOnly: !editingProfile ? true : false }}
-            InputLabelProps={{ shrink: true }}
-          />
-
-          {editingProfile && (
-            <Button
-              id='user-submit-button'
-              onClick={handleSubmit}
-              type='submit'
-              variant='contained'
-            >
-              Submit
-            </Button>
-          )}
-
-          {!editingProfile && (
-            <Box>
-              <Stack spacing={2} direction='row'>
-                <Button
-                  variant='contained'
-                  onClick={() => setEditingProfile(true)}
-                >
-                  Edit Profile
-                </Button>
-              </Stack>
-            </Box>
-          )}
-
-          {!editingPassword && isValidId && (
-            <Box>
-              <Stack spacing={2} direction='row'>
-                <Button
-                  variant='contained'
-                  onClick={() => setEditingPassword(true)}
-                >
-                  Edit Password
-                </Button>
-              </Stack>
-            </Box>
-          )}
-        </div>
-      )}
-
-      {editingPassword && <PasswordForm userData={userData} />}
+      <section
+        className={
+          loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER'
+            ? 'split-two'
+            : null
+        }
+      >
+        <ProfileSection
+          isValidId={isValidId}
+          editingPassword={editingPassword}
+          setEditingPassword={setEditingPassword}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          userData={userData}
+          editingProfile={editingProfile}
+          setEditingProfile={setEditingProfile}
+          cohortName={cohortName}
+        />
+        {loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER' && (
+          <ProfileNotes notes={notes} setNotes={setNotes} />
+        )}
+      </section>
     </>
   );
 };

@@ -5,12 +5,12 @@ import RegistrationPage from './components/users/registration/RegistrationPage';
 import CohortPage from './components/cohorts/CohortPage';
 import DeliveryLogDash from './components/users/teachers/DeliveryLogDash';
 import { loggedInUserContext } from './Helper/loggedInUserContext';
-import Profile from './components/profile/Profile';
 import AddCohortForm from './components/cohorts/AddCohortForm';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 import HomePage from './components/Home';
 import client from './utils/client';
 import './App.css';
+import Profile from './components/profile/Profile';
 
 function App() {
   const [userDataToRender, setUserDataToRender] = useState([]);
@@ -18,7 +18,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(
     JSON.parse(localStorage.getItem('loggedInUser'))
   );
-  
+
   useEffect(() => {
     if (nameToSearch.userName !== '') {
       client
@@ -35,7 +35,7 @@ function App() {
         setLoggedInUser,
         userDataToRender,
         nameToSearch,
-        setNameToSearch
+        setNameToSearch,
       }}
     >
       <div className='App'>
