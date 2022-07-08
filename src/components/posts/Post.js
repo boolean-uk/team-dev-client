@@ -8,6 +8,10 @@ export default function Post({ post, setPosts, posts,count, setCount }) {
 	const checkIfEditing = (post) => {
 		return isEditing.editing && post.id === isEditing.postId;
 	};
+	const acceptedRoles = ['TEACHER']
+	const isPostDeletableByUser = (post) => {
+  		return acceptedRoles.includes(loggedInUser.role) || loggedInUser.id === post.user.id
+	}
 	const [postEdit, setPostEdit] = useState({ content: '' });
 	const [isEditing, setIsEditing] = useState({ editing: false, postId: null });
 	const [isDeleteing, setIsDeleting] = useState(false)
@@ -73,7 +77,7 @@ export default function Post({ post, setPosts, posts,count, setCount }) {
 			)) ||
 				post.content}
 				<div className='button-container'>
-				{(loggedInUser.role === 'TEACHER' || loggedInUser.id === post.user.id) &&(
+				{(isPostDeletableByUser(post)) &&(
 					<Button className='delete-btn' size='small' variant='contained' color={isDeleteing ? 'error' : 'primary'} onClick={(event) => deletePostHandler(event, post.id)}>{isDeleteing ? 'Confirm': 'Delete'}</Button>)}
 				{loggedInUser.id === post.user.id && (
 					<button
