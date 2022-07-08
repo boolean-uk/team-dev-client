@@ -13,6 +13,10 @@ export default function DeliveryLogDash() {
     client.get("/cohort")
       .then((res) => setCohortsAvailable(res.data.data))
       .catch((err) => console.error(err.message));
+
+    client.get("/log")
+      .then((res) => setLogsData(res.data.data))
+      .catch((err) => console.error(err.message));
   }, []);
 
   return (
@@ -28,8 +32,8 @@ export default function DeliveryLogDash() {
           <header>
             <h2>Logs</h2>
           </header>
-          {logsData && logsData.map((log, i) => (
-            <DeliveryLog key={log.id} data={logsData[i]} />
+          {logsData && logsData.map((log) => (
+            <DeliveryLog key={log.id} data={log} />
           ))}
         </div>
       </div>
