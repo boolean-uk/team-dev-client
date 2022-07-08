@@ -18,6 +18,8 @@ const Profile = () => {
   const [isValidId, setIsValidId] = useState(true);
   const { loggedInUser } = useContext(loggedInUserContext);
 
+  const [notes, setNotes] = useState([]);
+
   useEffect(() => {
     client
       .get(`/user/${params.id}`)
@@ -37,6 +39,12 @@ const Profile = () => {
         setCohortsAvailable(res.data.data);
       })
       .catch((err) => console.error(err.response));
+  }, []);
+
+  useEffect(() => {
+    client.get(`/user/${params.id}/notes`).then((res) => {
+      setNotes(res.data.data.notes);
+    });
   }, []);
 
   const handleSubmitAddStudentToCohort = (e) => {
@@ -90,7 +98,13 @@ const Profile = () => {
           Confirm
         </button>
       </form>
-      <section className='split-two'>
+      <section
+        className={
+          loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER'
+            ? 'split-two'
+            : null
+        }
+      >
         <ProfileSection
           isValidId={isValidId}
           editingPassword={editingPassword}
@@ -101,7 +115,9 @@ const Profile = () => {
           editingProfile={editingProfile}
           setEditingProfile={setEditingProfile}
         />
-        {loggedInUser.role === 'TEACHER' && <ProfileNotes />}
+        {loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER' && (
+          <ProfileNotes notes={notes} setNotes={setNotes} />
+        )}
       </section>
     </>
   );

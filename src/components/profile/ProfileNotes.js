@@ -1,17 +1,7 @@
-import { useState, useEffect } from 'react';
-import client from '../../utils/client';
 import Note from './Note';
 import './profile.css';
 
-const ProfileNotes = () => {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    client.get('/user/2/notes').then((res) => {
-      setNotes(res.data.data.notes);
-    });
-  }, []);
-
+const ProfileNotes = ({ notes, setNotes }) => {
   return (
     <div>
       <h2>Student Notes</h2>
