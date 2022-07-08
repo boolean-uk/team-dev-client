@@ -79,7 +79,7 @@ export default function Post({ post, setPosts, posts,count, setCount }) {
 					<button
 						className='post_edit_button'
 						onClick={(e) => handlePostEdit(e, post.id, post.content)}
-					>
+						>
 						{checkIfEditing(post) ? 'Save' : 'Edit Post'}
 					</button>
 						)}
