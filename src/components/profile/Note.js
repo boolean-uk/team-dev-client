@@ -36,21 +36,25 @@ export default function Note({ note, setNotes }) {
       });
     };
 
-    const handleNoteEdit = async (event, noteId) => {
+    const handleNoteEdit = async (event, noteId ) => {
       event.preventDefault();
-      setCheckIfEditing(true)
-      if (event.target.innerText === 'Save') {
-        client
-          .patch(`/note/${noteId}`, noteEdit)
-          .then(() => setCheckIfEditing(false))
-          .then(() => client.get(`/user/${params.id}/notes`)
-          .then((res) => setNotes(res.data.data.notes)))
-          .catch((err) => console.error(err.response))
-      }
+        setCheckIfEditing(true)
+        if (event.target.innerText === 'Save') {
+          if (noteEdit.content ==='') {
+            setCheckIfEditing(false)
+            return
+          }
+          client
+            .patch(`/note/${noteId}`, noteEdit)
+            .then(() => setCheckIfEditing(false))
+            .then(() => client.get(`/user/${params.id}/notes`)
+            .then((res) => setNotes(res.data.data.notes)))
+            .catch((err) => console.error(err.response))
+        }
     };
 
   return (
-    <li className='note-container notes auto rows'>
+    <li className='note-container notes auto-rows'>
       {(checkIfEditing && (
 				<textarea
 					name='content'
@@ -64,6 +68,9 @@ export default function Note({ note, setNotes }) {
         <div className='time'>
 						<p>Edited {formatDate(Date.parse(note.updatedAt))}</p>
 				</div>)}
+        {!note.isEdited && (
+          <div></div>
+        )}
         {loggedInUser.role === 'TEACHER' && (
           <Button className='delete-btn note-button' size='small' variant='contained' color={isDeleting ? 'error' : 'primary'} 
             onClick={(event) => deleteNoteHandler(event, note.id)}>{isDeleting ? 'Confirm': 'Delete'}

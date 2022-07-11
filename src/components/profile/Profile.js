@@ -10,14 +10,11 @@ import ProfileSection from './profileSection';
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
-
   const params = useParams();
   const [cohortName, setCohortName] = useState();
   const [userData, setUserData] = useState({});
-
   const [isValidId, setIsValidId] = useState(true);
   const { loggedInUser } = useContext(loggedInUserContext);
-
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -28,7 +25,6 @@ const Profile = () => {
       })
       .catch((err) => {
         setIsValidId(false);
-        console.log(err.response);
       });
   }, [params]);
 
