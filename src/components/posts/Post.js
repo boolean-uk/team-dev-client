@@ -13,13 +13,11 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
   };
   const [postEdit, setPostEdit] = useState({ content: '' });
   const [isEditing, setIsEditing] = useState({ editing: false, postId: null });
-  const [isDeleteing, setIsDeleting] = useState(false);
-
-  console.log('POST : ', post);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const deletePostHandler = (event, postId) => {
     event.preventDefault();
-    if (isDeleteing) {
+    if (isDeleting) {
       client
         .delete(`/post/posts/${postId}`)
         .then((res) => {
@@ -61,52 +59,54 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
     }
   };
 
-  const onToggleLikeHandler = () => {
-    const foundLike = post.postLikes.find((el) => el.userId === post.user.id);
-    console.log(foundLike);
-    const data = {
+  const handleLike = async () => {
+    const foundLike = post.postLikes.find(
+      (like) => like.userId === loggedInUser.id
+    );
+    const likeData = {
       active: foundLike?.active,
       postLikeId: foundLike?.id,
-      userId: foundLike?.userId || post.user.id,
+      userId: foundLike?.userId || loggedInUser.id,
     };
-    console.log('DATA : ', data);
-    client.patch(`/post/postLike/${post.id}`, data).then((res) => {
-      const currentLike = res.data.data;
-      if (!foundLike) {
-        setPosts((previousPosts) => {
-          return previousPosts.map((post) => {
-            if (post.id === currentLike.postId) {
-              return { ...post, postLikes: [...post.postLikes, currentLike] };
-            } else {
-              return post;
-            }
-          });
-        });
-      } else {
-        setPosts((previousPosts) => {
-          return previousPosts.map((post) => {
-            if (post.id === currentLike.postId) {
-              const newLikes = post.postLikes.map((like) => {
-                if (like.id === currentLike.id) {
-                  return currentLike;
-                } else {
-                  return like;
-                }
-              });
-              return { ...post, postLikes: [...newLikes] };
-            } else {
-              return post;
-            }
-          });
-        });
-      }
 
-      console.log('RESPONSE : ', res.data.data, 'CURRENT LIKE : ', currentLike);
-    });
+    const res = await client.patch(`/posts/${post.id}/postLike`, likeData);
+
+    const likeRes = res.data.data;
+
+    if (!foundLike) {
+      setPosts((prevPosts) => {
+        return prevPosts.map((post) => {
+          if (post.id === likeRes.postId) {
+            return { ...post, postLikes: [...post.postLikes, likeRes] };
+          } else return post;
+        });
+      });
+    } else {
+      setPosts((prevPosts) => {
+        return prevPosts.map((post) => {
+          if (post.id === likeRes.postId) {
+            const newLikes = post.postLikes.map((like) =>
+              like.id === likeRes.id ? likeRes : like
+            );
+            return { ...post, postLikes: [...newLikes] };
+          } else return post;
+        });
+      });
+    }
   };
 
+  function countLikes(likes) {
+    return likes.filter((like) => like.active).length;
+  }
+
+  function applyClasses() {
+    return checkIfEditing(post)
+      ? 'editing post-item'
+      : `post-item ${countLikes(post.postLikes) > 1 ? 'top-likes' : ''}`;
+  }
+
   return (
-    <li className={checkIfEditing(post) ? 'editing post-item' : 'post-item'}>
+    <li className={applyClasses()}>
       <img
         src={post.user.profile.profileUrl}
         alt='user-avatar'
@@ -127,10 +127,10 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
             className='delete-btn'
             size='small'
             variant='contained'
-            color={isDeleteing ? 'error' : 'primary'}
+            color={isDeleting ? 'error' : 'primary'}
             onClick={(event) => deletePostHandler(event, post.id)}
           >
-            {isDeleteing ? 'Confirm' : 'Delete'}
+            {isDeleting ? 'Confirm' : 'Delete'}
           </Button>
           <button
             className='post_edit_button'
@@ -138,11 +138,13 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
           >
             {checkIfEditing(post) ? 'Save' : 'Edit Post'}
           </button>
-          <button onClick={onToggleLikeHandler}>{heartIcon}</button>
-          <p>{post.postLikes[0].active}</p>
         </div>
       )}
       {<p className='edited'>{post.edited ? 'Edited' : ''}</p>}
+
+      <div className='heart' onClick={handleLike}>
+        {heartIcon} {countLikes(post.postLikes)}
+      </div>
     </li>
   );
 }
