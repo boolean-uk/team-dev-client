@@ -11,6 +11,7 @@ import HomePage from './components/Home';
 import client from './utils/client';
 import './App.css';
 import Profile from './components/profile/Profile';
+import ExercisePage from './components/ExercisePage';
 
 function App() {
   const [userDataToRender, setUserDataToRender] = useState([]);
@@ -58,6 +59,7 @@ function App() {
             }
           >
             <Route path='/log' element={<DeliveryLogDash />} />
+            <Route path='/exercises' element={<ExercisePage />} />
           </Route>
 
           <Route
