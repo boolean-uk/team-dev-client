@@ -11,6 +11,13 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
   const checkIfEditing = (post) => {
     return isEditing.editing && post.id === isEditing.postId;
   };
+  const acceptedRoles = ['TEACHER'];
+  const isPostDeletableByUser = (post) => {
+    return (
+      acceptedRoles.includes(loggedInUser.role) ||
+      loggedInUser.id === post.user.id
+    );
+  };
   const [postEdit, setPostEdit] = useState({ content: '' });
   const [isEditing, setIsEditing] = useState({ editing: false, postId: null });
   const [isDeleting, setIsDeleting] = useState(false);
@@ -102,7 +109,7 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
   function applyClasses() {
     return checkIfEditing(post)
       ? 'editing post-item'
-      : `post-item ${countLikes(post.postLikes) > 1 ? 'top-likes' : ''}`;
+      : `post-item ${countLikes(post.postLikes) > 9 ? 'top-likes' : ''}`;
   }
 
   return (
@@ -121,8 +128,8 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
         ></textarea>
       )) ||
         post.content}
-      {loggedInUser.id === post.user.id && (
-        <div className='button-container'>
+      <div className='button-container'>
+        {isPostDeletableByUser(post) && (
           <Button
             className='delete-btn'
             size='small'
@@ -132,14 +139,16 @@ export default function Post({ post, setPosts, posts, count, setCount }) {
           >
             {isDeleting ? 'Confirm' : 'Delete'}
           </Button>
+        )}
+        {loggedInUser.id === post.user.id && (
           <button
             className='post_edit_button'
             onClick={(e) => handlePostEdit(e, post.id, post.content)}
           >
             {checkIfEditing(post) ? 'Save' : 'Edit Post'}
           </button>
-        </div>
-      )}
+        )}
+      </div>
       {<p className='edited'>{post.edited ? 'Edited' : ''}</p>}
 
       <div className='heart' onClick={handleLike}>
