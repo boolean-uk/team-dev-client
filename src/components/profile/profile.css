@@ -79,7 +79,8 @@ li.note-item:hover {
   cursor: unset;
 }
 
-.note_edit_button {
+.note_edit_button,
+.note_submit_button {
   margin-left: 5px;
   border-radius: 5px;
   background-color: #f0f2f5;
@@ -123,4 +124,14 @@ li.note-item:hover {
 .three-column-expand-one {
   display: grid;
   grid-template-columns: 1fr auto auto;
+}
+
+.two-rows-expand-one {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.two-columns-expand-one {
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
