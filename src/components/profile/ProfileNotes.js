@@ -30,7 +30,7 @@ const ProfileNotes = ({ notes, setNotes }) => {
       <h2>Student Notes</h2>
       <div className='note-container auto-rows'>
         <div className='note-container notes two-rows-expand-one'>
-          <textarea
+          <textarea rows='4'
             name='content'
             placeholder='Add a note'
             onChange={(e) => handleNoteChange(e)}
