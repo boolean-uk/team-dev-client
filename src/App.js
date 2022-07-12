@@ -60,16 +60,6 @@ function App() {
           >
             <Route path='/log' element={<DeliveryLogDash />} />
             <Route path='/exercises' element={<ExercisePage />} />
-          </Route>
-
-          <Route
-            element={
-              <AuthenticateUser
-                redirectPath={'/home'}
-                requiredRole={['TEACHER']}
-              />
-            }
-          >
             <Route path='/cohorts/new' element={<AddCohortForm />} />
             <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
