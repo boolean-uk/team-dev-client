@@ -12,7 +12,9 @@ export default function CohortsPreviewListItem({ id, cohortName, handleClick }) 
         <span></span>
         <span>{cohortName}</span>
       </div>
-      <Button className='view-cohort-btn' variant={"outlined"} as={Link} to={`/cohorts/${id}`}>view</Button>
+      <Link to={`/cohorts/${id}`}>
+        <Button className='view-cohort-btn' variant={"outlined"}>view</Button>
+      </Link>
     </li>
   )
 }
