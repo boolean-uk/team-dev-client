@@ -22,7 +22,7 @@ export default function SudentsPreviewList({ id, handleClick }) {
           />
         ))}
       <li
-        className="cohorts-preview__list-item"
+        className="cohorts-preview__list-item-information"
         onClick={() => handleClick({ componentId: "cohorts" })}
       >
         <span>&#129144;</span>
