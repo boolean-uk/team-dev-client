@@ -15,10 +15,6 @@ export default function ExercisePage() {
         .catch((err) => console.error(err.response));
     }, []);
 
-    console.log("cohort Exercises are: ", cohortExercises)
-
-
-
     return (
     <>
     <Header companyName={`Cohort Manager 2.0`}/>
