@@ -11,6 +11,7 @@ import HomePage from './components/Home';
 import client from './utils/client';
 import './App.css';
 import Profile from './components/profile/Profile';
+import ExercisePage from './components/ExercisePage';
 
 function App() {
   const [userDataToRender, setUserDataToRender] = useState([]);
@@ -58,16 +59,7 @@ function App() {
             }
           >
             <Route path='/log' element={<DeliveryLogDash />} />
-          </Route>
-
-          <Route
-            element={
-              <AuthenticateUser
-                redirectPath={'/home'}
-                requiredRole={['TEACHER']}
-              />
-            }
-          >
+            <Route path='/exercises' element={<ExercisePage />} />
             <Route path='/cohorts/new' element={<AddCohortForm />} />
             <Route path='/cohorts/:id' element={<CohortPage />} />
           </Route>
