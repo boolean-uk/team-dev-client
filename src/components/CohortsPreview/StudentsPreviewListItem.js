@@ -7,7 +7,7 @@ export default function StudentsPreviewListItem({
   const name = `${first_name} ${last_name}`;
   return (
     <li
-      className="cohorts-preview__list-item"
+      className="cohorts-preview__list-item-information"
       onClick={(e) =>
         handleClick({ componentId: "student-summary", studentId: id })
       }
