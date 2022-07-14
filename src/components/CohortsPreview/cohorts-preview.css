@@ -23,7 +23,12 @@ ul {
 .cohorts-preview__list {
 }
 
-.cohorts-preview__list-item {
+.cohorts-preview__list-item{
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.cohorts-preview__list-item-information {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-content: center;
@@ -36,9 +41,19 @@ ul {
   background-color: #6a6a7c;
 }
 
-.cohorts-preview__list-item:hover {
+.cohorts-preview__list-item-information:hover {
   background-color: #1c1d20;
   cursor: pointer;
+}
+
+.view-cohort-btn{
+  height: 2rem;
+  margin-left: .5rem
+}
+
+.view-cohort-btn:hover{
+  color: white;
+  background-color: #1976d2 !important;
 }
 
 .student-summary {

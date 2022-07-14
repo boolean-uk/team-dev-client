@@ -58,9 +58,9 @@ const Header = ({ companyName }) => {
 
               {loggedInUser?.role === 'TEACHER' && 
                 <>
-                  <Button as={Link} to='/log'variant='contained'>Delivery Logs</Button>
-                  <Button as={Link} to='/cohorts/new' variant='contained'>Add Cohort</Button>
-                  <Button as={Link} to='/exercises' variant='contained'>Exercises</Button>
+                  <Link to='/log'><Button variant='contained'>Delivery Logs</Button></Link>
+                  <Link to='/cohorts/new'><Button variant='contained'>Add Cohort</Button></Link>
+                  <Link to='/exercises'><Button variant='contained'>Exercises</Button></Link>
                 </>
               }
               <Button className='signout-button' variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>

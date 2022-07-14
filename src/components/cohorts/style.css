@@ -8,8 +8,23 @@
   margin-left: 10%
 }
 
+.student-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1rem;
+}
+
+.cohort-name{
+  font-size: 2.5rem;
+}
+
 ul{
   list-style: none;
+}
+
+.dates{
+  font-size: 1rem;
+  color: darkgray;
 }
 
 .border {

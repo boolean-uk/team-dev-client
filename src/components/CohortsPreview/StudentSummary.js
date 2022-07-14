@@ -25,7 +25,7 @@ export default function StudentSummary({ id, handleClick }) {
         </div>}
 
       <div 
-        className='cohorts-preview__list-item'
+        className='cohorts-preview__list-item-information'
         onClick={() => handleClick({ componentId: 'cohorts'} )}
       >
         <span>&#129144;</span>
