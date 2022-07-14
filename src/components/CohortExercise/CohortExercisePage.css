@@ -1,0 +1,26 @@
+.cohortExercise-container {
+    width:75vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.unit-container {
+    padding: 12px;
+    margin: 24px;
+    background-color: white;
+    color: black;
+}
+
+.grid-three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 24px;
+}
+
+.exercise-container {
+    margin: 12px 0;
+    width: 200px;
+    height: 200px;
+    border: 1px solid red;
+}

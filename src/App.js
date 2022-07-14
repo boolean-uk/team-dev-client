@@ -8,6 +8,7 @@ import { loggedInUserContext } from './Helper/loggedInUserContext';
 import AddCohortForm from './components/cohorts/AddCohortForm';
 import RenderListOfStudents from './components/searchBar/RenderListOfStudents';
 import HomePage from './components/Home';
+import CohortExercisePage from './components/CohortExercise/CohortExercisePage'
 import client from './utils/client';
 import './App.css';
 import Profile from './components/profile/Profile';
@@ -48,6 +49,7 @@ function App() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/users-list' element={<RenderListOfStudents />} />
             <Route path='/profile/:id' element={<Profile />} />
+            <Route path='/profile/:id/exercises' element={<CohortExercisePage />} />
           </Route>
 
           <Route
