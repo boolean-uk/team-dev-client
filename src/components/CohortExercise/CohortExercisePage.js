@@ -7,7 +7,6 @@ import './CohortExercisePage.css'
 export default function ExercisePage() {
   const { loggedInUser } = useContext(loggedInUserContext);
   const [cohortExercises, setCohortExercises] = useState([]);
-  const [units, setUnits] = useState([])
 
   const sortToUnits = () => {
     cohortExercises.sort((cohortExercise, nextCohortExercise) => {
@@ -17,79 +16,43 @@ export default function ExercisePage() {
     })
 }
 
-  const createUnitsArray = () => {
-    sortToUnits()
-    const unitsArray = []
-    for(let i = 0; i < cohortExercises.length-1; i++) {
-        let unitArray = []
-        const currentUnitId = cohortExercises[i].cohortExercise.exercise.unitId
-        const nextUnitId = cohortExercises[i+1].cohortExercise.exercise.unitId
-       
-        if (currentUnitId === nextUnitId) {
-            unitArray.push(cohortExercises[i])
-        } else {
-            unitsArray.push(unitArray)
-            console.log("in the else statement: ", unitsArray)
-            unitArray = []
-        }
-        console.log("out of for loop: ", unitArray)
-    }  
-    console.log("let's check the unitsArray: ", unitsArray)  
-    setUnits(unitsArray)
-  } 
+const createUnitsArray = () => {
+  sortToUnits()
+  let exsByUnit = {}
+  cohortExercises.forEach(exercise => {
+    const unitId = exercise.cohortExercise.exercise.unitId
+    const unitKey = `unit${unitId}`
+    if ( !exsByUnit[unitKey] ) {
+        exsByUnit[unitKey] = []
+    }
 
-// loop through cohortExercises
-// create currentUnitId and nextUnitId
-// check if the next cohortExercise is the same as currentId
-// if it is the same, push it to an empty array
-// if not, reset the array empty and create a new array, push the cohortExercise
-// at the end, push all the created array into unitsArray
+    exsByUnit[unitKey].push(exercise)
+});
+return exsByUnit
+}
 
-
-//   create a function that pushes the created arrays into unit array
-
-
-//   const unitOne = [
-//     'Exercise one',
-//     'Exercise two',
-//     'Exercise three',
-//     'Exercise four',
-//     'Exercise five',
-//     'Exercise six',
-//     'Exercise seven',
-//     'Exercise eight'
-//   ];
-
-//   const unitTwo = ['Exercise one', 'Exercise two'];
-
-//   const unitThree = [
-//     'Exercise one',
-//     'Exercise two',
-//     'Exercise three',
-//     'Exercise four',
-//     'Exercise five',
-//   ];
-
-  useEffect(() => {
+useEffect(() => {
     client
       .get(`/cohort/${loggedInUser.cohort_id}/cohortExercises`)
-      .then((res) =>setCohortExercises(res.data.data.cohortExercises))
-      .then(() => createUnitsArray())
-      .catch((err) => console.error(err.response));
-  }, []);
+      .then((res) =>
+        setCohortExercises(res.data.data.cohortExercises))
+    .catch((err) => console.error(err.response));
+}, []);
 
-  return (
+const unitsObj = createUnitsArray()
+const units = Object.values(unitsObj)
+
+return (
     <div>
       <Header companyName={`Cohort Manager 2.0`} />
       <div className='cohortExercise-container'>
         {units.map((unit, unitIndex) => (
-          <ul className='unit-container' key={unitIndex}>
-            <li>
-             {/* Later replace unit name */}
-             <h2>Unit Name</h2> 
+            <ul className='unit-container' key={unitIndex}>
+            <li> 
+             <h2>{unit[0].cohortExercise.exercise.unit.unitName}</h2> 
              <ul className='grid-three-columns'>
               {unit.map((exercise, exerciseIndex) => (
-                <li className='exercise-container' key={exerciseIndex}>{exercise}</li>
+                <li className='exercise-container' key={exerciseIndex}>{exercise.cohortExercise.exercise.exerciseName}</li>
               ))}
              </ul>
             </li>
