@@ -45,7 +45,7 @@ const ConvoForm = ({setConversations}) => {
       target: { value }
     } = event;
     setPersonName(
-      typeof value === "string" ? value.split(",") : value
+      typeof value === 'string' ? value.split(',') : value
     )
     setPersonName([])
     setSelectUsers([])
