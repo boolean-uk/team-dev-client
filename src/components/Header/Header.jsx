@@ -60,6 +60,9 @@ const Header = ({ companyName }) => {
               <Link to='/home'>
                 <Button variant='contained'>Home</Button>
               </Link>
+              <Link to={`/messages/${loggedInUser.id}`}>
+                <Button variant='contained'>Messages</Button>
+              </Link>
 
               <Link to={`/profile/${loggedInUser.id}`}>
                 <Button variant='contained'>Profile</Button>

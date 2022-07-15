@@ -1,0 +1,116 @@
+
+.two-row-grid{
+    display: grid;
+    grid-template-rows: auto 600px;
+}
+
+.two-column-grid{
+    display: grid;
+    grid-template-columns: 300px 1100px;
+    margin-left: 255px;
+    margin-right: 250px;
+}
+
+.two-column-grid-auto{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-self: center;
+    
+}
+
+.five-column-grid{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto ;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+}
+
+.nav-convo-form{
+    background-color: rgba(137, 136, 133, 0.933); 
+    margin-top: 70px;
+    margin-right: 200px;
+    margin-left: 200px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 400px;
+}
+
+.group-names-container{
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 45px;
+    width: 150px;
+    overflow:hidden; overflow-y:scroll
+}
+
+li{
+    color:rgb(0, 0, 0);
+    font-weight: bolder;
+}
+
+/* Left side Convo List */ 
+
+.convolist-container{
+    background-color:#32323f;
+    border-bottom-left-radius: 30px
+    
+;
+}
+
+.convo-list{
+    border-bottom: solid 3px rgb(164, 155, 126) ;
+    padding: 10px 20px;
+    background-color: white;
+    padding: 10px 20px;
+}
+
+.convo-list:hover{
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgb(15, 103, 210);
+    cursor: pointer;
+}
+
+.click-convo.convo-list{
+    color: rgb(15, 103, 210);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/*Message Section */
+
+.message-board{
+    background-color: rgb(221, 220, 220);
+    display: grid;
+    grid-template-rows: auto 50px
+}
+
+.message-form{
+    display: grid;
+    grid-template-columns: 1fr auto;   
+}
+
+.loggedInUser{
+    background-color: rgb(51, 114, 231);
+    margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    display: block;
+    max-width: fit-content;
+}
+
+.notLoggedInUser{
+background-color: rgba(7, 201, 7, 0.995);
+margin: 10px;
+max-width: fit-content;
+border-radius: 5px;
+padding: 5px;
+
+}
+
+
+.input-message-form{
+    height: 40px;
+}
