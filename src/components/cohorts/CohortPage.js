@@ -7,7 +7,7 @@ import './style.css';
 const CohortPage = () => {
   const params = useParams();
   const navigate = useNavigate()
-  const [cohortName, setCohortName] = useState()
+  const [cohort, setCohort] = useState()
   const [studentsInCohort, setStudentsInCohort] = useState()
   const [availableUsers, setAvailableUsers] = useState()
 
@@ -15,7 +15,7 @@ const CohortPage = () => {
     client
         .get(`/cohort/${params.id}?availableStudents=true`)
         .then((res) => {
-          setCohortName(res.data.data.cohortName)
+          setCohort(res.data.data)
           setStudentsInCohort(res.data.data.users)
           setAvailableUsers(res.data.data.availableStudents)
         })
@@ -42,13 +42,20 @@ const CohortPage = () => {
     navigate(`../profile/${userId}`, { replace: true })
   }
 
+  const startDate = cohort?.startDate.split('T')[0]
+  const endDate = cohort?.endDate.split('T')[0]
+
   return (
       <>
         <Header companyName={`Cohort Manager 2.0`} />
         <div className='container'>
 
           <div className='border'>
-            <h2>Cohort Name: {cohortName}</h2>
+            <h2 className='cohort-name'>{cohort?.cohortName}</h2>
+            <h2><span className='dates'>Start Date: {startDate}</span></h2>
+            <h2><span className='dates'>End Date: {endDate}</span></h2>
+
+            <div className='student-container'>
             {studentsInCohort?.map((user, index) => (
               <div className='student' key={index}>
                 <h3>{user.user.first_name} {user.user.last_name}</h3> 
@@ -64,6 +71,7 @@ const CohortPage = () => {
                 </ul>
               </div>
             ))}
+            </div>
           </div>
 
           <div className='border'>
