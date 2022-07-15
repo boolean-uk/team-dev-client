@@ -37,7 +37,7 @@ useEffect(() => {
       .then((res) =>
         setCohortExercises(res.data.data.cohortExercises))
     .catch((err) => console.error(err.response));
-}, []);
+}, [loggedInUser.cohort_id]);
 
 const unitsObj = createUnitsArray()
 const units = Object.values(unitsObj)
