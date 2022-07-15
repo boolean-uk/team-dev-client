@@ -10,15 +10,6 @@ const Header = ({ companyName }) => {
   const { loggedInUser } = useContext(loggedInUserContext);
   let navigate = useNavigate();
 
-  const handleAddCohortClick = (event) => {
-    event.preventDefault();
-    navigate('../cohorts/new', { replace: true });
-  };
-
-	const onGotoDeliveryLogsPageRequested = () => {
-		navigate('../log');
-	};
-
   const signOut = (event) => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -70,8 +61,9 @@ const Header = ({ companyName }) => {
 
               {loggedInUser?.role === 'TEACHER' && 
                 <>
-                  <Button variant='contained' onClick={onGotoDeliveryLogsPageRequested }>Delivery Logs</Button>
-                  <Button variant='contained' onClick={handleAddCohortClick}>Add Cohort</Button>
+                  <Link to='/log'><Button variant='contained'>Delivery Logs</Button></Link>
+                  <Link to='/cohorts/new'><Button variant='contained'>Add Cohort</Button></Link>
+                  <Link to='/exercises'><Button variant='contained'>Exercises</Button></Link>
                 </>
               }
               <Button className='signout-button' variant='contained' id='user-signout-button' onClick={signOut}>Logout</Button>

@@ -1,0 +1,29 @@
+.exercise-li {
+    background-color: white;
+    border-radius: 5px;
+    margin: 30px;
+    padding: 10px;
+}
+
+.exercise-li>a {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+
+.exercise-li:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.exercise-form {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.exercise-form>* {
+    height: 100px;
+    margin-left: 10px;
+}

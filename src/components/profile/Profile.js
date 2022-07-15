@@ -1,11 +1,11 @@
-import { React, useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import Header from '../Header/Header';
-import client from '../../utils/client';
-import './profile.css';
-import { loggedInUserContext } from '../../Helper/loggedInUserContext';
-import ProfileNotes from './ProfileNotes';
-import ProfileSection from './profileSection';
+import { React, useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../Header/Header";
+import client from "../../utils/client";
+import "./profile.css";
+import { loggedInUserContext } from "../../Helper/loggedInUserContext";
+import ProfileNotes from "./ProfileNotes";
+import ProfileSection from "./profileSection";
 
 const Profile = () => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -31,8 +31,8 @@ const Profile = () => {
   useEffect(() => {
     if (userData.cohort_id) {
       client
-        .get(`/cohort/${userData.cohort_id}`)
-        .then((res) => setCohortName(res.data.data.cohortName))
+        .get(`/cohort/${userData.cohort_id}/name`)
+        .then((res) => setCohortName(res.data.data.cohort.cohort_name))
         .catch((err) => console.error(err.response));
     }
   }, [userData]);
@@ -70,8 +70,8 @@ const Profile = () => {
 
       <section
         className={
-          loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER'
-            ? 'split-two'
+          loggedInUser.role === "TEACHER" && userData.role !== "TEACHER"
+            ? "split-two"
             : null
         }
       >
@@ -86,7 +86,7 @@ const Profile = () => {
           setEditingProfile={setEditingProfile}
           cohortName={cohortName}
         />
-        {loggedInUser.role === 'TEACHER' && userData.role !== 'TEACHER' && (
+        {loggedInUser.role === "TEACHER" && userData.role !== "TEACHER" && (
           <ProfileNotes notes={notes} setNotes={setNotes} />
         )}
       </section>
