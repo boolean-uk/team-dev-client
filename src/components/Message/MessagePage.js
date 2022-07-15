@@ -19,7 +19,7 @@ const MessagePage = () => {
           .get(`/users/${loggedInUser.id}/conversations`)
           .then((res) => setConversations(res.data.data.conversations))
           .catch((err) => console.error(err.response));
-      },[])
+      },[loggedInUser.id])
 
     return(
         <>
@@ -34,7 +34,6 @@ const MessagePage = () => {
                 <Messages openConversation={openConversation} setOpenConversation={setOpenConversation}/>
             </section>
         </div>
-
         </div>
         </>
     )

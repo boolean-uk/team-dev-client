@@ -64,7 +64,7 @@ const ConvoForm = ({setConversations}) => {
       return member.id
     })}
     try{
-      const res = await client
+      await client
         .post('/conversations', postConvo )
     }catch(error){
       console.error(error.response)
