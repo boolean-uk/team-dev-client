@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import {Button,InputBase,Box, Select, TextField } from '@mui/material'
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
 import { useContext } from 'react'
 import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 import client from '../../utils/client';
@@ -117,7 +117,7 @@ const ConvoForm = ({setConversations}) => {
           renderValue={(selected) => selected.join(", ")}
         >
           {selectUsers.map((name) => {
-            const userName = name.first_name + ' ' + name.last_name
+            const userName = `${name.first_name} ${name.last_name}`
             return(
             <MenuItem key={userName} value={name.id}>
               <Checkbox checked={personName.indexOf(userName) > -1} />
