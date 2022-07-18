@@ -1,7 +1,7 @@
-import { useState } from "react"
-import client from "../../utils/client"
-import { useContext } from "react"
-import { loggedInUserContext } from "../../Helper/loggedInUserContext"
+import { useState } from 'react'
+import client from '../../utils/client'
+import { useContext } from 'react'
+import { loggedInUserContext } from '../../Helper/loggedInUserContext'
 
 const ConvoList = ({conversations, setOpenConversation, setConversations}) => {
     const { loggedInUser } = useContext(loggedInUserContext)
@@ -19,7 +19,7 @@ const ConvoList = ({conversations, setOpenConversation, setConversations}) => {
     return(
         <>
         <div className='convolist-container'>
-            <ul className="centering-ul">
+            <ul className='centering-ul'>
                 {conversations?.length > 0 && conversations.map((conversation, index) => {
                     const { name, users } = conversation
                     return(

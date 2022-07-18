@@ -25,7 +25,7 @@ const MessagePage = () => {
         <>
         <Header/>
         <div className='center-grid'>
-        <div className="two-row-grid">
+        <div className='two-row-grid'>
             <section className="nav-convo-form">
                 <ConvoForm setConversations={setConversations}/>
             </section>
