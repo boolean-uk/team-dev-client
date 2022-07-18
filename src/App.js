@@ -12,7 +12,8 @@ import CohortExercisePage from './components/CohortExercise/CohortExercisePage'
 import client from './utils/client';
 import './App.css';
 import Profile from './components/profile/Profile';
-import ExercisePage from './components/ExercisePage';
+import MessagePage from './components/Message/MessagePage'
+import ExercisePage from './components/ExercisePage'
 
 function App() {
   const [userDataToRender, setUserDataToRender] = useState([]);
@@ -49,7 +50,9 @@ function App() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/users-list' element={<RenderListOfStudents />} />
             <Route path='/profile/:id' element={<Profile />} />
+            <Route path= '/messages/:id' element={<MessagePage />}/>
             <Route path='/profile/:id/exercises' element={<CohortExercisePage />} />
+
           </Route>
 
           <Route
