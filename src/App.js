@@ -8,7 +8,7 @@ import Profile from './components/profile/Profile';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 function App() {
-  const [profileData, setProfileData] = useState({
+  const [profileData] = useState({
     first_name: "Nathan",
     last_name: "King",
     biography: "Hello world",
