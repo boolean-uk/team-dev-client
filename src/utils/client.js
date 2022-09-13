@@ -12,7 +12,7 @@ const client = {
     return axios.get(url, { headers })
   },
 
-  post: (path, data, withToken=true) => {
+  post: (path, data, withToken = true) => {
     const url = `${host}${path}`
     const token = localStorage.getItem(tokenKey)
     let headers = {}
