@@ -5,10 +5,8 @@ import './style.css'
 
 import Header from '../Header/Header';
 
-
 const Profile = ({ profileData }) => {
     const { first_name, last_name, biography, github_url } = profileData
-    console.log(first_name)
     return (
         <>
             <Header companyName={`Cohort Manager 2.0`} />
