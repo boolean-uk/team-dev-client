@@ -45,14 +45,17 @@ const Header = ({ companyName }) => {
 
         <Box>
           <nav>
-              <ul>
-                <li><NavLink to='/enrolment'>Enrolment</NavLink></li>
-              </ul>
+            <ul>
+              <li>
+                <NavLink to="/enrolment">Enrolment</NavLink>
+              </li>
+            </ul>
           </nav>
         </Box>
 
         <Box>
           <Stack spacing={2} direction="row">
+            <Button variant="contained">Profile</Button>
             <Button variant="contained">Add Cohort</Button>
             <Button variant="contained">Logout</Button>
           </Stack>
