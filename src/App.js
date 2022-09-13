@@ -2,6 +2,7 @@ import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
+import EnrolmentPage from './pages/enrollment'
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ function App() {
         <Route path='/signup' element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path='/posts' element={<PostsPage />} />
+          <Route path='/enrolment' element={<EnrolmentPage />} />
         </Route>
       </Routes>
     </div>
