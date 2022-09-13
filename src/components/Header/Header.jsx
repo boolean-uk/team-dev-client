@@ -51,9 +51,11 @@ const Header = ({ companyName }) => {
         </Box>
 
         <Box>
-          <Stack spacing={2} direction="row">
-            <Button variant="contained">Add Cohort</Button>
-            <Button variant="contained">Logout</Button>
+
+          <Stack spacing={2} direction='row'>
+          <Button variant='contained'>Profile</Button>
+          <Button variant='contained'>Add Cohort</Button>
+          <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>
       </Box>
