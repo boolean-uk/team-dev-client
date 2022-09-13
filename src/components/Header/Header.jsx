@@ -3,8 +3,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
+import { useState } from 'react';
 
-const Header = ({ companyName }) => {
+const Header = ({ companyName, isTeacher}) => {
+  
+
+ console.log("header teacher check:",isTeacher)
+
+  
   return (
     <>
       <Box
@@ -35,7 +41,7 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
-          <Button variant='contained'>Add Cohort</Button>
+          {isTeacher && <Button variant='contained'>Create Cohort</Button>}
           <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>
