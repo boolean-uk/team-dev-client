@@ -2,6 +2,7 @@ import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
 import PostsPage from './components/posts/PostsPage';
+import Profile from './components/profile/Profile';
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<RegistrationPage />} />
+        <Route path='/profile' element={<Profile />} />
         <Route element={<AuthenticateUser />}>
           <Route path='/posts' element={<PostsPage />} />
         </Route>
