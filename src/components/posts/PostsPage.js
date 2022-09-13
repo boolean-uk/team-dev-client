@@ -4,8 +4,6 @@ import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
 
-import Header from '../Header/Header';
-
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
