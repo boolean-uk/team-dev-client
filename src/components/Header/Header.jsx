@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Header = ({ companyName }) => {
   return (
@@ -44,7 +44,9 @@ const Header = ({ companyName }) => {
 
         <Box>
           <nav>
-
+              <ul>
+                <li><NavLink to='/enrolment'>Enrolment</NavLink></li>
+              </ul>
           </nav>
         </Box>
 
