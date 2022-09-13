@@ -5,13 +5,14 @@ import PostsPage from './components/posts/PostsPage';
 import EnrolmentPage from './pages/enrollment'
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import Header from './components/Header/Header';
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/signup' element={<RegistrationPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path='/posts' element={<PostsPage />} />
           <Route path='/enrolment' element={<EnrolmentPage />} />
@@ -33,5 +34,5 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <Outlet />;
+  return <Header companyName={`Cohort Manager 2.0`} />;
 };
