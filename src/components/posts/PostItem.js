@@ -17,6 +17,11 @@ const PostItem = ({ post }) => {
       </div>
 
       <p className='post-content'>{post.content}</p>
+
+      <div className="modify-btn-wrap">
+        <button className="modify-btn">Edit</button>
+        <button className="modify-btn">Delete</button>
+      </div>
     </li>
   );
 };
