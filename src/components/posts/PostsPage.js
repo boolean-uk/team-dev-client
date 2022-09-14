@@ -48,7 +48,7 @@ const PostsPage = () => {
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         <ul className="posts-list">
-          {posts.map((post, index) => (
+          {posts?.map((post, index) => (
             <li key={index} className="post-item">
               {post.content}
             </li>
