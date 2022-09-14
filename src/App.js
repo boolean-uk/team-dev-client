@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import jwt_decode from "jwt-decode";
 import './App.css';
 import LoginPage from './components/users/login/LoginPage';
 import RegistrationPage from './components/users/registration/RegistrationPage';
@@ -14,6 +15,38 @@ function App() {
     biography: 'Hello world',
     github_url: 'https://github.com/vherus',
   });
+
+  const [user, setUser] = useState({
+    first_name: "Nathan",
+    last_name: "King",
+    biography: "Hello world",
+    github_url: "https://github.com/vherus"
+  })
+
+  const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
+
+  useEffect(() => {
+    const userId = getLoggedInUserId()
+    if (userId === null) {
+      return
+    }
+    fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+      method: "GET",
+      headers: { Authorization: token }
+    })
+      .then(resp => resp.json())
+      .then(data => setUser(data.data.user))
+    // eslint-disable-next-line
+  }, [])
+
+  const getLoggedInUserId = () => {
+    const loadedToken = localStorage.getItem('token');
+    if (loadedToken === null) {
+      return null
+    }
+    const decoded = jwt_decode(loadedToken)
+    return decoded.userId
+  }
 
   return (
     <div className='App'>
