@@ -1,9 +1,9 @@
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
-import './style.css';
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import Link from "@mui/material/Link";
+import "./style.css";
 
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 
 const Profile = ({ profileData }) => {
   const { first_name, last_name, biography, github_url } = profileData;
@@ -20,7 +20,7 @@ const Profile = ({ profileData }) => {
           <h1>
             {first_name} {last_name}
           </h1>
-          <Link href={github_url} sx={{ textDecoration: 'none' }}>
+          <Link href={github_url} sx={{ textDecoration: "none" }}>
             GitHub Profile
           </Link>
           <p>{biography}</p>

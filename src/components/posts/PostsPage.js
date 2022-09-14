@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PostForm from './PostForm';
-import client from '../../utils/client';
-import './style.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import PostForm from "./PostForm";
+import client from "../../utils/client";
+import "./style.css";
 
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 
 const PostsPage = () => {
-  const [post, setPost] = useState({ content: '' });
-  const [postResponse, setPostResponse] = useState('');
+  const [post, setPost] = useState({ content: "" });
+  const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get('/posts').then(res => setPosts(res.data.data.posts));
+    client.get("/posts").then(res => setPosts(res.data.data.posts));
   }, []);
 
   const createPost = async event => {
     event.preventDefault();
     client
-      .post('/post', post)
+      .post("/post", post)
       .then(res => setPostResponse(res.data))
       .catch(data => {
         console.log(data);
@@ -37,8 +37,8 @@ const PostsPage = () => {
 
   const signOut = event => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
+    navigate("../", { replace: true });
   };
 
   return (
