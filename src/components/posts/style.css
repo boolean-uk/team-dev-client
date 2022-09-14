@@ -6,6 +6,13 @@
   margin: 20px;
 }
 
+.teacher-section{
+  display: grid;
+  align-items: center;
+}
+
+
+
 .post-item {
 
 }

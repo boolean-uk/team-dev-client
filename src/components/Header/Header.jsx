@@ -3,16 +3,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import client from "../../utils/client";
 
-const Header = ({ companyName, isTeacher}) => {
+
+const Header = ({ companyName}) => {
   
- console.log("header teacher check:",isTeacher)
 
- function createCohort(event){
+ 
+ 
+
+ /*function createCohort(event){
   event.preventDefault();
   client.post("/cohort").then((res)=>{alert(`cohort ${res.data.data.cohort.id} created`)})
- }
+ }*/
 
   
   return (
@@ -45,7 +47,7 @@ const Header = ({ companyName, isTeacher}) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
-          {isTeacher && <Button variant='contained' onClick={createCohort}>Create Cohort</Button>}
+          
           <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>

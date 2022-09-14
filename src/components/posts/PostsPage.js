@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostForm from "./PostForm";
 import client from "../../utils/client";
 import "./style.css";
 import jwt_decode from "jwt-decode";
+import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 
 import Header from "../Header/Header";
 
@@ -17,6 +19,10 @@ const PostsPage = () => {
 
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
+
+  //useEffect(() => {
+  //   client.get("/cohort").then((res) => setCohorts(res.data.data.cohort));
+  // }, []);
 
   let navigate = useNavigate();
 
@@ -65,21 +71,42 @@ const PostsPage = () => {
     navigate("../", { replace: true });
   };
 
+  function createCohort(event) {
+    event.preventDefault();
+    client.post("/cohort").then((res) => {
+      console.log("create cohort res data:", res.data);
+      if (res.data.status === "success") {
+        alert(`cohort ${res.data.data.cohort.id} created`);
+      } else {
+        alert(`error`);
+      }
+    });
+  }
+
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} isTeacher={isTeacher} />
+      <Header
+        companyName={`Cohort Manager 2.0`}
+        isTeacher={isTeacher}
+        createCohort={createCohort}
+      />
 
-      {isTeacher && <div className="teacher__section">
-        <h3>Teacher Area</h3>
-        <section className="cohort-list">
-          <h4>Cohort List</h4>
-          {cohorts.map((cohort, index) => {
-            return(
-              <p>{cohort}</p>
-            )
-          })}
-        </section>
-      </div>}
+      {isTeacher && (
+        <div className="teacher-section">
+          <h3>Teacher Area</h3>
+          <Box testAlign="center">
+            <Button variant="contained" onClick={createCohort}>
+              Create Cohort
+            </Button>
+          </Box>
+          <section className="cohort-list">
+            <h4>Cohort List</h4>
+            {cohorts.map((cohort) => {
+              return <p>{cohort}</p>;
+            })}
+          </section>
+        </div>
+      )}
 
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
