@@ -1,0 +1,18 @@
+.container {
+    display: grid;
+    width: 60%;
+    grid-template-columns: 600px 200px 200px;
+    border: grey 1px solid;
+    padding: 20px;
+    margin: 5px
+
+}
+
+.studentCard {
+    display: grid;
+    grid-template-columns: 100px 100px 1fr;
+    align-items: center;
+    border: white solid 2px;
+    padding: 2px;
+    height: 75px
+}
