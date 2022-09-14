@@ -9,20 +9,20 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 function App() {
   const [profileData] = useState({
-    first_name: "Nathan",
-    last_name: "King",
-    biography: "Hello world",
-    github_url: "https://github.com/vherus"
-  })
+    first_name: 'Nathan',
+    last_name: 'King',
+    biography: 'Hello world',
+    github_url: 'https://github.com/vherus',
+  });
 
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/signup' element={<RegistrationPage />} />
-        <Route path='/profile' element={<Profile profileData={profileData} />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+        <Route path="/profile" element={<Profile profileData={profileData} />} />
         <Route element={<AuthenticateUser />}>
-          <Route path='/posts' element={<PostsPage />} />
+          <Route path="/posts" element={<PostsPage />} />
         </Route>
       </Routes>
     </div>

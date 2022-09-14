@@ -13,20 +13,20 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get('/posts').then((res) => setPosts(res.data.data.posts));
+    client.get('/posts').then(res => setPosts(res.data.data.posts));
   }, []);
 
-  const createPost = async (event) => {
+  const createPost = async event => {
     event.preventDefault();
     client
       .post('/post', post)
-      .then((res) => setPostResponse(res.data))
-      .catch((data) => {
+      .then(res => setPostResponse(res.data))
+      .catch(data => {
         console.log(data);
       });
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
     setPost({
@@ -35,7 +35,7 @@ const PostsPage = () => {
     });
   };
 
-  const signOut = (event) => {
+  const signOut = event => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
     navigate('../', { replace: true });
@@ -44,15 +44,15 @@ const PostsPage = () => {
   return (
     <>
       <Header companyName={`Cohort Manager 2.0`} />
-      <section className='posts-section'>
-        <button id='user-signout-button' onClick={signOut}>
+      <section className="posts-section">
+        <button id="user-signout-button" onClick={signOut}>
           sign out
         </button>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className='posts-list'>
+        <ul className="posts-list">
           {posts.map((post, index) => (
-            <li key={index} className='post-item'>
+            <li key={index} className="post-item">
               {post.content}
             </li>
           ))}

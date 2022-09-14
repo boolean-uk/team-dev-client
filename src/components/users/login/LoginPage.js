@@ -15,19 +15,19 @@ const LoginPage = () => {
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
-  const loginUser = (event) => {
+  const loginUser = event => {
     event.preventDefault();
     client
       .post('/login', user)
-      .then((res) => {
+      .then(res => {
         localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
         setLoginResponse(res.data);
         navigate('../posts', { replace: true });
       })
-      .catch((err) => console.log(err.response));
+      .catch(err => console.log(err.response));
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
 
@@ -38,14 +38,14 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='login-page'>
+    <div className="login-page">
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id='user-registration-link' to='/signup'>
+      <Link id="user-registration-link" to="/signup">
         sign up!
       </Link>
-      <Link id='user-login-link' to='/'>
+      <Link id="user-login-link" to="/">
         login!
       </Link>
       <h1>Login</h1>
