@@ -1,7 +1,9 @@
+import UserList from './components/UserList';
+
 const Enrollment = () => {
   return (
     <div>
-      <div></div>
+      <UserList />
     </div>
   );
 };
