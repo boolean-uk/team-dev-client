@@ -6,7 +6,7 @@ import PostsPage from "./components/posts/PostsPage";
 import EnrolmentPage from "./pages/enrollment";
 import Profile from "./components/profile/Profile";
 
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 
 function App() {
