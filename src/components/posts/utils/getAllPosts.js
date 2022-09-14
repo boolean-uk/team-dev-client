@@ -30,8 +30,8 @@ function formatTime(timeString) {
 
 export function renderPosts(setPosts) {
   client.get('/posts').then((res) => {
-    const posts = res.data.data;
-    const formattedPosts = posts.map((post) => {
+    const postsFetched = res.data.data;
+    const formattedPosts = postsFetched.map((post) => {
       post.createdAt = formatTime(post.createdAt);
       return post;
     });
