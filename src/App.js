@@ -16,7 +16,8 @@ function App() {
     github_url: 'https://github.com/vherus',
   });
 
-  const [user, setUser] = useState({
+  // eslint-disable-next-line no-unused-vars
+  const [_user, setUser] = useState({
     first_name: "Nathan",
     last_name: "King",
     biography: "Hello world",

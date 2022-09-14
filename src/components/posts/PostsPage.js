@@ -14,7 +14,7 @@ const PostsPage = () => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
-  const [cohorts, setCohorts] = useState([]);
+  const [cohorts] = useState([]);
 
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
@@ -35,7 +35,7 @@ const PostsPage = () => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);
     });
-  }, []);
+  },[tokenKey]);
 
   const createPost = async (event) => {
     event.preventDefault();
