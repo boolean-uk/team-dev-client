@@ -1,21 +1,21 @@
-import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Box } from "@mui/system";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Stack } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Header = ({ companyName }) => {
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          backgroundColor: 'grey',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          width: '100vw',
-          padding: '1em',
+          display: "flex",
+          backgroundColor: "grey",
+          justifyContent: "space-between",
+          alignContent: "center",
+          width: "100vw",
+          padding: "1em",
         }}
       >
         <Box>
@@ -27,15 +27,15 @@ const Header = ({ companyName }) => {
 
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
           }}
         >
-          <Box sx={{ backgroundColor: 'white' }}>
+          <Box sx={{ backgroundColor: "white" }}>
             <InputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
             />
           </Box>
           <Box>
