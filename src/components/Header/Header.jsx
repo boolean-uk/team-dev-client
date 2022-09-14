@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 
+
 const Header = ({ companyName }) => {
   return (
     <>
@@ -35,7 +36,7 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
-          <Button variant='contained'>Profile</Button>
+          <Button variant='contained' href="/profile" >Profile</Button>
           <Button variant='contained'>Add Cohort</Button>
           <Button variant='contained'>Logout</Button>
           </Stack>
