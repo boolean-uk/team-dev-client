@@ -28,11 +28,11 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="registration-page">
-      <Link id="user-registration-link" to="/signup">
+    <div className='registration-page'>
+      <Link id='user-registration-link' to='/signup'>
         sign up
       </Link>{' '}
-      <Link id="user-login-link" to="/">
+      <Link id='user-login-link' to='/'>
         login
       </Link>
       <h1>Sign up</h1>

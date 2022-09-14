@@ -10,13 +10,13 @@ const Profile = ({ profileData }) => {
   return (
     <>
       <Header companyName={`Cohort Manager 2.0`} />
-      <div className="profile">
+      <div className='profile'>
         <Avatar
-          alt="Profile Pic"
+          alt='Profile Pic'
           sx={{ width: 350, height: 350 }}
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg"
+          src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg'
         />
-        <div className="profile-info">
+        <div className='profile-info'>
           <h1>
             {first_name} {last_name}
           </h1>
@@ -25,7 +25,7 @@ const Profile = ({ profileData }) => {
           </Link>
           <p>{biography}</p>
         </div>
-        <Button variant="contained">Edit Profile</Button>
+        <Button variant='contained'>Edit Profile</Button>
       </div>
     </>
   );

@@ -48,7 +48,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page">
+    <div className='login-page'>
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
@@ -58,7 +58,6 @@ const LoginPage = () => {
       </Link>
       <Link id='user-login-link' to='/'>
         login!
-
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>

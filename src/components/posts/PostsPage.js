@@ -15,13 +15,10 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts, setCohorts] = useState([]);
-  
+
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
-
   let navigate = useNavigate();
-
-
 
   useEffect(() => {
     const token = localStorage.getItem(tokenKey);
@@ -30,7 +27,7 @@ const PostsPage = () => {
     let id = decoded.userId;
 
     client.get(`/user/${id}`).then((res) => {
-      if (res.data.data.user.role === "TEACHER") {
+      if (res.data.data.user.role === 'TEACHER') {
         setIsTeacher(true);
       }
     });
@@ -45,8 +42,7 @@ const PostsPage = () => {
     client
       .post('/post', post)
       .then((res) => setPostResponse(res.data))
-      .catch((data) => {
-      });
+      .catch((data) => {});
   };
 
   const handleChange = (event) => {
@@ -66,9 +62,9 @@ const PostsPage = () => {
 
   function createCohort(event) {
     event.preventDefault();
-    client.post("/cohort").then((res) => {
-      console.log("create cohort res data:", res.data);
-      if (res.data.status === "success") {
+    client.post('/cohort').then((res) => {
+      console.log('create cohort res data:', res.data);
+      if (res.data.status === 'success') {
         alert(`cohort ${res.data.data.cohort.id} created`);
       } else {
         alert(`error`);
@@ -85,14 +81,14 @@ const PostsPage = () => {
       />
 
       {isTeacher && (
-        <div className="teacher-section">
+        <div className='teacher-section'>
           <h3>Teacher Area</h3>
-          <Box testAlign="center">
-            <Button variant="contained" onClick={createCohort}>
+          <Box testAlign='center'>
+            <Button variant='contained' onClick={createCohort}>
               Create Cohort
             </Button>
           </Box>
-          <section className="cohort-list">
+          <section className='cohort-list'>
             <h4>Cohort List</h4>
             {cohorts.map((cohort) => {
               return <p>{cohort}</p>;
@@ -101,16 +97,16 @@ const PostsPage = () => {
         </div>
       )}
 
-      <section className="posts-section">
-        <button id="user-signout-button" onClick={signOut}>
+      <section className='posts-section'>
+        <button id='user-signout-button' onClick={signOut}>
           sign out
         </button>
 
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className="posts-list">
+        <ul className='posts-list'>
           {posts?.map((post, index) => (
-            <li key={index} className="post-item">
+            <li key={index} className='post-item'>
               {post.content}
             </li>
           ))}
