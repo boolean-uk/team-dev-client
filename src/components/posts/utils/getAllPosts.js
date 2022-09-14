@@ -26,12 +26,13 @@ function formatTime(timeString) {
   return formatted;
 }
 
-export async function getAllPostsFormatted() {
-  await client.get("/posts").then((res) => {
-    const posts = res.data.data.posts;
-    const formattedPosts = posts.map(
-      (post) => (post.createdAt = formatTime(post.createdAt))
-    );
-    return formattedPosts;
+export function renderPosts(setPosts) {
+  client.get("/posts").then((res) => {
+    const posts = res.data.data;
+    const formattedPosts = posts.map((post) => {
+      post.createdAt = formatTime(post.createdAt);
+      return post;
+    });
+    setPosts(formattedPosts);
   });
 }

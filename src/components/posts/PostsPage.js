@@ -5,7 +5,7 @@ import client from "../../utils/client";
 import "./style.css";
 
 import Header from "../Header/Header";
-import { getAllPostsFormatted } from "./utils/getAllPosts";
+import { renderPosts } from "./utils/getAllPosts";
 import PostItem from "./PostItem";
 
 const PostsPage = () => {
@@ -15,12 +15,7 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    const renderPosts = async () => {
-      const formattedPosts = await getAllPostsFormatted();
-      setPosts(formattedPosts);
-    };
-
-    renderPosts();
+    renderPosts(setPosts);
     // eslint-disable-next-line
   }, []);
 
