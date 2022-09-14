@@ -17,8 +17,8 @@ const UserListItem = ({
 
   return (
     <div>
-      <div>
-        <div>
+      <div className="container">
+        <div className="studentCard">
           <div>picture</div>
           <p>
             {first_name} {last_name}
@@ -30,7 +30,7 @@ const UserListItem = ({
       <div>
         <form onSubmit={handleSubmit}>
           <select name="cohortList" id="cohortList" required>
-            <option disabled selected></option>
+            <option value="Please Select" disabled selected></option>
             {cohorts.map(cohort => (
               <option value={cohort.cohort_id}>{cohort.cohort_id}</option>
             ))}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import client from '../../../utils/client';
 import UserListItem from './UserListItem';
+import './style.css';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
