@@ -48,7 +48,9 @@ const Header = ({ companyName }) => {
             <Button variant="contained">
               <NavLink to="/enrolment">Enrolment</NavLink>
             </Button>
-            <Button variant="contained">Profile</Button>
+            <Button variant="contained" href="/profile">
+              Profile
+            </Button>
             <Button variant="contained">Add Cohort</Button>
             <Button variant="contained">Logout</Button>
           </Stack>
