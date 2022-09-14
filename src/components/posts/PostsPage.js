@@ -12,19 +12,38 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
 
+  // useEffect(() => {
+  //   client.get('/posts').then((res) => setPosts(res.data.data.posts));
+  // }, []);
+  // //console.log("setPosts", setPost)
+
+  const getAllPosts = async () => {
+   // const formattedPosts = await getAllPostsFormatted();
+    //setPosts(formattedPosts);
+    console.log("hello there")
+  };
+
   useEffect(() => {
-    client.get('/posts').then((res) => setPosts(res.data.data.posts));
+
+    getAllPosts();
   }, []);
+
+ 
+  
 
   const createPost = async (event) => {
     event.preventDefault();
     client
       .post('/post', post)
-      .then((res) => setPostResponse(res.data))
+      .then((res) => setPostResponse(res))
+      .then(getAllPosts())
       .catch((data) => {
-        console.log(data);
+        console.log("created new data", data);
+        // check if you need to catch errors
       });
   };
+console.log("postResponse", postResponse)
+// fetch not working
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -34,6 +53,7 @@ const PostsPage = () => {
       [name]: value,
     });
   };
+  console.log("handleChange", post)
 
   const signOut = (event) => {
     event.preventDefault();
