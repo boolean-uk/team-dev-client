@@ -25,6 +25,7 @@ function App() {
     })
       .then(resp => resp.json())
       .then(data => setUser(data.data.user))
+    // eslint-disable-next-line
   }, [])
 
   return (
