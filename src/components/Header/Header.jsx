@@ -5,6 +5,7 @@ import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 
 
+
 const Header = ({ companyName}) => {
   
 
@@ -47,7 +48,9 @@ const Header = ({ companyName}) => {
 
         <Box>
           <Stack spacing={2} direction='row'>
-          
+
+          <Button variant='contained' href="/profile" >Profile</Button>
+
           <Button variant='contained'>Logout</Button>
           </Stack>
         </Box>
