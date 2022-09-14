@@ -18,18 +18,15 @@ const PostsPage = () => {
   // //console.log("setPosts", setPost)
 
   const getAllPosts = async () => {
-   // const formattedPosts = await getAllPostsFormatted();
+    //const formattedPosts = await getAllPostsFormatted();
     //setPosts(formattedPosts);
-    console.log("hello there")
+    //console.log("hello there")
   };
 
   useEffect(() => {
 
     getAllPosts();
   }, []);
-
- 
-  
 
   const createPost = async (event) => {
     event.preventDefault();
@@ -38,11 +35,11 @@ const PostsPage = () => {
       .then((res) => setPostResponse(res))
       .then(getAllPosts())
       .catch((data) => {
-        console.log("created new data", data);
+        console.log('created new data', data);
         // check if you need to catch errors
       });
   };
-console.log("postResponse", postResponse)
+console.log('postResponse', postResponse)
 // fetch not working
 
   const handleChange = (event) => {
@@ -53,7 +50,7 @@ console.log("postResponse", postResponse)
       [name]: value,
     });
   };
-  console.log("handleChange", post)
+  console.log('handleChange', post)
 
   const signOut = (event) => {
     event.preventDefault();
