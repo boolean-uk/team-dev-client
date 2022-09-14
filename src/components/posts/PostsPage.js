@@ -16,14 +16,16 @@ const PostsPage = () => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts] = useState([]);
 
-  const tokenKey = process.env.REACT_APP_USER_TOKEN;
+  
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(tokenKey);
+    
+    const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
+    if(!token){ return }
     const decoded = jwt_decode(token);
-    console.log(decoded);
+    
     let id = decoded.userId;
 
     client.get(`/user/${id}`).then((res) => {
@@ -35,7 +37,7 @@ const PostsPage = () => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);
     });
-  },[tokenKey]);
+  });
 
   const createPost = async (event) => {
     event.preventDefault();
