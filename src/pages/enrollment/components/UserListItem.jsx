@@ -26,11 +26,10 @@ const UserListItem = ({
           <p>{email}</p>
         </div>
         <div>{cohort_id || 'Not Enrolled'}</div>
-      </div>
-      <div>
+
         <form onSubmit={handleSubmit}>
           <select name="cohortList" id="cohortList" required>
-            <option value="Please Select" disabled selected></option>
+            <option disabled selected></option>
             {cohorts.map(cohort => (
               <option value={cohort.cohort_id}>{cohort.cohort_id}</option>
             ))}
