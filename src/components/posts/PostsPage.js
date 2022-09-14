@@ -22,6 +22,7 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
 
+
   useEffect(() => {
     const token = localStorage.getItem(tokenKey);
     const decoded = jwt_decode(token);
@@ -45,12 +46,10 @@ const PostsPage = () => {
       .post("/post", post)
       .then((res) => setPostResponse(res.data))
       .catch((data) => {
-        console.log(data);
       });
   };
 
   const handleChange = (event) => {
-    console.log('event', event.target);
     event.preventDefault();
     const { value, name } = event.target;
     setPost({
