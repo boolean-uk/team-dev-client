@@ -17,7 +17,7 @@ const UserListItem = ({
 
   return (
     <div>
-      <div className="container">
+      <div className="enrolment-container">
         <div className="studentCard">
           <div>picture</div>
           <p>
