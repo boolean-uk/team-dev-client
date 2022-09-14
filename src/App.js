@@ -16,10 +16,10 @@ function App() {
     github_url: "https://github.com/vherus"
   })
 
-  const [token] = useState(`Bearer ${process.env.REACT_APP_USER_TOKEN}`)
+  const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/user/4`, {
+    fetch(`${process.env.REACT_APP_API_URL}/user/3`, {
       method: "GET",
       headers: { Authorization: token }
     })
