@@ -1,13 +1,39 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+import client from '../../../utils/client';
 import UserListItem from './UserListItem';
 
 const UserList = () => {
-  const users = [{ name: 'Hi' }, { name: 'Hi' }, { name: 'Hi' }];
+  const [users, setUsers] = useState([]);
+  const [cohorts, setCohorts] = useState([{ cohort_id: 1 }, { cohort_id: 2 }]);
+  const [error, setError] = useState('');
+
+  // useEffect(() => {
+  //   client
+  //     .get('/user')
+  //     .then(res => setCohorts(res.data.data.cohorts))
+  //     .catch(err => setError('error'));
+  // }, []);
+
+  useEffect(() => {
+    client
+      .get('/user')
+      .then(res => setUsers(res.data.data.users))
+      .catch(err => setError('error'));
+  }, []);
+
   return (
-    <div>
-      {users.map(user => (
-        <UserListItem {...user} />
-      ))}
-    </div>
+    <>
+      {error ? (
+        <h2>Something went wrong</h2>
+      ) : (
+        <div>
+          {users.map(user => (
+            <UserListItem {...user} cohorts={cohorts} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
