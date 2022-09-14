@@ -15,7 +15,7 @@ const PostsPage = () => {
   const [cohorts, setCohorts] = useState([]);
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
-  // useEffect(() => {
+  //useEffect(() => {
   //   client.get("/cohort").then((res) => setCohorts(res.data.data.cohort));
   // }, []);
 
@@ -65,21 +65,38 @@ const PostsPage = () => {
     navigate("../", { replace: true });
   };
 
+  function createCohort(event) {
+    event.preventDefault();
+    client.post("/cohort").then((res) => {
+      console.log("create cohort res data:", res.data);
+      if (res.data.status === "success") {
+        alert(`cohort ${res.data.data.cohort.id} created`);
+      } else {
+        alert(`error`);
+      }
+    });
+  }
+
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} isTeacher={isTeacher} />
+      <Header
+        companyName={`Cohort Manager 2.0`}
+        isTeacher={isTeacher}
+        createCohort={createCohort}
+      />
 
-      {isTeacher && <div className="teacher__section">
-        <h3>Teacher Area</h3>
-        <section className="cohort-list">
-          <h4>Cohort List</h4>
-          {cohorts.map((cohort, index) => {
-            return(
-              <p>{cohort}</p>
-            )
-          })}
-        </section>
-      </div>}
+      {isTeacher && (
+        <div className="teacher-section">
+          <h3>Teacher Area</h3>
+          <button onClick={createCohort}>Create Cohort</button>
+          <section className="cohort-list">
+            <h4>Cohort List</h4>
+            {cohorts.map((cohort) => {
+              return <p>{cohort}</p>;
+            })}
+          </section>
+        </div>
+      )}
 
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
