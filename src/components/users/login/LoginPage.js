@@ -36,7 +36,7 @@ const LoginPage = () => {
         console.log(err.response);
         setLoginError(true);
         setTimeout(() => {
-          setLoginError("");
+          setLoginError(false);
         }, "2000");
       });
   };
@@ -65,10 +65,8 @@ const LoginPage = () => {
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
-      {loginError ? (
+      {loginError && (
         <Alert severity="error">Email or Password is incorrect</Alert>
-      ) : (
-        <></>
       )}
     </div>
   );
