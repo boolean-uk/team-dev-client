@@ -5,19 +5,13 @@ import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 
 
-
 const Header = ({ companyName}) => {
   
-
- 
- 
-
  /*function createCohort(event){
   event.preventDefault();
   client.post("/cohort").then((res)=>{alert(`cohort ${res.data.data.cohort.id} created`)})
  }*/
 
-  
   return (
     <>
       <Box

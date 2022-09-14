@@ -16,11 +16,11 @@ const PostsPage = () => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts, setCohorts] = useState([]);
   
-
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
 
   let navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem(tokenKey);
@@ -29,11 +29,9 @@ const PostsPage = () => {
     let id = decoded.userId;
 
     client.get(`/user/${id}`).then((res) => {
-      console.log("res", res);
       if (res.data.data.user.role === "TEACHER") {
         setIsTeacher(true);
       }
-      console.log(isTeacher);
     });
 
     client.get("/posts").then((res) => {
@@ -70,7 +68,6 @@ const PostsPage = () => {
   function createCohort(event) {
     event.preventDefault();
     client.post("/cohort").then((res) => {
-      console.log("create cohort res data:", res.data);
       if (res.data.status === "success") {
         alert(`cohort ${res.data.data.cohort.id} created`);
       } else {

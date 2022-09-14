@@ -27,7 +27,6 @@ const LoginPage = () => {
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
         );
-        console.log(res.data.data.user.role);
 
         setLoginResponse(res.data);
 
