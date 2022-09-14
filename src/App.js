@@ -51,10 +51,10 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
-        <Route path="/profile" element={<Profile profileData={user} />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
+          <Route path="/profile" element={<Profile profileData={user} />} />
         </Route>
       </Routes>
     </div>
