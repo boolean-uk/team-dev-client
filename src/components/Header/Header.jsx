@@ -54,18 +54,10 @@ const Header = ({ companyName }) => {
         </Box>
 
         <Box>
-<<<<<<< HEAD
-
-          <Stack spacing={2} direction='row'>
-          <Button variant='contained'>Profile</Button>
-          <Button variant='contained'>Add Cohort</Button>
-          <Button variant='contained'>Logout</Button>
-=======
           <Stack spacing={2} direction="row">
             <Button variant="contained">Profile</Button>
             <Button variant="contained">Add Cohort</Button>
             <Button variant="contained">Logout</Button>
->>>>>>> af457ddaee5e179646d547521743c71acdbf1ae5
           </Stack>
         </Box>
       </Box>
