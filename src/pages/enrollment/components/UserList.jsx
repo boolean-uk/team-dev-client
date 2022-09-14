@@ -6,6 +6,7 @@ import "./style.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
+<<<<<<< HEAD
   const [cohorts, setCohorts] = useState([{ cohort_id: 1 }, { cohort_id: 2 }]);
   const [error, setError] = useState("");
 
@@ -18,6 +19,20 @@ const UserList = () => {
 
   useEffect(() => {
     client
+=======
+  const [cohorts, setCohorts] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    client
+      .get("/cohort")
+      .then(res => setCohorts(res.data.data.cohorts))
+      .catch(err => setError("error"));
+  }, []);
+
+  useEffect(() => {
+    client
+>>>>>>> 900b0c426ae4c3dcb401a9a74257715a86a92a1d
       .get("/user")
       .then(res => setUsers(res.data.data.users))
       .catch(err => setError("error"));
