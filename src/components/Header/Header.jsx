@@ -19,6 +19,7 @@ const Header = ({ companyName }) => {
         }}
       >
         <Box>
+          {/* typography component cannot have a <p> tag as a child. NEEDS FIXING*/}
           <Typography>
             <p>{companyName}</p>
           </Typography>
@@ -44,18 +45,27 @@ const Header = ({ companyName }) => {
 
         <Box>
           <nav>
-              <ul>
-                <li><NavLink to='/enrolment'>Enrolment</NavLink></li>
-              </ul>
+            <ul>
+              <li>
+                <NavLink to="/enrolment">Enrolment</NavLink>
+              </li>
+            </ul>
           </nav>
         </Box>
 
         <Box>
+<<<<<<< HEAD
 
           <Stack spacing={2} direction='row'>
           <Button variant='contained'>Profile</Button>
           <Button variant='contained'>Add Cohort</Button>
           <Button variant='contained'>Logout</Button>
+=======
+          <Stack spacing={2} direction="row">
+            <Button variant="contained">Profile</Button>
+            <Button variant="contained">Add Cohort</Button>
+            <Button variant="contained">Logout</Button>
+>>>>>>> af457ddaee5e179646d547521743c71acdbf1ae5
           </Stack>
         </Box>
       </Box>
