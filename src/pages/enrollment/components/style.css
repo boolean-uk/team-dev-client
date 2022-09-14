@@ -1,10 +1,11 @@
-.container {
+.enrolment-container {
     display: grid;
     width: 60%;
     grid-template-columns: 600px 200px 200px;
     border: grey 1px solid;
     padding: 20px;
-    margin: 5px
+    margin: 5px;
+    margin-inline: auto;
 
 }
 
