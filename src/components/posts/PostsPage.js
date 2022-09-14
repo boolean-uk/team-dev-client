@@ -13,11 +13,10 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts, setCohorts] = useState([]);
+  // const [createResponse, setCreateResponse] = useState("");
+
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
-  // useEffect(() => {
-  //   client.get("/cohort").then((res) => setCohorts(res.data.data.cohort));
-  // }, []);
 
   let navigate = useNavigate();
 
@@ -51,6 +50,7 @@ const PostsPage = () => {
   };
 
   const handleChange = (event) => {
+    console.log('event', event.target);
     event.preventDefault();
     const { value, name } = event.target;
     setPost({

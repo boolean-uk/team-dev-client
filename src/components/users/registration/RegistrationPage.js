@@ -18,6 +18,7 @@ const RegistrationPage = () => {
 
   const handleChange = (event) => {
     event.preventDefault()
+    console.log('event', event.target.value);
     const { value, name } = event.target
 
     setUser({

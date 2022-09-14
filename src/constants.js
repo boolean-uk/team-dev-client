@@ -7,7 +7,8 @@ const constants = {
       "email",
       "password",
       "biography",
-      "github_url"
+      "github_url",
+      "role"
     ]
   },
   post: {
