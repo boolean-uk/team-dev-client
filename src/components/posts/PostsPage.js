@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostForm from "./PostForm";
 import client from "../../utils/client";
 import "./style.css";
 import jwt_decode from "jwt-decode";
+import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 
 import Header from "../Header/Header";
 
@@ -88,7 +90,11 @@ const PostsPage = () => {
       {isTeacher && (
         <div className="teacher-section">
           <h3>Teacher Area</h3>
-          <button onClick={createCohort}>Create Cohort</button>
+          <Box testAlign="center">
+            <Button variant="contained" onClick={createCohort}>
+              Create Cohort
+            </Button>
+          </Box>
           <section className="cohort-list">
             <h4>Cohort List</h4>
             {cohorts.map((cohort) => {
