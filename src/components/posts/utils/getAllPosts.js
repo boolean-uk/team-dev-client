@@ -13,14 +13,16 @@ function formatTime(timeString) {
 
   if (time.getFullYear < now.getFullYear()) {
     formatted = timeArr.slice(0, 3).join(" ");
-  } else if (diff > secOneDay) {
+  } else if (diff >= secOneDay) {
     formatted = timeArr.slice(0, 2).join(" ");
-  } else if (diff > secOneHour) {
+  } else if (diff >= secOneHour) {
     const hoursPassed = Math.floor(diff / secOneHour);
     formatted = hoursPassed + " hours ago";
-  } else if (diff > secOneMin) {
+  } else if (diff >= secOneMin) {
     const minutesPassed = Math.floor(diff / secOneMin);
     formatted = minutesPassed + " minutes ago";
+  } else if (diff < secOneMin) {
+    formatted = "less than one minutes ago";
   }
 
   return formatted;
