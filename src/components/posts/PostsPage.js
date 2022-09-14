@@ -21,6 +21,7 @@ const PostsPage = () => {
     };
 
     renderPosts();
+    // eslint-disable-next-line
   }, []);
 
   const createPost = async (event) => {
