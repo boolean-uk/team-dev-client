@@ -15,12 +15,12 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    const getAllPosts = async () => {
+    const renderPosts = async () => {
       const formattedPosts = await getAllPostsFormatted();
       setPosts(formattedPosts);
     };
 
-    getAllPosts();
+    renderPosts();
   }, []);
 
   const createPost = async (event) => {
