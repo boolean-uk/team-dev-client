@@ -66,7 +66,7 @@ const LoginPage = () => {
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
       {loginError ? (
-        <Alert severity="error">Username or Password is incorrect</Alert>
+        <Alert severity="error">Email or Password is incorrect</Alert>
       ) : (
         <></>
       )}
