@@ -5,7 +5,8 @@ import client from "../../utils/client";
 import "./style.css";
 
 import Header from "../Header/Header";
-import { getAllPosts, getAllPostsFormatted } from "./utils/getAllPosts";
+import { getAllPostsFormatted } from "./utils/getAllPosts";
+import PostItem from "./PostItem";
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: "" });
@@ -56,13 +57,15 @@ const PostsPage = () => {
         </button>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className="posts-list">
-          {posts.map((post, index) => (
-            <li key={index} className="post-item">
-              {post.content}
-            </li>
-          ))}
-        </ul>
+        {posts.length > 0 ? (
+          <ul className="posts-list">
+            {posts.map((post, index) => (
+              <PostItem post={post} key={index} />
+            ))}
+          </ul>
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
       </section>
     </>
   );
