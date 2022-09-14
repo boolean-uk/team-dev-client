@@ -12,7 +12,12 @@ const PostsPage = () => {
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [cohorts, setCohorts] = useState([]);
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
+
+  // useEffect(() => {
+  //   client.get("/cohort").then((res) => setCohorts(res.data.data.cohort));
+  // }, []);
 
   let navigate = useNavigate();
 
@@ -63,6 +68,19 @@ const PostsPage = () => {
   return (
     <>
       <Header companyName={`Cohort Manager 2.0`} isTeacher={isTeacher} />
+
+      {isTeacher && <div className="teacher__section">
+        <h3>Teacher Area</h3>
+        <section className="cohort-list">
+          <h4>Cohort List</h4>
+          {cohorts.map((cohort, index) => {
+            return(
+              <p>{cohort}</p>
+            )
+          })}
+        </section>
+      </div>}
+
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
           sign out

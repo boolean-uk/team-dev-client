@@ -9,11 +9,11 @@ const Header = ({ companyName, isTeacher}) => {
   
 
  
+ console.log("header teacher check:",isTeacher)
 
  function createCohort(event){
   event.preventDefault();
   client.post("/cohort").then((res)=>{alert(`cohort ${res.data.data.cohort.id} created`)})
-
  }
 
   
