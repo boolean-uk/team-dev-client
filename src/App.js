@@ -35,7 +35,6 @@ function App() {
 
   const getLoggedInUserId = () => {
     const loadedToken = localStorage.getItem('token');
-    console.log("lt", loadedToken)
     if (loadedToken === null) {
       return null
     }
