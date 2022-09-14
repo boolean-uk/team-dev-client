@@ -35,8 +35,3 @@ export async function getAllPostsFormatted() {
     return formattedPosts;
   });
 }
-
-// console.log(formatTime("2021-09-10T16:22:13.554Z"));
-// console.log(formatTime("2022-09-11T19:22:13.554Z"));
-// console.log(formatTime("2022-09-13T15:22:13.554Z"));
-// console.log(formatTime("2022-09-14T08:22:13.554Z"));
