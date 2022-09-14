@@ -15,14 +15,10 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts, setCohorts] = useState([]);
-  // const [createResponse, setCreateResponse] = useState("");
+  
 
   const tokenKey = process.env.REACT_APP_USER_TOKEN;
 
-
-  //useEffect(() => {
-  //   client.get("/cohort").then((res) => setCohorts(res.data.data.cohort));
-  // }, []);
 
   let navigate = useNavigate();
 
@@ -116,7 +112,7 @@ const PostsPage = () => {
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         <ul className="posts-list">
-          {posts.map((post, index) => (
+          {posts?.map((post, index) => (
             <li key={index} className="post-item">
               {post.content}
             </li>
