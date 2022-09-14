@@ -8,7 +8,7 @@ import client from "../../utils/client";
 const Header = ({ companyName, isTeacher}) => {
   
 
- console.log("header teacher check:",isTeacher)
+ 
 
  function createCohort(event){
   event.preventDefault();
