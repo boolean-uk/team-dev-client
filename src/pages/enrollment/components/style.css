@@ -8,13 +8,22 @@
   margin-inline: auto;
 }
 
-.studentCard {
+.student-card {
   display: grid;
   grid-template-columns: 100px 100px 1fr;
   align-items: center;
   border: white solid 2px;
   padding: 2px;
   height: 75px;
+  background: white;
+  color: black;
+}
+
+.profile-image {
+    height: 50px;
+    width: 50px;
+    border: black solid 1px;
+    border-radius: 50%;
 }
 
 .add-to-cohort-form-select {

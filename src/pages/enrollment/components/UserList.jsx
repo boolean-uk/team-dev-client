@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import client from '../../../utils/client';
-import UserListItem from './UserListItem';
-import './style.css';
+import { useState } from "react";
+import { useEffect } from "react";
+import client from "../../../utils/client";
+import UserListItem from "./UserListItem";
+import "./style.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [cohorts, setCohorts] = useState([{ cohort_id: 1 }, { cohort_id: 2 }]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // useEffect(() => {
   //   client
@@ -18,9 +18,9 @@ const UserList = () => {
 
   useEffect(() => {
     client
-      .get('/user')
+      .get("/user")
       .then(res => setUsers(res.data.data.users))
-      .catch(err => setError('error'));
+      .catch(err => setError("error"));
   }, []);
 
   return (
