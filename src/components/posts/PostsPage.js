@@ -63,7 +63,7 @@ const PostsPage = () => {
   function createCohort(event) {
     event.preventDefault();
     client.post('/cohort').then((res) => {
-      console.log('create cohort res data:', res.data);
+     
       if (res.data.status === 'success') {
         alert(`cohort ${res.data.data.cohort.id} created`);
       } else {
