@@ -29,8 +29,13 @@ const UserList = () => {
         <h2>Something went wrong</h2>
       ) : (
         <div>
-          {users.map(user => (
-            <UserListItem {...user} cohorts={cohorts} />
+          {users.map((user, i) => (
+            <UserListItem
+              key={i}
+              {...user}
+              cohorts={cohorts}
+              setError={setError}
+            />
           ))}
         </div>
       )}
