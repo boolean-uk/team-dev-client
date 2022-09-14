@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const PostItem = ({ post }) => {
   return (
     <li className="post-item">
@@ -11,12 +9,7 @@ const PostItem = ({ post }) => {
             alt="profile"
           />
           <h3>
-            {
-              /* <Link to={}}> */
-              // to be modified after profile page is built
-            }
             {post.user.profile.firstName} {post.user.profile.lastName}
-            {/* </Link> */}
           </h3>
         </div>
 
