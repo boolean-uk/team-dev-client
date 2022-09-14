@@ -1,33 +1,33 @@
 {
-  'status': 'success',
-  'data': {
-    'posts': [
+  "status": "success",
+  "data": {
+    "posts": [
       {
-        'id': 1,
-        'content': 'Hello world!',
-        'author': {
-          'id': 5,
-          'cohortId': null,
-          'firstName': 'Nathan',
-          'lastName': 'King',
-          'email': 'ngk2@gmail.com',
-          'bio': 'Hello world',
-          'githubUrl': 'https://github.com/vherus',
-          'role': 'STUDENT'
+        "id": 1,
+        "content": "Hello world!",
+        "author": {
+          "id": 5,
+          "cohortId": null,
+          "firstName": "Nathan",
+          "lastName": "King",
+          "email": "ngk2@gmail.com",
+          "bio": "Hello world",
+          "githubUrl": "https://github.com/vherus",
+          "role": "STUDENT"
         }
       },
       {
-        'id': 2,
-        'content': 'Hello from the void!',
-        'author': {
-          'id': 5,
-          'cohortId': null,
-          'firstName': 'Nathan',
-          'lastName': 'King',
-          'email': 'ngk2@gmail.com',
-          'bio': 'Hello world',
-          'githubUrl': 'https://github.com/vherus',
-          'role': 'STUDENT'
+        "id": 2,
+        "content": "Hello from the void!",
+        "author": {
+          "id": 5,
+          "cohortId": null,
+          "firstName": "Nathan",
+          "lastName": "King",
+          "email": "ngk2@gmail.com",
+          "bio": "Hello world",
+          "githubUrl": "https://github.com/vherus",
+          "role": "STUDENT"
         }
       }
     ]
