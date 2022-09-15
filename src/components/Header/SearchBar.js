@@ -69,9 +69,11 @@ console.log('serach results', searchResult);
     <Box>
         <ul>
             {searchResult.map((user, index) => {
+                return(
                 <li key={index}>
-                    {user}
+                    {user.first_name}
                 </li>
+                )
             })}
         </ul>
     </Box>
