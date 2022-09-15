@@ -1,9 +1,9 @@
-import constants from '../../../constants.js'
+import constants from '../../../constants.js';
 
 const userBlankData = () => {
-  const obj = {}
-  constants.user.permittedProperties.forEach(prop => obj[prop] = "")
-  return obj
-}
+  const obj = {};
+  constants.user.permittedProperties.forEach((prop) => (obj[prop] = ''));
+  return obj;
+};
 
-export default userBlankData
+export default userBlankData;
