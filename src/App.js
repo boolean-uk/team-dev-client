@@ -10,6 +10,7 @@ import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
 import Profile from "./components/profile/Profile";
 import EnrolmentPage from "./pages/enrollment";
+import CreateCohort from "./pages/createCohort";
 import Header from "./components/Header/Header";
 import client from "./utils/client";
 
@@ -53,6 +54,7 @@ function App() {
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
+          <Route path='/cohort' element={<CreateCohort/>}/>
           <Route path="/profile" element={
             <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
           } />
