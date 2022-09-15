@@ -69,15 +69,13 @@ const EditForm = ({ profileData, handleSubmit, handleChange }) => {
               placeholder={profile_picture_url}
               onChange={handleChange}
             />
-
             <Button
               onClick={handleClose}
               id="user-submit-button"
               type="submit"
               variant="contained"
-              disabled
             >
-              Update
+              UPDATE
             </Button>
           </form>
         </DialogContent>

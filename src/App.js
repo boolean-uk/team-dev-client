@@ -11,6 +11,7 @@ import Profile from "./components/profile/Profile";
 import EnrolmentPage from "./pages/enrollment";
 import Header from "./components/Header/Header";
 import client from "./utils/client";
+import Account from "./components/account/Account";
 
 function App() {
   const [user, setUser] = useState({
@@ -48,7 +49,7 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
 
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/posts" element={<PostsPage getUserId={getLoggedInUserId} />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route
             path="/profile"
@@ -62,6 +63,7 @@ function App() {
             }
           />
         </Route>
+        <Route path="/account" element={<Account user={user} />} />
       </Routes>
     </div>
   );

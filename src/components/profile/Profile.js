@@ -1,27 +1,20 @@
-import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './style.css'
 
-import Header from '../Header/Header';
 import EditForm from './EditForm';
 
 const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
     const { first_name, last_name, biography, github_url, cohort_id } = profileData
-    const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
         const userId = getLoggedInUserId()
-        if (userId === null) { return }
+        if (userId === null) {
+            return
+        }
 
-        fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-            method: "PATCH",
-            headers: { Authorization: token }
-        })
-            .then(resp => resp.json())
-            .then(data => setUser(data.data.user))
     }
 
     const handleChange = (event) => {
@@ -36,7 +29,6 @@ const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
 
     return (
         <>
-            <Header companyName={`Cohort Manager 2.0`} />
             <div className='profile'>
                 <Avatar
                     alt="Profile Pic"
