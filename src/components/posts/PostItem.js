@@ -15,7 +15,7 @@ const PostItem = ({ post, userId, setPostResponse }) => {
     if (getUserId === post.userId) {
       setIsOwner(true)
     }
-  }, [post])
+  }, [post, userId])
 
   const handleDel = () => {
     const button = document.getElementById("post-delete-btn" + post.id)
