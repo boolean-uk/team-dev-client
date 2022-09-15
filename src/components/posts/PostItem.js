@@ -4,7 +4,11 @@ const PostItem = ({ post, userId }) => {
   const [isOwner, setIsOwner] = useState(false)
 
   useEffect(() => {
-    console.log('USER',userId())
+    const getUserId = userId();
+    if (getUserId === post.userId) {
+      setIsOwner(true)
+    }
+    //eslint-disable-next-line
   }, [])
 
   return (
@@ -26,12 +30,10 @@ const PostItem = ({ post, userId }) => {
 
       <p className='post-content'>{post.content}</p>
 
-      <div className="modify-btn-wrap">
+      {isOwner ? <div className="modify-btn-wrap">
         <button className="modify-btn">Edit</button>
         <button className="modify-btn">Delete</button>
-      </div>
-
-      {isOwner ? <button className=""></button>:<></>}
+      </div> : <></>}
     </li>
   );
 };
