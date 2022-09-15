@@ -45,11 +45,11 @@ function SearchBar() {
       .catch(err => console.log(err.response));
   };
 
-//   const routeChange = (id) => {
-//     console.log('routing', id);
-//     let path = `/user/${id}/profile`
-//     navigate(path);
-//   };
+  const routeChange = (id) => {
+    console.log('routing', id);
+    let path = `/user/${id}/profile`
+    navigate(path);
+  };
 
   return (
     <>
