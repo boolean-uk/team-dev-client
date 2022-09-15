@@ -15,12 +15,7 @@ const PostsPage = ({ getUserId }) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    client
-      .get("/posts")
-      .then(res => setPosts(res.data.data.posts))
-      .catch(console.log);
-    renderPosts(setPosts);
-    // eslint-disable-next-line
+    renderPosts(setPosts)
   }, []);
 
   const createPost = async event => {
@@ -28,8 +23,9 @@ const PostsPage = ({ getUserId }) => {
     client
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .catch(data => {
-        console.log(data);
+      .then(renderPosts(setPosts))
+      .catch(() => {
+        setPostResponse("There was a problem creating this post")
       });
   };
 
