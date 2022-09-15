@@ -16,14 +16,13 @@ const PostsPage = ({ userId }) => {
 
   useEffect(() => {
     renderPosts(setPosts)
-  }, []);
+  }, [postResponse]);
 
   const createPost = async event => {
     event.preventDefault();
     client
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .then(renderPosts(setPosts))
       .catch(() => {
         setPostResponse("There was a problem creating this post")
       });

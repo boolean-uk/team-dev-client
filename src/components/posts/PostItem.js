@@ -4,7 +4,11 @@ const PostItem = ({ post, userId }) => {
   const [isOwner, setIsOwner] = useState(false)
 
   useEffect(() => {
-    console.log('userId',userId(),'post UserId', post.userId)
+
+    const getUserId = userId()
+    if(getUserId === post.userId) {
+      setIsOwner(true)
+    }
     // eslint-disable-next-line
   },[])
 
