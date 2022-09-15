@@ -1,33 +1,48 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import UserForm from './UserForm';
-import userBlankData from '../utils/userHelpers';
-import client from '../../../utils/client';
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
+
+import userBlankData from "../utils/userHelpers";
+import UserForm from "./UserForm";
+import client from "../../../utils/client";
 
 const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({ data: { token: '', user: {} } });
+  const [loginResponse, setLoginResponse] = useState({
+    data: { token: "", user: {} },
+  });
   let navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
 
   useEffect(() => {
-    const loadedToken = localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
+    const loadedToken =
+      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || "";
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
-  const loginUser = (event) => {
+  const loginUser = event => {
     event.preventDefault();
     client
-      .post('/login', user)
-      .then((res) => {
-        localStorage.setItem(process.env.REACT_APP_USER_TOKEN, res.data.data.token);
+      .post("/login", user)
+      .then(res => {
+        localStorage.setItem(
+          process.env.REACT_APP_USER_TOKEN,
+          res.data.data.token
+        );
         setLoginResponse(res.data);
-        navigate('../posts', { replace: true });
+        navigate("../posts", { replace: true });
       })
-      .catch((err) => console.log(err.response));
+      .catch(err => {
+        console.log(err.response);
+        setLoginError(true);
+        setTimeout(() => {
+          setLoginError(false);
+        }, "2000");
+      });
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
 
@@ -38,7 +53,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='login-page'>
+    <div className="login-page">
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
@@ -51,6 +66,9 @@ const LoginPage = () => {
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+      {loginError && (
+        <Alert severity="error">Email or Password is incorrect</Alert>
+      )}
     </div>
   );
 };
