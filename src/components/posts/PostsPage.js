@@ -7,6 +7,7 @@ import './style.css';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
+import { renderPosts } from "./utils/getAllPosts";
 
 import Header from '../Header/Header';
 
@@ -26,6 +27,7 @@ const PostsPage = () => {
 
   useEffect(() => {
 
+
     
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if(!token){ return }
@@ -37,19 +39,12 @@ const PostsPage = () => {
       if (res.data.data.user.role === 'TEACHER') {
         setIsTeacher(true);
       }
-    });
+    }).catch(console.log);
 
-    client.get('/posts').then((res) => {
-      setPosts(res.data.data.posts);
-    });
-  
+    
 
-    client
-      .get("/posts")
-      .then(res => setPosts(res.data.data.posts))
-      .catch(console.log);
-    renderPosts(setPosts);
-    // eslint-disable-next-line
+    renderPosts(setPosts)
+
   }, []);
 
 
@@ -59,8 +54,9 @@ const PostsPage = () => {
 
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .catch(data => {
-        console.log(data);
+      .then(renderPosts(setPosts))
+      .catch(() => {
+        setPostResponse("There was a problem creating this post")
       });
 
   };
