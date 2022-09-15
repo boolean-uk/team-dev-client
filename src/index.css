@@ -1,7 +1,7 @@
 :root {
   /* change this value for the background colour! */
-  --bg-color: #32323f;
-  --primary-color: #da4b27;
+  --bg-color: #2a2c30;
+  --primary-color: #ffa500;
   --font-family: 'Poppins', sans-serif;
 }
 
@@ -14,7 +14,7 @@
 body {
   font-family: var(--font-family);
   background-color: var(--bg-color);
-  color: white;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,4 +24,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
