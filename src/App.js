@@ -51,7 +51,7 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
 
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/posts" element={<PostsPage getUserId={getLoggedInUserId} />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route path="/profile" element={
             <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
