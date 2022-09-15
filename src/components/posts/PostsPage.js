@@ -17,7 +17,7 @@ import Card from '@mui/material/Card'
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: "" });
-  const [createCohortRes,setCreateCohortRes]=useState(false)
+  
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
@@ -69,17 +69,7 @@ const PostsPage = () => {
     navigate("../", { replace: true });
   };
 
-  function createCohort(event) {
-    event.preventDefault();
-    client.post('/cohort').then((res) => {
-     
-      if (res.data.status === 'success') {
-        setCreateCohortRes(true);
-      } 
-    }).catch(console.log);
-    setTimeout(()=>{setCreateCohortRes(false)},3000)
-    
-  }
+  
 
   return (
     <>
@@ -89,9 +79,9 @@ const PostsPage = () => {
         <div className='teacher-section'>
           <h3>Teacher Admin</h3>
           <CardActions>
-            {createCohortRes &&<p>Cohort created!</p>}
-            <Button variant='contained' onClick={createCohort}>
-              Create Cohort
+            
+            <Button variant='contained' >
+              <NavLink to='/cohort'>Create Cohort</NavLink>
             </Button>
             <Button variant="contained">
               <NavLink to="/enrolment">Enrolment</NavLink>
@@ -99,7 +89,7 @@ const PostsPage = () => {
             
             </CardActions>
           
-          
+    
 
         </div>
         </Card>
