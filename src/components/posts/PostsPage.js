@@ -40,9 +40,6 @@ const PostsPage = () => {
         setIsTeacher(true);
       }
     }).catch(console.log);
-
-    
-
     renderPosts(setPosts)
 
   }, []);
