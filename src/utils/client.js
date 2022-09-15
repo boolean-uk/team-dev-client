@@ -19,7 +19,6 @@ const client = {
     if (withToken) {
       headers["Authorization"] = `Bearer ${token}`
     }
-    console.log("client post data", data)
     return axios.post(url, data, { headers })
   }
 }
