@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 function SearchBar() {
   const [inputText, setInputText] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [searchResponse, setSearchResponse] = useState(""); 
+  const [searchResponse, setSearchResponse] = useState("");
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   // handle the text input to search bar
   const handleChange = event => {
@@ -24,63 +24,68 @@ function SearchBar() {
 
   // handle onclick of button
   const submitSearch = () => {
-
     client
       .get(`/users`)
       .then(res => {
         setSearchResponse(res.data);
 
-        const users = res.data.data.users
-        console.log('users:',users)
-        console.log('input:', inputText)
+        const users = res.data.data.users;
+        console.log("users:", users);
+        console.log("input:", inputText);
 
-        const foundUser = users.filter(user => user.first_name.includes(inputText.value)) 
+        const foundUser = users.filter(user =>
+          user.first_name.includes(inputText.value)
+        );
 
-        console.log('found', foundUser);
+        console.log("found", foundUser);
 
         setSearchResult(foundUser);
       })
 
       .catch(err => console.log(err.response));
   };
-  
 
+//   const routeChange = (id) => {
+//     console.log('routing', id);
+//     let path = `/user/${id}/profile`
+//     navigate(path);
+//   };
 
   return (
     <>
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-      }}
-    >
-      <Box sx={{ backgroundColor: "white" }}>
-        <InputBase
-          onChange={handleChange}
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        <Box sx={{ backgroundColor: "white" }}>
+          <InputBase
+            onChange={handleChange}
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Box>
+        <Box>
+          <Button onClick={submitSearch} variant="contained">
+            Search User
+          </Button>
+        </Box>
       </Box>
       <Box>
-        <Button onClick={submitSearch} variant="contained">
-          Search User
-        </Button>
-      </Box>
-    </Box>
-    <Box>
         <ul>
-            {searchResult.map((user, index) => {
-                return(
-                <li key={index}>
-                    {user.first_name} {''}
-                    {user.last_name} {''}
-                    <Button>Profile</Button>
-                </li>
-                )
-            })}
+          {searchResult.map((user, index) => {
+            return (
+              <li key={index}>
+                {user.first_name} {""}
+                {user.last_name} {""}
+                <Button onClick={() => routeChange(user.id)}>Profile</Button>
+              </li>
+            );
+          })}
         </ul>
-    </Box>
+      </Box>
     </>
   );
 }

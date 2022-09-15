@@ -89,9 +89,8 @@ const PostsPage = () => {
               Create Cohort
             </Button>
           </Box>
-
-          <SearchBar />
           
+          <SearchBar />
           <section className='cohort-list'>
             <h4>Cohort List</h4>
             {cohorts.map((cohort) => {
