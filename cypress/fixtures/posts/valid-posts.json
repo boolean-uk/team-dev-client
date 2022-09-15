@@ -1,35 +1,37 @@
 {
   "status": "success",
-  "data": {
-    "posts": [
-      {
-        "id": 1,
-        "content": "Hello world!",
-        "author": {
-          "id": 5,
-          "cohortId": null,
+  "data": [
+    {
+      "id": 1,
+      "content": "Hello world!",
+      "user": {
+        "id": 5,
+        "cohortId": null,
+        "email": "ngk2@gmail.com",
+        "role": "STUDENT",
+        "profile": {
           "firstName": "Nathan",
           "lastName": "King",
-          "email": "ngk2@gmail.com",
           "bio": "Hello world",
-          "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
-        }
-      },
-      {
-        "id": 2,
-        "content": "Hello from the void!",
-        "author": {
-          "id": 5,
-          "cohortId": null,
-          "firstName": "Nathan",
-          "lastName": "King",
-          "email": "ngk2@gmail.com",
-          "bio": "Hello world",
-          "githubUrl": "https://github.com/vherus",
-          "role": "STUDENT"
+          "githubUrl": "https://github.com/vherus"
         }
       }
-    ]
-  }
+    },
+    {
+      "id": 2,
+      "content": "Hello from the void!",
+      "user": {
+        "id": 5,
+        "cohortId": null,
+        "role": "STUDENT",
+        "email": "ngk2@gmail.com",
+        "profile": {
+          "firstName": "Nathan",
+          "lastName": "King",
+          "bio": "Hello world",
+          "githubUrl": "https://github.com/vherus"
+        }
+      }
+    }
+  ]
 }
