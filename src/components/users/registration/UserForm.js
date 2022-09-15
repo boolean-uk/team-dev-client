@@ -7,10 +7,6 @@ import FormLabel from '@mui/material/FormLabel';
 
 const UserForm = ({ handleSubmit, handleChange }) => {
   return (
-   
-
-      
-
     <form className="user-form" onSubmit={handleSubmit}>
       <TextField className="user-form-input" label="First Name" variant="outlined" name="first_name" onChange={handleChange} />
       <TextField className="user-form-input" label="Last Name" variant="outlined" name="last_name" onChange={handleChange} />
