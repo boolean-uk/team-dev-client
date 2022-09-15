@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const loadedToken =
-      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || "";
+      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
@@ -30,8 +30,12 @@ const LoginPage = () => {
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
         );
+
         setLoginResponse(res.data);
-        navigate("../posts", { replace: true });
+
+        navigate('../posts', {
+          replace: true,
+        });
       })
       .catch(err => {
         console.log(err.response);
