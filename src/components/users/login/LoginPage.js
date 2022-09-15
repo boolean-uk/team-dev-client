@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import UserForm from "./UserForm";
-import userBlankData from "../utils/userHelpers";
-import client from "../../../utils/client";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
+
+import userBlankData from "../utils/userHelpers";
+import UserForm from "./UserForm";
+import client from "../../../utils/client";
 
 const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
@@ -20,11 +21,11 @@ const LoginPage = () => {
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
-  const loginUser = (event) => {
+  const loginUser = event => {
     event.preventDefault();
     client
       .post("/login", user)
-      .then((res) => {
+      .then(res => {
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
@@ -32,7 +33,7 @@ const LoginPage = () => {
         setLoginResponse(res.data);
         navigate("../posts", { replace: true });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
         setLoginError(true);
         setTimeout(() => {
@@ -41,7 +42,7 @@ const LoginPage = () => {
       });
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
 
@@ -56,11 +57,11 @@ const LoginPage = () => {
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id="user-registration-link" to="/signup">
-        sign up!
+      <Link id='user-registration-link' to='/signup'>
+        sign up
       </Link>
-      <Link id="user-login-link" to="/">
-        login!
+      <Link id='user-login-link' to='/'>
+        login
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
