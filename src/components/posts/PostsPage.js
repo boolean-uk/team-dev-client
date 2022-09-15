@@ -11,7 +11,7 @@ import { renderPosts } from "./utils/getAllPosts";
 import PostItem from './PostItem';
 
 
-const PostsPage = () => {
+const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: "" });
   const [createCohortRes,setCreateCohortRes]=useState(false)
   const [postResponse, setPostResponse] = useState("");
@@ -33,8 +33,7 @@ const PostsPage = () => {
       }
     }).catch(console.log);
     renderPosts(setPosts)
-
-  }, []);
+  }, [postResponse]);
 
 
   const createPost = async event => {
@@ -43,7 +42,6 @@ const PostsPage = () => {
 
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .then(renderPosts(setPosts))
       .catch(() => {
         setPostResponse("There was a problem creating this post")
       });
@@ -109,7 +107,7 @@ const PostsPage = () => {
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} />
+              <PostItem post={post} key={index} userId={getUserId} setPostResponse={setPostResponse} />
             ))}
           </ul>
         ) : (

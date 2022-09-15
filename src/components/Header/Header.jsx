@@ -56,7 +56,7 @@ const Header = ({ companyName}) => {
             </Button>
             
             <Button variant="contained">Logout</Button>
-            <Button href="/profile"><Avatar src="default.png" /></Button>
+            <Button href="/account"><Avatar src="default.png" /></Button>
           </Stack>
         </Box>
       </Box>

@@ -62,7 +62,6 @@ const EditForm = ({ profileData, handleSubmit, handleChange }) => {
                             id="user-submit-button"
                             type="submit"
                             variant="contained"
-                            disabled
                         >
                             Update
                         </Button>
