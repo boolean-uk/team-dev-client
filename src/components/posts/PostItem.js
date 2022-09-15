@@ -1,4 +1,12 @@
+import { useEffect, useState } from "react";
+
 const PostItem = ({ post }) => {
+  const [isOwner, setIsOwner] = useState(false)
+
+  useEffect(() => {
+
+  }, [])
+  
   return (
     <li className='post-item'>
       <div className='post-header-wrap'>
