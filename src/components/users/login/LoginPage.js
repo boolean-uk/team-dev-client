@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const loadedToken =
-      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || "";
+      localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
     setLoginResponse({ data: { token: loadedToken } });
   }, []);
 
@@ -30,8 +30,12 @@ const LoginPage = () => {
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token
         );
+
         setLoginResponse(res.data);
-        navigate("../posts", { replace: true });
+
+        navigate('../posts', {
+          replace: true,
+        });
       })
       .catch(err => {
         console.log(err.response);
@@ -57,11 +61,11 @@ const LoginPage = () => {
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id="user-registration-link" to="/signup">
-        sign up!
+      <Link id='user-registration-link' to='/signup'>
+        sign up
       </Link>
-      <Link id="user-login-link" to="/">
-        login!
+      <Link id='user-login-link' to='/'>
+        login
       </Link>
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
