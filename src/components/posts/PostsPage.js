@@ -15,7 +15,10 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    client.get("/posts").then(res => setPosts(res.data.data.posts));
+    client
+      .get("/posts")
+      .then(res => setPosts(res.data.data.posts))
+      .catch(console.log);
     renderPosts(setPosts);
     // eslint-disable-next-line
   }, []);

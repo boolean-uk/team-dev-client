@@ -10,6 +10,7 @@ import PostsPage from "./components/posts/PostsPage";
 import Profile from "./components/profile/Profile";
 import EnrolmentPage from "./pages/enrollment";
 import Header from "./components/Header/Header";
+import client from "./utils/client";
 
 function App() {
   const [user, setUser] = useState({
@@ -19,21 +20,15 @@ function App() {
     github_url: "https://github.com/vherus",
   });
 
-  const [token] = useState(
-    `Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`
-  );
-
   useEffect(() => {
     const userId = getLoggedInUserId();
     if (userId === null) {
       return;
     }
-    fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-      method: "GET",
-      headers: { Authorization: token },
-    })
-      .then(resp => resp.json())
-      .then(data => setUser(data.data.user));
+    client
+      .get(`/user/${userId}`)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
     // eslint-disable-next-line
   }, []);
 
