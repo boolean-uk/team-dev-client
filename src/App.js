@@ -21,9 +21,8 @@ function App() {
 
   useEffect(() => {
     const userId = getLoggedInUserId()
-    if (userId === null) {
-      return
-    }
+    if (userId === null) { return }
+
     fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
       method: "GET",
       headers: { Authorization: token }
@@ -35,9 +34,8 @@ function App() {
 
   const getLoggedInUserId = () => {
     const loadedToken = localStorage.getItem('token');
-    if (loadedToken === null) {
-      return null
-    }
+    if (loadedToken === null) { return null }
+
     const decoded = jwt_decode(loadedToken)
     return decoded.userId
   }
@@ -47,7 +45,9 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<RegistrationPage />} />
-        <Route path='/profile' element={<Profile profileData={user} />} />
+        <Route path='/profile' element={
+          <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
+        } />
         <Route element={<AuthenticateUser />}>
           <Route path='/posts' element={<PostsPage />} />
         </Route>
