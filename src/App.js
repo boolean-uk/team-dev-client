@@ -11,6 +11,7 @@ import Profile from "./components/profile/Profile";
 import EnrolmentPage from "./pages/enrollment";
 import Header from "./components/Header/Header";
 import client from "./utils/client";
+import Account from "./components/account/Account";
 
 function App() {
   const [user, setUser] = useState({
@@ -53,6 +54,7 @@ function App() {
             <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
           } />
         </Route>
+        <Route path="/account" element={<Account user={user} />} />
       </Routes>
     </div>
   );
