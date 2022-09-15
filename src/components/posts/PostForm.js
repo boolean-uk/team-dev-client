@@ -5,6 +5,7 @@ const PostForm = ({ handleSubmit, handleChange }) => {
   return (
     <form className="post-form" onSubmit={handleSubmit}>
       <TextField
+        id="user-form-input"
         className="user-form-input"
         type="text"
         label="New Post"

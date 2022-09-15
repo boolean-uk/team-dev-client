@@ -42,6 +42,10 @@ const PostsPage = ({ getUserId }) => {
 
       .post("/post", post)
       .then(res => setPostResponse(res.data))
+      .then(() => {
+        const inputForm = document.getElementById('user-form-input')
+        inputForm.value = ''
+      })
       .catch(() => {
         setPostResponse("There was a problem creating this post")
       });
