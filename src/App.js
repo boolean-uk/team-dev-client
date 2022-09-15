@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 
@@ -19,10 +19,6 @@ function App() {
     biography: "Hello world",
     github_url: "https://github.com/vherus",
   });
-
-  const [token] = useState(
-    `Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`
-  );
 
   useEffect(() => {
     const userId = getLoggedInUserId();
