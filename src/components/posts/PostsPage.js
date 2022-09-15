@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
@@ -11,9 +12,10 @@ import Header from '../Header/Header';
 
 import PostItem from './PostItem';
 
+
 const PostsPage = () => {
-  const [post, setPost] = useState({ content: '' });
-  const [postResponse, setPostResponse] = useState('');
+  const [post, setPost] = useState({ content: "" });
+  const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts] = useState([]);
@@ -23,6 +25,7 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
+
     
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if(!token){ return }
@@ -41,15 +44,28 @@ const PostsPage = () => {
     });
   });
 
-  const createPost = async (event) => {
+    client
+      .get("/posts")
+      .then(res => setPosts(res.data.data.posts))
+      .catch(console.log);
+    renderPosts(setPosts);
+    // eslint-disable-next-line
+  }, []);
+
+
+  const createPost = async event => {
     event.preventDefault();
     client
-      .post('/post', post)
-      .then((res) => setPostResponse(res.data))
-      .catch((data) => {});
+
+      .post("/post", post)
+      .then(res => setPostResponse(res.data))
+      .catch(data => {
+        console.log(data);
+      });
+
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
     setPost({
@@ -58,10 +74,10 @@ const PostsPage = () => {
     });
   };
 
-  const signOut = (event) => {
+  const signOut = event => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
+    navigate("../", { replace: true });
   };
 
   function createCohort(event) {
@@ -78,6 +94,7 @@ const PostsPage = () => {
 
   return (
     <>
+
       <Header
         companyName={`Cohort Manager 2.0`}
         isTeacher={isTeacher}
@@ -103,18 +120,22 @@ const PostsPage = () => {
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
+
           sign out
         </button>
 
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        {posts.length > 0 ?
-          <ul className='posts-list'>
-            {posts.map((post, index) => <PostItem post={post} key={index} />)}
+
+        {posts?.length > 0 ? (
+          <ul className="posts-list">
+            {posts?.map((post, index) => (
+              <PostItem post={post} key={index} />
+            ))}
           </ul>
-          :
-          <p className='no-posts-message'>There are no posts at the moment.</p>
-        }
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
       </section>
     </>
   );
