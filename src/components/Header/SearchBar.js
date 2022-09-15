@@ -31,6 +31,8 @@ function SearchBar() {
         setSearchResponse(res.data);
 
         const users = res.data.data.users
+        console.log('users:',users)
+        console.log('input:', inputText)
 
         const foundUser = users.filter(user => user.first_name.includes(inputText.value)) 
 
