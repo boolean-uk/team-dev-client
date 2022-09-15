@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { NavLink, Outlet } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
 
 const Header = ({ companyName}) => {
   
@@ -60,7 +61,7 @@ const Header = ({ companyName}) => {
             </Button>
             
             <Button variant="contained">Logout</Button>
-
+            <Button href="/profile"><Avatar src="default.png" /></Button>
           </Stack>
         </Box>
       </Box>
