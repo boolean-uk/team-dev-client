@@ -42,7 +42,7 @@ const PostsPage = () => {
     client.get('/posts').then((res) => {
       setPosts(res.data.data.posts);
     });
-  });
+  
 
     client
       .get("/posts")
