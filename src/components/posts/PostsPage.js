@@ -6,9 +6,13 @@ import client from '../../utils/client';
 import './style.css';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, CardActions } from '@mui/material';
 import { renderPosts } from "./utils/getAllPosts";
 import PostItem from './PostItem';
+import { NavLink } from "react-router-dom";
+import Card from '@mui/material/Card'
+
+
 
 
 const PostsPage = () => {
@@ -80,21 +84,26 @@ const PostsPage = () => {
   return (
     <>
       {isTeacher && (
+        <Box textAlign='center'>
+        <Card variant="outlined" sx={{width:500}}>
         <div className='teacher-section'>
-          <h3>Teacher Area</h3>
-          <Box testAlign='center'>
+          <h3>Teacher Admin</h3>
+          <CardActions>
             {createCohortRes &&<p>Cohort created!</p>}
             <Button variant='contained' onClick={createCohort}>
               Create Cohort
             </Button>
-          </Box>
-          <section className='cohort-list'>
-            <h4>Cohort List</h4>
-            {cohorts.map((cohort) => {
-              return <p>{cohort}</p>;
-            })}
-          </section>
+            <Button variant="contained">
+              <NavLink to="/enrolment">Enrolment</NavLink>
+            </Button>
+            
+            </CardActions>
+          
+          
+
         </div>
+        </Card>
+        </Box>
       )}
 
       <section className='posts-section'>
