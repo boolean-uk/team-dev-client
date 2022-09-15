@@ -1,65 +1,59 @@
-import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
-import './App.css';
-import LoginPage from './components/users/login/LoginPage';
-import RegistrationPage from './components/users/registration/RegistrationPage';
-import PostsPage from './components/posts/PostsPage';
-import Profile from './components/profile/Profile';
 
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import "./App.css";
+
+
+import LoginPage from "./components/users/login/LoginPage";
+import RegistrationPage from "./components/users/registration/RegistrationPage";
+import PostsPage from "./components/posts/PostsPage";
+import Profile from "./components/profile/Profile";
+import EnrolmentPage from "./pages/enrollment";
+import Header from "./components/Header/Header";
+import client from "./utils/client";
 
 function App() {
-  const [profileData] = useState({
-    first_name: 'Nathan',
-    last_name: 'King',
-    biography: 'Hello world',
-    github_url: 'https://github.com/vherus',
-  });
+  const [user, setUser] = useState({
 
-  // eslint-disable-next-line no-unused-vars
-  const [_user, setUser] = useState({
     first_name: "Nathan",
     last_name: "King",
     biography: "Hello world",
-    github_url: "https://github.com/vherus"
-  })
-
-  const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
+    github_url: "https://github.com/vherus",
+  });
 
   useEffect(() => {
-    const userId = getLoggedInUserId()
+    const userId = getLoggedInUserId();
     if (userId === null) {
-      return
+      return;
     }
-    fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-      method: "GET",
-      headers: { Authorization: token }
-    })
-      .then(resp => resp.json())
-      .then(data => setUser(data.data.user))
+    client
+      .get(`/user/${userId}`)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const getLoggedInUserId = () => {
-    const loadedToken = localStorage.getItem('token');
+    const loadedToken = localStorage.getItem("token");
     if (loadedToken === null) {
-      return null
+      return null;
     }
-    const decoded = jwt_decode(loadedToken)
-    return decoded.userId
-  }
+    const decoded = jwt_decode(loadedToken);
+    return decoded.userId;
+  };
 
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/signup' element={<RegistrationPage />} />
-        <Route
-          path='/profile'
-          element={<Profile profileData={profileData} />}
-        />
+
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+
         <Route element={<AuthenticateUser />}>
-          <Route path='/posts' element={<PostsPage />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/enrolment" element={<EnrolmentPage />} />
+          <Route path="/profile" element={<Profile profileData={user} />} />
         </Route>
       </Routes>
     </div>
@@ -67,16 +61,16 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem('token');
-  return !(loadedToken === '');
+  const loadedToken = localStorage.getItem("token");
+  return !(loadedToken === "");
 }
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = '/' }) => {
+const AuthenticateUser = ({ children, redirectPath = "/" }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <Outlet />;
+  return <Header companyName={`Cohort Manager 2.0`} />;
 };
