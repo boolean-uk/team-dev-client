@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { NavLink, Outlet } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Header = ({ companyName }) => {
   return (
@@ -24,7 +25,7 @@ const Header = ({ companyName }) => {
             <p>{companyName}</p>
           </Typography>
         </Box>
-
+        <SearchBar />
         {/* <Box
           sx={{
             display: "flex",
