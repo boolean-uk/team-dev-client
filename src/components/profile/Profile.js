@@ -3,7 +3,6 @@ import Link from '@mui/material/Link';
 import './style.css'
 
 import EditForm from './EditForm';
-// import client from "../../utils/client";
 
 const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
     const { first_name, last_name, biography, github_url, cohort_id } = profileData
@@ -16,12 +15,6 @@ const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
             return
         }
 
-        alert("Backend work in progress")
-
-        // client
-        //     .patch(`/user/${userId}`)
-        //     .then(res => setUser(res.data.data.user))
-        //     .catch(err => console.log(err));
     }
 
     const handleChange = (event) => {
