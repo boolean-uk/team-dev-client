@@ -8,7 +8,7 @@ import client from "../../utils/client";
 import { renderPosts } from "./utils/getAllPosts";
 import PostItem from "./PostItem";
 
-const PostsPage = () => {
+const PostsPage = ({ userId }) => {
   const [post, setPost] = useState({ content: "" });
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
@@ -60,7 +60,7 @@ const PostsPage = () => {
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} />
+              <PostItem post={post} key={index} userId={userId}/>
             ))}
           </ul>
         ) : (

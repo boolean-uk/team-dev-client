@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-const PostItem = ({ post }) => {
+const PostItem = ({ post, userId }) => {
   const [isOwner, setIsOwner] = useState(false)
 
   useEffect(() => {
+    console.log('userId',userId(),'post UserId', post.userId)
+    // eslint-disable-next-line
+  },[])
 
-  }, [])
-  
   return (
     <li className='post-item'>
       <div className='post-header-wrap'>
