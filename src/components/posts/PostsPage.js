@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import "./style.css";
+import './style.css';
 
-import PostForm from "./PostForm";
-import client from "../../utils/client";
-import { renderPosts } from "./utils/getAllPosts";
-import PostItem from "./PostItem";
+import PostForm from './PostForm';
+import client from '../../utils/client';
+import { renderPosts } from './utils/getAllPosts';
+import PostItem from './PostItem';
 
 const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: "" });
@@ -16,14 +16,13 @@ const PostsPage = ({ getUserId }) => {
 
   useEffect(() => {
     renderPosts(setPosts)
-  }, []);
+  }, [postResponse]);
 
   const createPost = async event => {
     event.preventDefault();
     client
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .then(renderPosts(setPosts))
       .catch(() => {
         setPostResponse("There was a problem creating this post")
       });
@@ -56,7 +55,7 @@ const PostsPage = ({ getUserId }) => {
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} userId={getUserId} />
+              <PostItem post={post} key={index} userId={getUserId} setPostResponse={setPostResponse} />
             ))}
           </ul>
         ) : (
