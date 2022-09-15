@@ -16,9 +16,7 @@ const PostsPage = () => {
 
 
   useEffect(() => {
-    
-    renderPosts(setPosts);
-    
+    renderPosts(setPosts)
   }, []);
 
   const createPost = async (event) => {
