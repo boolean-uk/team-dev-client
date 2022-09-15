@@ -14,6 +14,7 @@ import PostItem from './PostItem';
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: "" });
+  const [createCohortRes,setCreateCohortRes]=useState(false)
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
@@ -76,11 +77,11 @@ const PostsPage = () => {
     client.post('/cohort').then((res) => {
      
       if (res.data.status === 'success') {
-        alert(`cohort ${res.data.data.cohort.id} created`);
-      } else {
-        alert(`error`);
-      }
-    });
+        setCreateCohortRes(true);
+      } 
+    }).catch(console.log);
+    setTimeout(()=>{setCreateCohortRes(false)},3000)
+    
   }
 
   return (
@@ -89,6 +90,7 @@ const PostsPage = () => {
         <div className='teacher-section'>
           <h3>Teacher Area</h3>
           <Box testAlign='center'>
+            {createCohortRes &&<p>Cohort created!</p>}
             <Button variant='contained' onClick={createCohort}>
               Create Cohort
             </Button>
