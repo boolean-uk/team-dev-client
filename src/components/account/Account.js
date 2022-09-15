@@ -16,18 +16,9 @@ function createData(key, value) {
 }
 
 const Account = ({ user }) => {
-    const infoKeys = Object.keys(user)
-    const infoValues = Object.values(user)
-    const rows = [
-        createData(infoKeys[0], infoValues[0]),
-        createData(infoKeys[1], infoValues[1]),
-        createData(infoKeys[2], infoValues[2]),
-        createData(infoKeys[3], infoValues[3]),
-        createData(infoKeys[4], infoValues[4]),
-        createData(infoKeys[5], infoValues[5]),
-        createData(infoKeys[6], infoValues[6]),
-        createData(infoKeys[7], infoValues[7]),
-    ];
+    const info = Object.entries(user)
+    const rows = info.map(([key, val]) => createData(key, val))
+
     return (
         <>
             <Header companyName={`Cohort Manager 2.0`} />
