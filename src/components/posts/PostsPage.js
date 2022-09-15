@@ -91,11 +91,7 @@ const PostsPage = () => {
   return (
     <>
 
-      <Header
-        companyName={`Cohort Manager 2.0`}
-        isTeacher={isTeacher}
-        createCohort={createCohort}
-      />
+     
 
       {isTeacher && (
         <div className='teacher-section'>
