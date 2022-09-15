@@ -3,11 +3,14 @@ import Button from "@mui/material/Button";
 import client from "../../utils/client";
 import InputBase from "@mui/material/InputBase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
   const [inputText, setInputText] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResponse, setSearchResponse] = useState(""); 
+
+  const navigate = useNavigate()
 
   // handle the text input to search bar
   const handleChange = event => {
@@ -16,25 +19,30 @@ function SearchBar() {
     setInputText({
       value,
     });
-    console.log("search", inputText);
+    console.log("search1", inputText);
   };
 
   // handle onclick of button
   const submitSearch = () => {
-    console.log("sub");
+
     client
       .get(`/users`)
       .then(res => {
         setSearchResponse(res.data);
-        // this needs to be a filter or save the whole list of students and then filter one from that state
-        setSearchResult(res.data.data.users);
+
+        const users = res.data.data.users
+
+        const foundUser = users.filter(user => user.first_name.includes(inputText)) 
+
+        console.log('found', foundUser);
+
+        setSearchResult(foundUser);
         console.log('res', res);
       })
 
       .catch(err => console.log(err.response));
   };
-  console.log('search', searchResult);
-
+console.log('serach2', searchResult);
   return (
     <Box
       sx={{
