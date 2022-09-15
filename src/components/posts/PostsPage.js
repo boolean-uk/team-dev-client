@@ -123,7 +123,7 @@ const PostsPage = () => {
 
           sign out
         </button>
-        <div className="teacher-section">
+        
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
 
