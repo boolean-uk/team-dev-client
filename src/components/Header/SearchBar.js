@@ -19,7 +19,7 @@ function SearchBar() {
     setInputText({
       value,
     });
-    console.log("search1", inputText);
+    console.log("search input", inputText);
   };
 
   // handle onclick of button
@@ -44,8 +44,10 @@ function SearchBar() {
 
       .catch(err => console.log(err.response));
   };
-console.log('serach2', searchResult);
+console.log('serach results', searchResult);
+
   return (
+    <>
     <Box
       sx={{
         display: "flex",
@@ -66,6 +68,18 @@ console.log('serach2', searchResult);
         </Button>
       </Box>
     </Box>
+    <Box>
+        <ul>
+            {searchResult.map((user, index) => {
+                return(
+                <li key={index}>
+                    {user.first_name}
+                </li>
+                )
+            })}
+        </ul>
+    </Box>
+    </>
   );
 }
 
