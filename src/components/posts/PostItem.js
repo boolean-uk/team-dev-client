@@ -7,6 +7,8 @@ const confirmDeleteBtnText = 'Confirm Delete?'
 const PostItem = ({ post, userId, setPostResponse }) => {
   const [isOwner, setIsOwner] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [content, setContent] = useState(post.content)
 
   useEffect(() => {
     const getUserId = userId();
@@ -16,6 +18,18 @@ const PostItem = ({ post, userId, setPostResponse }) => {
       setIsOwner(true)
     }
   }, [post, userId])
+
+  const handleEdit = () => {
+    const editBtn = document.getElementById('post-edit-btn' + post.id)
+    if (!isEditing) {
+      editBtn.innerText = 'Save'
+      setIsEditing(true)
+    }
+    else {
+      editBtn.innerText = 'Edit'
+      setIsEditing(false)
+    }
+  }
 
   const handleDel = () => {
     const button = document.getElementById("post-delete-btn" + post.id)
@@ -50,11 +64,16 @@ const PostItem = ({ post, userId, setPostResponse }) => {
 
         <p className='createdAt-time'>{post.createdAt}</p>
       </div>
-
+      { isEditing ? 
+      <textarea value={content}/>
+      : 
       <p className='post-content'>{post.content}</p>
-
+      }
       {isOwner && <div className="modify-btn-wrap">
-        <button className="modify-btn">Edit</button>
+        <button 
+        id={'post-edit-btn' + post.id}
+        onClick={handleEdit}
+        className="modify-btn">Edit</button>
         <button 
           id={"post-delete-btn" + post.id} 
           className="modify-btn" 
