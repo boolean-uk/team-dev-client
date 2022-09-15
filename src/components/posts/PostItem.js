@@ -1,15 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { deletePost } from './utils/deletePost';
 
-const PostItem = ({ post, userId }) => {
+const deleteBtnText = 'Delete'
+const confirmDeleteBtnText = 'Confirm Delete?'
+
+const PostItem = ({ post, userId, setPostResponse }) => {
   const [isOwner, setIsOwner] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     const getUserId = userId();
+    setIsOwner(false)
+    setIsDeleting(false)
     if (getUserId === post.userId) {
       setIsOwner(true)
     }
-    //eslint-disable-next-line
-  }, [])
+  }, [post])
+
+  const handleDel = () => {
+    const button = document.getElementById("post-delete-btn" + post.id)
+    if (!isDeleting) {
+      button.style.color = 'red'
+      button.style.fontWeight = 'bold'
+      button.innerText = confirmDeleteBtnText
+      setIsDeleting(true)
+    }
+    else {
+      deletePost(setPostResponse, post.id)
+      button.style.color = '#3e3e3e'
+      button.style.fontWeight = 'normal'
+      button.innerText = deleteBtnText
+      setIsDeleting(false)
+    }
+  }
 
   return (
     <li className='post-item'>
@@ -30,10 +53,15 @@ const PostItem = ({ post, userId }) => {
 
       <p className='post-content'>{post.content}</p>
 
-      {isOwner ? <div className="modify-btn-wrap">
+      {isOwner && <div className="modify-btn-wrap">
         <button className="modify-btn">Edit</button>
-        <button className="modify-btn">Delete</button>
-      </div> : <></>}
+        <button 
+          id={"post-delete-btn" + post.id} 
+          className="modify-btn" 
+          onClick={handleDel}
+        >{deleteBtnText}
+        </button>
+      </div>}
     </li>
   );
 };
