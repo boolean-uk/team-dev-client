@@ -5,8 +5,10 @@ import { Stack } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { NavLink, Outlet } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Avatar from "@mui/material/Avatar";
 
-const Header = ({ companyName }) => {
+const Header = ({ companyName}) => {
+
   return (
     <>
       <Box
@@ -45,6 +47,7 @@ const Header = ({ companyName }) => {
         </Box> */}
 
         <Box>
+
           <Stack spacing={2} direction="row">
             <Button variant="contained">
               <NavLink to="/enrolment">Enrolment</NavLink>
@@ -52,8 +55,9 @@ const Header = ({ companyName }) => {
             <Button variant="contained" href="/profile">
               Profile
             </Button>
-            <Button variant="contained">Add Cohort</Button>
+            
             <Button variant="contained">Logout</Button>
+            <Button href="/profile"><Avatar src="default.png" /></Button>
           </Stack>
         </Box>
       </Box>
