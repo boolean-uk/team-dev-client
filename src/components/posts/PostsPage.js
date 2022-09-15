@@ -9,8 +9,6 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { renderPosts } from "./utils/getAllPosts";
 
-import Header from '../Header/Header';
-
 import PostItem from './PostItem';
 
 
