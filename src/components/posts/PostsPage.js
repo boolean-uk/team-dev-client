@@ -5,6 +5,8 @@ import client from '../../utils/client';
 import './style.css';
 
 import Header from '../Header/Header';
+import { renderPosts } from './utils/getAllPosts';
+import PostItem from './PostItem';
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: '' });
@@ -12,20 +14,11 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   client.get('/posts').then((res) => setPosts(res.data.data.posts));
-  // }, []);
-  // //console.log("setPosts", setPost)
-
-  const getAllPosts = async () => {
-    //const formattedPosts = await getAllPostsFormatted();
-    //setPosts(formattedPosts);
-    //console.log("hello there")
-  };
 
   useEffect(() => {
-
-    getAllPosts();
+    
+    renderPosts(setPosts);
+    
   }, []);
 
   const createPost = async (event) => {
@@ -33,14 +26,11 @@ const PostsPage = () => {
     client
       .post('/post', post)
       .then((res) => setPostResponse(res))
-      .then(getAllPosts())
-      .catch((data) => {
-        console.log('created new data', data);
-        // check if you need to catch errors
+      .then(renderPosts(setPosts))
+      .catch(() => {
+        setPostResponse("There was a problem creating this post")
       });
   };
-console.log('postResponse', postResponse)
-// fetch not working
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -50,7 +40,6 @@ console.log('postResponse', postResponse)
       [name]: value,
     });
   };
-  console.log('handleChange', post)
 
   const signOut = (event) => {
     event.preventDefault();
@@ -67,13 +56,13 @@ console.log('postResponse', postResponse)
         </button>
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
-        <ul className='posts-list'>
-          {posts.map((post, index) => (
-            <li key={index} className='post-item'>
-              {post.content}
-            </li>
-          ))}
-        </ul>
+        {posts.length > 0 ?
+          <ul className='posts-list'>
+            {posts.map((post, index) => <PostItem post={post} key={index} />)}
+          </ul>
+          :
+          <p className='no-posts-message'>There are no posts at the moment.</p>
+        }
       </section>
     </>
   );
