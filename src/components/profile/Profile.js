@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './style.css'
