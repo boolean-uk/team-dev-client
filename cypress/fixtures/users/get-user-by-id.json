@@ -1,0 +1,15 @@
+{
+    "status": "success",
+    "data": {
+        "user": {
+            "id": 10,
+            "cohort_id": null,
+            "role": "TEACHER",
+            "first_name": "Delia",
+            "last_name": "Liu",
+            "email": "delia@test.com",
+            "biography": "testing",
+            "github_url": "https://github.com/deliailu27"
+        }
+    }
+}

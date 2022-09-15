@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 
 import "./App.css";
 
+
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
 import PostsPage from "./components/posts/PostsPage";
@@ -15,6 +16,7 @@ import Account from "./components/account/Account";
 
 function App() {
   const [user, setUser] = useState({
+
     first_name: "Nathan",
     last_name: "King",
     biography: "Hello world",
@@ -45,8 +47,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
+
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
+
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
