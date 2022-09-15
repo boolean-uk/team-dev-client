@@ -1,20 +1,12 @@
-<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import "./style.css";
+
 import PostForm from "./PostForm";
 import client from "../../utils/client";
-import "./style.css";
-=======
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PostForm from './PostForm';
-import client from '../../utils/client';
-import './style.css';
-
-import Header from '../Header/Header';
-import { renderPosts } from './utils/getAllPosts';
-import PostItem from './PostItem';
->>>>>>> main
+import { renderPosts } from "./utils/getAllPosts";
+import PostItem from "./PostItem";
 
 const PostsPage = () => {
   const [post, setPost] = useState({ content: "" });
@@ -23,12 +15,9 @@ const PostsPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-<<<<<<< HEAD
     client.get("/posts").then(res => setPosts(res.data.data.posts));
-=======
     renderPosts(setPosts);
     // eslint-disable-next-line
->>>>>>> main
   }, []);
 
   const createPost = async event => {
@@ -65,13 +54,15 @@ const PostsPage = () => {
         <p>Status: {postResponse.status}</p>
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
 
-        {posts.length > 0 ?
-          <ul className='posts-list'>
-            {posts?.map((post, index) => <PostItem post={post} key={index} />)}
+        {posts.length > 0 ? (
+          <ul className="posts-list">
+            {posts?.map((post, index) => (
+              <PostItem post={post} key={index} />
+            ))}
           </ul>
-          :
-          <p className='no-posts-message'>There are no posts at the moment.</p>
-        }
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
       </section>
     </>
   );
