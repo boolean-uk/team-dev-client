@@ -8,7 +8,6 @@ import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { renderPosts } from "./utils/getAllPosts";
-
 import PostItem from './PostItem';
 
 
