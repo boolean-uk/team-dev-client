@@ -1,0 +1,12 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #9d9c9c;
+    margin-bottom: 2rem;
+}
+
+.table-container h1 {
+    margin: 1rem;
+}
