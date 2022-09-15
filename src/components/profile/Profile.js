@@ -66,3 +66,5 @@ const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
         </>
     )
 }
+
+export default Profile
