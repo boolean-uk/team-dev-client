@@ -1,4 +1,12 @@
+import { useEffect, useState } from "react";
+
 const PostItem = ({ post }) => {
+  const [isOwner, setIsOwner] = useState(false)
+
+  useEffect(() => {
+
+  }, [])
+  
   return (
     <li className='post-item'>
       <div className='post-header-wrap'>
@@ -18,9 +26,13 @@ const PostItem = ({ post }) => {
 
       <p className='post-content'>{post.content}</p>
 
-      <div className="modify-btn-wrap">
+      <div className="modify-btn-wrap">{
+        isOwner?
+        <>
         <button className="modify-btn">Edit</button>
         <button className="modify-btn">Delete</button>
+        </> : <></>
+        }
       </div>
     </li>
   );
