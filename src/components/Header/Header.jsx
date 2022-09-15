@@ -48,9 +48,7 @@ const Header = ({ companyName}) => {
         <Box>
 
           <Stack spacing={2} direction="row">
-            <Button variant="contained">
-              <NavLink to="/enrolment">Enrolment</NavLink>
-            </Button>
+            
             <Button variant="contained" href="/profile">
               Profile
             </Button>
