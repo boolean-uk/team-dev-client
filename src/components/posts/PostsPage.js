@@ -19,15 +19,9 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts] = useState([]);
-
-  
-
   let navigate = useNavigate();
 
   useEffect(() => {
-
-
-    
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if(!token){ return }
     const decoded = jwt_decode(token);
