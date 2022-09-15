@@ -7,7 +7,7 @@ import { useState } from "react";
 function SearchBar() {
   const [inputText, setInputText] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [searchResponse, setSearchResponse] = useState(""); // do we need this i dont think so but i wrote it
+  const [searchResponse, setSearchResponse] = useState(""); 
 
   // handle the text input to search bar
   const handleChange = event => {
@@ -25,7 +25,8 @@ function SearchBar() {
     client
       .get(`/users`)
       .then(res => {
-        setSearchResponse(res.data); // do i need??
+        setSearchResponse(res.data);
+        // this needs to be a filter or save the whole list of students and then filter one from that state
         setSearchResult(res.data.data.users);
         console.log('res', res);
       })
