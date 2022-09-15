@@ -110,7 +110,7 @@ const PostsPage = () => {
         <PostForm handleSubmit={createPost} handleChange={handleChange} />
         {posts.length > 0 ?
           <ul className='posts-list'>
-            {posts?.map((post, index) => <PostItem post={post} key={index} />)}
+            {posts.map((post, index) => <PostItem post={post} key={index} />)}
           </ul>
           :
           <p className='no-posts-message'>There are no posts at the moment.</p>
