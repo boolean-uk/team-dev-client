@@ -1,5 +1,3 @@
-
-
 describe('User Registration', () => {
   describe("a valid user", () => {
     beforeEach(() => {
