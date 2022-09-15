@@ -90,9 +90,6 @@ const PostsPage = () => {
 
   return (
     <>
-
-     
-
       {isTeacher && (
         <div className='teacher-section'>
           <h3>Teacher Area</h3>
