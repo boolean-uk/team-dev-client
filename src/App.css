@@ -38,3 +38,14 @@ h1 {
 #user-submit-button {
   margin: 2rem;
 }
+
+.teacher__section {
+  background-color: red;
+  display: grid;
+}
+
+.cohort-list {
+  display: grid;
+  justify-content: end;
+  padding-right: 1rem;
+}
