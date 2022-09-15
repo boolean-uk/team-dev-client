@@ -23,6 +23,7 @@
 .teacher-section{
   display: grid;
   align-items: center;
+  gap: 0.2rem;
 }
 
 

@@ -10,7 +10,7 @@ function SearchBar() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchResponse, setSearchResponse] = useState(""); 
 
-  const navigate = useNavigate()
+  let navigate = useNavigate()
 
   // handle the text input to search bar
   const handleChange = event => {
@@ -32,17 +32,17 @@ function SearchBar() {
 
         const users = res.data.data.users
 
-        const foundUser = users.filter(user => user.first_name.includes(inputText)) 
+        const foundUser = users.filter(user => user.first_name.includes(inputText.value)) 
 
         console.log('found', foundUser);
 
         setSearchResult(foundUser);
-        console.log('res', res);
       })
 
       .catch(err => console.log(err.response));
   };
-console.log('serach results', searchResult);
+  
+
 
   return (
     <>
@@ -71,7 +71,9 @@ console.log('serach results', searchResult);
             {searchResult.map((user, index) => {
                 return(
                 <li key={index}>
-                    {user.first_name}
+                    {user.first_name} {''}
+                    {user.last_name} {''}
+                    <Button>Profile</Button>
                 </li>
                 )
             })}

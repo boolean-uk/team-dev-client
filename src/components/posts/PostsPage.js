@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { renderPosts } from "./utils/getAllPosts";
 import PostItem from './PostItem';
+import SearchBar from '../Header/SearchBar';
 
 
 const PostsPage = () => {
@@ -88,6 +89,9 @@ const PostsPage = () => {
               Create Cohort
             </Button>
           </Box>
+
+          <SearchBar />
+          
           <section className='cohort-list'>
             <h4>Cohort List</h4>
             {cohorts.map((cohort) => {
