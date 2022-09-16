@@ -74,8 +74,10 @@ const PostsPage = () => {
   return (
     <>
       {isTeacher && (
-        <Box textAlign='center'>
-        <Card variant="outlined" sx={{width:500}}>
+        <Box   display="flex"
+        justifyContent="center"
+        alignItems="center">
+        <Card variant="outlined" sx={{width:1000}}>
         <div className='teacher-section'>
           <h3>Teacher Admin</h3>
           <CardActions>
