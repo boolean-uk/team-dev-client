@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Button from "@mui/material/Button";
+import { useState } from 'react';
+import Button from '@mui/material/Button';
 
-import client from "../../../utils/client";
+import client from '../../../utils/client';
 
 const UserListItem = ({
   cohort_id,
@@ -21,7 +21,7 @@ const UserListItem = ({
     client
       .patch(`/user/${id}`, { cohort_id })
       .then(res => setUserCohort(res.data.data.user.cohort_id))
-      .catch(err => setError("error"));
+      .catch(err => setError('error'));
   };
 
   return (
@@ -34,7 +34,7 @@ const UserListItem = ({
           </p>
           <p>{email}</p>
         </div>
-        <div>{userCohort || "Not Enrolled"}</div>
+        <div>{userCohort || 'Not Enrolled'}</div>
 
         <form onSubmit={handleSubmit}>
           <select

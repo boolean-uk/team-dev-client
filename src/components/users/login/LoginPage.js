@@ -61,10 +61,10 @@ const LoginPage = () => {
       <div>
         <h1>Cohort Manager 2.0</h1>
       </div>
-      <Link id='user-registration-link' to='/signup'>
+      <Link id="user-registration-link" to="/signup">
         sign up
       </Link>
-      <Link id='user-login-link' to='/'>
+      <Link id="user-login-link" to="/">
         login
       </Link>
       <h1>Login</h1>

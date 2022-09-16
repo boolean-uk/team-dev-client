@@ -20,12 +20,10 @@
   list-style: none;
 }
 
-.teacher-section{
+.teacher-section {
   display: grid;
   align-items: center;
 }
-
-
 
 .post-item {
   width: 50vw;

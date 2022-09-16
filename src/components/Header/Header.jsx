@@ -1,22 +1,22 @@
-import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Stack } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
-import { NavLink, Outlet } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
+import { Box } from '@mui/system';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Stack } from '@mui/material';
+import InputBase from '@mui/material/InputBase';
+import { NavLink, Outlet } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
-import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
-import client from "../../utils/client";
+import { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
+import client from '../../utils/client';
 
 const Header = ({ companyName }) => {
   const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    biography: "",
-    profile_image_url: "",
-    github_url: "",
+    first_name: '',
+    last_name: '',
+    biography: '',
+    profile_image_url: '',
+    github_url: '',
   });
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Header = ({ companyName }) => {
   }, []);
 
   const getLoggedInUserId = () => {
-    const loadedToken = localStorage.getItem("token");
+    const loadedToken = localStorage.getItem('token');
     if (loadedToken === null) {
       return null;
     }
@@ -40,18 +40,18 @@ const Header = ({ companyName }) => {
     return decoded.userId;
   };
 
-  const { profile_image_url } = user
+  const { profile_image_url } = user;
 
   return (
     <>
       <Box
         sx={{
-          display: "flex",
-          backgroundColor: "grey",
-          justifyContent: "space-between",
-          alignContent: "center",
-          width: "100vw",
-          padding: "1em",
+          display: 'flex',
+          backgroundColor: 'grey',
+          justifyContent: 'space-between',
+          alignContent: 'center',
+          width: '100vw',
+          padding: '1em',
         }}
       >
         <Box>
@@ -63,15 +63,15 @@ const Header = ({ companyName }) => {
 
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
           }}
         >
-          <Box sx={{ backgroundColor: "white" }}>
+          <Box sx={{ backgroundColor: 'white' }}>
             <InputBase
               placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
+              inputProps={{ 'aria-label': 'search' }}
             />
           </Box>
           <Box>
@@ -80,7 +80,6 @@ const Header = ({ companyName }) => {
         </Box>
 
         <Box>
-
           <Stack spacing={2} direction="row">
             <Button variant="contained">
               <NavLink to="/enrolment">Enrolment</NavLink>
@@ -90,7 +89,9 @@ const Header = ({ companyName }) => {
             </Button>
 
             <Button variant="contained">Logout</Button>
-            <Button href="/account"><Avatar src={profile_image_url} /></Button>
+            <Button href="/account">
+              <Avatar src={profile_image_url} />
+            </Button>
           </Stack>
         </Box>
       </Box>
