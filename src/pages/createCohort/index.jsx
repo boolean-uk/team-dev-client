@@ -17,7 +17,7 @@ const CreateCohort=()=>{
         
       }
     return (<>
-    <Box>
+    <Box >
       <div className="create-cohort">
          <Button variant="contained" onClick={createCohort}>Create</Button>
          {createCohortRes &&<p>Cohort created!</p>}
