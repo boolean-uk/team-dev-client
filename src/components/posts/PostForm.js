@@ -1,16 +1,16 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const PostForm = ({ handleSubmit, handleChange }) => {
+const PostForm = ({ handleSubmit, handleChange, value }) => {
   return (
     <form className="post-form" onSubmit={handleSubmit}>
       <TextField
-        id="user-form-input"
         className="user-form-input"
         type="text"
         label="New Post"
         variant="outlined"
         name="content"
+        value={value}
         onChange={handleChange}
       />
       <Button type="submit" variant="contained">

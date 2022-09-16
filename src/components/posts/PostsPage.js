@@ -43,8 +43,7 @@ const PostsPage = ({ getUserId }) => {
       .post("/post", post)
       .then(res => setPostResponse(res.data))
       .then(() => {
-        const inputForm = document.getElementById('user-form-input')
-        inputForm.value = ''
+        setPost({content: ''})
       })
       .catch(() => {
         setPostResponse("There was a problem creating this post")
@@ -54,10 +53,10 @@ const PostsPage = ({ getUserId }) => {
 
   const handleChange = event => {
     event.preventDefault();
-    const { value, name } = event.target;
+    const { value } = event.target;
     setPost({
       ...post,
-      [name]: value,
+      content: value,
     });
   };
 
@@ -106,7 +105,7 @@ const PostsPage = ({ getUserId }) => {
         </button>
         
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} />
+        <PostForm handleSubmit={createPost} handleChange={handleChange} value={post.content}/>
 
         {posts?.length > 0 ? (
           <ul className="posts-list">
