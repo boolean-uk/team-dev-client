@@ -11,9 +11,9 @@ import { renderPosts } from "./utils/getAllPosts";
 import PostItem from './PostItem';
 
 
-const PostsPage = ({ getUserId }) => {
+const PostsPage = ({ getUserId, setProfileView }) => {
   const [post, setPost] = useState({ content: "" });
-  const [createCohortRes,setCreateCohortRes]=useState(false)
+  const [createCohortRes, setCreateCohortRes] = useState(false)
   const [postResponse, setPostResponse] = useState("");
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
@@ -22,9 +22,9 @@ const PostsPage = ({ getUserId }) => {
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
-    if(!token){ return }
+    if (!token) { return }
     const decoded = jwt_decode(token);
-    
+
     let id = decoded.userId;
 
     client.get(`/user/${id}`).then((res) => {
@@ -43,7 +43,7 @@ const PostsPage = ({ getUserId }) => {
       .post("/post", post)
       .then(res => setPostResponse(res.data))
       .then(() => {
-        setPost({content: ''})
+        setPost({ content: '' })
       })
       .catch(() => {
         setPostResponse("There was a problem creating this post")
@@ -69,13 +69,13 @@ const PostsPage = ({ getUserId }) => {
   function createCohort(event) {
     event.preventDefault();
     client.post('/cohort').then((res) => {
-     
+
       if (res.data.status === 'success') {
         setCreateCohortRes(true);
-      } 
+      }
     }).catch(console.log);
-    setTimeout(()=>{setCreateCohortRes(false)},3000)
-    
+    setTimeout(() => { setCreateCohortRes(false) }, 3000)
+
   }
 
   return (
@@ -84,7 +84,7 @@ const PostsPage = ({ getUserId }) => {
         <div className='teacher-section'>
           <h3>Teacher Area</h3>
           <Box testAlign='center'>
-            {createCohortRes &&<p>Cohort created!</p>}
+            {createCohortRes && <p>Cohort created!</p>}
             <Button variant='contained' onClick={createCohort}>
               Create Cohort
             </Button>
@@ -103,14 +103,21 @@ const PostsPage = ({ getUserId }) => {
 
           sign out
         </button>
-        
+
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} value={post.content}/>
+        <PostForm handleSubmit={createPost} handleChange={handleChange} value={post.content} />
 
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} userId={getUserId} setPost={setPost} setPostResponse={setPostResponse} />
+              <PostItem
+                post={post}
+                key={index}
+                userId={getUserId}
+                setPost={setPost}
+                setPostResponse={setPostResponse}
+                setProfileView={setProfileView}
+              />
             ))}
           </ul>
         ) : (
