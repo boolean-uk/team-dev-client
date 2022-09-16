@@ -10,7 +10,6 @@ const Profile = ({ getLoggedInUserId, user, setUser }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const { first_name, last_name, biography, github_url, profile_image_url } = user
 
         const reqBody = {
             firstName: first_name,
@@ -35,8 +34,6 @@ const Profile = ({ getLoggedInUserId, user, setUser }) => {
     const handleChange = (event) => {
         event.preventDefault()
         const { value, name } = event.target
-
-        console.log("yes", event.target)
 
         setUser({
             ...user,

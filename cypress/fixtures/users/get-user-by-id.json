@@ -9,7 +9,8 @@
             "last_name": "Liu",
             "email": "delia@test.com",
             "biography": "testing",
-            "github_url": "https://github.com/deliailu27"
+            "github_url": "https://github.com/deliailu27",
+            "profile_image_url": null
         }
     }
 }
