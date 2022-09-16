@@ -13,6 +13,7 @@
   border-radius: 4px;
   color: black;
   padding: 20px 0px 20px 50px;
+  min-height: 200px;
 }
 
 .enrolment__student-card {
@@ -23,7 +24,7 @@
 .enrolment__profile-image {
   height: 50px;
   width: 50px;
-  border: black solid 1px;
+  border: lightgray solid 1px;
   border-radius: 50%;
 }
 
@@ -40,6 +41,12 @@
   color: gray;
 }
 
-.enrolment__form {
-  /* display: flex; */
+@media (max-width: 750px) {
+  .enrolment__student-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    place-items: center;
+    max-width: 25rem;
+    padding: 20px;
+  }
 }

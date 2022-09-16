@@ -23,10 +23,6 @@ const UserList = () => {
       .catch(err => setError('error'));
   }, []);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
   return (
     <>
       {error ? (

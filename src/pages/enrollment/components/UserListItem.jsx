@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-
+import DEFAULTIMG from '../../../assets/default.png';
 import client from '../../../utils/client';
 
 const UserListItem = ({
@@ -9,6 +9,7 @@ const UserListItem = ({
   email,
   first_name,
   last_name,
+  profile_image_url,
   id,
   cohorts,
   setError,
@@ -33,14 +34,19 @@ const UserListItem = ({
   return (
     <div className="enrolment__student-container">
       <div className="enrolment__student-card">
-        <div className="enrolment__profile-image"></div>
+        <img
+          className="enrolment__profile-image"
+          src={profile_image_url || DEFAULTIMG}
+          alt="Profile"
+        />
+
         <div className="enrolment__user-text">
           <span style={{ marginRight: '8px' }}>{first_name}</span>
           <span>{last_name}</span>
           <p className="enrolment__user-email">{email}</p>
         </div>
       </div>
-      <div>{userCohort || 'Not Enrolled'}</div>
+      <div>{userCohort ? `Cohort: ${userCohort}` : 'Not Enrolled'}</div>
 
       <form onSubmit={handleSubmit} className="enrolment__form">
         <FormControl>
