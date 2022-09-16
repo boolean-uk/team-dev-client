@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
-import userBlankData from "../utils/userHelpers";
-import UserForm from "./UserForm";
-import client from "../../../utils/client";
+import userBlankData from '../utils/userHelpers';
+import UserForm from './UserForm';
+import client from '../../../utils/client';
 
 const LoginPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [loginResponse, setLoginResponse] = useState({
-    data: { token: "", user: {} },
+    data: { token: '', user: {} },
   });
   let navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
@@ -24,7 +24,7 @@ const LoginPage = () => {
   const loginUser = event => {
     event.preventDefault();
     client
-      .post("/login", user)
+      .post('/login', user)
       .then(res => {
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
@@ -42,7 +42,7 @@ const LoginPage = () => {
         setLoginError(true);
         setTimeout(() => {
           setLoginError(false);
-        }, "2000");
+        }, '2000');
       });
   };
 

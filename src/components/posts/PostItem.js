@@ -18,7 +18,7 @@ const PostItem = ({ post, userId, setPostResponse }) => {
   }, [post, userId])
 
   const handleDel = () => {
-    const button = document.getElementById("post-delete-btn" + post.id)
+    const button = document.getElementById('post-delete-btn' + post.id)
     if (!isDeleting) {
       button.style.color = 'red'
       button.style.fontWeight = 'bold'
@@ -56,7 +56,7 @@ const PostItem = ({ post, userId, setPostResponse }) => {
       {isOwner && <div className="modify-btn-wrap">
         <button className="modify-btn">Edit</button>
         <button 
-          id={"post-delete-btn" + post.id} 
+          id={'post-delete-btn' + post.id} 
           className="modify-btn" 
           onClick={handleDel}
         >{deleteBtnText}

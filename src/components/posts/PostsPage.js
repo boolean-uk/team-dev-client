@@ -7,14 +7,14 @@ import './style.css';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
-import { renderPosts } from "./utils/getAllPosts";
+import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 
 
 const PostsPage = ({ getUserId }) => {
-  const [post, setPost] = useState({ content: "" });
+  const [post, setPost] = useState({ content: '' });
   const [createCohortRes,setCreateCohortRes]=useState(false)
-  const [postResponse, setPostResponse] = useState("");
+  const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   const [cohorts] = useState([]);
@@ -40,13 +40,13 @@ const PostsPage = ({ getUserId }) => {
     event.preventDefault();
     client
 
-      .post("/post", post)
+      .post('/post', post)
       .then(res => setPostResponse(res.data))
       .then(() => {
         setPost({content: ''})
       })
       .catch(() => {
-        setPostResponse("There was a problem creating this post")
+        setPostResponse('There was a problem creating this post')
       });
 
   };
@@ -62,8 +62,8 @@ const PostsPage = ({ getUserId }) => {
 
   const signOut = event => {
     event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, "");
-    navigate("../", { replace: true });
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
   };
 
   function createCohort(event) {
