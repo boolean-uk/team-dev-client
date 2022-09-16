@@ -13,7 +13,6 @@ import Card from '@mui/material/Card';
 
 const PostsPage = ({ getUserId, setProfileView }) => {
   const [post, setPost] = useState({ content: '' });
-  const [createCohortRes, setCreateCohortRes] = useState(false)
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
@@ -67,18 +66,6 @@ const PostsPage = ({ getUserId, setProfileView }) => {
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
     navigate('../', { replace: true });
   };
-
-  function createCohort(event) {
-    event.preventDefault();
-    client.post('/cohort').then((res) => {
-
-      if (res.data.status === 'success') {
-        setCreateCohortRes(true);
-      }
-    }).catch(console.log);
-    setTimeout(() => { setCreateCohortRes(false) }, 3000)
-
-  }
 
   return (
     <>
