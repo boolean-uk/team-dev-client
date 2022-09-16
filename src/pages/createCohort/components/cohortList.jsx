@@ -27,6 +27,4 @@ const CohortList=()=>{
     </div>
     </>)
 }
-
-
 export default CohortList;
