@@ -20,7 +20,7 @@
   list-style: none;
 }
 
-.teacher-section{
+.teacher-section {
   display: grid;
   align-items: center;
 }
@@ -82,4 +82,8 @@
 
 .modify-btn:hover {
   border-bottom: 1px solid;
+}
+
+.teacher-section {
+  margin-top: 30px;
 }
