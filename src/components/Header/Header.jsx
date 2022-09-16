@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { NavLink, Outlet } from 'react-router-dom';
+import {  Outlet } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
 import { useEffect, useState } from 'react';
@@ -78,9 +78,7 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            <Button variant="contained">
-              <NavLink to="/enrolment">Enrolment</NavLink>
-            </Button>
+            
             <Button variant="contained" href="/profile">
               Profile
             </Button>
