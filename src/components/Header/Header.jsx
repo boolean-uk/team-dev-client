@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { NavLink, Outlet } from 'react-router-dom';
+import {  Outlet } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
 import { useEffect, useState } from 'react';
