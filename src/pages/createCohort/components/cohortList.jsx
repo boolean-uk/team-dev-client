@@ -1,4 +1,4 @@
-import { Button, Card } from "@mui/material";
+import {  Card } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import client from "../../../utils/client";
@@ -8,9 +8,8 @@ const CohortList=()=>{
     const [cohorts,setCohorts]=useState([])
 
     useEffect(()=>{
-        client.get('/cohort').then((res)=>{setCohorts(res.data.data.cohorts)})
+        client.get('/cohort').then((res)=>{setCohorts(res.data.data.cohorts)}).catch(console.log)
     
-        
     },[]);
    
 
