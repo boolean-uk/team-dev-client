@@ -121,6 +121,7 @@ const PostsPage = ({ getUserId }) => {
                 post={post}
                 key={index}
                 userId={getUserId}
+                setPost={setPost}
                 setPostResponse={setPostResponse}
               />
             ))}
