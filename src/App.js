@@ -14,6 +14,7 @@ import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
 
 function App() {
+  const [profileView, setProfileView] = useState(null)
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -52,7 +53,7 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/posts"
-            element={<PostsPage getUserId={getLoggedInUserId} />}
+            element={<PostsPage getUserId={getLoggedInUserId} setProfileView={setProfileView} />}
           />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route
@@ -62,6 +63,7 @@ function App() {
                 getLoggedInUserId={getLoggedInUserId}
                 user={user}
                 setUser={setUser}
+                profileView={profileView}
               />
             }
           />

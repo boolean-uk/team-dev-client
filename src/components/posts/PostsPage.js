@@ -11,7 +11,7 @@ import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 
-const PostsPage = ({ getUserId }) => {
+const PostsPage = ({ getUserId, setProfileView }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -99,22 +99,25 @@ const PostsPage = ({ getUserId }) => {
           value={post.content}
         />
 
-        {posts?.length > 0 ? (
-          <ul className="posts-list">
-            {posts?.map((post, index) => (
-              <PostItem
-                post={post}
-                key={index}
-                userId={getUserId}
-                setPost={setPost}
-                setPostResponse={setPostResponse}
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="no-posts-message">There are no posts at the moment.</p>
-        )}
-      </section>
+        {
+          posts?.length > 0 ? (
+            <ul className="posts-list">
+              {posts?.map((post, index) => (
+                <PostItem
+                  post={post}
+                  key={index}
+                  userId={getUserId}
+                  setPost={setPost}
+                  setPostResponse={setPostResponse}
+                  setProfileView={setProfileView}
+                />
+              ))}
+            </ul>
+          ) : (
+            <p className="no-posts-message">There are no posts at the moment.</p>
+          )
+        }
+      </section >
     </>
   );
 };

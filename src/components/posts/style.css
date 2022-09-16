@@ -85,3 +85,8 @@
 .teacher-section {
   margin-top: 30px;
 }
+
+.post-owner-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
