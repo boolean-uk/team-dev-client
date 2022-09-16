@@ -53,7 +53,7 @@ const EditForm = ({ user, handleSubmit, handleChange }) => {
                             type="url"
                             label="Profile Pic URL"
                             variant="outlined"
-                            name="profile_pic_url"
+                            name="profile_image_url"
                             placeholder={profile_image_url}
                             onChange={handleChange}
                         />

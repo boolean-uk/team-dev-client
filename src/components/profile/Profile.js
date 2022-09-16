@@ -35,6 +35,8 @@ const Profile = ({ getLoggedInUserId, user, setUser }) => {
         event.preventDefault()
         const { value, name } = event.target
 
+        console.log(event.target)
+
         setUser({
             ...user,
             [name]: value,
