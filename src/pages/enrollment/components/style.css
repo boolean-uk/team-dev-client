@@ -1,31 +1,52 @@
 .enrolment-container {
-  display: grid;
-  width: 60%;
-  grid-template-columns: 600px 200px 200px;
-  border: grey 1px solid;
-  padding: 20px;
-  margin: 5px;
-  margin-inline: auto;
+  padding-inline: 10px;
 }
 
-.student-card {
+.enrolment__student-container {
   display: grid;
-  grid-template-columns: 100px 100px 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background-color: white;
   align-items: center;
-  border: white solid 2px;
-  padding: 2px;
-  height: 75px;
-  background: white;
+  margin-inline: auto;
+  max-width: 60rem;
+  margin-block: 30px;
+  border-radius: 4px;
   color: black;
+  padding: 20px 0px 20px 50px;
+  min-height: 200px;
 }
 
-.profile-image {
-    height: 50px;
-    width: 50px;
-    border: black solid 1px;
-    border-radius: 50%;
+.enrolment__student-card {
+  display: flex;
+  align-items: center;
 }
 
-.add-to-cohort-form-select {
-  margin-right: 10px;
+.enrolment__profile-image {
+  height: 50px;
+  width: 50px;
+  border: lightgray solid 1px;
+  border-radius: 50%;
+}
+
+.enrolment__user-text {
+  font-size: larger;
+  font-weight: 600;
+  margin-left: 20px;
+  text-align: start;
+}
+
+.enrolment__user-email {
+  font-size: small;
+  font-weight: 400;
+  color: gray;
+}
+
+@media (max-width: 750px) {
+  .enrolment__student-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    place-items: center;
+    max-width: 25rem;
+    padding: 20px;
+  }
 }

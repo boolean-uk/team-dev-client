@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import DEFAULTIMG from '../../../assets/default.png';
 import client from '../../../utils/client';
 
 const UserListItem = ({
@@ -8,15 +9,21 @@ const UserListItem = ({
   email,
   first_name,
   last_name,
+  profile_image_url,
   id,
   cohorts,
   setError,
 }) => {
   const [userCohort, setUserCohort] = useState(cohort_id);
+  const [selectedCohort, setSelectedCohort] = useState('');
+
+  const handleChange = e => {
+    setSelectedCohort(e.target.value);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const cohort_id = e.target.cohortList.value;
+    const cohort_id = selectedCohort;
 
     client
       .patch(`/user/${id}`, { cohort_id })
@@ -25,36 +32,47 @@ const UserListItem = ({
   };
 
   return (
-    <div>
-      <div className="enrolment-container">
-        <div className="student-card">
-          <div className="profile-image">picture</div>
-          <p>
-            {first_name} {last_name}
-          </p>
-          <p>{email}</p>
-        </div>
-        <div>{userCohort || 'Not Enrolled'}</div>
+    <div className="enrolment__student-container">
+      <div className="enrolment__student-card">
+        <img
+          className="enrolment__profile-image"
+          src={profile_image_url || DEFAULTIMG}
+          alt="Profile"
+        />
 
-        <form onSubmit={handleSubmit}>
-          <select
-            name="cohortList"
+        <div className="enrolment__user-text">
+          <span style={{ marginRight: '8px' }}>{first_name}</span>
+          <span>{last_name}</span>
+          <p className="enrolment__user-email">{email}</p>
+        </div>
+      </div>
+      <div>{userCohort ? `Cohort: ${userCohort}` : 'Not Enrolled'}</div>
+
+      <form onSubmit={handleSubmit} className="enrolment__form">
+        <FormControl>
+          <InputLabel>Cohort</InputLabel>
+          <Select
             id="cohortList"
+            label="Cohort"
+            value={selectedCohort}
+            onChange={handleChange}
             required
-            className="add-to-cohort-form-select"
           >
-            <option defaultValue=""></option>
             {cohorts.map((cohort, i) => (
-              <option key={i} value={cohort.id}>
+              <MenuItem key={i} value={cohort.id}>
                 {cohort.id}
-              </option>
+              </MenuItem>
             ))}
-          </select>
-          <Button variant="contained" type="submit">
+          </Select>
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ marginTop: '10px' }}
+          >
             Add to Cohort
           </Button>
-        </form>
-      </div>
+        </FormControl>
+      </form>
     </div>
   );
 };

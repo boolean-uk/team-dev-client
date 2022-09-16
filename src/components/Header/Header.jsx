@@ -55,10 +55,7 @@ const Header = ({ companyName }) => {
         }}
       >
         <Box>
-          {/* typography component cannot have a <p> tag as a child. NEEDS FIXING*/}
-          <Typography>
-            <p>{companyName}</p>
-          </Typography>
+          <Typography>{companyName}</Typography>
         </Box>
 
         <Box
