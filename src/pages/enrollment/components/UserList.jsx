@@ -1,27 +1,31 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import client from "../../../utils/client";
-import UserListItem from "./UserListItem";
-import "./style.css";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import client from '../../../utils/client';
+import UserListItem from './UserListItem';
+import './style.css';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [cohorts, setCohorts] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     client
-      .get("/cohort")
+      .get('/cohort')
       .then(res => setCohorts(res.data.data.cohorts))
-      .catch(err => setError("error"));
+      .catch(err => setError('error'));
   }, []);
 
   useEffect(() => {
     client
-      .get("/user")
+      .get('/user')
       .then(res => setUsers(res.data.data.users))
-      .catch(err => setError("error"));
+      .catch(err => setError('error'));
   }, []);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
 
   return (
     <>
