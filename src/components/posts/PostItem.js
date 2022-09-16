@@ -1,33 +1,49 @@
+import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
+import { editPost } from './utils/editPost';
 
 const deleteBtnText = 'Delete'
 const confirmDeleteBtnText = 'Confirm Delete?'
 
-const PostItem = ({ post, userId, setPostResponse }) => {
+const PostItem = ({ post, userId, setPostResponse, setPost }) => {
   const [isOwner, setIsOwner] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [content, setContent] = useState(post.content)
+  const [editStyle, setEditStyle] = useState({text: 'Edit', color: 'primary'})
 
   useEffect(() => {
     const getUserId = userId();
     setIsOwner(false)
     setIsDeleting(false)
+    setContent(post.content)
     if (getUserId === post.userId) {
       setIsOwner(true)
     }
   }, [post, userId])
 
-  const handleEdit = () => {
-    const editBtn = document.getElementById('post-edit-btn' + post.id)
+  const handleChange = (e) => {
+    e.preventDefault()
+    const {value} = e.target
+    setContent(value)
+  }
+
+  const handleEdit = (e) => {
     if (!isEditing) {
-      editBtn.innerText = 'Save'
+      setEditStyle({
+        text: 'Save',
+        color: 'success'
+      })
       setIsEditing(true)
     }
     else {
-      editBtn.innerText = 'Edit'
-      setIsEditing(false)
+        editPost(setPostResponse, post.id, content)
+        setEditStyle({
+          text: 'Edit',
+          color: 'primary'
+        })
+        setIsEditing(false)
     }
   }
 
@@ -65,15 +81,17 @@ const PostItem = ({ post, userId, setPostResponse }) => {
         <p className='createdAt-time'>{post.createdAt}</p>
       </div>
       { isEditing ? 
-      <textarea value={content}/>
+      <TextField multiline value={content} onChange={handleChange}/>
       : 
       <p className='post-content'>{post.content}</p>
       }
       {isOwner && <div className="modify-btn-wrap">
-        <button 
+        <Button
+        color={editStyle.color}
+        variant='text'
         id={'post-edit-btn' + post.id}
         onClick={handleEdit}
-        className="modify-btn">Edit</button>
+        className="modify-btn">{editStyle.text}</Button>
         <button 
           id={"post-delete-btn" + post.id} 
           className="modify-btn" 
