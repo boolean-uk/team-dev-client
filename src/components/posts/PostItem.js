@@ -4,10 +4,10 @@ import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
 
-const deleteBtnText = 'Delete'
-const confirmDeleteBtnText = 'Confirm Delete?'
-const delBtnStyle = { text: deleteBtnText, color: 'primary' }
-const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' }
+const deleteBtnText = 'Delete';
+const confirmDeleteBtnText = 'Confirm Delete?';
+const delBtnStyle = { text: deleteBtnText, color: 'primary' };
+const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) => {
   const [isOwner, setIsOwner] = useState(false)
@@ -20,14 +20,14 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
 
   useEffect(() => {
     const getUserId = userId();
-    setIsOwner(false)
-    setIsDeleting(false)
-    setContent(post.content)
-    setDelStyle(delBtnStyle)
+    setIsOwner(false);
+    setIsDeleting(false);
+    setContent(post.content);
+    setDelStyle(delBtnStyle);
     if (getUserId === post.userId) {
-      setIsOwner(true)
+      setIsOwner(true);
     }
-  }, [post, userId])
+  }, [post, userId]);
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -35,55 +35,53 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     setContent(value)
   }
 
-  const handleEdit = (e) => {
+  const handleEdit = e => {
     if (!isEditing) {
       setEditStyle({
         text: 'Save',
-        color: 'success'
-      })
-      setIsEditing(true)
-    }
-    else {
-      editPost(setPostResponse, post.id, content)
+        color: 'success',
+      });
+      setIsEditing(true);
+    } else {
+      editPost(setPostResponse, post.id, content);
       setEditStyle({
         text: 'Edit',
-        color: 'primary'
-      })
-      setIsEditing(false)
+        color: 'primary',
+      });
+      setIsEditing(false);
     }
-  }
+  };
 
   const handleDel = () => {
     if (!isDeleting) {
-      setDelStyle(confirmDelStyle)
-      setIsDeleting(true)
+      setDelStyle(confirmDelStyle);
+      setIsDeleting(true);
+    } else {
+      deletePost(setPostResponse, post.id);
+      setIsDeleting(false);
     }
-    else {
-      deletePost(setPostResponse, post.id)
-      setIsDeleting(false)
-    }
-  }
+  };
 
   const handleClick = (e) => {
     setProfileView(post.userId)
-    navigate("/profile")
+    navigate('/profile')
   }
 
   return (
-    <li className='post-item'>
-      <div className='post-header-wrap'>
-        <div className='post-profile-wrap'>
+    <li className="post-item">
+      <div className="post-header-wrap">
+        <div className="post-profile-wrap">
           <img
-            className='post-profile-img'
+            className="post-profile-img"
             src={post.user.profile.profileImageUrl}
-            alt='profile'
+            alt="profile"
           />
           <h3 onClick={handleClick} className="post-owner-name">
             {post.user.profile.firstName} {post.user.profile.lastName}
           </h3>
         </div>
 
-        <p className='createdAt-time'>{post.createdAt}</p>
+        <p className="createdAt-time">{post.createdAt}</p>
       </div>
       {isEditing ?
         <TextField multiline value={content} onChange={handleChange} />

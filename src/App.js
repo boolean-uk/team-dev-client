@@ -11,6 +11,7 @@ import EnrolmentPage from './pages/enrollment';
 import Header from './components/Header/Header';
 import client from './utils/client';
 import Account from './components/account/Account';
+import CreateCohort from './pages/createCohort';
 
 function App() {
   const [profileView, setProfileView] = useState(null)
@@ -49,6 +50,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
+          <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/posts"
             element={<PostsPage getUserId={getLoggedInUserId} setProfileView={setProfileView} />}
