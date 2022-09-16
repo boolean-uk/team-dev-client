@@ -2,14 +2,15 @@
     "status": "success",
     "data": {
         "user": {
-            "id": 10,
+            "id": 5,
             "cohort_id": null,
-            "role": "TEACHER",
-            "first_name": "Delia",
-            "last_name": "Liu",
-            "email": "delia@test.com",
-            "biography": "testing",
-            "github_url": "https://github.com/deliailu27"
+            "role": "STUDENT",
+            "first_name": "Edward",
+            "last_name": "Withers",
+            "email": "test@test.com",
+            "biography": "a long bio",
+            "github_url": "https://github.com/dearshrewdwit",
+            "profile_image_url": null
         }
     }
 }

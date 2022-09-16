@@ -1,9 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
-
 import "./App.css";
-
 
 import LoginPage from "./components/users/login/LoginPage";
 import RegistrationPage from "./components/users/registration/RegistrationPage";
@@ -16,11 +14,11 @@ import Account from "./components/account/Account";
 
 function App() {
   const [user, setUser] = useState({
-
-    first_name: "Nathan",
-    last_name: "King",
-    biography: "Hello world",
-    github_url: "https://github.com/vherus",
+    first_name: "",
+    last_name: "",
+    biography: "",
+    profile_image_url: "",
+    github_url: ""
   });
 
   useEffect(() => {
@@ -47,15 +45,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
-
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage getUserId={getLoggedInUserId} />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route path="/profile" element={
-            <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
+            <Profile getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
           } />
         </Route>
         <Route path="/account" element={<Account user={user} />} />
