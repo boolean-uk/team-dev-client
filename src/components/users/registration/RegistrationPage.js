@@ -9,15 +9,15 @@ const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [registerResponse, setRegisterResponse] = useState('');
 
-  const registerUser = (event) => {
+  const registerUser = event => {
     event.preventDefault();
     client
       .post('/user', user, false)
-      .then((res) => setRegisterResponse(res.data))
-      .catch((err) => console.log(err.response));
+      .then(res => setRegisterResponse(res.data))
+      .catch(err => console.log(err.response));
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.preventDefault();
     const { value, name } = event.target;
 
@@ -28,11 +28,11 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className='registration-page'>
-      <Link id='user-registration-link' to='/signup'>
+    <div className="registration-page">
+      <Link id="user-registration-link" to="/signup">
         sign up
       </Link>{' '}
-      <Link id='user-login-link' to='/'>
+      <Link id="user-login-link" to="/">
         login
       </Link>
       <h1>Sign up</h1>
