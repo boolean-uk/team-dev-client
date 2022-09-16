@@ -73,34 +73,31 @@ const PostsPage = () => {
 
   return (
     <>
-      {isTeacher && (
+      {isTeacher && ( 
+      <div className='teacher-section'>
         <Box   display="flex"
         justifyContent="center"
         alignItems="center">
         <Card variant="outlined" sx={{width:1000}}>
-        <div className='teacher-section'>
+       
           <h3>Teacher Admin</h3>
           <CardActions>
             
             <Button variant='contained' >
-              <NavLink to='/cohort'>Create Cohort</NavLink>
+              <NavLink to='/cohort'>Manage Cohort</NavLink>
             </Button>
             <Button variant="contained">
               <NavLink to="/enrolment">Enrolment</NavLink>
             </Button>
             
             </CardActions>
-          
-    
-
-        </div>
         </Card>
         </Box>
+        </div>
       )}
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
-
           sign out
         </button>
         

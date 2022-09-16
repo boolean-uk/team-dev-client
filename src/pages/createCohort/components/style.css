@@ -1,0 +1,16 @@
+.cohort-list{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.cohort-card{
+    margin-top: 10px;
+    width: 1000px; 
+    height: 80px;
+}
+
+.create-cohort-button{
+    margin-top: 10px;
+}
