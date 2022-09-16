@@ -5,8 +5,8 @@ import TextField from '@mui/material/TextField';
 import DialogContent from '@mui/material/DialogContent';
 import './style.css'
 
-const EditForm = ({ profileData, handleSubmit, handleChange }) => {
-    const { first_name, last_name, biography, github_url } = profileData
+const EditForm = ({ user, handleSubmit, handleChange }) => {
+    const { first_name, last_name, biography, github_url, profile_image_url } = user
     const [open, setOpen] = useState(false)
 
     const handleClickOpen = () => setOpen(true)
@@ -46,6 +46,15 @@ const EditForm = ({ profileData, handleSubmit, handleChange }) => {
                             variant="outlined"
                             name="biography"
                             placeholder={biography}
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            className="user-form-input"
+                            type="url"
+                            label="Profile Pic URL"
+                            variant="outlined"
+                            name="profile_pic_url"
+                            placeholder={profile_image_url}
                             onChange={handleChange}
                         />
                         <TextField
