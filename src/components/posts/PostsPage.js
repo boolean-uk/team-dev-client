@@ -5,17 +5,17 @@ import client from '../../utils/client';
 import './style.css';
 import jwt_decode from 'jwt-decode';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, CardActions } from '@mui/material';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
+import { NavLink } from 'react-router-dom';
+import Card from '@mui/material/Card';
 
 const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: '' });
-  const [createCohortRes, setCreateCohortRes] = useState(false);
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
-  const [cohorts] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -67,38 +67,23 @@ const PostsPage = ({ getUserId }) => {
     navigate('../', { replace: true });
   };
 
-  function createCohort(event) {
-    event.preventDefault();
-    client
-      .post('/cohort')
-      .then(res => {
-        if (res.data.status === 'success') {
-          setCreateCohortRes(true);
-        }
-      })
-      .catch(console.log);
-    setTimeout(() => {
-      setCreateCohortRes(false);
-    }, 3000);
-  }
-
   return (
     <>
       {isTeacher && (
         <div className="teacher-section">
-          <h3>Teacher Area</h3>
-          <Box testAlign="center">
-            {createCohortRes && <p>Cohort created!</p>}
-            <Button variant="contained" onClick={createCohort}>
-              Create Cohort
-            </Button>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Card variant="outlined" sx={{ width: 1000 }}>
+              <h3>Teacher Admin</h3>
+              <CardActions>
+                <Button variant="contained">
+                  <NavLink to="/cohort">Manage Cohort</NavLink>
+                </Button>
+                <Button variant="contained">
+                  <NavLink to="/enrolment">Enrolment</NavLink>
+                </Button>
+              </CardActions>
+            </Card>
           </Box>
-          <section className="cohort-list">
-            <h4>Cohort List</h4>
-            {cohorts.map(cohort => {
-              return <p>{cohort}</p>;
-            })}
-          </section>
         </div>
       )}
 
