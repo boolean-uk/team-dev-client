@@ -34,7 +34,7 @@ function SearchBar() {
         console.log("input:", inputText);
 
         const foundUser = users.filter(user =>
-          user.first_name.includes(inputText.value)
+          user.first_name.toLowerCase().includes(inputText.value.toLowerCase())
         );
 
         console.log("found", foundUser);
