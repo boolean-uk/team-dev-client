@@ -1,8 +1,8 @@
-import UserList from "./components/UserList";
+import UserList from './components/UserList';
 
 const Enrollment = () => {
   return (
-    <div>
+    <div className="enrolment-container">
       <UserList />
     </div>
   );
