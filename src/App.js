@@ -1,24 +1,24 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
+import './App.css';
 
-import "./App.css";
-
-import LoginPage from "./components/users/login/LoginPage";
-import RegistrationPage from "./components/users/registration/RegistrationPage";
-import PostsPage from "./components/posts/PostsPage";
-import Profile from "./components/profile/Profile";
-import EnrolmentPage from "./pages/enrollment";
-import Header from "./components/Header/Header";
-import client from "./utils/client";
-import Account from "./components/account/Account";
+import LoginPage from './components/users/login/LoginPage';
+import RegistrationPage from './components/users/registration/RegistrationPage';
+import PostsPage from './components/posts/PostsPage';
+import Profile from './components/profile/Profile';
+import EnrolmentPage from './pages/enrollment';
+import Header from './components/Header/Header';
+import client from './utils/client';
+import Account from './components/account/Account';
 
 function App() {
   const [user, setUser] = useState({
-    first_name: "Nathan",
-    last_name: "King",
-    biography: "Hello world",
-    github_url: "https://github.com/vherus",
+    first_name: '',
+    last_name: '',
+    biography: '',
+    profile_image_url: '',
+    github_url: '',
   });
 
   useEffect(() => {
@@ -34,8 +34,8 @@ function App() {
   }, []);
 
   const getLoggedInUserId = () => {
-    const loadedToken = localStorage.getItem("token");
-    if (loadedToken === null || loadedToken === "") {
+    const loadedToken = localStorage.getItem('token');
+    if (loadedToken === null || loadedToken === '') {
       return null;
     }
     const decoded = jwt_decode(loadedToken);
@@ -47,15 +47,17 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
-
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage getUserId={getLoggedInUserId} />} />
+          <Route
+            path="/posts"
+            element={<PostsPage getUserId={getLoggedInUserId} />}
+          />
           <Route path="/enrolment" element={<EnrolmentPage />} />
+
           <Route
             path="/profile"
             element={
               <Profile
-                profileData={user}
                 getLoggedInUserId={getLoggedInUserId}
                 user={user}
                 setUser={setUser}
@@ -70,13 +72,13 @@ function App() {
 }
 
 function isLoggedIn() {
-  const loadedToken = localStorage.getItem("token");
-  return !(loadedToken === "");
+  const loadedToken = localStorage.getItem('token');
+  return !(loadedToken === '');
 }
 
 export default App;
 
-const AuthenticateUser = ({ children, redirectPath = "/" }) => {
+const AuthenticateUser = ({ children, redirectPath = '/' }) => {
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }
