@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import client from "../../../utils/client";
@@ -10,7 +10,7 @@ const CohortList=()=>{
     useEffect(()=>{
         client.get('/cohort').then((res)=>{setCohorts(res.data.data.cohorts)})
     
-        console.log('cohorts',cohorts)
+        
     },[]);
    
 
@@ -21,7 +21,7 @@ const CohortList=()=>{
      {cohorts.map(cohort=>{return (
      <Card className="cohort-card" key={`${cohort.id}`}>
         {`cohort ${cohort.id} - cohort name`}
-    
+        
      </Card>
       )}
     )}
