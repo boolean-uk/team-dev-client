@@ -10,7 +10,8 @@
       "last_name": "Withers",
       "email": "test@test.com",
       "biography": "a long bio",
-      "github_url": "https://github.com/dearshrewdwit"
+      "github_url": "https://github.com/dearshrewdwit",
+      "profile_image_url": null
     }
   }
 }
