@@ -46,6 +46,7 @@ function SearchBar() {
   };
 
   const routeChange = (id) => {
+    localStorage.setItem( "id", id)
     console.log('routing', id);
     let path = `/user/${id}/profile`
     navigate(path);
@@ -73,6 +74,7 @@ function SearchBar() {
           </Button>
         </Box>
       </Box>
+      
       <Box>
         <ul>
           {searchResult.map((user, index) => {

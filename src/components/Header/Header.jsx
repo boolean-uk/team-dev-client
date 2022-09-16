@@ -26,8 +26,6 @@ const Header = ({ companyName}) => {
           </Typography>
         </Box>
 
-        {/* <SearchBar /> */}
-
         <Box>
 
           <Stack spacing={2} direction="row">

@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import EditForm from './EditForm';
 
 const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
+    console.log('profile data', profileData);
     const { first_name, last_name, biography, github_url, cohort_id } = profileData
     const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
 

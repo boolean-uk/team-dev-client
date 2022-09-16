@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { renderPosts } from "./utils/getAllPosts";
 import PostItem from './PostItem';
-import SearchBar from '../Header/SearchBar';
+import SearchBar from './SearchBar';
 
 
 const PostsPage = () => {

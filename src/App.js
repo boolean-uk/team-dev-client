@@ -21,6 +21,7 @@ function App() {
     biography: "Hello world",
     github_url: "https://github.com/vherus",
   });
+  const [foundUser, setFoundUser] = useState({})
 
   useEffect(() => {
     const userId = getLoggedInUserId();
@@ -33,6 +34,26 @@ function App() {
       .catch(err => console.log(err));
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    const foundUserId = getFoundUserId()
+    if (foundUserId === null) {
+      return;
+    }
+    client 
+      .get(`/user/${foundUserId}`)
+      .then(res => setFoundUser(res.data.data.user))
+      .catch(err => console.log(err));
+  }, [])
+
+  const getFoundUserId = () => {
+    const searchId = localStorage.getItem("id");
+    console.log('searchId', searchId);
+    if (searchId === null) {
+      return null;
+    }
+    return searchId;
+  };
 
   const getLoggedInUserId = () => {
     const loadedToken = localStorage.getItem("token");
@@ -53,7 +74,7 @@ function App() {
         <Route element={<AuthenticateUser />}>
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
-          <Route path="/user/:id/profile" element={<Profile />} />
+          <Route path="/user/:id/profile" element={<Profile profileData={foundUser} />} />
           <Route path="/profile" element={
             <Profile profileData={user} getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />
           } />
