@@ -15,7 +15,7 @@ import Card from '@mui/material/Card'
 
 
 
-const PostsPage = () => {
+const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: "" });
   
   const [postResponse, setPostResponse] = useState("");
@@ -37,8 +37,7 @@ const PostsPage = () => {
       }
     }).catch(console.log);
     renderPosts(setPosts)
-
-  }, []);
+  }, [postResponse]);
 
 
   const createPost = async event => {
@@ -47,7 +46,9 @@ const PostsPage = () => {
 
       .post("/post", post)
       .then(res => setPostResponse(res.data))
-      .then(renderPosts(setPosts))
+      .then(() => {
+        setPost({content: ''})
+      })
       .catch(() => {
         setPostResponse("There was a problem creating this post")
       });
@@ -56,10 +57,10 @@ const PostsPage = () => {
 
   const handleChange = event => {
     event.preventDefault();
-    const { value, name } = event.target;
+    const { value } = event.target;
     setPost({
       ...post,
-      [name]: value,
+      content: value,
     });
   };
 
@@ -102,12 +103,12 @@ const PostsPage = () => {
         </button>
         
         <p>Status: {postResponse.status}</p>
-        <PostForm handleSubmit={createPost} handleChange={handleChange} />
+        <PostForm handleSubmit={createPost} handleChange={handleChange} value={post.content}/>
 
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} />
+              <PostItem post={post} key={index} userId={getUserId} setPostResponse={setPostResponse} />
             ))}
           </ul>
         ) : (

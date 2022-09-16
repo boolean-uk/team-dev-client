@@ -1,27 +1,34 @@
-import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './style.css'
 
-import Header from '../Header/Header';
 import EditForm from './EditForm';
+import client from "../../utils/client";
 
-const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
-    const { first_name, last_name, biography, github_url, cohort_id } = profileData
-    const [token] = useState(`Bearer ${localStorage.getItem(process.env.REACT_APP_USER_TOKEN)}`)
+const Profile = ({ getLoggedInUserId, user, setUser }) => {
+    const { first_name, last_name, biography, github_url, cohort_id, profile_image_url } = user
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        const userId = getLoggedInUserId()
-        if (userId === null) { return }
+        const reqBody = {
+            firstName: first_name,
+            lastName: last_name,
+            bio: biography,
+            githubUrl: github_url,
+            profileImageUrl: profile_image_url
+        }
 
-        fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-            method: "PATCH",
-            headers: { Authorization: token }
-        })
-            .then(resp => resp.json())
-            .then(data => setUser(data.data.user))
+        const userId = getLoggedInUserId()
+        if (userId === null) {
+            return
+        }
+
+        client
+            .patch("/user/myprofile", reqBody)
+            .then(res => setUser(res.data.data.user))
+            .catch(err => console.log(err));
+
     }
 
     const handleChange = (event) => {
@@ -36,12 +43,11 @@ const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
 
     return (
         <>
-            <Header companyName={`Cohort Manager 2.0`} />
             <div className='profile'>
                 <Avatar
                     alt="Profile Pic"
                     sx={{ width: 325, height: 325, border: "#4b4b56 solid 5px" }}
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg"
+                    src={profile_image_url}
                 />
                 <h1>{first_name} {last_name}</h1>
                 <div className='profile-info'>
@@ -58,7 +64,7 @@ const Profile = ({ profileData, getLoggedInUserId, user, setUser }) => {
                     <p>"{biography}"</p>
                 </div>
                 <EditForm
-                    profileData={profileData}
+                    user={user}
                     handleSubmit={handleSubmit}
                     handleChange={handleChange}
                 />
