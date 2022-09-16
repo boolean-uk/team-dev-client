@@ -5,6 +5,8 @@ import { editPost } from './utils/editPost';
 
 const deleteBtnText = 'Delete'
 const confirmDeleteBtnText = 'Confirm Delete?'
+const delBtnStyle = { text: deleteBtnText, color: 'primary' }
+const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' }
 
 const PostItem = ({ post, userId, setPostResponse, setPost }) => {
   const [isOwner, setIsOwner] = useState(false)
@@ -12,12 +14,14 @@ const PostItem = ({ post, userId, setPostResponse, setPost }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [content, setContent] = useState(post.content)
   const [editStyle, setEditStyle] = useState({text: 'Edit', color: 'primary'})
+  const [delStyle, setDelStyle] = useState(delBtnStyle)
 
   useEffect(() => {
     const getUserId = userId();
     setIsOwner(false)
     setIsDeleting(false)
     setContent(post.content)
+    setDelStyle(delBtnStyle)
     if (getUserId === post.userId) {
       setIsOwner(true)
     }
@@ -48,18 +52,12 @@ const PostItem = ({ post, userId, setPostResponse, setPost }) => {
   }
 
   const handleDel = () => {
-    const button = document.getElementById("post-delete-btn" + post.id)
     if (!isDeleting) {
-      button.style.color = 'red'
-      button.style.fontWeight = 'bold'
-      button.innerText = confirmDeleteBtnText
+      setDelStyle(confirmDelStyle)
       setIsDeleting(true)
     }
     else {
       deletePost(setPostResponse, post.id)
-      button.style.color = '#3e3e3e'
-      button.style.fontWeight = 'normal'
-      button.innerText = deleteBtnText
       setIsDeleting(false)
     }
   }
@@ -92,12 +90,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost }) => {
         id={'post-edit-btn' + post.id}
         onClick={handleEdit}
         className="modify-btn">{editStyle.text}</Button>
-        <button 
-          id={"post-delete-btn" + post.id} 
+        <Button 
+          variant='text'
+          color={delStyle.color}
           className="modify-btn" 
           onClick={handleDel}
-        >{deleteBtnText}
-        </button>
+        >{delStyle.text}
+        </Button>
       </div>}
     </li>
   );
