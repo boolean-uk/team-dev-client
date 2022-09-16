@@ -110,7 +110,7 @@ const PostsPage = ({ getUserId }) => {
         {posts?.length > 0 ? (
           <ul className="posts-list">
             {posts?.map((post, index) => (
-              <PostItem post={post} key={index} userId={getUserId} setPostResponse={setPostResponse} />
+              <PostItem post={post} key={index} userId={getUserId} setPost={setPost} setPostResponse={setPostResponse} />
             ))}
           </ul>
         ) : (
