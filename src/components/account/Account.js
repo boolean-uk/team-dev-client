@@ -9,12 +9,42 @@ import Paper from '@mui/material/Paper';
 import Header from '../Header/Header';
 import './style.css';
 import EditDetails from './EditDetails';
+import client from '../../utils/client';
 
 function createData(key, value) {
   return { key, value };
 }
 
-const Account = ({ user }) => {
+const Account = ({ getLoggedInUserId, user, setUser }) => {
+  const { email } = user
+  const reqBodyEmail = email
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const reqBody = { email: reqBodyEmail }
+
+    const userId = getLoggedInUserId()
+    if (userId === null) {
+      return
+    }
+
+    client
+      .patch('/user/myprofile', reqBody)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
+
+  }
+
+  const handleChange = (event) => {
+    event.preventDefault()
+    const { value, name } = event.target
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  }
+
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
 
@@ -39,7 +69,11 @@ const Account = ({ user }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditDetails user={user} />
+      <EditDetails
+        user={user}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+      />
     </>
   );
 };

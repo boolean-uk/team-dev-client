@@ -21,6 +21,7 @@ function App() {
     biography: '',
     profile_image_url: '',
     github_url: '',
+    email: ''
   });
 
   useEffect(() => {
@@ -68,7 +69,8 @@ function App() {
             }
           />
         </Route>
-        <Route path="/account" element={<Account user={user} />} />
+        <Route path="/account" element={
+          <Account getLoggedInUserId={getLoggedInUserId} user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );
