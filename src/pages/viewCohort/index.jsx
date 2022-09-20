@@ -12,15 +12,14 @@ import './style.css';
 const ViewCohort = ({ setProfileView }) => {
   const navigate = useNavigate();
   const [cohort, setCohort] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const cohortId = parseInt(useParams().cohortId);
-
   useEffect(() => {
     client
       .get(`/cohort/${cohortId}`)
       .then(res => {
-        setCohort(res.data.data);
+        setCohort(res.data.data.cohort);
         setIsLoading(false);
       })
       .catch(err => console.log('[FETCH /cohort/:id]', err));
@@ -58,20 +57,21 @@ const ViewCohort = ({ setProfileView }) => {
                 ) : (
                   cohort?.users?.map(user => (
                     <li
+                      key={user.email}
                       className="view-cohort__student-card"
                       onClick={() => handleProfileClick(user.id)}
                     >
                       <img
                         className="view-cohort__profile-image"
-                        src={user.profile_image_url || DEFAULTIMG}
+                        src={user.profile.profileImageUrl || DEFAULTIMG}
                         alt="Profile"
                       />
 
                       <div className="view-cohort__user-text">
                         <span style={{ marginRight: '8px' }}>
-                          {user.first_name}
+                          {user.profile.firstName}
                         </span>
-                        <span>{user.last_name}</span>
+                        <span>{user.profile.lastName}</span>
                         <p className="view-cohort__user-email">{user.email}</p>
                       </div>
                     </li>
