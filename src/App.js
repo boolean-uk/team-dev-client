@@ -52,7 +52,10 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/cohort" element={<CreateCohort />} />
-          <Route path="/cohort/:cohortId" element={<ViewCohort />} />
+          <Route
+            path="/cohort/:cohortId"
+            element={<ViewCohort {...{ setProfileView }} />}
+          />
           <Route
             path="/posts"
             element={
