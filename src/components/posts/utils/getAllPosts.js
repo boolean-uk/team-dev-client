@@ -36,5 +36,5 @@ export function renderPosts(setPosts) {
       return post;
     });
     setPosts(formattedPosts);
-  });
+  }).catch(console.error);
 }
