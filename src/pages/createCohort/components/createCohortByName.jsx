@@ -5,20 +5,23 @@ import './style.css';
 
 const CreateCohortByName = () => {
   const [createCohortRes, setCreateCohortRes] = useState(false);
-  const [cohortName, setCohortName] = useState('');
+  const [name, setCohortName] = useState('');
 
   function createCohortName(event) {
     event.preventDefault();
     setCohortName(event.target.value);
+    
   }
+  console.log(name)
 
   function createCohort(event) {
     event.preventDefault();
     client
-      .post('/cohort', cohortName)
+      .post('/cohort',{name},true)
       .then(res => {
         if (res.data.status === 'success') {
           setCreateCohortRes(true);
+          console.log('res',res)
         }
       })
       .catch(console.log);
