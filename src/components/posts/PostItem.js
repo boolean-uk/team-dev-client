@@ -126,7 +126,8 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
         <Checkbox
           label='like'
           checked={isLiked}
-
+          icon={<ThumbUpOutlinedIcon />}
+          checkedIcon={<ThumbUpIcon />}
           onChange={handleLike}/>
         <div className='count'>{likesCount}</div>
 
