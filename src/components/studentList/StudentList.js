@@ -1,26 +1,22 @@
 import { useEffect, useState } from 'react';
-import './style.css';
 import jwt_decode from 'jwt-decode';
 import client from '../../utils/client';
+import './style.css'
+
 import Avatar from '@mui/material/Avatar';
 
-
 const StudentList = () => {
-    const [cohortId, setCohortId] = useState(1)
-    const [listOfUsers, setListOfUsers] = useState([
+    const [cohortId, setCohortId] = useState()
+    const [listOfStudents] = useState([
         {
             first_name: 'Juan',
             last_name: 'Xander',
-            biography: 'Hola!',
-            profile_image_url: 'https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_4x3.jpg',
-            github_url: 'https://github.com/JohnXander',
+            profile_image_url: 'https://www.sciencefriday.com/wp-content/uploads/2022/04/pitbull-illustration.jpg'
         },
         {
             first_name: 'Ivan',
             last_name: 'Xander',
-            biography: 'Privet!',
-            profile_image_url: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg',
-            github_url: 'https://github.com/JohnXander',
+            profile_image_url: 'https://assets.hermes.com/is/image/hermesproduct/tresse-dog-collar--800555EJ02-worn-1-0-0-800-800_b.jpg'
         }
     ])
 
@@ -38,30 +34,30 @@ const StudentList = () => {
 
     const getLoggedInUserId = () => {
         const loadedToken = localStorage.getItem('token');
-        if (loadedToken === null) {
+        if (loadedToken === null || loadedToken === '') {
             return null;
         }
         const decoded = jwt_decode(loadedToken);
         return decoded.userId;
     };
-
     return (
-        <div className='student-list-container'>
-            <h3>Cohort: {String(26)}</h3>
-            {listOfUsers.map(user => {
-                return (
-                    <>
-                        <div className='student-list'>
+        <>
+            <div className='list-container'>
+                <h2>Cohort {String(cohortId)}</h2>
+                <h4>{listOfStudents.length} online</h4>
+                {listOfStudents.map(u => {
+                    return (
+                        <div className='list-item'>
                             <Avatar
                                 alt="Profile Pic"
-                                src={user.profile_image_url}
+                                src={u.profile_image_url}
                             />
-                            <p>{user.first_name} {user.last_name}</p>
+                            <p>{u.first_name} {u.last_name}</p>
                         </div>
-                    </>
-                )
-            })}
-        </div>
+                    )
+                })}
+            </div>
+        </>
     )
 }
 
