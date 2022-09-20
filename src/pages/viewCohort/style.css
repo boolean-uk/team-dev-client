@@ -1,0 +1,25 @@
+.view-cohort-container {
+  position: relative;
+  background-color: white;
+  margin-inline: auto;
+  max-width: 60rem;
+  margin-block: 30px;
+  border-radius: 4px;
+  color: black;
+  padding: 20px;
+  min-height: 500px;
+}
+
+.view-cohort-students {
+  text-align: start;
+}
+
+.view-cohort-students ul {
+  list-style-type: none;
+}
+
+.view-cohort-students li {
+  cursor: pointer;
+  padding-block: 20px;
+  box-shadow: 2px 2px 5px rgb(218, 218, 218);
+}
