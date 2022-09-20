@@ -72,13 +72,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
 
   const handleLike = (e) => {
     setIsLiked(e.target.checked)
-
-    if(!isLiked) {
-      console.log('im liking it')
-    }
-    else {
-      console.log('im not liking it')
-    }
   }
 
   return (
