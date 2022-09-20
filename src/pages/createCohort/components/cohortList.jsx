@@ -1,6 +1,7 @@
 import { Card } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import client from '../../../utils/client';
 import './style.css';
 
@@ -21,9 +22,11 @@ const CohortList = () => {
       <div className="cohort-list">
         {cohorts.map(cohort => {
           return (
-            <Card className="cohort-card" key={`${cohort.id}`}>
-              {`cohort ${cohort.id} - cohort name`}
-            </Card>
+            <Link to={`/cohort/${cohort.id}`} key={`${cohort.id}`}>
+              <Card className="cohort-card">
+                {`cohort ${cohort.id} - cohort name`}
+              </Card>
+            </Link>
           );
         })}
       </div>
