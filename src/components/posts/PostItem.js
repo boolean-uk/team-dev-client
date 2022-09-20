@@ -7,6 +7,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
 
+
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
@@ -122,13 +123,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
         </Button>
       </div>}
       <div className='like-wrap'>
-        <Checkbox 
-          label='like' 
-          icon={<ThumbUpOutlinedIcon />} 
-          checkedIcon={<ThumbUpIcon />} 
+        <Checkbox
+          label='like'
           checked={isLiked}
+
           onChange={handleLike}/>
         <div className='count'>{likesCount}</div>
+
       </div>
     </li>
   );
