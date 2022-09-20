@@ -20,6 +20,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   const [editStyle, setEditStyle] = useState({ text: 'Edit', color: 'primary' })
   const [delStyle, setDelStyle] = useState(delBtnStyle)
   const [isLiked, setIsLiked] = useState(false)
+  const [likesCount, setLikesCount] = useState('')
   const navigate = useNavigate()
   const getUserId = userId();
   
@@ -28,6 +29,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     setIsDeleting(false);
     setContent(post.content);
     setDelStyle(delBtnStyle);
+    setLikesCount(post.likes.length)
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
@@ -126,6 +128,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
           checkedIcon={<ThumbUpIcon />} 
           checked={isLiked}
           onChange={handleLike}/>
+        <div className='count'>{likesCount}</div>
       </div>
     </li>
   );

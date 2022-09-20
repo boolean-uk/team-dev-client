@@ -2,16 +2,14 @@ import client from '../../../utils/client';
 
 export function createLike (setPostResponse, postId) {
   client
-    .post(`posts/${postId}/like`)
-    .then(res => console.log(res.data))
+    .post(`/post/${postId}/like`)
     .then(res => setPostResponse(res.data))
-    .catch(() => console.log('Unable to like post'))
+    .catch((e) => console.log('Unable to like post', e))
 }
 
 export function deleteLike (setPostResponse, postId) {
   client
-    .delete(`posts/${postId}/like`)
-    .then(res => console.log(res.data))
+    .delete(`/post/${postId}/like`)
     .then(res => setPostResponse(res.data))
-    .catch(() => console.log('Unable to delete like'))
+    .catch((e) => console.log('Unable to delete like', e))
 }
