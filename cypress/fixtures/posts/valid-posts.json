@@ -30,7 +30,8 @@
           "firstName": "Nathan",
           "lastName": "King",
           "bio": "Hello world",
-          "githubUrl": "https://github.com/vherus"
+          "githubUrl": "https://github.com/vherus",
+          "profile_image_url": null
         }
       }
     }
