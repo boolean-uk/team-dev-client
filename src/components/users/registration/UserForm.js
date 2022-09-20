@@ -25,9 +25,9 @@ const UserForm = ({ handleSubmit, handleChange }) => {
       <TextField
         className="user-form-input"
         type="url"
-        label="Profile Picture URL"
+        label="Profile Image URL"
         variant="outlined"
-        name="profile_picture_url"
+        name="profile_image_url"
         onChange={handleChange}
       />
       <TextField

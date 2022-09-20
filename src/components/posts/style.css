@@ -52,12 +52,6 @@
   gap: 1rem;
 }
 
-.post-profile-img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-
 .post-content {
   text-align: justify;
 }
@@ -85,4 +79,14 @@
 
 .teacher-section {
   margin-top: 30px;
+}
+
+.post-owner-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.like-wrap {
+  display: flex;
+  justify-content: flex-end;
 }
