@@ -1,4 +1,10 @@
-import { Avatar, Button, Checkbox, TextField } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  TextField,
+  ClickAwayListener,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
@@ -9,15 +15,24 @@ const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 
-const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) => {
-  const [isOwner, setIsOwner] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [isEditing, setIsEditing] = useState(false)
-  const [content, setContent] = useState(post.content)
-  const [editStyle, setEditStyle] = useState({ text: 'Edit', color: 'primary' })
-  const [delStyle, setDelStyle] = useState(delBtnStyle)
-  const [isLiked, setIsLiked] = useState(false)
-  const navigate = useNavigate()
+const PostItem = ({
+  post,
+  userId,
+  setPostResponse,
+  setPost,
+  setProfileView,
+}) => {
+  const [isOwner, setIsOwner] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [content, setContent] = useState(post.content);
+  const [editStyle, setEditStyle] = useState({
+    text: 'Edit',
+    color: 'primary',
+  });
+  const [delStyle, setDelStyle] = useState(delBtnStyle);
+  const [isLiked, setIsLiked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserId = userId();
@@ -30,11 +45,11 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     }
   }, [post, userId]);
 
-  const handleChange = (e) => {
-    e.preventDefault()
-    const { value } = e.target
-    setContent(value)
-  }
+  const handleChange = e => {
+    e.preventDefault();
+    const { value } = e.target;
+    setContent(value);
+  };
 
   const handleEdit = e => {
     if (!isEditing) {
@@ -63,14 +78,19 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     }
   };
 
-  const handleClick = (e) => {
-    setProfileView(post.userId)
-    navigate('/profile')
-  }
+  const handleDelClickAway = () => {
+    setDelStyle(delBtnStyle);
+    setIsDeleting(false);
+  };
 
-  const handleLike = (e) => {
-    setIsLiked(e.target.checked)
-  }
+  const handleClick = e => {
+    setProfileView(post.userId);
+    navigate('/profile');
+  };
+
+  const handleLike = e => {
+    setIsLiked(e.target.checked);
+  };
 
   return (
     <li className="post-item">
@@ -88,31 +108,37 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
 
         <p className="createdAt-time">{post.createdAt}</p>
       </div>
-      {isEditing ?
+      {isEditing ? (
         <TextField multiline value={content} onChange={handleChange} />
-        :
-        <p className='post-content'>{post.content}</p>
-      }
-      {isOwner && <div className="modify-btn-wrap">
-        <Button
-          color={editStyle.color}
-          variant='text'
-          id={'post-edit-btn' + post.id}
-          onClick={handleEdit}
-          className="modify-btn">{editStyle.text}</Button>
-        <Button
-          variant='text'
-          color={delStyle.color}
-          className="modify-btn"
-          onClick={handleDel}
-        >{delStyle.text}
-        </Button>
-      </div>}
-      <div className='like-wrap'>
-        <Checkbox
-          label='like'
-          checked={isLiked}
-          onChange={handleLike} />
+      ) : (
+        <p className="post-content">{post.content}</p>
+      )}
+      {isOwner && (
+        <div className="modify-btn-wrap">
+          <Button
+            color={editStyle.color}
+            variant="text"
+            id={'post-edit-btn' + post.id}
+            onClick={handleEdit}
+            className="modify-btn"
+          >
+            {editStyle.text}
+          </Button>
+
+          <ClickAwayListener onClickAway={handleDelClickAway}>
+            <Button
+              variant="text"
+              color={delStyle.color}
+              className="modify-btn"
+              onClick={handleDel}
+            >
+              {delStyle.text}
+            </Button>
+          </ClickAwayListener>
+        </div>
+      )}
+      <div className="like-wrap">
+        <Checkbox label="like" checked={isLiked} onChange={handleLike} />
       </div>
     </li>
   );
