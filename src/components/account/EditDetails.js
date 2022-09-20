@@ -7,7 +7,6 @@ import './style.css';
 
 const EditDetails = ({ user, handleSubmit, handleChange }) => {
   const { email } = user;
-  const reqBodyEmail = email
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
@@ -33,7 +32,7 @@ const EditDetails = ({ user, handleSubmit, handleChange }) => {
               type="email"
               variant="outlined"
               name="email"
-              placeholder={reqBodyEmail}
+              placeholder={email}
               onChange={handleChange}
             />
             <Button

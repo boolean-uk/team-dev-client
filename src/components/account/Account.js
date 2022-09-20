@@ -17,11 +17,10 @@ function createData(key, value) {
 
 const Account = ({ getLoggedInUserId, user, setUser }) => {
   const { email } = user
-  const reqBodyEmail = email
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const reqBody = { email: reqBodyEmail }
+    const reqBody = { email }
 
     const userId = getLoggedInUserId()
     if (userId === null) {
