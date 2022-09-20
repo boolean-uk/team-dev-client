@@ -31,10 +31,16 @@
   list-style: none;
   background-color: #fff;
   color: #000;
-  padding: 1.5rem 2rem;
   margin-bottom: 1rem;
   border-radius: 0.2rem;
 
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.post-wrap {
+  padding: 1.5rem 2rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -88,4 +94,18 @@
 .like-wrap {
   display: flex;
   justify-content: flex-end;
+}
+
+.comment-wrap{
+  padding: 0.5rem 2rem;
+  border-top: solid 2px #3e3e3e2c;
+  border-radius: 0 0 0.2rem 0.2rem;
+
+  background-color: rgb(235, 235, 235);
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
