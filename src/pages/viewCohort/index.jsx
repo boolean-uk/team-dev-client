@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 import Spinner from '../../components/Spinner';
 import client from '../../utils/client';
@@ -11,7 +12,7 @@ import './style.css';
 const ViewCohort = ({ setProfileView }) => {
   const navigate = useNavigate();
   const [cohort, setCohort] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const cohortId = parseInt(useParams().cohortId);
 
@@ -47,26 +48,35 @@ const ViewCohort = ({ setProfileView }) => {
             <div className="view-cohort-students">
               <h3>Students</h3>
               <ul>
-                {cohort?.users?.map(user => (
-                  <li
-                    className="view-cohort__student-card"
-                    onClick={() => handleProfileClick(user.id)}
-                  >
-                    <img
-                      className="view-cohort__profile-image"
-                      src={user.profile_image_url || DEFAULTIMG}
-                      alt="Profile"
-                    />
-
-                    <div className="view-cohort__user-text">
-                      <span style={{ marginRight: '8px' }}>
-                        {user.first_name}
-                      </span>
-                      <span>{user.last_name}</span>
-                      <p className="view-cohort__user-email">{user.email}</p>
-                    </div>
+                {cohort?.users?.length === 0 ? (
+                  <li>
+                    <p>No students enroled</p>
+                    <Link to="/enrolment">
+                      <Button variant="contained">Enrol Students</Button>
+                    </Link>
                   </li>
-                ))}
+                ) : (
+                  cohort?.users?.map(user => (
+                    <li
+                      className="view-cohort__student-card"
+                      onClick={() => handleProfileClick(user.id)}
+                    >
+                      <img
+                        className="view-cohort__profile-image"
+                        src={user.profile_image_url || DEFAULTIMG}
+                        alt="Profile"
+                      />
+
+                      <div className="view-cohort__user-text">
+                        <span style={{ marginRight: '8px' }}>
+                          {user.first_name}
+                        </span>
+                        <span>{user.last_name}</span>
+                        <p className="view-cohort__user-email">{user.email}</p>
+                      </div>
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </>
