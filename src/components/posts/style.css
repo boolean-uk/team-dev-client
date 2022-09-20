@@ -90,3 +90,8 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.like-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
