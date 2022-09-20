@@ -5,6 +5,7 @@ import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { createLike, deleteLike } from './utils/likeRequests';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -20,9 +21,9 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   const [delStyle, setDelStyle] = useState(delBtnStyle)
   const [isLiked, setIsLiked] = useState(false)
   const navigate = useNavigate()
-
+  const getUserId = userId();
+  
   useEffect(() => {
-    const getUserId = userId();
     setIsOwner(false);
     setIsDeleting(false);
     setContent(post.content);
@@ -30,6 +31,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
+  // eslint-disable-next-line
   }, [post, userId]);
 
   const handleChange = (e) => {
@@ -72,6 +74,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
 
   const handleLike = (e) => {
     setIsLiked(e.target.checked)
+
+    if(!isLiked) {
+      createLike(setPostResponse, post.id)
+    }
+    else {
+      deleteLike(setPostResponse, post.id)
+    }
   }
 
   return (
