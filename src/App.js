@@ -12,6 +12,7 @@ import Header from './components/Header/Header';
 import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
+import StudentList from './components/studentList/StudentList';
 import ViewCohort from './pages/viewCohort';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
     biography: '',
     profile_image_url: '',
     github_url: '',
+    email: '',
   });
 
   useEffect(() => {
@@ -78,7 +80,16 @@ function App() {
             }
           />
         </Route>
-        <Route path="/account" element={<Account user={user} />} />
+        <Route
+          path="/account"
+          element={
+            <Account
+              getLoggedInUserId={getLoggedInUserId}
+              user={user}
+              setUser={setUser}
+            />
+          }
+        />
       </Routes>
     </div>
   );
@@ -96,5 +107,10 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <Header companyName={`Cohort Manager 2.0`} />;
+  return (
+    <>
+      <Header companyName={`Cohort Manager 2.0`} />
+      <StudentList />
+    </>
+  );
 };
