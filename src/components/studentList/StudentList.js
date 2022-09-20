@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 
 const StudentList = () => {
     const [cohortId, setCohortId] = useState()
-    const [listOfStudents, setListOfStudents] = useState([
+    const [listOfStudents] = useState([
         {
             first_name: 'Juan',
             last_name: 'Xander',
