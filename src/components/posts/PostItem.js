@@ -1,8 +1,10 @@
-import { Button, TextField } from '@mui/material';
+import { Avatar, Button, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -16,6 +18,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   const [content, setContent] = useState(post.content)
   const [editStyle, setEditStyle] = useState({ text: 'Edit', color: 'primary' })
   const [delStyle, setDelStyle] = useState(delBtnStyle)
+  const [isLiked, setIsLiked] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -67,14 +70,18 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     navigate('/profile')
   }
 
+  const handleLike = (e) => {
+    setIsLiked(e.target.checked)
+  }
+
   return (
     <li className="post-item">
       <div className="post-header-wrap">
         <div className="post-profile-wrap">
-          <img
-            className="post-profile-img"
+          <Avatar
             src={post.user.profile.profileImageUrl}
             alt="profile"
+            sx={{ width: 56, height: 56 }}
           />
           <h3 onClick={handleClick} className="post-owner-name">
             {post.user.profile.firstName} {post.user.profile.lastName}
@@ -103,6 +110,14 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
         >{delStyle.text}
         </Button>
       </div>}
+      <div className='like-wrap'>
+        <Checkbox 
+          label='like' 
+          icon={<ThumbUpOutlinedIcon />} 
+          checkedIcon={<ThumbUpIcon />} 
+          checked={isLiked}
+          onChange={handleLike}/>
+      </div>
     </li>
   );
 };
