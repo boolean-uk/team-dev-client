@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import DialogContent from '@mui/material/DialogContent';
 import './style.css';
 
-const EditDetails = ({ user }) => {
+const EditDetails = ({ user, handleSubmit, handleChange }) => {
   const { email } = user;
   const [open, setOpen] = useState(false);
 
@@ -25,7 +25,7 @@ const EditDetails = ({ user }) => {
       >
         <h1 className="dialog-title">Change Email</h1>
         <DialogContent>
-          <form className="user-form">
+          <form className="user-form" onSubmit={handleSubmit}>
             <TextField
               className="user-form-input"
               label="Email"
@@ -33,13 +33,13 @@ const EditDetails = ({ user }) => {
               variant="outlined"
               name="email"
               placeholder={email}
+              onChange={handleChange}
             />
             <Button
               onClick={handleClose}
               id="user-submit-button"
               type="submit"
               variant="contained"
-              disabled
             >
               Update
             </Button>
