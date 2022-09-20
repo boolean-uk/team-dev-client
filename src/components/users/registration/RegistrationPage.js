@@ -18,7 +18,7 @@ const RegistrationPage = () => {
       .then(res => setRegisterResponse(res.data))
 
       .catch(err => {
-        console.log(err.response);
+        console.error(err.response);
         setEmailError(true);
         setTimeout(() => {
           setEmailError(false);
