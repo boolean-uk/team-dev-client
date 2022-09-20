@@ -18,8 +18,31 @@
   list-style-type: none;
 }
 
-.view-cohort-students li {
+.view-cohort__student-card {
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding-block: 20px;
-  box-shadow: 2px 2px 5px rgb(218, 218, 218);
+  padding: 20px;
+  box-shadow: 1px 1px 5px rgb(218, 218, 218);
+  margin-block: 14px;
+}
+
+.view-cohort__profile-image {
+  height: 50px;
+  width: 50px;
+  border: lightgray solid 1px;
+  border-radius: 50%;
+}
+
+.view-cohort__user-text {
+  font-size: larger;
+  font-weight: 600;
+  margin-left: 20px;
+  text-align: start;
+}
+
+.view-cohort__user-email {
+  font-size: small;
+  font-weight: 400;
+  color: gray;
 }
