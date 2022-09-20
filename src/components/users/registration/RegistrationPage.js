@@ -45,13 +45,13 @@ const RegistrationPage = () => {
         login
       </Link>
       <h1>Sign up</h1>
-      <p>Status: {registerResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={registerUser} />
       {emailError && (
         <Alert severity="error">
           An account has already been registered with this email
         </Alert>
       )}
+      <p>Status: {registerResponse.status}</p>
+      <UserForm handleChange={handleChange} handleSubmit={registerUser} />
     </div>
   );
 };
