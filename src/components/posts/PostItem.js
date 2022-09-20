@@ -9,6 +9,9 @@ import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { createLike, deleteLike } from './utils/likeRequests';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -32,17 +35,20 @@ const PostItem = ({
   const [editStyle, setEditStyle] = useState(editBtnStyle);
   const [delStyle, setDelStyle] = useState(delBtnStyle);
   const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState('');
   const navigate = useNavigate();
+  const getUserId = userId();
 
   useEffect(() => {
-    const getUserId = userId();
     setIsOwner(false);
     setIsDeleting(false);
     setContent(post.content);
     setDelStyle(delBtnStyle);
+    setLikesCount(post.likes.length);
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
+    // eslint-disable-next-line
   }, [post, userId]);
 
   const handleChange = e => {
@@ -91,6 +97,12 @@ const PostItem = ({
 
   const handleLike = e => {
     setIsLiked(e.target.checked);
+
+    if (!isLiked) {
+      createLike(setPostResponse, post.id);
+    } else {
+      deleteLike(setPostResponse, post.id);
+    }
   };
 
   return (
@@ -109,6 +121,7 @@ const PostItem = ({
 
         <p className="createdAt-time">{post.createdAt}</p>
       </div>
+
       {isEditing ? (
         <ClickAwayListener onClickAway={handleEditClickAway}>
           <TextField multiline value={newContent} onChange={handleChange} />
@@ -141,7 +154,14 @@ const PostItem = ({
         </div>
       )}
       <div className="like-wrap">
-        <Checkbox label="like" checked={isLiked} onChange={handleLike} />
+        <Checkbox
+          label="like"
+          checked={isLiked}
+          icon={<ThumbUpOutlinedIcon />}
+          checkedIcon={<ThumbUpIcon />}
+          onChange={handleLike}
+        />
+        <div className="count">{likesCount}</div>
       </div>
     </li>
   );

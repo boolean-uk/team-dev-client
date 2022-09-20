@@ -14,6 +14,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         variant="outlined"
         name="first_name"
         onChange={handleChange}
+        required
       />
       <TextField
         className="user-form-input"
@@ -21,6 +22,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         variant="outlined"
         name="last_name"
         onChange={handleChange}
+        required
       />
       <TextField
         className="user-form-input"
@@ -29,6 +31,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         variant="outlined"
         name="profile_image_url"
         onChange={handleChange}
+        required
       />
       <TextField
         className="user-form-input"
@@ -37,6 +40,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         variant="outlined"
         name="email"
         onChange={handleChange}
+        required
       />
       <TextField
         className="user-form-input"
@@ -45,6 +49,7 @@ const UserForm = ({ handleSubmit, handleChange }) => {
         variant="outlined"
         name="password"
         onChange={handleChange}
+        required
       />
       <TextField
         className="user-form-input"
