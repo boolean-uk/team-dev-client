@@ -12,6 +12,7 @@ import Header from './components/Header/Header';
 import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
+import StudentList from './components/studentList/StudentList';
 
 function App() {
   const [profileView, setProfileView] = useState(null)
@@ -86,5 +87,10 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <Header companyName={`Cohort Manager 2.0`} />;
+  return (
+    <>
+      <Header companyName={`Cohort Manager 2.0`} />
+      <StudentList />
+    </>
+  )
 };

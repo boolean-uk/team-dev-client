@@ -1,0 +1,11 @@
+.list-container {
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 6rem
+}
+
+.list {
+    display: flex;
+    align-items: center;
+}

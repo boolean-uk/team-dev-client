@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -111,12 +109,10 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
         </Button>
       </div>}
       <div className='like-wrap'>
-        <Checkbox 
-          label='like' 
-          icon={<ThumbUpOutlinedIcon />} 
-          checkedIcon={<ThumbUpIcon />} 
+        <Checkbox
+          label='like'
           checked={isLiked}
-          onChange={handleLike}/>
+          onChange={handleLike} />
       </div>
     </li>
   );
