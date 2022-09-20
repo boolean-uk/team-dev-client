@@ -14,6 +14,8 @@ const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
+const editBtnStyle = { text: 'Edit', color: 'primary' };
+const confirmEditStyle = { text: 'Save', color: 'success' };
 
 const PostItem = ({
   post,
@@ -26,10 +28,8 @@ const PostItem = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(post.content);
-  const [editStyle, setEditStyle] = useState({
-    text: 'Edit',
-    color: 'primary',
-  });
+  const [newContent, setNewContent] = useState(post.content);
+  const [editStyle, setEditStyle] = useState(editBtnStyle);
   const [delStyle, setDelStyle] = useState(delBtnStyle);
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
@@ -48,22 +48,23 @@ const PostItem = ({
   const handleChange = e => {
     e.preventDefault();
     const { value } = e.target;
-    setContent(value);
+    setNewContent(value);
   };
 
   const handleEdit = e => {
     if (!isEditing) {
-      setEditStyle({
-        text: 'Save',
-        color: 'success',
-      });
+      setEditStyle(confirmEditStyle);
       setIsEditing(true);
     } else {
-      editPost(setPostResponse, post.id, content);
-      setEditStyle({
-        text: 'Edit',
-        color: 'primary',
-      });
+      editPost(setPostResponse, post.id, newContent);
+      setEditStyle(editBtnStyle);
+      setIsEditing(false);
+    }
+  };
+
+  const handleEditClickAway = () => {
+    if (newContent === content) {
+      setEditStyle(editBtnStyle);
       setIsEditing(false);
     }
   };
@@ -109,7 +110,9 @@ const PostItem = ({
         <p className="createdAt-time">{post.createdAt}</p>
       </div>
       {isEditing ? (
-        <TextField multiline value={content} onChange={handleChange} />
+        <ClickAwayListener onClickAway={handleEditClickAway}>
+          <TextField multiline value={newContent} onChange={handleChange} />
+        </ClickAwayListener>
       ) : (
         <p className="post-content">{post.content}</p>
       )}
