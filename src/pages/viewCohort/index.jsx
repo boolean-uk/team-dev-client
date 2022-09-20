@@ -15,14 +15,17 @@ const ViewCohort = ({ setProfileView }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const cohortId = parseInt(useParams().cohortId);
+
   useEffect(() => {
-    client
-      .get(`/cohort/${cohortId}`)
-      .then(res => {
-        setCohort(res.data.data.cohort);
-        setIsLoading(false);
-      })
-      .catch(err => console.log('[FETCH /cohort/:id]', err));
+    if (!isNaN(cohortId)) {
+      client
+        .get(`/cohort/${cohortId}`)
+        .then(res => {
+          setCohort(res.data.data.cohort);
+          setIsLoading(false);
+        })
+        .catch(err => console.log('[FETCH /cohort/:id]', err));
+    }
   }, [cohortId]);
 
   const handleProfileClick = userId => {
