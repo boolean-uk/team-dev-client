@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
+import './App.css';
 
 import './App.css';
 
@@ -14,10 +15,11 @@ import client from './utils/client';
 
 function App() {
   const [user, setUser] = useState({
-    first_name: 'Nathan',
-    last_name: 'King',
-    biography: 'Hello world',
-    github_url: 'https://github.com/vherus',
+    first_name: '',
+    last_name: '',
+    biography: '',
+    profile_image_url: '',
+    github_url: '',
   });
   const [foundUser, setFoundUser] = useState({});
 
@@ -67,10 +69,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
-
         <Route element={<AuthenticateUser />}>
-          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/cohort" element={<CreateCohort />} />
+          <Route
+            path="/posts"
+            element={<PostsPage getUserId={getLoggedInUserId} />}
+          />
           <Route path="/enrolment" element={<EnrolmentPage />} />
+
           <Route
             path="/user/:id/profile"
             element={<Profile profileData={foundUser} />}
@@ -86,7 +92,9 @@ function App() {
               />
             }
           />
+
         </Route>
+        <Route path="/account" element={<Account user={user} />} />
       </Routes>
     </div>
   );
