@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserForm from './UserForm';
 import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
@@ -9,12 +10,15 @@ const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [registerResponse, setRegisterResponse] = useState('');
 
+  let navigate = useNavigate();
+
   const registerUser = event => {
     event.preventDefault();
     client
       .post('/user', user, false)
       .then(res => setRegisterResponse(res.data))
       .catch(err => console.log(err.response));
+      navigate('../posts', { replace: true });
   };
 
   const handleChange = event => {
