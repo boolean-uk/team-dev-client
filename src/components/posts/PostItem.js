@@ -1,4 +1,4 @@
-import { Button, Checkbox, TextField } from '@mui/material';
+import { Avatar, Button, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
@@ -85,10 +85,10 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     <li className="post-item">
       <div className="post-header-wrap">
         <div className="post-profile-wrap">
-          <img
-            className="post-profile-img"
+          <Avatar
             src={post.user.profile.profileImageUrl}
             alt="profile"
+            sx={{ width: 56, height: 56 }}
           />
           <h3 onClick={handleClick} className="post-owner-name">
             {post.user.profile.firstName} {post.user.profile.lastName}
