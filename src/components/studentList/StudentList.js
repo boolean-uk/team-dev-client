@@ -43,10 +43,11 @@ const StudentList = () => {
     return (
         <>
             <div className='list-container'>
-                <h3>Cohort {String(cohortId)}</h3>
+                <h2>Cohort {String(cohortId)}</h2>
+                <h4>{listOfStudents.length} online</h4>
                 {listOfStudents.map(u => {
                     return (
-                        <div className='list'>
+                        <div className='list-item'>
                             <Avatar
                                 alt="Profile Pic"
                                 src={u.profile_image_url}
