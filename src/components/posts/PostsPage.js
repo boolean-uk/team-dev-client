@@ -10,8 +10,9 @@ import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
+import StudentList from '../../components/studentList/StudentList'
 
-const PostsPage = ({ getUserId, setProfileView }) => {
+const PostsPage = ({ getUserId, setProfileView, setUser }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -110,6 +111,7 @@ const PostsPage = ({ getUserId, setProfileView }) => {
                   setPost={setPost}
                   setPostResponse={setPostResponse}
                   setProfileView={setProfileView}
+                  setUser={setUser}
                 />
               ))}
             </ul>
@@ -118,6 +120,7 @@ const PostsPage = ({ getUserId, setProfileView }) => {
           )
         }
       </section >
+      <StudentList setUser={setUser} />
     </>
   );
 };

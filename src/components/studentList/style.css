@@ -24,4 +24,5 @@
 
 .list-item p {
     padding-left: 0.5rem;
+    cursor: pointer;
 }

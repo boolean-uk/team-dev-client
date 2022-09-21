@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
-
+import client from '../../utils/client';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 
-const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) => {
+const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
@@ -24,7 +24,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   const [likesCount, setLikesCount] = useState('')
   const navigate = useNavigate()
   const getUserId = userId();
-  
+
   useEffect(() => {
     setIsOwner(false);
     setIsDeleting(false);
@@ -34,7 +34,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [post, userId]);
 
   const handleChange = (e) => {
@@ -71,14 +71,17 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   };
 
   const handleClick = (e) => {
-    setProfileView(post.userId)
+    client
+      .get(`/user/${post.userId}`)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
     navigate('/profile')
   }
 
   const handleLike = (e) => {
     setIsLiked(e.target.checked)
 
-    if(!isLiked) {
+    if (!isLiked) {
       createLike(setPostResponse, post.id)
     }
     else {
@@ -128,7 +131,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
           checked={isLiked}
           icon={<ThumbUpOutlinedIcon />}
           checkedIcon={<ThumbUpIcon />}
-          onChange={handleLike}/>
+          onChange={handleLike} />
         <div className='count'>{likesCount}</div>
 
       </div>
