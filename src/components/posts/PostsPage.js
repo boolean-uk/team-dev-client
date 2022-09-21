@@ -11,13 +11,17 @@ import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import StudentList from '../../components/studentList/StudentList'
+import TeacherAdmin from '../teacher/TeacherAdmin';
+
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
+
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
   let navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
@@ -39,6 +43,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     renderPosts(setPosts);
   }, [postResponse]);
 
+
   const createPost = async event => {
     event.preventDefault();
     client
@@ -53,6 +58,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
       });
   };
 
+
   const handleChange = event => {
     event.preventDefault();
     const { value } = event.target;
@@ -62,31 +68,17 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     });
   };
 
+
   const signOut = event => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
     navigate('../', { replace: true });
   };
 
+
   return (
     <>
-      {isTeacher && (
-        <div className='teacher-section'>
-          <Box display='flex' justifyContent='center' alignItems='center'>
-            <Card variant='outlined' sx={{ width: 1000 }}>
-              <h3>Teacher Admin</h3>
-              <CardActions>
-                <Button variant='contained'>
-                  <NavLink to='/cohort'>Manage Cohort</NavLink>
-                </Button>
-                <Button variant='contained'>
-                  <NavLink to='/enrolment'>Enrolment</NavLink>
-                </Button>
-              </CardActions>
-            </Card>
-          </Box>
-        </div>
-      )}
+    {isTeacher && <TeacherAdmin />}
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
