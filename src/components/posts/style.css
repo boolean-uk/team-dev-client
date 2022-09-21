@@ -64,14 +64,6 @@
   gap: 1rem;
 }
 
-.modify-btn {
-  width: fit-content;
-  border: 1px solid #fff;
-  background-color: #fff;
-  color: #3e3e3e;
-  cursor: pointer;
-}
-
 .modify-btn:hover {
   border-bottom: 1px solid;
 }
@@ -85,12 +77,21 @@
   cursor: pointer;
 }
 
+.btn-likes-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
 .like-wrap {
   display: flex;
-  justify-content: flex-end;
 }
 
 .count {
   display: flex;
   align-self: center;
+}
+
+.hot-topic-placeholder {
+  width: 87px;
+  height: 25px;
 }
