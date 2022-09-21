@@ -58,7 +58,7 @@ const Header = ({ companyName }) => {
           <Typography>{companyName}</Typography>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -74,7 +74,7 @@ const Header = ({ companyName }) => {
           <Box>
             <Button variant="contained">Search User</Button>
           </Box>
-        </Box>
+        </Box> */}
 
         <Box>
           <Stack spacing={2} direction="row">

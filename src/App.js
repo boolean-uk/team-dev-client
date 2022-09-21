@@ -58,6 +58,7 @@ function App() {
             element={<PostsPage getUserId={getLoggedInUserId} setProfileView={setProfileView} />}
           />
           <Route path="/enrolment" element={<EnrolmentPage />} />
+          <Route path="/user/:id/profile" element={<Profile />} />
           <Route
             path="/profile"
             element={

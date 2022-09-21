@@ -10,6 +10,7 @@ import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
+import AdminPanel from '../teacher/AdminPanel';
 
 const PostsPage = ({ getUserId, setProfileView }) => {
   const [post, setPost] = useState({ content: '' });
@@ -84,6 +85,7 @@ const PostsPage = ({ getUserId, setProfileView }) => {
               </CardActions>
             </Card>
           </Box>
+          <AdminPanel />
         </div>
       )}
 
