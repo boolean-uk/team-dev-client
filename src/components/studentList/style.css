@@ -1,11 +1,27 @@
-.student-list-container {
-    background-color: red;
+.list-container {
+    border: #4b4b56 solid 1px;
     position: absolute;
     right: 0;
-    top: 6rem;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    margin-right: 1.5rem;
+    width: 20rem;
+    border-radius: 3px;
 }
 
-.student-list {
+.list-container h4 {
+    color: green;
+}
+
+.list-item {
     display: flex;
     align-items: center;
+    padding-top: 0.5rem;
+}
+
+.list-item p {
+    padding-left: 0.5rem;
 }

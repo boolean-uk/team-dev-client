@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import PostCommentForm from './PostCommentForm';
+import { createLike, deleteLike } from './utils/likeRequests';
+
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -20,17 +22,20 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
   const [editStyle, setEditStyle] = useState({ text: 'Edit', color: 'primary' })
   const [delStyle, setDelStyle] = useState(delBtnStyle)
   const [isLiked, setIsLiked] = useState(false)
+  const [likesCount, setLikesCount] = useState('')
   const navigate = useNavigate()
-
+  const getUserId = userId();
+  
   useEffect(() => {
-    const getUserId = userId();
     setIsOwner(false);
     setIsDeleting(false);
     setContent(post.content);
     setDelStyle(delBtnStyle);
+    setLikesCount(post.likes.length)
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
+  // eslint-disable-next-line
   }, [post, userId]);
 
   const handleChange = (e) => {
@@ -73,6 +78,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
 
   const handleLike = (e) => {
     setIsLiked(e.target.checked)
+
+    if(!isLiked) {
+      createLike(setPostResponse, post.id)
+    }
+    else {
+      deleteLike(setPostResponse, post.id)
+    }
   }
 
   return (
@@ -119,6 +131,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
             checkedIcon={<ThumbUpIcon />} 
             checked={isLiked}
             onChange={handleLike}/>
+          <div className='count'>{likesCount}</div>
         </div>
       </div>
       <div className="comment-wrap">
