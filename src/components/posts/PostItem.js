@@ -37,6 +37,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   useEffect(() => {
     setIsOwner(false);
     resetDelBtn();
+    resetEditBtn();
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
@@ -52,21 +53,29 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     setNewContent(value);
   };
 
+  const resetDelBtn = () => {
+    setDelStyle(delBtnStyle);
+    setIsDeleting(false);
+  };
+
+  const resetEditBtn = () => {
+    setEditStyle(editBtnStyle);
+    setIsEditing(false);
+  };
+
   const handleEdit = e => {
     if (!isEditing) {
       setEditStyle(confirmEditStyle);
       setIsEditing(true);
     } else {
       editPost(setPostResponse, post.id, newContent);
-      setEditStyle(editBtnStyle);
-      setIsEditing(false);
+      resetDelBtn();
     }
   };
 
   const handleEditClickAway = () => {
     if (newContent === content) {
-      setEditStyle(editBtnStyle);
-      setIsEditing(false);
+      resetEditBtn();
     }
   };
 
@@ -80,10 +89,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     }
   };
 
-  const resetDelBtn = () => {
-    setDelStyle(delBtnStyle);
-    setIsDeleting(false);
-  };
   const handleClick = e => {
     client
       .get(`/user/${post.userId}`)
