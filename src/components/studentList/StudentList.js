@@ -9,18 +9,7 @@ import Avatar from '@mui/material/Avatar';
 const StudentList = ({ setUser }) => {
     const navigate = useNavigate()
     const [cohortId, setCohortId] = useState()
-    const [listOfStudents] = useState([
-        {
-            first_name: 'Juan',
-            last_name: 'Xander',
-            profile_image_url: 'https://www.sciencefriday.com/wp-content/uploads/2022/04/pitbull-illustration.jpg'
-        },
-        {
-            first_name: 'Ivan',
-            last_name: 'Xander',
-            profile_image_url: 'https://assets.hermes.com/is/image/hermesproduct/tresse-dog-collar--800555EJ02-worn-1-0-0-800-800_b.jpg'
-        }
-    ])
+    const [listOfStudents, setListOfStudents] = useState([])
 
     useEffect(() => {
         const userId = getLoggedInUserId();
@@ -31,8 +20,20 @@ const StudentList = ({ setUser }) => {
             .get(`/user/${userId}`)
             .then(res => setCohortId(res.data.data.user.cohort_id))
             .catch(err => console.log(err));
+
         // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (cohortId !== undefined) {
+            client
+                .get(`/users?cohort_id=${String(cohortId)}`)
+                .then(res => setListOfStudents(res.data.data.users))
+                .catch(err => console.log(err));
+        }
+
+        // eslint-disable-next-line
+    }, [cohortId]);
 
     const getLoggedInUserId = () => {
         const loadedToken = localStorage.getItem('token');
