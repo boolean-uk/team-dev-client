@@ -1,8 +1,6 @@
 import { Button } from '@mui/material';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddIcon from '@mui/icons-material/Add';
 
-import DEFAULTIMG from '../../../assets/default.png';
+import DeliveryLogItem from './DeliveryLogItem';
 
 const DeliveryLogs = ({ cohort }) => {
   // console.log(cohort);
@@ -32,45 +30,7 @@ const DeliveryLogs = ({ cohort }) => {
           </li>
         ) : (
           deliveryLogs?.map(log => (
-            <li key={log.id} className="view-cohort__log-card">
-              <div className="view-cohort__log-card-user">
-                <img
-                  className="view-cohort__profile-image"
-                  src={log.author.profileImageUrl || DEFAULTIMG}
-                  alt="Profile"
-                />
-                <div className="view-cohort__user-text">
-                  <span style={{ marginRight: '8px' }}>
-                    {log.author.firstName || 'firstname'}
-                  </span>
-                  <span>{log.author.lastName || 'lastname'}</span>
-                  <p className="view-cohort__user-email">{log.date}</p>
-                </div>
-              </div>
-
-              <ul className="logs-list">
-                {log?.lines?.map(line => (
-                  <li
-                    className="log-list-item"
-                    key={`${line.id}${line.content}`}
-                    tabIndex="0"
-                  >
-                    <span>{line.content}</span>
-                    <DeleteForeverIcon
-                      className="log-list-item-delete"
-                      tabIndex="0"
-                    />
-                  </li>
-                ))}
-                <li>
-                  <Button>
-                    <AddIcon />
-                    <span>New Line</span>
-                  </Button>
-                </li>
-              </ul>
-              <Button sx={{ marginTop: 5 }}>Delete Log</Button>
-            </li>
+            <DeliveryLogItem key={log.id} {...{ log }} />
           ))
         )}
       </ul>
