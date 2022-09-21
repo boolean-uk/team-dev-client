@@ -107,20 +107,20 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   };
 
   return (
-    <li className="post-item">
-      <div className="post-header-wrap">
-        <div className="post-profile-wrap">
+    <li className='post-item'>
+      <div className='post-header-wrap'>
+        <div className='post-profile-wrap'>
           <Avatar
             src={post.user.profile.profileImageUrl}
-            alt="profile"
+            alt='profile'
             sx={{ width: 56, height: 56 }}
           />
-          <h3 onClick={handleClick} className="post-owner-name">
+          <h3 onClick={handleClick} className='post-owner-name'>
             {post.user.profile.firstName} {post.user.profile.lastName}
           </h3>
         </div>
 
-        <p className="createdAt-time">{post.createdAt}</p>
+        <p className='createdAt-time'>{post.createdAt}</p>
       </div>
 
       {isEditing ? (
@@ -128,25 +128,25 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           <TextField multiline value={newContent} onChange={handleChange} />
         </ClickAwayListener>
       ) : (
-        <p className="post-content">{post.content}</p>
+        <p className='post-content'>{post.content}</p>
       )}
       {isOwner && (
-        <div className="modify-btn-wrap">
+        <div className='modify-btn-wrap'>
           <Button
             color={editStyle.color}
-            variant="text"
+            variant='text'
             id={'post-edit-btn' + post.id}
             onClick={handleEdit}
-            className="modify-btn"
+            className='modify-btn'
           >
             {editStyle.text}
           </Button>
 
           <ClickAwayListener onClickAway={resetDelBtn}>
             <Button
-              variant="text"
+              variant='text'
               color={delStyle.color}
-              className="modify-btn"
+              className='modify-btn'
               onClick={handleDel}
             >
               {delStyle.text}
@@ -154,15 +154,15 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           </ClickAwayListener>
         </div>
       )}
-      <div className="like-wrap">
+      <div className='like-wrap'>
         <Checkbox
-          label="like"
+          label='like'
           checked={isLiked}
           icon={<ThumbUpOutlinedIcon />}
           checkedIcon={<ThumbUpIcon />}
           onChange={handleLike}
         />
-        <div className="count">{likesCount}</div>
+        <div className='count'>{likesCount}</div>
       </div>
     </li>
   );
