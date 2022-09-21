@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserForm from './UserForm';
 import userBlankData from '../utils/userHelpers';
 import client from '../../../utils/client';
@@ -10,6 +11,8 @@ const RegistrationPage = () => {
   const [user, setUser] = useState(userBlankData());
   const [registerResponse, setRegisterResponse] = useState('');
   const [emailError, setEmailError] = useState(false);
+
+  let navigate = useNavigate();
 
   const registerUser = event => {
     event.preventDefault();
@@ -23,6 +26,8 @@ const RegistrationPage = () => {
         setTimeout(() => {
           setEmailError(false);
         }, '3000');
+        
+        navigate('../posts', { replace: true });
       });
   };
 
