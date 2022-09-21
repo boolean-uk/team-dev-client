@@ -38,6 +38,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     setIsOwner(false);
     resetDelBtn();
     setContent(post.content);
+    setNewContent(post.content);
     setLikesCount(post.likes.length);
     if (getUserId === post.userId) {
       setIsOwner(true);
@@ -93,74 +94,73 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
 
   const handleLike = e => {
     setIsLiked(e.target.checked);
-
     if (!isLiked) {
       createLike(setPostResponse, post.id);
     } else {
       deleteLike(setPostResponse, post.id);
     }
-
-    return (
-      <li className="post-item">
-        <div className="post-header-wrap">
-          <div className="post-profile-wrap">
-            <Avatar
-              src={post.user.profile.profileImageUrl}
-              alt="profile"
-              sx={{ width: 56, height: 56 }}
-            />
-            <h3 onClick={handleClick} className="post-owner-name">
-              {post.user.profile.firstName} {post.user.profile.lastName}
-            </h3>
-          </div>
-
-          <p className="createdAt-time">{post.createdAt}</p>
-        </div>
-
-        {isEditing ? (
-          <ClickAwayListener onClickAway={handleEditClickAway}>
-            <TextField multiline value={newContent} onChange={handleChange} />
-          </ClickAwayListener>
-        ) : (
-          <p className="post-content">{post.content}</p>
-        )}
-        {isOwner && (
-          <div className="modify-btn-wrap">
-            <Button
-              color={editStyle.color}
-              variant="text"
-              id={'post-edit-btn' + post.id}
-              onClick={handleEdit}
-              className="modify-btn"
-            >
-              {editStyle.text}
-            </Button>
-
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                variant="text"
-                color={delStyle.color}
-                className="modify-btn"
-                onClick={handleDel}
-              >
-                {delStyle.text}
-              </Button>
-            </ClickAwayListener>
-          </div>
-        )}
-        <div className="like-wrap">
-          <Checkbox
-            label="like"
-            checked={isLiked}
-            icon={<ThumbUpOutlinedIcon />}
-            checkedIcon={<ThumbUpIcon />}
-            onChange={handleLike}
-          />
-          <div className="count">{likesCount}</div>
-        </div>
-      </li>
-    );
   };
+
+  return (
+    <li className="post-item">
+      <div className="post-header-wrap">
+        <div className="post-profile-wrap">
+          <Avatar
+            src={post.user.profile.profileImageUrl}
+            alt="profile"
+            sx={{ width: 56, height: 56 }}
+          />
+          <h3 onClick={handleClick} className="post-owner-name">
+            {post.user.profile.firstName} {post.user.profile.lastName}
+          </h3>
+        </div>
+
+        <p className="createdAt-time">{post.createdAt}</p>
+      </div>
+
+      {isEditing ? (
+        <ClickAwayListener onClickAway={handleEditClickAway}>
+          <TextField multiline value={newContent} onChange={handleChange} />
+        </ClickAwayListener>
+      ) : (
+        <p className="post-content">{post.content}</p>
+      )}
+      {isOwner && (
+        <div className="modify-btn-wrap">
+          <Button
+            color={editStyle.color}
+            variant="text"
+            id={'post-edit-btn' + post.id}
+            onClick={handleEdit}
+            className="modify-btn"
+          >
+            {editStyle.text}
+          </Button>
+
+          <ClickAwayListener onClickAway={resetDelBtn}>
+            <Button
+              variant="text"
+              color={delStyle.color}
+              className="modify-btn"
+              onClick={handleDel}
+            >
+              {delStyle.text}
+            </Button>
+          </ClickAwayListener>
+        </div>
+      )}
+      <div className="like-wrap">
+        <Checkbox
+          label="like"
+          checked={isLiked}
+          icon={<ThumbUpOutlinedIcon />}
+          checkedIcon={<ThumbUpIcon />}
+          onChange={handleLike}
+        />
+        <div className="count">{likesCount}</div>
+      </div>
+    </li>
+  );
 };
 
 export default PostItem;
