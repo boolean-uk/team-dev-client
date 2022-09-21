@@ -4,11 +4,13 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
@@ -124,8 +126,17 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
             {post.user.profile.firstName} {post.user.profile.lastName}
           </h3>
         </div>
-
+        <div>
+          {post.likes.length > 10 ? 
+            <Chip size='small' 
+            color='error' 
+            icon={<LocalFireDepartmentOutlinedIcon />} 
+            label='Hot Topic' 
+            variant='outlined'
+            /> : <div className='hot-topic-placeholder'></div>
+          }
         <p className='createdAt-time'>{post.createdAt}</p>
+        </div>
       </div>
 
       {isEditing ? (
