@@ -12,15 +12,17 @@ import Header from './components/Header/Header';
 import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
+import ViewCohort from './pages/viewCohort';
 
 function App() {
-  const [profileView, setProfileView] = useState(null)
+  const [profileView, setProfileView] = useState(null);
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
     biography: '',
     profile_image_url: '',
     github_url: '',
+    email: '',
   });
 
   useEffect(() => {
@@ -52,8 +54,19 @@ function App() {
         <Route element={<AuthenticateUser />}>
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
+            path="/cohort/:cohortId"
+            element={<ViewCohort {...{ setProfileView }} />}
+          />
+          <Route
             path="/posts"
-            element={<PostsPage getUserId={getLoggedInUserId} setProfileView={setProfileView} />}
+            element={
+              <PostsPage
+                getUserId={getLoggedInUserId}
+                setProfileView={setProfileView}
+                user={user}
+                setUser={setUser}
+              />
+            }
           />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route
@@ -68,7 +81,16 @@ function App() {
             }
           />
         </Route>
-        <Route path="/account" element={<Account user={user} />} />
+        <Route
+          path="/account"
+          element={
+            <Account
+              getLoggedInUserId={getLoggedInUserId}
+              user={user}
+              setUser={setUser}
+            />
+          }
+        />
       </Routes>
     </div>
   );
@@ -86,5 +108,9 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return <Header companyName={`Cohort Manager 2.0`} />;
+  return (
+    <>
+      <Header companyName={`Cohort Manager 2.0`} />
+    </>
+  );
 };

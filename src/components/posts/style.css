@@ -89,3 +89,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.count {
+  display: flex;
+  align-self: center;
+}

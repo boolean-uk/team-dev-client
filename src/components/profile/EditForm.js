@@ -6,8 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import './style.css';
 
 const EditForm = ({ user, handleSubmit, handleChange }) => {
-  const { first_name, last_name, biography, github_url, profile_image_url } =
-    user;
+  const { first_name, last_name, biography, github_url, profile_image_url } = user;
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
