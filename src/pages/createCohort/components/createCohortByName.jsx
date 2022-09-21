@@ -12,13 +12,13 @@ const CreateCohortByName = () => {
     setCohortName(event.target.value);
     
   }
-  console.log(name)
+  
 
   function createCohort(event) {
     event.preventDefault();
     client
 
-      .post('/cohort', { name: cohortName })
+      .post('/cohort', { name })
 
       .then(res => {
         if (res.data.status === 'success') {
