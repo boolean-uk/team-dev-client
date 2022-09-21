@@ -7,7 +7,6 @@ import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 
-import CohortList from '../../pages/createCohort/components/cohortList'
 import StudentList from '../../components/studentList/StudentList'
 import TeacherAdmin from '../teacher/TeacherAdmin';
 
