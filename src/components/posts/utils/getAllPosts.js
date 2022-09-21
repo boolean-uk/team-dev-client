@@ -33,6 +33,10 @@ export function renderPosts(setPosts) {
     const postsFetched = res.data.data;
     const formattedPosts = postsFetched.map(post => {
       post.createdAt = formatTime(post.createdAt);
+      post.comments.map(comment => {
+        comment.createdAt = formatTime(comment.createdAt);
+        return comment;
+      });
       return post;
     });
     setPosts(formattedPosts);
