@@ -34,7 +34,9 @@ const CohortList = () => {
 
 
   function enterNewName(event){
+    event.preventPropagation()
     setNewCohortName(event.target.value)
+    console.log(event.target.value)
   }
 
  
@@ -89,12 +91,13 @@ const CohortList = () => {
       <div className="cohort-list">
         {cohorts.map(cohort => {
           return (<div>
+            
             <Accordion expanded={expanded===`panel${cohort.id}`} onChange={handleChange(`panel${cohort.id}`)}>
               <AccordionSummary aria-controls={`panel${cohort.id}d-content`} id={`panel${cohort.id}d-header`}>
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <TextField id={`${cohort.id}`} variant='filled' label='edit cohort name' onChange={enterNewName}/>
+                <TextField variant='filled' label='edit cohort name' value={newCohortName} onChange={enterNewName}/>
               <IconButton className='edit' onClick={updateCohortName}>< EditIcon/></IconButton>
               </AccordionDetails>
 
