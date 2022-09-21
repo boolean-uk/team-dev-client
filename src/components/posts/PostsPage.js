@@ -10,6 +10,7 @@ import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
+import CohortList from '../../pages/createCohort/components/cohortList'
 
 const PostsPage = ({ getUserId, setProfileView }) => {
   const [post, setPost] = useState({ content: '' });
@@ -82,6 +83,7 @@ const PostsPage = ({ getUserId, setProfileView }) => {
                   <NavLink to="/enrolment">Enrolment</NavLink>
                 </Button>
               </CardActions>
+              Current Cohorts: <CohortList header='true' />
             </Card>
           </Box>
         </div>
