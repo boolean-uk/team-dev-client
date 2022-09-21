@@ -5,7 +5,8 @@ import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import PostCommentForm from './PostCommentForm';
+import CommentForm from './CommentForm';
+import CommentItem from './CommentItem';
 import { createLike, deleteLike } from './utils/likeRequests';
 
 
@@ -16,13 +17,17 @@ const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) => {
   const [isOwner, setIsOwner] = useState(false)
+  const [content, setContent] = useState(post.content)
+
   const [isDeleting, setIsDeleting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [content, setContent] = useState(post.content)
   const [editStyle, setEditStyle] = useState({ text: 'Edit', color: 'primary' })
   const [delStyle, setDelStyle] = useState(delBtnStyle)
+
   const [isLiked, setIsLiked] = useState(false)
   const [likesCount, setLikesCount] = useState('')
+
+  const [showingAll, setShowingAll] = useState(false)
   const navigate = useNavigate()
   const getUserId = userId();
   
@@ -87,6 +92,15 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
     }
   }
 
+  const handleShowAll = () => {
+    if (showingAll) {
+      setShowingAll(false)
+    }
+    if (!showingAll) {
+      setShowingAll(true)
+    }
+  }
+
   return (
     <li className="post-item">
       <div className="post-wrap">
@@ -136,11 +150,49 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
       </div>
       <div className="comment-wrap">
         <div className="comment-create-wrap">
-          <PostCommentForm 
+          <CommentForm 
             setPostResponse={setPostResponse} 
             post={post} 
           />
         </div>
+        <div className="comments-section">
+        {
+          showingAll &&
+          <div className='comment-filter'>
+          </div>
+        }
+        <ul>
+        {
+          !showingAll 
+            ?
+          (
+            post.comments.length >= 1 && <CommentItem comment={post.comments[0]} />
+          )
+            :
+          ( 
+            post.comments.length > 0 &&
+              (post.comments.map((comment, index) => (
+                  <CommentItem
+                    comment={comment}
+                    key={index}
+                  />
+              )))
+          )
+        }
+        </ul>
+        {
+          post.comments.length > 1 &&
+          <p onClick={handleShowAll}>
+            { 
+              !showingAll 
+              ? 
+              `Show All Comments (${post.comments.length})` 
+              : 
+              'Hide Comments' 
+            }
+          </p>
+        }
+      </div> 
       </div>
     </li>
   );
