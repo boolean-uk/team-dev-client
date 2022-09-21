@@ -1,4 +1,4 @@
-import { Button, Card, IconButton } from '@mui/material';
+import { Button, Card, IconButton, TextField } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import client from '../../../utils/client';
@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 const CohortList = () => {
   const [cohorts, setCohorts] = useState([]);
   const [expanded, setExpanded] = React.useState('panel1');
+  const [newCohortName,setNewCohortName]= useState('')
 
   useEffect(() => {
     client
@@ -27,12 +28,21 @@ const CohortList = () => {
   }, []);
 
   const updateCohortName=()=>{
-    return (<p>edit</p>)
+    
+    
   }
 
+
+  function enterNewName(event){
+    setNewCohortName(event.target.value)
+  }
+
+ 
+  //MUI accordion styling below:
   const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
   ))(({ theme }) => ({
+    
     width: 1000,
     border: `1px solid ${theme.palette.divider}`,
     '&:not(:last-child)': {
@@ -84,6 +94,7 @@ const CohortList = () => {
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
+                <TextField id={`${cohort.id}`} variant='filled' label='edit cohort name' onChange={enterNewName}/>
               <IconButton className='edit' onClick={updateCohortName}>< EditIcon/></IconButton>
               </AccordionDetails>
 
