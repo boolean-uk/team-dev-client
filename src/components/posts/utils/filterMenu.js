@@ -11,7 +11,7 @@ const options = [
   'Oldest',
 ];
 
-export default function FilterMenu() {
+export default function FilterMenu({ setSortType }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const open = Boolean(anchorEl);
@@ -19,9 +19,10 @@ export default function FilterMenu() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (event, index) => {
+  const handleMenuItemClick = (event, index, option) => {
     setSelectedIndex(index);
     setAnchorEl(null);
+    setSortType(option);
   };
 
   const handleClose = () => {
@@ -64,7 +65,7 @@ export default function FilterMenu() {
             key={option}
             disabled={index === 0}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index)}
+            onClick={(event) => {handleMenuItemClick(event, index, option)}}
           >
             {option}
           </MenuItem>

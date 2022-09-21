@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 import { createComment } from './utils/createComment';
 
-const PostCommentForm = ({ setPostResponse, post }) => {
+const CommentForm = ({ setPostResponse, post }) => {
   const [commentValue, setCommentValue] = useState('');
 
   const handleCommentInput = (e) => {
@@ -44,4 +44,4 @@ const PostCommentForm = ({ setPostResponse, post }) => {
   );
 };
 
-export default PostCommentForm;
+export default CommentForm;

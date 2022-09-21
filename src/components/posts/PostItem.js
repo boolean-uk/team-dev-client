@@ -11,11 +11,10 @@ import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import CommentForm from './CommentForm';
-import CommentItem from './CommentItem';
 import { createLike, deleteLike } from './utils/likeRequests';
-import FilterMenu from './utils/filterMenu';
 import client from '../../utils/client';
+import CommentForm from './CommentForm'
+import Comments from './Comments';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -37,7 +36,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
 
-  const [showingAll, setShowingAll] = useState(false);
   const navigate = useNavigate();
   const getUserId = userId();
 
@@ -118,15 +116,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     }
   };
 
-  const handleShowAll = () => {
-    if (showingAll) {
-      setShowingAll(false)
-    }
-    if (!showingAll) {
-      setShowingAll(true)
-    }
-  }
-
   return (
     <li className='post-item'>
       <div className='post-wrap'>
@@ -187,52 +176,16 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
               />
               <div className='count'>{likesCount}</div>
             </div>
-            </div>
-            <div className="comment-wrap">
+          </div>
+      </div>
+      <div className="comment-wrap">
         <div className="comment-create-wrap">
           <CommentForm 
             setPostResponse={setPostResponse} 
             post={post} 
           />
         </div>
-        <div className="comments-section">
-        {
-          showingAll &&
-          <div className='comment-filter'>
-            <FilterMenu />
-          </div>
-        }
-        <ul>
-        {
-          !showingAll 
-            ?
-          (post.comments.length >= 1 && <CommentItem comment={post.comments[0]} />)
-            :
-          ( 
-            post.comments.length > 0 &&
-              (post.comments.map((comment, index) => (
-                  <CommentItem
-                    comment={comment}
-                    key={index}
-                  />
-              )))
-          )
-        }
-        </ul>
-        {
-          post.comments.length > 1 &&
-          <p onClick={handleShowAll}>
-            { 
-              !showingAll 
-              ? 
-              `Show All Comments (${post.comments.length})` 
-              : 
-              'Hide Comments'
-            }
-          </p>
-        }
-      </div> 
-      </div>
+        <Comments post={post} />
       </div>
     </li>
   );

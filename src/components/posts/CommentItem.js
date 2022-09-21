@@ -20,7 +20,7 @@ const CommentItem = ({ comment }) => {
                 {comment.user.profile.firstName} {comment.user.profile.lastName}
             </h3>
           </div>
-          <p className="createdAt-time">{comment.createdAt}</p>
+          <p className="createdAt-time">{comment.formattedCreatedAt}</p>
         </div>
           <p className='post-content'>{comment.content}</p>
         </div>

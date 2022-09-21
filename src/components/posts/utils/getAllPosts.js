@@ -37,7 +37,7 @@ export function renderPosts(setPosts) {
         return new Date(b.createdAt) - new Date(a.createdAt)
       });
       post.comments.map(comment => {
-        comment.createdAt = formatTime(comment.createdAt);
+        comment.formattedCreatedAt = formatTime(comment.createdAt);
         return comment;
       });
       return post;
