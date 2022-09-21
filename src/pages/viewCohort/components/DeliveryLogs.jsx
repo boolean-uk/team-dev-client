@@ -53,14 +53,20 @@ const DeliveryLogs = ({ cohort }) => {
                   <li
                     className="log-list-item"
                     key={`${line.id}${line.content}`}
+                    tabIndex="0"
                   >
                     <span>{line.content}</span>
-                    <DeleteForeverIcon className="log-list-item-delete" />
+                    <DeleteForeverIcon
+                      className="log-list-item-delete"
+                      tabIndex="0"
+                    />
                   </li>
                 ))}
-                <li className="add-log-list" tabIndex={0}>
-                  <AddIcon />
-                  <span>New Line</span>
+                <li>
+                  <Button>
+                    <AddIcon />
+                    <span>New Line</span>
+                  </Button>
                 </li>
               </ul>
               <Button sx={{ marginTop: 5 }}>Delete Log</Button>

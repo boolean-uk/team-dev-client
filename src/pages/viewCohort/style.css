@@ -83,19 +83,32 @@
   justify-content: space-between;
   border-radius: 4px;
   padding: 0.5rem 1rem;
+  transition: all 300ms;
 }
 
-.log-list-item:hover .log-list-item-delete {
+.log-list-item:hover .log-list-item-delete,
+.log-list-item:focus-within .log-list-item-delete {
+  transition: opacity 300ms;
+  opacity: 1;
   visibility: visible;
   cursor: pointer;
 }
 
-.log-list-item:hover {
+.log-list-item:hover,
+.log-list-item:focus-within {
   background-color: #1976d222;
+  transition: all 300ms;
 }
 
 .log-list-item-delete {
-  visibility: hidden;
+  transition: opacity 300ms;
+  opacity: 0;
+  /* visibility: hidden; */
+}
+
+.log-list-item-delete:hover,
+.log-list-item-delete:focus {
+  fill: rgb(182, 1, 1);
 }
 
 .add-log-list {
