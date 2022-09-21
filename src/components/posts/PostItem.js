@@ -22,6 +22,7 @@ const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
+const likesToBeHotTopic = 10
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
@@ -127,7 +128,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           </h3>
         </div>
         <div>
-          {post.likes.length > 10 ? 
+          {post.likes.length >= likesToBeHotTopic ? 
             <Chip size='small' 
             color='error' 
             icon={<LocalFireDepartmentOutlinedIcon />} 
