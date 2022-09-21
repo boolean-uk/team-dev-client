@@ -41,9 +41,8 @@ const PostItem = ({
 
   useEffect(() => {
     setIsOwner(false);
-    setIsDeleting(false);
+    resetDelBtn();
     setContent(post.content);
-    setDelStyle(delBtnStyle);
     setLikesCount(post.likes.length);
     if (getUserId === post.userId) {
       setIsOwner(true);
@@ -85,7 +84,7 @@ const PostItem = ({
     }
   };
 
-  const handleDelClickAway = () => {
+  const resetDelBtn = () => {
     setDelStyle(delBtnStyle);
     setIsDeleting(false);
   };
@@ -141,7 +140,7 @@ const PostItem = ({
             {editStyle.text}
           </Button>
 
-          <ClickAwayListener onClickAway={handleDelClickAway}>
+          <ClickAwayListener onClickAway={resetDelBtn}>
             <Button
               variant="text"
               color={delStyle.color}
