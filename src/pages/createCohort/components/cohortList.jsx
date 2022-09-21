@@ -1,22 +1,18 @@
-import { Button, Card, IconButton, TextField } from '@mui/material';
+import { Button, Card, IconButton } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import client from '../../../utils/client';
 import './style.css';
-import EditIcon from '@mui/icons-material/Edit';
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion from '@mui/material/Accordion';
-import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 
 
 const CohortList = () => {
   const [cohorts, setCohorts] = useState([]);
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expand, setExpand]=useState('')
   const [newCohortName,setNewCohortName]= useState('')
+  const [updateCohortNameRes,setUpdateCohortRes]= useState(false)
+  const [error, setError]=useState(false)
 
   useEffect(() => {
     client
@@ -27,85 +23,55 @@ const CohortList = () => {
       .catch(console.log);
   }, []);
 
-  const updateCohortName=()=>{
-    
-    
+  const updateCohortName=(event)=>{
+    event.preventDefault()
+    if (!newCohortName){setError(true); setTimeout(() => {
+      setError(false)
+    }, 3000);}
+    else{
+    client.patch(`/cohort/${event.target.id}`,{name:newCohortName},true).then(res=>{if (res.data.status === 'success') {
+      setUpdateCohortRes(true);
+    }}).catch(console.log)
+    setNewCohortName('')
+    setTimeout(() => {
+      setUpdateCohortRes(false);
+    }, 3000);}
+    window.location.reload()
   }
 
 
   function enterNewName(event){
-    event.preventPropagation()
+   event.stopPropagation()
+   event.preventDefault()
     setNewCohortName(event.target.value)
-    console.log(event.target.value)
   }
 
  
-  //MUI accordion styling below:
-  const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
-  ))(({ theme }) => ({
-    
-    width: 1000,
-    border: `1px solid ${theme.palette.divider}`,
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-  }));
   
-  const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-      {...props}
-    />
-  ))(({ theme }) => ({
-    backgroundColor:
-      theme.palette.mode === 'dark'
-        ? 'rgba(255, 255, 255, .05)'
-        : 'rgba(0, 0, 0, .03)',
-    flexDirection: 'row-reverse',
-    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-      transform: 'rotate(90deg)',
-    },
-    '& .MuiAccordionSummary-content': {
-      marginLeft: theme.spacing(1),
-    },
-  }));
-  
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(2),
-    borderTop: '1px solid rgba(0, 0, 0, .125)',
-  }));
-  
-   
-    
-  
-    const handleChange = (panel) => (event, newExpanded) => {
-      setExpanded(newExpanded ? panel : false);
-    };
 
   return (
     <>
       <div className="cohort-list">
         {cohorts.map(cohort => {
           return (<div>
-            
-            <Accordion expanded={expanded===`panel${cohort.id}`} onChange={handleChange(`panel${cohort.id}`)}>
-              <AccordionSummary aria-controls={`panel${cohort.id}d-content`} id={`panel${cohort.id}d-header`}>
+           <Card id={cohort.id} className='cohort-card'>
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
+                <IconButton>
+                  <ExpandMoreIcon onClick={()=>{setExpand(cohort.id)}}/>
+                </IconButton>
+                {expand ===cohort.id && (
+                  <>
                 <form>
                   <label for ='newName'>New cohort name:</label>
-                  <input type='text' id='newName' name='newName' onChange={enterNewName}></input>
+                  <input type='text' id='newName' key={cohort.id} onChange={enterNewName} value={newCohortName}></input>
                 </form>
-                
-              <IconButton className='edit' onClick={updateCohortName}>< EditIcon/></IconButton>
-              </AccordionDetails>
+              <Button id={`${cohort.id}`} className='edit' onClick={updateCohortName} >submit</Button>
+              {updateCohortNameRes===true && <p>successful</p>}
+              {error===true && <p>please enter a valid name!</p>}
+              </>)
+              }
+              </Card>
 
-            </Accordion>
           </div>);
         })}
       </div>

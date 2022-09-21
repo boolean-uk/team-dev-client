@@ -21,13 +21,14 @@ const CreateCohortByName = () => {
       .then(res => {
         if (res.data.status === 'success') {
           setCreateCohortRes(true);
-          console.log('res',res)
+          
         }
       })
       .catch(console.log);
     setTimeout(() => {
       setCreateCohortRes(false);
     }, 3000);
+    window.location.reload()
   }
 
   return (
