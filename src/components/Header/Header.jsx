@@ -3,9 +3,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import { useNavigate } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
