@@ -13,7 +13,6 @@ const CreateCohortByName = () => {
     
   }
   
-
   function createCohort(event) {
     event.preventDefault();
     client

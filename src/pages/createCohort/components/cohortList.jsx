@@ -29,10 +29,14 @@ const CohortList = () => {
       setError(false)
     }, 3000);}
     else{
-    client.patch(`/cohort/${event.target.id}`,{name:newCohortName},true).then(res=>{if (res.data.status === 'success') {
+    client.patch(`/cohort/${event.target.id}`,{name:newCohortName},true)
+    .then(res=>{if (res.data.status === 'success') {
       setUpdateCohortRes(true);
-    }}).catch(console.log)
-    setNewCohortName('')
+    }})
+    .catch(console.log);
+
+    setNewCohortName('');
+    
     setTimeout(() => {
       setUpdateCohortRes(false);
     }, 3000);}
