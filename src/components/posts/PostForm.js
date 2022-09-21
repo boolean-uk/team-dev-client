@@ -3,20 +3,22 @@ import Button from '@mui/material/Button';
 
 const PostForm = ({ handleSubmit, handleChange, value }) => {
   return (
-    <form className="post-form" onSubmit={handleSubmit}>
-      <TextField
-        className="user-form-input"
-        type="text"
-        label="New Post"
-        variant="outlined"
-        name="content"
-        value={value}
-        onChange={handleChange}
-      />
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-    </form>
+    <>
+      <form className='post-form' onSubmit={handleSubmit}>
+        <TextField
+          className='user-form-input'
+          type='text'
+          label='New Post'
+          variant='outlined'
+          name='content'
+          value={value}
+          onChange={handleChange}
+        />
+        <Button type='submit' variant='contained'>
+          Submit
+        </Button>
+      </form>
+    </>
   );
 };
 

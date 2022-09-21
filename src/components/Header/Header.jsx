@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import {  Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
 import { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import jwt_decode from 'jwt-decode';
 import client from '../../utils/client';
 
 const Header = ({ companyName }) => {
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -41,6 +42,18 @@ const Header = ({ companyName }) => {
   };
 
   const { profile_image_url } = user;
+
+  const handleClick = () => {
+    const userId = getLoggedInUserId();
+    if (userId === null) {
+      return;
+    }
+    client
+      .get(`/user/${userId}`)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
+    navigate('/profile')
+  }
 
   return (
     <>
@@ -78,8 +91,8 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-            
-            <Button variant="contained" href="/profile">
+
+            <Button variant="contained" onClick={handleClick}>
               Profile
             </Button>
 

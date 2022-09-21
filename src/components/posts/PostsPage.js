@@ -10,8 +10,9 @@ import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
+import StudentList from '../../components/studentList/StudentList'
 
-const PostsPage = ({ getUserId, setProfileView }) => {
+const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -70,16 +71,16 @@ const PostsPage = ({ getUserId, setProfileView }) => {
   return (
     <>
       {isTeacher && (
-        <div className="teacher-section">
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Card variant="outlined" sx={{ width: 1000 }}>
+        <div className='teacher-section'>
+          <Box display='flex' justifyContent='center' alignItems='center'>
+            <Card variant='outlined' sx={{ width: 1000 }}>
               <h3>Teacher Admin</h3>
               <CardActions>
-                <Button variant="contained">
-                  <NavLink to="/cohort">Manage Cohort</NavLink>
+                <Button variant='contained'>
+                  <NavLink to='/cohort'>Manage Cohort</NavLink>
                 </Button>
-                <Button variant="contained">
-                  <NavLink to="/enrolment">Enrolment</NavLink>
+                <Button variant='contained'>
+                  <NavLink to='/enrolment'>Enrolment</NavLink>
                 </Button>
               </CardActions>
             </Card>
@@ -87,8 +88,8 @@ const PostsPage = ({ getUserId, setProfileView }) => {
         </div>
       )}
 
-      <section className="posts-section">
-        <button id="user-signout-button" onClick={signOut}>
+      <section className='posts-section'>
+        <button id='user-signout-button' onClick={signOut}>
           sign out
         </button>
 
@@ -101,7 +102,7 @@ const PostsPage = ({ getUserId, setProfileView }) => {
 
         {
           posts?.length > 0 ? (
-            <ul className="posts-list">
+            <ul className='posts-list'>
               {posts?.map((post, index) => (
                 <PostItem
                   post={post}
@@ -110,14 +111,16 @@ const PostsPage = ({ getUserId, setProfileView }) => {
                   setPost={setPost}
                   setPostResponse={setPostResponse}
                   setProfileView={setProfileView}
+                  setUser={setUser}
                 />
               ))}
             </ul>
           ) : (
-            <p className="no-posts-message">There are no posts at the moment.</p>
+            <p className='no-posts-message'>There are no posts at the moment.</p>
           )
         }
       </section >
+      {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
     </>
   );
 };
