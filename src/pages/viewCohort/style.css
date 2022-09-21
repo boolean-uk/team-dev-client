@@ -10,12 +10,20 @@
   min-height: 500px;
 }
 
-.view-cohort-students {
-  text-align: start;
+.view-cohort-container ul {
+  list-style-type: none;
 }
 
-.view-cohort-students ul {
-  list-style-type: none;
+.view-cohort-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.view-cohort-students {
+  text-align: start;
+  margin-top: 8px;
 }
 
 .view-cohort__student-card {
@@ -45,4 +53,71 @@
   font-size: small;
   font-weight: 400;
   color: gray;
+}
+
+.view-cohort-logs-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-cohort__log-card {
+  /* cursor: pointer; */
+  padding: 20px;
+  box-shadow: 1px 1px 5px rgb(218, 218, 218);
+  margin-block: 14px;
+}
+
+.view-cohort__log-card-user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.logs-list {
+  margin-top: 20px;
+  text-align: start;
+}
+
+.log-list-item {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.log-list-item:hover .log-list-item-delete {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.log-list-item:hover {
+  background-color: #1976d222;
+}
+
+.log-list-item-delete {
+  visibility: hidden;
+}
+
+.log-list-item-add {
+  display: block;
+  scale: 1.5;
+}
+
+.add-log-list {
+  display: flex;
+  gap: 10px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  width: fit-content;
+  padding-inline: 10px;
+  margin-left: 1rem;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 750px) {
+  .view-cohort-content {
+    display: block;
+  }
 }
