@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { createComment } from './utils/createComment';
 
 const PostCommentForm = ({ setPostResponse, post }) => {
-    const [commentValue, setCommentValue] = useState('');
+  const [commentValue, setCommentValue] = useState('');
 
-    const handleCommentInput = (e) => {
-      setCommentValue(e.target.value);
-    };
+  const handleCommentInput = (e) => {
+    setCommentValue(e.target.value);
+  };
 
-    const handleCommentSubmit = (e) => {
-      e.preventDefault()
-      createComment(setPostResponse, post.id, commentValue)
-      setCommentValue('')
-    };
-              
+  const handleCommentSubmit = (e) => {
+    e.preventDefault()
+    createComment(setPostResponse, post.id, commentValue)
+    setCommentValue('')
+  };
+  
   return (
     <form className="comment-form" onSubmit={handleCommentSubmit}>
         <Avatar

@@ -8,6 +8,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import { createLike, deleteLike } from './utils/likeRequests';
+import FilterMenu from './utils/filterMenu';
 
 
 const deleteBtnText = 'Delete';
@@ -128,7 +129,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
             color={editStyle.color}
             variant='text'
             id={'post-edit-btn' + post.id}
-            onClick={handleEdit}
+            onClick={() => console.log(sortedComments)}
             className="modify-btn">{editStyle.text}</Button>
           <Button
             variant='text'
@@ -159,15 +160,14 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
         {
           showingAll &&
           <div className='comment-filter'>
+            <FilterMenu />
           </div>
         }
         <ul>
         {
           !showingAll 
             ?
-          (
-            post.comments.length >= 1 && <CommentItem comment={post.comments[0]} />
-          )
+          (post.comments.length >= 1 && <CommentItem comment={post.comments[0]} />)
             :
           ( 
             post.comments.length > 0 &&
@@ -188,7 +188,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setProfileView }) =>
               ? 
               `Show All Comments (${post.comments.length})` 
               : 
-              'Hide Comments' 
+              'Hide Comments'
             }
           </p>
         }
