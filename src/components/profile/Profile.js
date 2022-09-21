@@ -4,16 +4,10 @@ import './style.css'
 
 import EditForm from './EditForm';
 import client from '../../utils/client';
+import StudentList from '../../components/studentList/StudentList'
 
 const Profile = ({ getLoggedInUserId, user, setUser, profileView }) => {
-    const { first_name, last_name, biography, github_url, cohort_id, profile_image_url } = user
-
-    if (profileView !== null) {
-        client
-            .get(`/user/${profileView}`)
-            .then(res => setUser(res.data.data.user))
-            .catch(err => console.log(err));
-    }
+    const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -77,6 +71,7 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView }) => {
                 />
                 }
             </div>
+            {role !== 'TEACHER' && <StudentList setUser={setUser} />}
         </>
     )
 }

@@ -17,7 +17,9 @@ const CreateCohortByName = () => {
   function createCohort(event) {
     event.preventDefault();
     client
-      .post('/cohort',{name},true)
+
+      .post('/cohort', { name: cohortName })
+
       .then(res => {
         if (res.data.status === 'success') {
           setCreateCohortRes(true);

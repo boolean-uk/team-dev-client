@@ -1,6 +1,7 @@
 import { Button, Card, IconButton } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import client from '../../../utils/client';
 import './style.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -53,6 +54,7 @@ const CohortList = () => {
     <>
       <div className="cohort-list">
         {cohorts.map(cohort => {
+
           return (<div>
            <Card id={cohort.id} className='cohort-card'>
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
@@ -73,6 +75,7 @@ const CohortList = () => {
               </Card>
 
           </div>);
+
         })}
       </div>
     </>
