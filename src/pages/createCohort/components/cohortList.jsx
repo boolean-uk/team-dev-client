@@ -7,7 +7,6 @@ import './style.css';
 
 const CohortList = ({ header }) => {
   const [cohorts, setCohorts] = useState([]);
-  console.log(cohorts);
 
   useEffect(() => {
     client
@@ -24,7 +23,7 @@ const CohortList = ({ header }) => {
         {cohorts.map(cohort => {
           if (cohort.name !== null) {
             return (
-              <Card className="cohort-view">
+              <Card key={cohort.id} className="cohort-view">
                 {`id - ${cohort.id}`}
                 {` | Name - ${cohort.name}`}
               </Card>
