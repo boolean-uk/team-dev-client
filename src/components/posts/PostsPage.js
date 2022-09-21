@@ -6,6 +6,8 @@ import './style.css';
 import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
+
+import CohortList from '../../pages/createCohort/components/cohortList'
 import StudentList from '../../components/studentList/StudentList'
 import TeacherAdmin from '../teacher/TeacherAdmin';
 
@@ -74,7 +76,9 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
 
   return (
     <>
+
     {isTeacher && <TeacherAdmin />}
+
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
