@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddIcon from '@mui/icons-material/Add';
 
 import DEFAULTIMG from '../../../assets/default.png';
 
@@ -57,8 +58,9 @@ const DeliveryLogs = ({ cohort }) => {
                     <DeleteForeverIcon className="log-list-item-delete" />
                   </li>
                 ))}
-                <li className="add-log-list">
-                  <span className="log-list-item-add">+</span>New Line
+                <li className="add-log-list" tabIndex={0}>
+                  <AddIcon />
+                  <span>New Line</span>
                 </li>
               </ul>
               <Button sx={{ marginTop: 5 }}>Delete Log</Button>

@@ -61,7 +61,6 @@
 }
 
 .view-cohort__log-card {
-  /* cursor: pointer; */
   padding: 20px;
   box-shadow: 1px 1px 5px rgb(218, 218, 218);
   margin-block: 14px;
@@ -97,11 +96,6 @@
 
 .log-list-item-delete {
   visibility: hidden;
-}
-
-.log-list-item-add {
-  display: block;
-  scale: 1.5;
 }
 
 .add-log-list {
