@@ -29,7 +29,8 @@ const CohortList = ({ header }) => {
               </Card>
             );
           } else {
-            return <Card className="cohort-view">{`id - ${cohort.id}`}</Card>;
+            return <Card key={cohort.id} className="cohort-view">
+              {`id - ${cohort.id}`}</Card>;
           }
         })}
       </div>
