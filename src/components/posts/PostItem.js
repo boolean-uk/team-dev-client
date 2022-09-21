@@ -135,39 +135,41 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
       ) : (
         <p className='post-content'>{post.content}</p>
       )}
-      {isOwner && (
-        <div className='modify-btn-wrap'>
-          <Button
-            color={editStyle.color}
-            variant='text'
-            id={'post-edit-btn' + post.id}
-            onClick={handleEdit}
-            className='modify-btn'
-          >
-            {editStyle.text}
-          </Button>
-
-          <ClickAwayListener onClickAway={resetDelBtn}>
+      <div className='btn-likes-wrap'>
+        {isOwner ? (
+          <div className='modify-btn-wrap'>
             <Button
+              color={editStyle.color}
               variant='text'
-              color={delStyle.color}
+              id={'post-edit-btn' + post.id}
+              onClick={handleEdit}
               className='modify-btn'
-              onClick={handleDel}
             >
-              {delStyle.text}
+              {editStyle.text}
             </Button>
-          </ClickAwayListener>
-        </div>
-      )}
-      <div className='like-wrap'>
-        <Checkbox
-          label='like'
-          checked={isLiked}
-          icon={<ThumbUpOutlinedIcon />}
-          checkedIcon={<ThumbUpIcon />}
-          onChange={handleLike}
-        />
-        <div className='count'>{likesCount}</div>
+
+            <ClickAwayListener onClickAway={resetDelBtn}>
+              <Button
+                variant='text'
+                color={delStyle.color}
+                className='modify-btn'
+                onClick={handleDel}
+              >
+                {delStyle.text}
+              </Button>
+            </ClickAwayListener>
+          </div>
+        ) : <div></div>}
+        <div className='like-wrap'>
+              <Checkbox
+                label='like'
+                checked={isLiked}
+                icon={<ThumbUpOutlinedIcon />}
+                checkedIcon={<ThumbUpIcon />}
+                onChange={handleLike}
+              />
+              <div className='count'>{likesCount}</div>
+            </div>
       </div>
     </li>
   );
