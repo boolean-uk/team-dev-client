@@ -34,6 +34,11 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
+    post.likes.forEach(like => {
+      if(getUserId === like.userId) {
+        setIsLiked(true)
+      }
+    })
     // eslint-disable-next-line
   }, [post, userId]);
 
