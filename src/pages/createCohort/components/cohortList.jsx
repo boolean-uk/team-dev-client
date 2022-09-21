@@ -97,7 +97,11 @@ const CohortList = () => {
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <TextField variant='filled' label='edit cohort name' value={newCohortName} onChange={enterNewName}/>
+                <form>
+                  <label for ='newName'>New cohort name:</label>
+                  <input type='text' id='newName' name='newName' onChange={enterNewName}></input>
+                </form>
+                
               <IconButton className='edit' onClick={updateCohortName}>< EditIcon/></IconButton>
               </AccordionDetails>
 
