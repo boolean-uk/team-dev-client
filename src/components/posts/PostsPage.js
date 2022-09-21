@@ -71,16 +71,16 @@ const PostsPage = ({ getUserId, setProfileView, setUser }) => {
   return (
     <>
       {isTeacher && (
-        <div className="teacher-section">
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Card variant="outlined" sx={{ width: 1000 }}>
+        <div className='teacher-section'>
+          <Box display='flex' justifyContent='center' alignItems='center'>
+            <Card variant='outlined' sx={{ width: 1000 }}>
               <h3>Teacher Admin</h3>
               <CardActions>
-                <Button variant="contained">
-                  <NavLink to="/cohort">Manage Cohort</NavLink>
+                <Button variant='contained'>
+                  <NavLink to='/cohort'>Manage Cohort</NavLink>
                 </Button>
-                <Button variant="contained">
-                  <NavLink to="/enrolment">Enrolment</NavLink>
+                <Button variant='contained'>
+                  <NavLink to='/enrolment'>Enrolment</NavLink>
                 </Button>
               </CardActions>
             </Card>
@@ -88,8 +88,8 @@ const PostsPage = ({ getUserId, setProfileView, setUser }) => {
         </div>
       )}
 
-      <section className="posts-section">
-        <button id="user-signout-button" onClick={signOut}>
+      <section className='posts-section'>
+        <button id='user-signout-button' onClick={signOut}>
           sign out
         </button>
 
@@ -102,7 +102,7 @@ const PostsPage = ({ getUserId, setProfileView, setUser }) => {
 
         {
           posts?.length > 0 ? (
-            <ul className="posts-list">
+            <ul className='posts-list'>
               {posts?.map((post, index) => (
                 <PostItem
                   post={post}
@@ -116,7 +116,7 @@ const PostsPage = ({ getUserId, setProfileView, setUser }) => {
               ))}
             </ul>
           ) : (
-            <p className="no-posts-message">There are no posts at the moment.</p>
+            <p className='no-posts-message'>There are no posts at the moment.</p>
           )
         }
       </section >
