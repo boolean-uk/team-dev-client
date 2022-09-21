@@ -4,12 +4,8 @@ import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
 import jwt_decode from 'jwt-decode';
-import Button from '@mui/material/Button';
-import { Box, CardActions } from '@mui/material';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
-import { NavLink } from 'react-router-dom';
-import Card from '@mui/material/Card';
 import StudentList from '../../components/studentList/StudentList'
 import TeacherAdmin from '../teacher/TeacherAdmin';
 
