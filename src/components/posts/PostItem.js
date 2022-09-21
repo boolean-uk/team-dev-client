@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
+import client from '../../utils/client';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -20,13 +21,7 @@ const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
 
-const PostItem = ({
-  post,
-  userId,
-  setPostResponse,
-  setPost,
-  setProfileView,
-}) => {
+const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -88,11 +83,13 @@ const PostItem = ({
     setDelStyle(delBtnStyle);
     setIsDeleting(false);
   };
-
-  const handleClick = e => {
-    setProfileView(post.userId);
-    navigate('/profile');
-  };
+  const handleClick = (e) => {
+    client
+      .get(`/user/${post.userId}`)
+      .then(res => setUser(res.data.data.user))
+      .catch(err => console.log(err));
+    navigate('/profile')
+  }
 
   const handleLike = e => {
     setIsLiked(e.target.checked);
@@ -101,7 +98,6 @@ const PostItem = ({
       createLike(setPostResponse, post.id);
     } else {
       deleteLike(setPostResponse, post.id);
-    }
   };
 
   return (
@@ -158,9 +154,9 @@ const PostItem = ({
           checked={isLiked}
           icon={<ThumbUpOutlinedIcon />}
           checkedIcon={<ThumbUpIcon />}
-          onChange={handleLike}
-        />
-        <div className="count">{likesCount}</div>
+          onChange={handleLike} />
+        <div className='count'>{likesCount}</div>
+
       </div>
     </li>
   );
