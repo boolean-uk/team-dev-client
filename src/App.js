@@ -63,6 +63,7 @@ function App() {
               <PostsPage
                 getUserId={getLoggedInUserId}
                 setProfileView={setProfileView}
+                user={user}
                 setUser={setUser}
               />
             }
