@@ -56,6 +56,7 @@ const DeliveryLogItem = ({ log }) => {
               onBlur={handleBlur}
               onChange={handleLineChange}
               value={lineValue}
+              placeholder="Enter new line..."
               sx={{ marginLeft: '15px' }}
             />
           ) : (
