@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import client from '../../utils/client';
 import './style.css'
+import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 
-const StudentList = () => {
+const StudentList = ({ setUser }) => {
+    const navigate = useNavigate()
     const [cohortId, setCohortId] = useState()
     const [listOfStudents] = useState([
         {
@@ -40,6 +42,12 @@ const StudentList = () => {
         const decoded = jwt_decode(loadedToken);
         return decoded.userId;
     };
+
+    const handleClick = (u) => {
+        setUser(u)
+        navigate('/profile')
+    }
+
     return (
         <>
             <div className='list-container'>
@@ -52,7 +60,7 @@ const StudentList = () => {
                                 alt="Profile Pic"
                                 src={u.profile_image_url}
                             />
-                            <p>{u.first_name} {u.last_name}</p>
+                            <p onClick={() => handleClick(u)}>{u.first_name} {u.last_name}</p>
                         </div>
                     )
                 })}

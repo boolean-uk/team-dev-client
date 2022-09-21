@@ -12,7 +12,6 @@ import Header from './components/Header/Header';
 import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
-import StudentList from './components/studentList/StudentList';
 import ViewCohort from './pages/viewCohort';
 
 function App() {
@@ -64,6 +63,7 @@ function App() {
               <PostsPage
                 getUserId={getLoggedInUserId}
                 setProfileView={setProfileView}
+                setUser={setUser}
               />
             }
           />
@@ -110,7 +110,6 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
   return (
     <>
       <Header companyName={`Cohort Manager 2.0`} />
-      <StudentList />
     </>
   );
 };
