@@ -1,7 +1,6 @@
 import { Button, Card, IconButton } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import client from '../../../utils/client';
 import './style.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -84,7 +83,4 @@ const CohortList = () => {
 export default CohortList;
 
 
-//<Card className="cohort-card" key={`${cohort.id}`}>
-             // {`cohort ${cohort.id} - ${cohort.name}`}
-             // <IconButton className='edit' onClick={updateCohortName}>< EditIcon/></IconButton>
-           // </Card>
+
