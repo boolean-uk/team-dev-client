@@ -12,7 +12,6 @@ import './style.css';
 const ViewCohort = ({ setProfileView }) => {
   const [cohort, setCohort] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
   const cohortId = parseInt(useParams().cohortId);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const ViewCohort = ({ setProfileView }) => {
           setCohort(res.data.data.cohort);
           setIsLoading(false);
         })
-        .catch(err => console.log('[FETCH /cohort/:id]', err));
+        .catch(err => console.error('[FETCH /cohort/:id]', err));
     }
   }, [cohortId]);
 
@@ -43,7 +42,10 @@ const ViewCohort = ({ setProfileView }) => {
             <h2>{cohort?.name}</h2>
             <div className="view-cohort-content">
               <Students {...{ cohort, setProfileView }} />
-              <DeliveryLogs {...{ cohort }} />
+              <DeliveryLogs
+                deliveryLogs={cohort.deliveryLogs}
+                {...{ setCohort }}
+              />
             </div>
           </>
         )}

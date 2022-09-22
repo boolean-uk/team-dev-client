@@ -4,20 +4,55 @@ import AddIcon from '@mui/icons-material/Add';
 import { Button, Input } from '@mui/material';
 
 import DEFAULTIMG from '../../../assets/default.png';
+import client from '../../../utils/client';
 
-const DeliveryLogItem = ({ log }) => {
+const DeliveryLogItem = ({ log, setCohort }) => {
   const [newLine, setNewLine] = useState(false);
   const [lineValue, setLineValue] = useState('');
+  const [logLines, setLogLines] = useState(log.lines);
+
+  const formatDate = new Date(log.date);
+  const date = formatDate.toLocaleString();
 
   const handleLineChange = e => {
     setLineValue(e.target.value);
   };
 
   const handleBlur = () => {
-    // submit line
-    console.log(lineValue);
-    setLineValue('');
-    setNewLine(false);
+    client
+      .post('/log/line', { logId: log.id, content: lineValue })
+      .then(res => {
+        const newLine = res.data.data.line;
+        setLogLines(curr => [...logLines, newLine]);
+        setLineValue('');
+        setNewLine(false);
+      })
+      .catch(err => console.error(['error'], err));
+  };
+
+  const handleDeleteLine = id => {
+    client
+      .delete(`/log/line/${id}`)
+      .then(res => {
+        if (res.data.status === 'success') {
+          setLogLines(curr => curr.filter(line => line.id !== id));
+        }
+      })
+      .catch(err => console.error(['error'], err));
+  };
+
+  const handleDeleteLog = id => {
+    client
+      .delete(`/log/${id}`)
+      .then(res => {
+        if (res.data.status === 'success') {
+          setCohort(curr => {
+            const filteredLogs = curr.deliveryLogs.filter(log => log.id !== id);
+            return { ...curr, deliveryLogs: filteredLogs };
+          });
+        }
+      })
+      .catch(err => console.error(['error'], err));
   };
 
   return (
@@ -25,27 +60,31 @@ const DeliveryLogItem = ({ log }) => {
       <div className="view-cohort__log-card-user">
         <img
           className="view-cohort__profile-image"
-          src={log.author.profileImageUrl || DEFAULTIMG}
+          src={log?.user?.profile.profileImageUrl || DEFAULTIMG}
           alt="Profile"
         />
         <div className="view-cohort__user-text">
           <span style={{ marginRight: '8px' }}>
-            {log.author.firstName || 'firstname'}
+            {log?.user?.profile.firstName}
           </span>
-          <span>{log.author.lastName || 'lastname'}</span>
-          <p className="view-cohort__user-email">{log.date}</p>
+          <span>{log?.user?.profile.lastName}</span>
+          <p className="view-cohort__user-email">{date}</p>
         </div>
       </div>
 
       <ul className="logs-list">
-        {log?.lines?.map(line => (
+        {logLines?.map(line => (
           <li
             className="log-list-item"
             key={`${line.id}${line.content}`}
             tabIndex="0"
           >
-            <span>{line.content}</span>
-            <DeleteForeverIcon className="log-list-item-delete" tabIndex="0" />
+            <span>{line?.content}</span>
+            <DeleteForeverIcon
+              className="log-list-item-delete"
+              tabIndex="0"
+              onClick={() => handleDeleteLine(line.id)}
+            />
           </li>
         ))}
         <li>
@@ -67,7 +106,9 @@ const DeliveryLogItem = ({ log }) => {
           )}
         </li>
       </ul>
-      <Button sx={{ marginTop: 5 }}>Delete Log</Button>
+      <Button sx={{ marginTop: 5 }} onClick={() => handleDeleteLog(log.id)}>
+        Delete Log
+      </Button>
     </li>
   );
 };

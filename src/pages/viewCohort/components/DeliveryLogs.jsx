@@ -1,27 +1,31 @@
 import { Button } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import client from '../../../utils/client';
 
 import DeliveryLogItem from './DeliveryLogItem';
 
-const DeliveryLogs = ({ cohort }) => {
-  // console.log(cohort);
-  const date = new Date();
+const DeliveryLogs = ({ setCohort, deliveryLogs }) => {
+  const { cohortId } = useParams();
 
-  const deliveryLogs = [
-    {
-      id: 1,
-      date: date.toLocaleDateString(),
-      author: { firstName: 'Test', lastName: 'Surname' },
-      lines: [
-        { id: 1, content: 'my first line' },
-        { id: 2, content: 'my second line' },
-      ],
-    },
-  ];
+  const handleCreateLog = () => {
+    client
+      .post('/log', { cohortId })
+      .then(res => {
+        const newLog = res.data.data.log;
+        setCohort(curr => {
+          return { ...curr, deliveryLogs: [newLog, ...curr.deliveryLogs] };
+        });
+      })
+      .catch(err => console.error(['error'], err));
+  };
+
   return (
     <div>
       <div className="view-cohort-logs-header">
         <h3>Logs</h3>
-        <Button variant="contained">Create Log</Button>
+        <Button variant="contained" onClick={handleCreateLog}>
+          Create Log
+        </Button>
       </div>
       <ul>
         {deliveryLogs?.length === 0 ? (
@@ -30,7 +34,7 @@ const DeliveryLogs = ({ cohort }) => {
           </li>
         ) : (
           deliveryLogs?.map(log => (
-            <DeliveryLogItem key={log.id} {...{ log }} />
+            <DeliveryLogItem key={log.id} {...{ log, setCohort }} />
           ))
         )}
       </ul>
