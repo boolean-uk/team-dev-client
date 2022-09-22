@@ -2,7 +2,7 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
 import { useEffect, useState } from 'react';
@@ -73,7 +73,9 @@ const Header = ({ companyName }) => {
         }}
       >
         <Box>
-          <Typography>{companyName}</Typography>
+          <Typography fontSize={22}>
+            <Link to="/posts">{companyName}</Link>
+          </Typography>
         </Box>
 
         <Box>
