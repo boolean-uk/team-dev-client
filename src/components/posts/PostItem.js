@@ -4,11 +4,13 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
@@ -20,6 +22,7 @@ const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
+const likesToBeHotTopic = 10
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
@@ -124,8 +127,17 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
             {post.user.profile.firstName} {post.user.profile.lastName}
           </h3>
         </div>
-
+        <div>
+          {post.likes.length >= likesToBeHotTopic ? 
+            <Chip size='small' 
+            color='error' 
+            icon={<LocalFireDepartmentOutlinedIcon />} 
+            label='Hot Topic' 
+            variant='outlined'
+            /> : <div className='hot-topic-placeholder'></div>
+          }
         <p className='createdAt-time'>{post.createdAt}</p>
+        </div>
       </div>
 
       {isEditing ? (
