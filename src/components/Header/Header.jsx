@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import client from '../../utils/client';
-
+import { Alert } from '@mui/material';
 
 const Header = ({ companyName }) => {
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ const Header = ({ companyName }) => {
     profile_image_url: '',
     github_url: '',
   });
-  
+  const [authError, setAuthError] = useState(false)
 
   useEffect(() => {
     const userId = getLoggedInUserId();
@@ -32,8 +32,11 @@ const Header = ({ companyName }) => {
       .then(res => setUser(res.data.data.user))
       .catch(err => {
         console.error(err.response);
+        setAuthError(true);
 
-       
+        setTimeout(() => {
+          setAuthError(false);
+        }, '3000');
       });
     // eslint-disable-next-line
   }, []);
@@ -61,14 +64,11 @@ const Header = ({ companyName }) => {
     navigate('/profile')
   }
 
-  const signOut = event => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
-  };
-
   return (
     <>
+    {authError && (
+        <Alert severity="success">This user cannot be found</Alert>
+      )}
       <Box
         sx={{
           display: 'flex',
@@ -105,7 +105,7 @@ const Header = ({ companyName }) => {
           <Stack spacing={2} direction="row">
             <Button variant="contained" href="/posts">Posts</Button>
             <Button variant="contained" onClick={handleClick}>Profile</Button>
-            <Button variant="contained" onClick={signOut}>Logout</Button>
+            <Button variant="contained" href="/">Logout</Button>
             <Button href="/account"><Avatar src={profile_image_url} /></Button>
           </Stack>
         </Box>
