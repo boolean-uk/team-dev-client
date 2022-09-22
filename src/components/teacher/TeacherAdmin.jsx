@@ -27,7 +27,7 @@ function TeacherAdmin() {
               </Button>
               <SearchBar />
             </CardActions>
-            Current Cohorts: <CohortList header="true" />
+            <h4>Current Cohorts:</h4> <CohortList header="true" />
           </Card>
         </Box>
       </div>

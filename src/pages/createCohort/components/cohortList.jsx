@@ -65,17 +65,11 @@ const CohortList = ({ header }) => {
     return (
       <div className="cohort-teacher-view">
         {cohorts.map(cohort => {
-          if (cohort.name !== null) {
             return (
               <Card key={cohort.id} className="cohort-view">
-                {`id - ${cohort.id}`}
-                {` | Name - ${cohort.name}`}
+                { cohort.name ? `Name: ${cohort.name}` : `ID: ${cohort.id}` }
               </Card>
             );
-          } else {
-            return <Card key={cohort.id} className="cohort-view">
-              {`id - ${cohort.id}`}</Card>;
-          }
         })}
       </div>
     );
