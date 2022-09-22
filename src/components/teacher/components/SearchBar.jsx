@@ -29,14 +29,10 @@ function SearchBar() {
       .then(res => {
 
         const users = res.data.data.users;
-        console.log('users:', users);
-        console.log('input:', inputText);
-
+  
         const foundUser = users.filter(user =>
           user.first_name.toLowerCase().includes(inputText.value.toLowerCase())
         );
-
-        console.log('found', foundUser);
 
         setSearchResult(foundUser);
       })
