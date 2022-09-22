@@ -1,10 +1,11 @@
 import { Avatar } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
+import { formatTime } from './utils/getAllPosts';
 
 const CommentItem = ({ comment, setUser }) => {
   const navigate = useNavigate();
-  
+
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
@@ -26,7 +27,7 @@ const CommentItem = ({ comment, setUser }) => {
         <h4 onClick={handleClick} className='post-owner-name'>
           {comment.user.profile.firstName} {comment.user.profile.lastName}
         </h4>
-        <p className='createdAt-time'> &#183; {comment.formattedCreatedAt}</p>
+        <p className='createdAt-time'> &#183; {formatTime(comment.createdAt)}</p>
         <p className='comment-content'>{comment.content}</p>
       </div>
     </li>
