@@ -9,6 +9,7 @@ import PostItem from './PostItem';
 
 import StudentList from '../../components/studentList/StudentList'
 import TeacherAdmin from '../teacher/TeacherAdmin';
+import PostsOfTheWeek from './PostOfTheWeek';
 
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
@@ -16,6 +17,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
+  const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
   const [isTeacher, setIsTeacher] = useState(false);
   let navigate = useNavigate();
 
@@ -37,14 +39,13 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
         }
       })
       .catch(console.log);
-    renderPosts(setPosts);
+    renderPosts(setPosts, setPostsOfTheWeek);
   }, [postResponse]);
 
 
   const createPost = async event => {
     event.preventDefault();
     client
-
       .post('/post', post)
       .then(res => setPostResponse(res.data))
       .then(() => {
@@ -76,7 +77,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   return (
     <>
 
-    {isTeacher && <TeacherAdmin />}
+      {isTeacher && <TeacherAdmin />}
 
 
       <section className='posts-section'>
@@ -89,6 +90,15 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           handleSubmit={createPost}
           handleChange={handleChange}
           value={post.content}
+        />
+
+        <PostsOfTheWeek
+          posts={postsOfTheWeek}
+          getUserId={getUserId}
+          setPost={setPost}
+          setPostResponse={setPostResponse}
+          setProfileView={setProfileView}
+          setUser={setUser}
         />
 
         {
