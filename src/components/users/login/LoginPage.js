@@ -9,7 +9,6 @@ import client from '../../../utils/client';
 
 const LoginPage = () => {
   const location = useLocation()
-  console.log('horse', location.state.token)
   const [user, setUser] = useState(userBlankData());
   const [loginResponse, setLoginResponse] = useState({
     data: { token: '', user: {} },
