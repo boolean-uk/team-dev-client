@@ -141,40 +141,41 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
 
   return (
     <li className={`post-item ${post.isPostOfTheWeek ? 'post-of-the-week' : null}`}>
-      <div className='post-header-wrap'>
-        <div className='post-profile-wrap'>
-          <Avatar
-            src={post.user.profile.profileImageUrl}
-            alt='profile'
-            sx={{ width: 56, height: 56 }}
-          />
-          <h3 onClick={handleClick} className='post-owner-name'>
-            {post.user.profile.firstName} {post.user.profile.lastName}
-          </h3>
-        </div>
-        <div>
-          {post.isPostOfTheWeek ?
-            <Chip size='medium'
-              color='warning'
-              icon={<GradeIcon size="medium" />}
-              label={'Post of the Week'}
-              variant='outlined'
-              // styles={styles.label}
-              theme={theme}
+      <div className='post-wrap'>
+        <div className='post-header-wrap'>
+          <div className='post-profile-wrap'>
+            <Avatar
+              src={post.user.profile.profileImageUrl}
+              alt='profile'
+              sx={{ width: 56, height: 56 }}
             />
-            :
-            (
-              post.likes.length >= likesToBeHotTopic ?
-                <Chip size='small'
-                  color='error'
-                  icon={<LocalFireDepartmentOutlinedIcon />}
-                  label='Hot Topic'
-                  variant='outlined'
-                /> : <div className='hot-topic-placeholder'></div>
-            )}
-          <p className='createdAt-time'>{formatTime(post.createdAt)}</p>
+            <h3 onClick={handleClick} className='post-owner-name'>
+              {post.user.profile.firstName} {post.user.profile.lastName}
+            </h3>
+          </div>
+          <div>
+            {post.isPostOfTheWeek ?
+              <Chip size='medium'
+                color='warning'
+                icon={<GradeIcon size="medium" />}
+                label={'Post of the Week'}
+                variant='outlined'
+                // styles={styles.label}
+                theme={theme}
+              />
+              :
+              (
+                post.likes.length >= likesToBeHotTopic ?
+                  <Chip size='small'
+                    color='error'
+                    icon={<LocalFireDepartmentOutlinedIcon />}
+                    label='Hot Topic'
+                    variant='outlined'
+                  /> : <div className='hot-topic-placeholder'></div>
+              )}
+            <p className='createdAt-time'>{formatTime(post.createdAt)}</p>
+          </div>
         </div>
-      </div>
 
         {isEditing ? (
           <ClickAwayListener onClickAway={handleEditClickAway}>
@@ -211,19 +212,19 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
             <div></div>
           )}
           <div className='like-wrap'>
-            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog} handleClick={handleClick}/>
+            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog} handleClick={handleClick} />
             <AvatarGroup onClick={(e) => handleGroupAvatars(e)} max={6}>
               {
                 post.likes.map((like, i) => {
                   return (
-                    <Avatar 
+                    <Avatar
                       key={i}
-                      sx={{cursor: 'pointer'}}
+                      sx={{ cursor: 'pointer' }}
                       total={post.likes.length}
                       onClick={(e) => handleClick(e, like.user.id)}
-                      size='small' 
-                      alt={like.user.profile.firstName} 
-                      src={like.user.profile.profileImageUrl}/>
+                      size='small'
+                      alt={like.user.profile.firstName}
+                      src={like.user.profile.profileImageUrl} />
                   )
                 })
               }
@@ -243,7 +244,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
         <CommentForm setPostResponse={setPostResponse} post={post} user={user} />
         <Comments setUser={setUser} post={post} showingAll={showingAll} setShowingAll={setShowingAll} />
       </div>
-    </li >
+    </li>
   );
 };
 

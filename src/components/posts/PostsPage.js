@@ -9,18 +9,16 @@ import PostItem from './PostItem';
 
 import StudentList from '../../components/studentList/StudentList'
 import TeacherAdmin from '../teacher/TeacherAdmin';
-import PostsOfTheWeek from './PostOfTheWeek';
+import PostsOfTheWeek from './PostsOfTheWeek';
 
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
-
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
   const [isTeacher, setIsTeacher] = useState(false);
   let navigate = useNavigate();
-
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
@@ -77,10 +75,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     <>
 
       {isTeacher && <TeacherAdmin />}
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
@@ -101,6 +95,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           setPostResponse={setPostResponse}
           setProfileView={setProfileView}
           setUser={setUser}
+          user={user}
         />
 
         {
@@ -123,7 +118,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
             <p className='no-posts-message'>There are no posts at the moment.</p>
           )
         }
-      </section >
+      </section>
       {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
     </>
   );
