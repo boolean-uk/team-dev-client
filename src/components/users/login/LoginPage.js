@@ -71,7 +71,7 @@ const LoginPage = () => {
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
-      {location.state.token === 'expired' && (
+      {location.state !== null && location.state.token === 'expired' && (
         <Alert severity="error">Your session has expired. Please login again.</Alert>
       )}
       {loginError && (
