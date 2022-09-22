@@ -158,3 +158,8 @@
   display: flex;
   align-self: center;
 }
+
+.hot-topic-placeholder {
+  width: 87px;
+  height: 25px;
+}

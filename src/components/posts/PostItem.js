@@ -4,16 +4,18 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
 import { useNavigate } from 'react-router-dom';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
 import client from '../../utils/client';
-import CommentForm from './CommentForm'
+import CommentForm from './CommentForm';
 import Comments from './Comments';
 
 const deleteBtnText = 'Delete';
@@ -22,6 +24,7 @@ const delBtnStyle = { text: deleteBtnText, color: 'primary' };
 const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
+const likesToBeHotTopic = 10;
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
@@ -50,10 +53,10 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
       setIsOwner(true);
     }
     post.likes.forEach(like => {
-      if(getUserId === like.userId) {
-        setIsLiked(true)
+      if (getUserId === like.userId) {
+        setIsLiked(true);
       }
-    })
+    });
     // eslint-disable-next-line
   }, [post, userId]);
 
@@ -130,62 +133,71 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
               {post.user.profile.firstName} {post.user.profile.lastName}
             </h3>
           </div>
-
-        <p className='createdAt-time'>{post.createdAt}</p>
-      </div>
-
-      {isEditing ? (
-        <ClickAwayListener onClickAway={handleEditClickAway}>
-          <TextField multiline value={newContent} onChange={handleChange} />
-        </ClickAwayListener>
-      ) : (
-        <p className='post-content'>{post.content}</p>
-      )}
-      <div className='btn-likes-wrap'>
-        {isOwner ? (
-          <div className='modify-btn-wrap'>
-            <Button
-              color={editStyle.color}
-              variant='text'
-              id={'post-edit-btn' + post.id}
-              onClick={handleEdit}
-              className='modify-btn'
-            >
-              {editStyle.text}
-            </Button>
-
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                variant='text'
-                color={delStyle.color}
-                className='modify-btn'
-                onClick={handleDel}
-              >
-                {delStyle.text}
-              </Button>
-            </ClickAwayListener>
-          </div>
-        ) : <div></div>}
-        <div className='like-wrap'>
-              <Checkbox
-                label='like'
-                checked={isLiked}
-                icon={<ThumbUpOutlinedIcon />}
-                checkedIcon={<ThumbUpIcon />}
-                onChange={handleLike}
+          <div>
+            {post.likes.length >= likesToBeHotTopic ? (
+              <Chip
+                size='small'
+                color='error'
+                icon={<LocalFireDepartmentOutlinedIcon />}
+                label='Hot Topic'
+                variant='outlined'
               />
-              <div className='count'>{likesCount}</div>
-            </div>
+            ) : (
+              <div className='hot-topic-placeholder'></div>
+            )}
+            <p className='createdAt-time'>{post.createdAt}</p>
           </div>
+        </div>
+
+        {isEditing ? (
+          <ClickAwayListener onClickAway={handleEditClickAway}>
+            <TextField multiline value={newContent} onChange={handleChange} />
+          </ClickAwayListener>
+        ) : (
+          <p className='post-content'>{post.content}</p>
+        )}
+        <div className='btn-likes-wrap'>
+          {isOwner ? (
+            <div className='modify-btn-wrap'>
+              <Button
+                color={editStyle.color}
+                variant='text'
+                id={'post-edit-btn' + post.id}
+                onClick={handleEdit}
+                className='modify-btn'
+              >
+                {editStyle.text}
+              </Button>
+
+              <ClickAwayListener onClickAway={resetDelBtn}>
+                <Button
+                  variant='text'
+                  color={delStyle.color}
+                  className='modify-btn'
+                  onClick={handleDel}
+                >
+                  {delStyle.text}
+                </Button>
+              </ClickAwayListener>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <div className='like-wrap'>
+            <Checkbox
+              label='like'
+              checked={isLiked}
+              icon={<ThumbUpOutlinedIcon />}
+              checkedIcon={<ThumbUpIcon />}
+              onChange={handleLike}
+            />
+            <div className='count'>{likesCount}</div>
+          </div>
+        </div>
       </div>
-      <div className="comment-wrap">
-        <CommentForm 
-          setPostResponse={setPostResponse} 
-          post={post} 
-        />
-        <Comments
-         setUser={setUser}
-         post={post} />
+      <div className='comment-wrap'>
+        <CommentForm setPostResponse={setPostResponse} post={post} />
+        <Comments setUser={setUser} post={post} />
       </div>
     </li>
   );
