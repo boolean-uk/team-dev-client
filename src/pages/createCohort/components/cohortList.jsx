@@ -5,6 +5,7 @@ import client from '../../../utils/client';
 import './style.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 
 const CohortList = ({ header }) => {
@@ -99,6 +100,10 @@ const CohortList = ({ header }) => {
               <Button id={cohort.id} className='edit' onClick={updateCohortName} >submit</Button>
               {updateCohortNameRes===true && <p>successful</p>}
               {error===true && <p>please enter a valid name!</p>}
+              <br></br>
+              <Link to={`/cohort/${cohort.id}`} key={cohort.id}>
+              <Button id={cohort.id} variant='contained' key={cohort.id}>View Cohort</Button>
+              </Link>
               </>)
               }
               </Card>

@@ -6,7 +6,7 @@ import './style.css';
 const CreateCohortByName = () => {
   const [createCohortRes, setCreateCohortRes] = useState(false);
   const [name, setCohortName] = useState('');
-  const [rerender, setRerender]= useState(false)
+  
 
   function createCohortName(event) {
     event.preventDefault();
