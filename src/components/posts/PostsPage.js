@@ -7,10 +7,10 @@ import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 
-import StudentList from '../../components/studentList/StudentList'
+import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
-
+import { Alert } from '@mui/material';
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [post, setPost] = useState({ content: '' });
@@ -18,6 +18,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
   const [isTeacher, setIsTeacher] = useState(false);
+  const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +41,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     renderPosts(setPosts, setPostsOfTheWeek);
   }, [postResponse]);
 
-
   const createPost = async event => {
     event.preventDefault();
     client
@@ -49,11 +49,15 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
       .then(() => {
         setPost({ content: '' });
       })
-      .catch(() => {
-        setPostResponse('There was a problem creating this post');
+      .catch(err => {
+        console.error(err.response);
+        setPostError(true);
+
+        setTimeout(() => {
+          setPostError(false);
+        }, '3000');
       });
   };
-
 
   const handleChange = event => {
     event.preventDefault();
@@ -64,7 +68,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     });
   };
 
-
   const signOut = event => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -73,13 +76,14 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
 
   return (
     <>
-
       {isTeacher && <TeacherAdmin />}
 
-      <section className='posts-section'>
-        <button id='user-signout-button' onClick={signOut}>
+      <section className="posts-section">
+        <button id="user-signout-button" onClick={signOut}>
           sign out
         </button>
+
+        {postError && <Alert severity="error">Must provide content</Alert>}
 
         <p>Status: {postResponse.status}</p>
         <PostForm

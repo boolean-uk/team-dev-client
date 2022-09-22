@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material'
+import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
@@ -10,28 +10,28 @@ const CommentItem = ({ comment, setUser }) => {
     client
       .get(`/user/${comment.userId}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.error);
+      .catch(err => console.error(err.response));
     navigate('/profile');
   };
 
   return (
-    <li className='comment-item'>
-      <div className='comment-avatar'>
+    <li className="comment-item">
+      <div className="comment-avatar">
         <Avatar
           src={comment.user.profile.profileImageUrl}
-          alt='profile'
+          alt="profile"
           sx={{ width: 35, height: 35 }}
         />
       </div>
-      <div className='comment-content-wrap'>
-        <h4 onClick={handleClick} className='post-owner-name'>
+      <div className="comment-content-wrap">
+        <h4 onClick={handleClick} className="post-owner-name">
           {comment.user.profile.firstName} {comment.user.profile.lastName}
         </h4>
         <p className='createdAt-time'> &#183; {formatTime(comment.createdAt)}</p>
         <p className='comment-content'>{comment.content}</p>
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default CommentItem
+export default CommentItem;

@@ -50,7 +50,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -112,21 +112,21 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
     } else {
       deletePost(setPostResponse, post.id);
       setIsDeleting(false);
-      setShowingAll(false)
+      setShowingAll(false);
     }
   };
 
-  const handleGroupAvatars = (e) => {
+  const handleGroupAvatars = e => {
     if (e.target.outerText.includes('+')) {
-      setOpenDialog(true)
+      setOpenDialog(true);
     }
-  }
+  };
 
   const handleClick = (e, id = post.userId) => {
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.error);
+      .catch(err => console.error(err.response));
     navigate('/profile');
   };
 
@@ -146,10 +146,10 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
           <div className='post-profile-wrap'>
             <Avatar
               src={post.user.profile.profileImageUrl}
-              alt='profile'
+              alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            <h3 onClick={handleClick} className='post-owner-name'>
+            <h3 onClick={handleClick} className="post-owner-name">
               {post.user.profile.firstName} {post.user.profile.lastName}
             </h3>
           </div>
@@ -182,26 +182,26 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
             <TextField multiline value={newContent} onChange={handleChange} />
           </ClickAwayListener>
         ) : (
-          <p className='post-content'>{post.content}</p>
+          <p className="post-content">{post.content}</p>
         )}
-        <div className='btn-likes-wrap'>
+        <div className="btn-likes-wrap">
           {isOwner ? (
-            <div className='modify-btn-wrap'>
+            <div className="modify-btn-wrap">
               <Button
                 color={editStyle.color}
-                variant='text'
+                variant="text"
                 id={'post-edit-btn' + post.id}
                 onClick={handleEdit}
-                className='modify-btn'
+                className="modify-btn"
               >
                 {editStyle.text}
               </Button>
 
               <ClickAwayListener onClickAway={resetDelBtn}>
                 <Button
-                  variant='text'
+                  variant="text"
                   color={delStyle.color}
-                  className='modify-btn'
+                  className="modify-btn"
                   onClick={handleDel}
                 >
                   {delStyle.text}
@@ -230,19 +230,29 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
               }
             </AvatarGroup>
             <Checkbox
-              label='like'
+              label="like"
               checked={isLiked}
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
             />
-            <div className='count'>{likesCount}</div>
+            <div className="count">{likesCount}</div>
           </div>
         </div>
       </div>
-      <div className='comment-wrap'>
-        <CommentForm setPostResponse={setPostResponse} post={post} user={user} />
-        <Comments setUser={setUser} post={post} showingAll={showingAll} setShowingAll={setShowingAll} />
+
+      <div className="comment-wrap">
+        <CommentForm
+          setPostResponse={setPostResponse}
+          post={post}
+          user={user}
+        />
+        <Comments
+          setUser={setUser}
+          post={post}
+          showingAll={showingAll}
+          setShowingAll={setShowingAll}
+        />
       </div>
     </li>
   );
