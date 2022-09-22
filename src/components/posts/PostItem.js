@@ -114,8 +114,8 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
     }
   }
 
-  const handleClick = (id = post.userId) => {
-    console.log(id)
+  const handleClick = (e, id = post.userId) => {
+    console.log('userId', id)
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
@@ -197,7 +197,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
             <div></div>
           )}
           <div className='like-wrap'>
-            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog}/>
+            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog} handleClick={handleClick}/>
             <AvatarGroup onClick={(e) => handleGroupAvatars(e)} max={6}>
               {
                 post.likes.map((like, i) => {
@@ -206,7 +206,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
                       key={i}
                       sx={{cursor: 'pointer'}}
                       total={post.likes.length}
-                      onClick={() => handleClick(like.user.id)}
+                      onClick={(e) => handleClick(e, like.user.id)}
                       size='small' 
                       alt={like.user.profile.firstName} 
                       src={like.user.profile.profileImageUrl}/>
