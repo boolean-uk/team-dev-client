@@ -55,6 +55,12 @@ const Header = ({ companyName }) => {
     navigate('/profile')
   }
 
+  const signOut = event => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
+
   return (
     <>
       <Box
@@ -93,7 +99,7 @@ const Header = ({ companyName }) => {
           <Stack spacing={2} direction="row">
             <Button variant="contained" href="/posts">Posts</Button>
             <Button variant="contained" onClick={handleClick}>Profile</Button>
-            <Button variant="contained" href="/">Logout</Button>
+            <Button variant="contained" onClick={signOut}>Logout</Button>
             <Button href="/account"><Avatar src={profile_image_url} /></Button>
           </Stack>
         </Box>
