@@ -92,18 +92,66 @@
   display: flex;
 }
 
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-item {
+  list-style: none;
+  color: #000;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.221);
+
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.comment-avatar {
+  display: grid;
+  align-items: center;
+}
+
+.comment-content-wrap h4,
+.comment-content-wrap .createdAt-time {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.comment-content-wrap .createdAt-time {
+  font-size: 0.75rem;
+}
+
+.comment-content {
+  display: grid;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.comment-content-wrap {
+  text-align: start;
+}
+
+.comment-form-textfield fieldset {
+  border: 0;
+}
+
+.comments-show-all {
+  border-top: 1px solid rgba(128, 128, 128, 0.221);
+  color: #3b89d7;
+  cursor: pointer;
+}
+
 .comment-wrap{
   padding: 0.5rem 2rem;
   border-top: solid 2px #3e3e3e2c;
   border-radius: 0 0 0.2rem 0.2rem;
 
   background-color: rgb(235, 235, 235);
-}
-
-.comment-form {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .count {

@@ -179,13 +179,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           </div>
       </div>
       <div className="comment-wrap">
-        <div className="comment-create-wrap">
-          <CommentForm 
-            setPostResponse={setPostResponse} 
-            post={post} 
-          />
-        </div>
-        <Comments post={post} />
+        <CommentForm 
+          setPostResponse={setPostResponse} 
+          post={post} 
+        />
+        <Comments
+         setUser={setUser}
+         post={post} />
       </div>
     </li>
   );

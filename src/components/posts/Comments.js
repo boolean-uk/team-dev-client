@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
 import FilterMenu from './utils/filterMenu'
 
-const Comments = ({ post }) => {
+const Comments = ({ post, setUser }) => {
   const [sortType, setSortType] = useState('Most Recent')
   const [comments, setComments] = useState(post.comments)
   const [showingAll, setShowingAll] = useState(false);
@@ -44,11 +44,11 @@ const Comments = ({ post }) => {
             <FilterMenu setSortType={setSortType} />
         </div>
         }
-        <ul>
+        <ul className='comments-list'>
             {
             !showingAll 
                 ?
-            (comments.length >= 1 && <CommentItem comment={comments[0]} />)
+            (comments.length >= 1 && <CommentItem comment={comments[0]} setUser={setUser} />)
                 :
             ( 
                 comments.length > 0 &&
@@ -56,6 +56,7 @@ const Comments = ({ post }) => {
                     <CommentItem
                         comment={comment}
                         key={index}
+                        setUser={setUser}
                     />
                 )))
             )
@@ -63,7 +64,7 @@ const Comments = ({ post }) => {
         </ul>
         {
         comments.length > 1 &&
-        <p onClick={handleShowAll}>
+        <p className='comments-show-all' onClick={handleShowAll}>
             { 
             !showingAll 
             ? 
