@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Alert } from '@mui/material';
 
 import userBlankData from '../utils/userHelpers';
@@ -8,6 +8,7 @@ import UserForm from './UserForm';
 import client from '../../../utils/client';
 
 const LoginPage = () => {
+  const location = useLocation()
   const [user, setUser] = useState(userBlankData());
   const [loginResponse, setLoginResponse] = useState({
     data: { token: '', user: {} },
@@ -70,6 +71,9 @@ const LoginPage = () => {
       <h1>Login</h1>
       <p>Status: {loginResponse.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+      {location.state !== null && location.state.token === 'expired' && (
+        <Alert severity="error">Your session has expired. Please login again.</Alert>
+      )}
       {loginError && (
         <Alert severity="error">Email or Password is incorrect</Alert>
       )}

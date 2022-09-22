@@ -26,7 +26,7 @@ const RegistrationPage = () => {
         setTimeout(() => {
           setEmailError(false);
         }, '3000');
-        
+
         navigate('../posts', { replace: true });
       });
   };
