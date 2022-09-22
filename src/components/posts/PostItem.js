@@ -148,7 +148,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
             />
             :
             (
-              post.likes.length >= 2 ?
+              post.likes.length >= likesToBeHotTopic ?
                 <Chip size='small'
                   color='error'
                   icon={<LocalFireDepartmentOutlinedIcon />}
