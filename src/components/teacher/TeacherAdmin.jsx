@@ -7,6 +7,7 @@ import { Box, CardActions } from '@mui/material';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CohortList from '../../pages/createCohort/components/cohortList';
+import SearchBar from './components/SearchBar';
 
 
 
@@ -24,6 +25,7 @@ function TeacherAdmin() {
               <Button variant="contained">
                 <NavLink to="/enrolment">Enrolment</NavLink>
               </Button>
+              <SearchBar />
             </CardActions>
             Current Cohorts: <CohortList header="true" />
           </Card>

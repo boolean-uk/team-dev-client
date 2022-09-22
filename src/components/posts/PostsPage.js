@@ -102,6 +102,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
                 setPostResponse={setPostResponse}
                 setProfileView={setProfileView}
                 setUser={setUser}
+                user={user}
               />
             ))}
           </ul>
@@ -109,6 +110,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
       </section>
+
       {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
     </>
   );

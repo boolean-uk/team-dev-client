@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 import { createComment } from './utils/createComment';
 
-const CommentForm = ({ setPostResponse, post }) => {
+const CommentForm = ({ setPostResponse, post, user }) => {
   const [commentValue, setCommentValue] = useState('');
 
   const handleCommentInput = (e) => {
@@ -19,7 +19,7 @@ const CommentForm = ({ setPostResponse, post }) => {
   return (
     <form className="comment-form" onSubmit={handleCommentSubmit}>
         <Avatar
-            src={post.user.profile.profileImageUrl}
+            src={user.profile_image_url}
             alt="user avatar"
             sx={{ width: 35, height: 35 }}
         />
