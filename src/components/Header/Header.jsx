@@ -71,24 +71,6 @@ const Header = ({ companyName }) => {
           <Typography>{companyName}</Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        >
-          <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Box>
-          <Box>
-            <Button variant="contained">Search User</Button>
-          </Box>
-        </Box>
-
         <Box>
           <Stack spacing={2} direction="row">
             <Button variant="contained" href="/posts">Posts</Button>
