@@ -58,11 +58,11 @@ const CohortList = () => {
       <div className="cohort-list">
         {cohorts.map(cohort => {
 
-          return (<div>
-           <Card id={cohort.id} className='cohort-card'>
+          return (<div key={cohort.id}>
+           <Card key={cohort.id} className='cohort-card'>
                 <Typography>{`cohort ${cohort.id} - ${cohort.name}`}</Typography>
-                <IconButton>
-                  <ExpandMoreIcon onClick={()=>{setExpand(cohort.id)}}/>
+                <IconButton key={cohort.id} onClick={()=>{setExpand(cohort.id)}}>
+                  <ExpandMoreIcon />
                 </IconButton>
                 {expand ===cohort.id && (
                   <>
@@ -70,7 +70,7 @@ const CohortList = () => {
                   <label for ='newName'>New cohort name:</label>
                   <input type='text' id='newName' key={cohort.id} onChange={enterNewName} value={newCohortName}></input>
                 </form>
-              <Button id={`${cohort.id}`} className='edit' onClick={updateCohortName} >submit</Button>
+              <Button id={cohort.id} className='edit' onClick={updateCohortName} >submit</Button>
               {updateCohortNameRes===true && <p>successful</p>}
               {error===true && <p>please enter a valid name!</p>}
               </>)
