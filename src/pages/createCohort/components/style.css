@@ -8,10 +8,11 @@
 .cohort-card{
     margin-top: 10px;
     width: 1000px; 
-    height: 80px;
+    height: fit-content;
 }
 
 .create-cohort-button{
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
