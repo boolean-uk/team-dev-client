@@ -30,7 +30,7 @@ const DeliveryLogItem = ({ log, setCohort }) => {
         setLineValue('');
         setNewLine(false);
       })
-      .catch(err => console.error(['error'], err));
+      .catch(err => console.error('[error]', err));
   };
 
   const handleDeleteLine = id => {
@@ -41,7 +41,7 @@ const DeliveryLogItem = ({ log, setCohort }) => {
           setLogLines(curr => curr.filter(line => line.id !== id));
         }
       })
-      .catch(err => console.error(['error'], err));
+      .catch(err => console.error('[error]', err));
   };
 
   const handleDeleteLog = id => {
@@ -55,7 +55,7 @@ const DeliveryLogItem = ({ log, setCohort }) => {
           });
         }
       })
-      .catch(err => console.error(['error'], err));
+      .catch(err => console.error('[error]', err));
   };
 
   return (

@@ -20,7 +20,7 @@ const CohortList = ({ header }) => {
       .then(res => {
         setCohorts(res.data.data.cohorts);
       })
-      .catch(console.log);
+      .catch(err => console.error('[error]', err));
   }, []);
 
   const updateCohortName = event => {
@@ -44,9 +44,9 @@ const CohortList = ({ header }) => {
             .then(res => {
               setCohorts(res.data.data.cohorts);
             })
-            .catch(console.log)
+            .catch(err => console.error('[error]', err))
         )
-        .catch(console.log);
+        .catch(err => console.error('[error]', err));
 
       setNewCohortName('');
 
