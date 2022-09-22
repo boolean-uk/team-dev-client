@@ -10,6 +10,7 @@ const Comments = ({ post, setUser }) => {
   useEffect(() => {
     setComments(post.comments)
     handleSorting()
+    setShowingAll(false)
     // eslint-disable-next-line
   }, [sortType, post])
 
