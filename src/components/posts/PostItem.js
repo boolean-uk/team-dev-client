@@ -16,6 +16,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
 import client from '../../utils/client';
+import { LikesView } from './LikesView';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
 
@@ -40,6 +41,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false)
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -105,9 +107,17 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     }
   };
 
-  const handleClick = e => {
+  const handleGroupAvatars = (e) => {
+    console.log(e.target.outerText.includes('+'))
+    if (e.target.outerText.includes('+')) {
+      setOpenDialog(true)
+    }
+  }
+
+  const handleClick = (id = post.userId) => {
+    console.log(id)
     client
-      .get(`/user/${post.userId}`)
+      .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
       .catch(err => console.log(err));
     navigate('/profile');
@@ -187,11 +197,19 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
             <div></div>
           )}
           <div className='like-wrap'>
-            <AvatarGroup max={5}>
+            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog}/>
+            <AvatarGroup onClick={(e) => handleGroupAvatars(e)} max={6}>
               {
-                post.likes.map(like => {
+                post.likes.map((like, i) => {
                   return (
-                    <Avatar size='small' alt={like.user.profile.firstName} src={like.user.profile.profileImageUrl}/>
+                    <Avatar 
+                      key={i}
+                      sx={{cursor: 'pointer'}}
+                      total={post.likes.length}
+                      onClick={() => handleClick(like.user.id)}
+                      size='small' 
+                      alt={like.user.profile.firstName} 
+                      src={like.user.profile.profileImageUrl}/>
                   )
                 })
               }
