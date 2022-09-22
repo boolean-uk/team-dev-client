@@ -108,14 +108,12 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
   };
 
   const handleGroupAvatars = (e) => {
-    console.log(e.target.outerText.includes('+'))
     if (e.target.outerText.includes('+')) {
       setOpenDialog(true)
     }
   }
 
   const handleClick = (e, id = post.userId) => {
-    console.log('userId', id)
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
