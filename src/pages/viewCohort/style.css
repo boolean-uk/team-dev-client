@@ -103,7 +103,6 @@
 .log-list-item-delete {
   transition: opacity 300ms;
   opacity: 0;
-  /* visibility: hidden; */
 }
 
 .log-list-item-delete:hover,
