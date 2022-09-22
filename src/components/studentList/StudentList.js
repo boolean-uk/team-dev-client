@@ -54,7 +54,7 @@ const StudentList = ({ setUser }) => {
             <div className='list-container'>
                 {cohortId && <h2>Cohort {cohortId}</h2>}
                 {cohortId && <h4>{listOfStudents.length} online</h4>}
-                {listOfStudents.map(u => {
+                {cohortId && listOfStudents.map(u => {
                     return (
                         <div key={u.id} className='list-item'>
                             <Avatar
