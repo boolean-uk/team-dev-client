@@ -9,7 +9,6 @@ import './style.css'
 function SearchBar() {
   const [inputText, setInputText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [searchResponse, setSearchResponse] = useState('');
 
   let navigate = useNavigate();
 
