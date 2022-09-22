@@ -103,6 +103,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
                   setPostResponse={setPostResponse}
                   setProfileView={setProfileView}
                   setUser={setUser}
+                  user={user}
                 />
               ))}
             </ul>

@@ -26,7 +26,7 @@ const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
 const likesToBeHotTopic = 10;
 
-const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
+const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -198,7 +198,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
         </div>
       </div>
       <div className='comment-wrap'>
-        <CommentForm setPostResponse={setPostResponse} post={post} />
+        <CommentForm setPostResponse={setPostResponse} post={post} user={user} />
         <Comments setUser={setUser} post={post} showingAll={showingAll} setShowingAll={setShowingAll} />
       </div>
     </li>
