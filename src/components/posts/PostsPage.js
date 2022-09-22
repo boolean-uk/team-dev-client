@@ -73,12 +73,14 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     navigate('../', { replace: true });
   };
 
-
   return (
     <>
 
       {isTeacher && <TeacherAdmin />}
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 
       <section className='posts-section'>
         <button id='user-signout-button' onClick={signOut}>
@@ -113,6 +115,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
                   setPostResponse={setPostResponse}
                   setProfileView={setProfileView}
                   setUser={setUser}
+                  user={user}
                 />
               ))}
             </ul>

@@ -5,26 +5,32 @@ import './style.css';
 
 const CreateCohortByName = () => {
   const [createCohortRes, setCreateCohortRes] = useState(false);
-  const [cohortName, setCohortName] = useState('');
+  const [name, setCohortName] = useState('');
+  
 
   function createCohortName(event) {
     event.preventDefault();
     setCohortName(event.target.value);
+    
   }
-
+  
   function createCohort(event) {
     event.preventDefault();
     client
-      .post('/cohort', { name: cohortName })
+
+      .post('/cohort', { name })
+
       .then(res => {
         if (res.data.status === 'success') {
           setCreateCohortRes(true);
+          
         }
       })
       .catch(console.log);
     setTimeout(() => {
       setCreateCohortRes(false);
     }, 3000);
+    
   }
 
   return (
@@ -41,7 +47,7 @@ const CreateCohortByName = () => {
           <Button variant="contained" onClick={createCohort}>
             Create New Cohort
           </Button>
-          {createCohortRes && <p>Cohort created!</p>}
+          {createCohortRes && <p>Cohort created! Please refresh the page</p>}
         </div>
       </div>
     </>

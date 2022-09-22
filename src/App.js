@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import './App.css';
@@ -15,6 +15,7 @@ import CreateCohort from './pages/createCohort';
 import ViewCohort from './pages/viewCohort';
 
 function App() {
+  const navigate = useNavigate()
   const [profileView, setProfileView] = useState(null);
   const [user, setUser] = useState({
     first_name: '',
@@ -33,7 +34,14 @@ function App() {
     client
       .get(`/user/${userId}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err));
+      .catch(err => {
+        const authMessage = err.response.data.data.authentication
+        if (authMessage === 'Token has expired') {
+          navigate('/', { state: { token: 'expired' } })
+        } else {
+          console.log(err)
+        }
+      });
     // eslint-disable-next-line
   }, []);
 
@@ -53,6 +61,16 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/cohort" element={<CreateCohort />} />
+          <Route
+            path="/user/:id/profile"
+            
+            element={<Profile
+              getLoggedInUserId={getLoggedInUserId}
+              user={user}
+              setUser={setUser}
+              profileView={profileView}
+            />}
+          />
           <Route
             path="/cohort/:cohortId"
             element={<ViewCohort {...{ setProfileView }} />}
