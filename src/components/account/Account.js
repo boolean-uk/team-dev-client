@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,39 +11,56 @@ import Header from '../Header/Header';
 import './style.css';
 import EditDetails from './EditDetails';
 import client from '../../utils/client';
+import { Alert } from '@mui/material';
 
 function createData(key, value) {
   return { key, value };
 }
 
 const Account = ({ getLoggedInUserId, user, setUser }) => {
-  const { email } = user
+  const [updateEmailError, setUpdateEmailError] = useState(false);
+  const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const reqBody = { email }
+  const { email } = user;
 
-    const userId = getLoggedInUserId()
+  const handleSubmit = event => {
+    event.preventDefault();
+    const reqBody = { email };
+
+    const userId = getLoggedInUserId();
     if (userId === null) {
-      return
+      return;
     }
 
     client
       .patch('/user/myprofile', reqBody)
-      .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err));
+      .then(res => {
+        setUser(res.data.data.user);
+        setSuccessEmailUpdate(true);
+        setTimeout(() => {
+          setSuccessEmailUpdate(false);
+        }, '3000');
+      })
 
-  }
+      .catch(err => {
+        console.error(err.response);
+        setUpdateEmailError(true);
 
-  const handleChange = (event) => {
-    event.preventDefault()
-    const { value, name } = event.target
+        setTimeout(() => {
+          setUpdateEmailError(false);
+        }, '3000');
+      });
+  };
+
+  const handleChange = event => {
+    event.preventDefault();
+    const { value, name } = event.target;
 
     setUser({
       ...user,
       [name]: value,
     });
-  }
+  };
 
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
@@ -73,6 +91,13 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
+      {updateEmailError && (
+        <Alert severity="error">New email is the same as current</Alert>
+      )}
+
+      {successEmailUpdate && (
+        <Alert severity="success">Email changed successfully</Alert>
+      )}
     </>
   );
 };
