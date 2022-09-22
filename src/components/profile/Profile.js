@@ -6,7 +6,7 @@ import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList'
 
-const Profile = ({ getLoggedInUserId, user, setUser, profileView }) => {
+const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView }) => {
     const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
 
     const handleSubmit = (event) => {
@@ -64,14 +64,13 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView }) => {
                     </div>
                     <p>"{biography}"</p>
                 </div>
-                {profileView === null && <EditForm
+                {!profileView && <EditForm
                     user={user}
                     handleSubmit={handleSubmit}
                     handleChange={handleChange}
-                />
-                }
+                />}
             </div>
-            {role !== 'TEACHER' && <StudentList setUser={setUser} />}
+            {role !== 'TEACHER' && <StudentList setUser={setUser} setProfileView={setProfileView} />}
         </>
     )
 }
