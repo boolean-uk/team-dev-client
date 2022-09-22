@@ -36,7 +36,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           setIsTeacher(true);
         }
       })
-      .catch(console.log);
+      .catch(console.error);
     renderPosts(setPosts, setPostsOfTheWeek);
   }, [postResponse]);
 
