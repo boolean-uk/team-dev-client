@@ -25,14 +25,21 @@ const CohortList = ({ header }) => {
 
   const updateCohortName=(event)=>{
     event.preventDefault()
-    if (!newCohortName){setError(true); setTimeout(() => {
+    if (!newCohortName){
+      setError(true); 
+      setTimeout(() => {
       setError(false)
     }, 3000);}
     else{
     client.patch(`/cohort/${event.target.id}`,{name:newCohortName},true)
     .then(res=>{if (res.data.status === 'success') {
       setUpdateCohortRes(true);
+      
     }})
+    .then(client
+      .get('/cohort')
+      .then(res=>{setCohorts(res.data.data.cohorts)})
+      .catch(console.log))
     .catch(console.log);
 
     setNewCohortName('');
@@ -40,7 +47,7 @@ const CohortList = ({ header }) => {
     setTimeout(() => {
       setUpdateCohortRes(false);
     }, 3000);}
-    window.location.reload()
+    
   }
 
 

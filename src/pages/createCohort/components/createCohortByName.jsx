@@ -6,6 +6,7 @@ import './style.css';
 const CreateCohortByName = () => {
   const [createCohortRes, setCreateCohortRes] = useState(false);
   const [name, setCohortName] = useState('');
+  const [rerender, setRerender]= useState(false)
 
   function createCohortName(event) {
     event.preventDefault();
@@ -29,7 +30,7 @@ const CreateCohortByName = () => {
     setTimeout(() => {
       setCreateCohortRes(false);
     }, 3000);
-    window.location.reload()
+    
   }
 
   return (
@@ -46,7 +47,7 @@ const CreateCohortByName = () => {
           <Button variant="contained" onClick={createCohort}>
             Create New Cohort
           </Button>
-          {createCohortRes && <p>Cohort created!</p>}
+          {createCohortRes && <p>Cohort created! Please refresh the page</p>}
         </div>
       </div>
     </>
