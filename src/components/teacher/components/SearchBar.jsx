@@ -27,7 +27,6 @@ function SearchBar() {
     client
       .get(`/users`)
       .then(res => {
-        setSearchResponse(res.data);
 
         const users = res.data.data.users;
         console.log('users:', users);
