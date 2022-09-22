@@ -7,18 +7,17 @@ import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
 
-import StudentList from '../../components/studentList/StudentList'
+import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
-
+import { Alert } from '@mui/material';
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
-
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
-
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
@@ -40,7 +39,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     renderPosts(setPosts);
   }, [postResponse]);
 
-
   const createPost = async event => {
     event.preventDefault();
     client
@@ -50,11 +48,15 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
       .then(() => {
         setPost({ content: '' });
       })
-      .catch(() => {
-        setPostResponse('There was a problem creating this post');
+      .catch(err => {
+        console.error(err.response);
+        setPostError(true);
+
+        setTimeout(() => {
+          setPostError(false);
+        }, '3000');
       });
   };
-
 
   const handleChange = event => {
     event.preventDefault();
@@ -65,7 +67,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     });
   };
 
-
   const signOut = event => {
     event.preventDefault();
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
@@ -74,13 +75,14 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
 
   return (
     <>
-
       {isTeacher && <TeacherAdmin />}
 
-      <section className='posts-section'>
-        <button id='user-signout-button' onClick={signOut}>
+      <section className="posts-section">
+        <button id="user-signout-button" onClick={signOut}>
           sign out
         </button>
+
+        {postError && <Alert severity="error">Must provide content</Alert>}
 
         <p>Status: {postResponse.status}</p>
         <PostForm
@@ -89,27 +91,26 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           value={post.content}
         />
 
-        {
-          posts?.length > 0 ? (
-            <ul className='posts-list'>
-              {posts?.map((post, index) => (
-                <PostItem
-                  post={post}
-                  key={index}
-                  userId={getUserId}
-                  setPost={setPost}
-                  setPostResponse={setPostResponse}
-                  setProfileView={setProfileView}
-                  setUser={setUser}
-                  user={user}
-                />
-              ))}
-            </ul>
-          ) : (
-            <p className='no-posts-message'>There are no posts at the moment.</p>
-          )
-        }
-      </section >
+        {posts?.length > 0 ? (
+          <ul className="posts-list">
+            {posts?.map((post, index) => (
+              <PostItem
+                post={post}
+                key={index}
+                userId={getUserId}
+                setPost={setPost}
+                setPostResponse={setPostResponse}
+                setProfileView={setProfileView}
+                setUser={setUser}
+                user={user}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
+      </section>
+
       {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
     </>
   );
