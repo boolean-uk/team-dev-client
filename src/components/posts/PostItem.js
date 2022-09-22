@@ -6,6 +6,7 @@ import {
   ClickAwayListener,
   Chip
 } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
@@ -13,8 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import GradeIcon from '@mui/icons-material/Grade';
 import { createLike, deleteLike } from './utils/likeRequests';
 import client from '../../utils/client';
+import { formatTime } from './utils/getAllPosts';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -23,6 +26,12 @@ const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
 const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
 const likesToBeHotTopic = 10
+
+const theme = createTheme({
+  typography: {
+    fontSize: '16'
+  }
+});
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
@@ -48,7 +57,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
       setIsOwner(true);
     }
     post.likes.forEach(like => {
-      if(getUserId === like.userId) {
+      if (getUserId === like.userId) {
         setIsLiked(true)
       }
     })
@@ -115,7 +124,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
   };
 
   return (
-    <li className='post-item'>
+    <li className={`post-item ${post.isPostOfTheWeek ? 'post-of-the-week' : null}`}>
       <div className='post-header-wrap'>
         <div className='post-profile-wrap'>
           <Avatar
@@ -128,15 +137,26 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           </h3>
         </div>
         <div>
-          {post.likes.length >= likesToBeHotTopic ? 
-            <Chip size='small' 
-            color='error' 
-            icon={<LocalFireDepartmentOutlinedIcon />} 
-            label='Hot Topic' 
-            variant='outlined'
-            /> : <div className='hot-topic-placeholder'></div>
-          }
-        <p className='createdAt-time'>{post.createdAt}</p>
+          {post.isPostOfTheWeek ?
+            <Chip size='medium'
+              color='warning'
+              icon={<GradeIcon size="medium" />}
+              label={'Post of the Week'}
+              variant='outlined'
+              // styles={styles.label}
+              theme={theme}
+            />
+            :
+            (
+              post.likes.length >= 2 ?
+                <Chip size='small'
+                  color='error'
+                  icon={<LocalFireDepartmentOutlinedIcon />}
+                  label='Hot Topic'
+                  variant='outlined'
+                /> : <div className='hot-topic-placeholder'></div>
+            )}
+          <p className='createdAt-time'>{formatTime(post.createdAt)}</p>
         </div>
       </div>
 
@@ -173,15 +193,15 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
           </div>
         ) : <div></div>}
         <div className='like-wrap'>
-              <Checkbox
-                label='like'
-                checked={isLiked}
-                icon={<ThumbUpOutlinedIcon />}
-                checkedIcon={<ThumbUpIcon />}
-                onChange={handleLike}
-              />
-              <div className='count'>{likesCount}</div>
-            </div>
+          <Checkbox
+            label='like'
+            checked={isLiked}
+            icon={<ThumbUpOutlinedIcon />}
+            checkedIcon={<ThumbUpIcon />}
+            onChange={handleLike}
+          />
+          <div className='count'>{likesCount}</div>
+        </div>
       </div>
     </li>
   );
