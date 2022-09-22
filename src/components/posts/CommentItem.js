@@ -9,7 +9,7 @@ const CommentItem = ({ comment, setUser }) => {
     client
       .get(`/user/${comment.userId}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err.response));
+      .catch(err => console.error(err.response));
     navigate('/profile');
   };
 
