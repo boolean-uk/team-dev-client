@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
@@ -16,6 +17,8 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [isTeacher, setIsTeacher] = useState(false);
+  let navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
@@ -62,13 +65,23 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     });
   };
 
+
+  const signOut = event => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
+
   return (
     <>
 
       {isTeacher && <TeacherAdmin />}
 
-
       <section className='posts-section'>
+        <button id='user-signout-button' onClick={signOut}>
+          sign out
+        </button>
+
         <p>Status: {postResponse.status}</p>
         <PostForm
           handleSubmit={createPost}
