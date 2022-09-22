@@ -5,6 +5,7 @@ import {
   TextField,
   ClickAwayListener,
   Chip,
+  AvatarGroup,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
@@ -186,6 +187,15 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
             <div></div>
           )}
           <div className='like-wrap'>
+            <AvatarGroup max={5}>
+              {
+                post.likes.map(like => {
+                  return (
+                    <Avatar size='small' alt={like.user.profile.firstName} src={like.user.profile.profileImageUrl}/>
+                  )
+                })
+              }
+            </AvatarGroup>
             <Checkbox
               label='like'
               checked={isLiked}
