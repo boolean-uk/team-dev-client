@@ -5,6 +5,7 @@ import {
   TextField,
   ClickAwayListener,
   Chip,
+  AvatarGroup,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
@@ -15,6 +16,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { createLike, deleteLike } from './utils/likeRequests';
 import client from '../../utils/client';
+import { LikesView } from './LikesView';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
 
@@ -46,6 +48,7 @@ const PostItem = ({
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -111,9 +114,15 @@ const PostItem = ({
     }
   };
 
-  const handleClick = e => {
+  const handleGroupAvatars = e => {
+    if (e.target.outerText.includes('+')) {
+      setOpenDialog(true);
+    }
+  };
+
+  const handleClick = (e, id = post.userId) => {
     client
-      .get(`/user/${post.userId}`)
+      .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
       .catch(err => console.log(err.response));
     navigate('/profile');
@@ -193,6 +202,27 @@ const PostItem = ({
             <div></div>
           )}
           <div className="like-wrap">
+            <LikesView
+              post={post}
+              setOpenDialog={setOpenDialog}
+              openDialog={openDialog}
+              handleClick={handleClick}
+            />
+            <AvatarGroup onClick={e => handleGroupAvatars(e)} max={6}>
+              {post.likes.map((like, i) => {
+                return (
+                  <Avatar
+                    key={i}
+                    sx={{ cursor: 'pointer' }}
+                    total={post.likes.length}
+                    onClick={e => handleClick(e, like.user.id)}
+                    size="small"
+                    alt={like.user.profile.firstName}
+                    src={like.user.profile.profileImageUrl}
+                  />
+                );
+              })}
+            </AvatarGroup>
             <Checkbox
               label="like"
               checked={isLiked}
