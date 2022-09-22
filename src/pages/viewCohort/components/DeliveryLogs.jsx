@@ -16,7 +16,7 @@ const DeliveryLogs = ({ setCohort, deliveryLogs }) => {
           return { ...curr, deliveryLogs: [newLog, ...curr.deliveryLogs] };
         });
       })
-      .catch(err => console.error(['error'], err));
+      .catch(err => console.error('[error]', err));
   };
 
   return (
