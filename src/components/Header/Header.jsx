@@ -2,7 +2,6 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
 import { useNavigate, Outlet } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
@@ -55,6 +54,12 @@ const Header = ({ companyName }) => {
     navigate('/profile')
   }
 
+  const signOut = event => {
+    event.preventDefault();
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
+
   return (
     <>
       <Box
@@ -71,35 +76,12 @@ const Header = ({ companyName }) => {
           <Typography>{companyName}</Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        >
-          <Box sx={{ backgroundColor: 'white' }}>
-            <InputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Box>
-          <Box>
-            <Button variant="contained">Search User</Button>
-          </Box>
-        </Box>
-
         <Box>
           <Stack spacing={2} direction="row">
-
-            <Button variant="contained" onClick={handleClick}>
-              Profile
-            </Button>
-
-            <Button variant="contained">Logout</Button>
-            <Button href="/account">
-              <Avatar src={profile_image_url} />
-            </Button>
+            <Button variant="contained" href="/posts">Posts</Button>
+            <Button variant="contained" onClick={handleClick}>Profile</Button>
+            <Button variant="contained" onClick={signOut}>Logout</Button>
+            <Button href="/account"><Avatar src={profile_image_url} /></Button>
           </Stack>
         </Box>
       </Box>
