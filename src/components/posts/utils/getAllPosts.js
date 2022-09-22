@@ -63,9 +63,7 @@ function getMostPopularPosts(posts) {
 
 export async function renderPosts(setPosts, setPostsOfTheWeek) {
   const allPosts = await getAllPosts()
-  console.log('all posts', allPosts)
   const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts))
-  console.log('mostPopular', mostPopular)
   setPostsOfTheWeek(mostPopular)
 
   const postsToRender = allPosts.filter(post => !mostPopular.includes(post))
