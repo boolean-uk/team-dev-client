@@ -5,14 +5,17 @@ import { Button, Input } from '@mui/material';
 
 import DEFAULTIMG from '../../../assets/default.png';
 import client from '../../../utils/client';
+import { useLoggedInUser } from '../../../context/LoggedInUser';
 
 const DeliveryLogItem = ({ log, setCohort }) => {
   const [newLine, setNewLine] = useState(false);
   const [lineValue, setLineValue] = useState('');
   const [logLines, setLogLines] = useState(log.lines);
+  const { user } = useLoggedInUser();
 
   const formatDate = new Date(log.date);
   const date = formatDate.toLocaleString();
+  const isAuthor = log?.userId === user?.id;
 
   const handleLineChange = e => {
     setLineValue(e.target.value);
@@ -80,11 +83,13 @@ const DeliveryLogItem = ({ log, setCohort }) => {
             tabIndex="0"
           >
             <span>{line?.content}</span>
-            <DeleteForeverIcon
-              className="log-list-item-delete"
-              tabIndex="0"
-              onClick={() => handleDeleteLine(line.id)}
-            />
+            {isAuthor && (
+              <DeleteForeverIcon
+                className="log-list-item-delete"
+                tabIndex="0"
+                onClick={() => handleDeleteLine(line.id)}
+              />
+            )}
           </li>
         ))}
         <li>
@@ -99,16 +104,20 @@ const DeliveryLogItem = ({ log, setCohort }) => {
               sx={{ marginLeft: '15px' }}
             />
           ) : (
-            <Button onClick={() => setNewLine(true)}>
-              <AddIcon />
-              <span>New Line</span>
-            </Button>
+            isAuthor && (
+              <Button onClick={() => setNewLine(true)}>
+                <AddIcon />
+                <span>New Line</span>
+              </Button>
+            )
           )}
         </li>
       </ul>
-      <Button sx={{ marginTop: 5 }} onClick={() => handleDeleteLog(log.id)}>
-        Delete Log
-      </Button>
+      {isAuthor && (
+        <Button sx={{ marginTop: 5 }} onClick={() => handleDeleteLog(log.id)}>
+          Delete Log
+        </Button>
+      )}
     </li>
   );
 };
