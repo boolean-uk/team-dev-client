@@ -1,8 +1,12 @@
+.cohort-view{
+    display: grid;
+    grid-template-columns: repeat(1fr);
+}
+
 .cohort-list{
     display: grid;
     justify-content: center;
     align-items: center;
-
 }
 
 .cohort-card{
