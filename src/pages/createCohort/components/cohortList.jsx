@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 
 
-const CohortList = () => {
+const CohortList = ({ header }) => {
   const [cohorts, setCohorts] = useState([]);
   const [expand, setExpand]=useState('')
   const [newCohortName,setNewCohortName]= useState('')
@@ -53,6 +53,25 @@ const CohortList = () => {
  
   
 
+  if (header) {
+    return (
+      <div className="cohort-teacher-view">
+        {cohorts.map(cohort => {
+          if (cohort.name !== null) {
+            return (
+              <Card key={cohort.id} className="cohort-view">
+                {`id - ${cohort.id}`}
+                {` | Name - ${cohort.name}`}
+              </Card>
+            );
+          } else {
+            return <Card key={cohort.id} className="cohort-view">
+              {`id - ${cohort.id}`}</Card>;
+          }
+        })}
+      </div>
+    );
+  }
   return (
     <>
       <div className="cohort-list">
