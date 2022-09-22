@@ -65,25 +65,13 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
     });
   };
 
-
-  const signOut = event => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
-  };
-
-
   return (
     <>
 
-    {isTeacher && <TeacherAdmin />}
+      {isTeacher && <TeacherAdmin />}
 
 
       <section className='posts-section'>
-        <button id='user-signout-button' onClick={signOut}>
-          sign out
-        </button>
-
         <p>Status: {postResponse.status}</p>
         <PostForm
           handleSubmit={createPost}
