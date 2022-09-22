@@ -2,42 +2,33 @@ import React, { useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
 import FilterMenu from './utils/filterMenu'
 
-const Comments = ({ post, setUser }) => {
+const Comments = ({ post, setUser, showingAll, setShowingAll }) => {
   const [sortType, setSortType] = useState('Most Recent')
   const [comments, setComments] = useState(post.comments)
-  const [showingAll, setShowingAll] = useState(false);
 
   useEffect(() => {
     setComments(post.comments)
     handleSorting()
-    setShowingAll(false)
     // eslint-disable-next-line
   }, [sortType, post])
 
   const handleSorting = () => {
     if (sortType === 'Most Recent') {
-      const sortedComments = [...post.comments]
-      setComments(sortedComments.sort((a, b) => {
+      setComments([...post.comments].sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt)
       }));
     }
     if (sortType === 'Oldest') {
-      const sortedComments = [...post.comments]
-      setComments(sortedComments.sort((a, b) => {
+      setComments([...post.comments].sort((a, b) => {
         return new Date(a.createdAt) - new Date(b.createdAt)
       }));
     }
   }
 
   const handleShowAll = () => {
-    if (showingAll) {
-      setShowingAll(false)
-    }
-    if (!showingAll) {
-      setShowingAll(true)
-    }
+    setShowingAll(!showingAll)
   }
-
+  
   return (
     <div className="comments-section">
         {

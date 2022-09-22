@@ -38,6 +38,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
 
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
+  const [showingAll, setShowingAll] = useState(false);
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -99,6 +100,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
     } else {
       deletePost(setPostResponse, post.id);
       setIsDeleting(false);
+      setShowingAll(false)
     }
   };
 
@@ -197,7 +199,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser }) => {
       </div>
       <div className='comment-wrap'>
         <CommentForm setPostResponse={setPostResponse} post={post} />
-        <Comments setUser={setUser} post={post} />
+        <Comments setUser={setUser} post={post} showingAll={showingAll} setShowingAll={setShowingAll} />
       </div>
     </li>
   );
