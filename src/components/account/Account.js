@@ -43,15 +43,13 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
       })
 
       .catch(err => {
-        console.log(err.response);
+        console.error(err.response);
         setUpdateEmailError(true);
 
         setTimeout(() => {
           setUpdateEmailError(false);
         }, '3000');
       });
-
-    //when I log this error, it is displaying the wrong error on the console, shoud instead be error from user.js in server side not 'An account has already been registered with this email'
   };
 
   const handleChange = event => {

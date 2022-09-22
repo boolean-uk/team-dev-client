@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import client from '../../utils/client';
 
+
 const Header = ({ companyName }) => {
   const navigate = useNavigate()
   const [user, setUser] = useState({
@@ -19,6 +20,7 @@ const Header = ({ companyName }) => {
     profile_image_url: '',
     github_url: '',
   });
+  
 
   useEffect(() => {
     const userId = getLoggedInUserId();
@@ -28,7 +30,11 @@ const Header = ({ companyName }) => {
     client
       .get(`/user/${userId}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.error(err.response);
+
+       
+      });
     // eslint-disable-next-line
   }, []);
 
