@@ -91,15 +91,10 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
-
-            <Button variant="contained" onClick={handleClick}>
-              Profile
-            </Button>
-
-            <Button variant="contained">Logout</Button>
-            <Button href="/account">
-              <Avatar src={profile_image_url} />
-            </Button>
+            <Button variant="contained" href="/posts">Posts</Button>
+            <Button variant="contained" onClick={handleClick}>Profile</Button>
+            <Button variant="contained" href="/">Logout</Button>
+            <Button href="/account"><Avatar src={profile_image_url} /></Button>
           </Stack>
         </Box>
       </Box>
