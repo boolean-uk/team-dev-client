@@ -36,7 +36,7 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView }) => {
     client
       .patch('/user/myprofile', reqBody)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err.response));
+      .catch(err => console.error(err.response));
   };
 
   const handleChange = event => {

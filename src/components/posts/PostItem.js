@@ -124,7 +124,7 @@ const PostItem = ({
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
-      .catch(err => console.log(err.response));
+      .catch(err => console.error(err.response));
     navigate('/profile');
   };
 
