@@ -37,7 +37,7 @@ const theme = createTheme({
   }
 });
 
-const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => {
+const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setProfileView }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -127,6 +127,7 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user }) => 
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
       .catch(err => console.error(err.response));
+    setProfileView(true)
     navigate('/profile');
   };
 
