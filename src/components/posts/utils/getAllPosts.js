@@ -32,6 +32,7 @@ export function formatTime(timeString) {
 async function getAllPosts() {
   try {
     const response = await client.get('/posts')
+    console.log(response);
     return response.data.data
   } catch (err) {
     console.error(err);
@@ -39,10 +40,12 @@ async function getAllPosts() {
 }
 
 function getPostsWithin7Days(posts) {
-  let lastWeek = moment().subtract(6, 'days').format('L')
-  lastWeek = new Date(lastWeek)
-
-  const postsInAWeek = posts.filter(post => new Date(post.createdAt) > lastWeek ? post : null)
+  let postsInAWeek = []
+  if (posts.length > 0) {
+    let lastWeek = moment().subtract(6, 'days').format('L')
+    lastWeek = new Date(lastWeek)
+    postsInAWeek = posts.filter(post => new Date(post.createdAt) > lastWeek ? post : null)
+  }
   return postsInAWeek
 }
 
@@ -65,11 +68,15 @@ function getMostPopularPosts(posts) {
   return mostPopular
 }
 
-export async function renderPosts(setPosts, setPostsOfTheWeek) {
-  const allPosts = await getAllPosts()
-  const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts))
-  setPostsOfTheWeek(mostPopular)
+export function renderPosts(setPosts, setPostsOfTheWeek) {
+  let allPosts = []
+  getAllPosts().then(response => {
+    allPosts = response
 
-  const postsToRender = allPosts.filter(post => !mostPopular.includes(post))
-  setPosts(postsToRender);
+    const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts))
+    setPostsOfTheWeek(mostPopular)
+
+    const postsToRender = allPosts.filter(post => !mostPopular.includes(post))
+    setPosts(postsToRender);
+  }).catch(err => console.error(err));
 }
