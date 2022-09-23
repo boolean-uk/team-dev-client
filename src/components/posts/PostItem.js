@@ -163,7 +163,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
                 icon={<GradeIcon size="medium" />}
                 label={'Post of the Week'}
                 variant='outlined'
-                // styles={styles.label}
                 theme={theme}
               />
               :
