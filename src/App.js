@@ -16,7 +16,7 @@ import ViewCohort from './pages/viewCohort';
 
 function App() {
   const navigate = useNavigate()
-  const [profileView, setProfileView] = useState(null);
+  const [profileView, setProfileView] = useState(false);
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -63,7 +63,7 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-            
+
             element={<Profile
               getLoggedInUserId={getLoggedInUserId}
               user={user}
@@ -95,6 +95,7 @@ function App() {
                 user={user}
                 setUser={setUser}
                 profileView={profileView}
+                setProfileView={setProfileView}
               />
             }
           />
