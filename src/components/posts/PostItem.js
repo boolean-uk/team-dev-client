@@ -28,14 +28,9 @@ const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
 const likesToBeHotTopic = 10;
 
-const PostItem = ({
-  post,
-  userId,
-  setPostResponse,
-  setPost,
-  setUser,
-  user,
-}) => {
+
+const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setProfileView }) => {
+
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -125,6 +120,7 @@ const PostItem = ({
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
       .catch(err => console.error(err.response));
+    setProfileView(true)
     navigate('/profile');
   };
 
@@ -201,27 +197,23 @@ const PostItem = ({
           ) : (
             <div></div>
           )}
-          <div className="like-wrap">
-            <LikesView
-              post={post}
-              setOpenDialog={setOpenDialog}
-              openDialog={openDialog}
-              handleClick={handleClick}
-            />
-            <AvatarGroup onClick={e => handleGroupAvatars(e)} max={6}>
-              {post.likes.map((like, i) => {
-                return (
-                  <Avatar
-                    key={i}
-                    sx={{ cursor: 'pointer' }}
-                    total={post.likes.length}
-                    onClick={e => handleClick(e, like.user.id)}
-                    size="small"
-                    alt={like.user.profile.firstName}
-                    src={like.user.profile.profileImageUrl}
-                  />
-                );
-              })}
+          <div className='like-wrap'>
+            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog} handleClick={handleClick} />
+            <AvatarGroup onClick={(e) => handleGroupAvatars(e)} max={6}>
+              {
+                post.likes.map((like, i) => {
+                  return (
+                    <Avatar
+                      key={i}
+                      sx={{ cursor: 'pointer' }}
+                      total={post.likes.length}
+                      onClick={(e) => handleClick(e, like.user.id)}
+                      size='small'
+                      alt={like.user.profile.firstName}
+                      src={like.user.profile.profileImageUrl} />
+                  )
+                })
+              }
             </AvatarGroup>
             <Checkbox
               label="like"
