@@ -9,12 +9,14 @@ import PostItem from './PostItem';
 
 import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
+import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
 
 const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
+  const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
   const [isTeacher, setIsTeacher] = useState(false);
   const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
@@ -35,14 +37,13 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           setIsTeacher(true);
         }
       })
-      .catch(console.log);
-    renderPosts(setPosts);
+      .catch(err => console.error(err));
+    renderPosts(setPosts, setPostsOfTheWeek);
   }, [postResponse]);
 
   const createPost = async event => {
     event.preventDefault();
     client
-
       .post('/post', post)
       .then(res => setPostResponse(res.data))
       .then(() => {
@@ -91,26 +92,37 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           value={post.content}
         />
 
-        {posts?.length > 0 ? (
-          <ul className="posts-list">
-            {posts?.map((post, index) => (
-              <PostItem
-                post={post}
-                key={index}
-                userId={getUserId}
-                setPost={setPost}
-                setPostResponse={setPostResponse}
-                setProfileView={setProfileView}
-                setUser={setUser}
-                user={user}
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="no-posts-message">There are no posts at the moment.</p>
-        )}
-      </section>
+        <PostsOfTheWeek
+          posts={postsOfTheWeek}
+          getUserId={getUserId}
+          setPost={setPost}
+          setPostResponse={setPostResponse}
+          setProfileView={setProfileView}
+          setUser={setUser}
+          user={user}
+        />
 
+        {
+          posts?.length > 0 ? (
+            <ul className='posts-list'>
+              {posts?.map((post, index) => (
+                <PostItem
+                  post={post}
+                  key={index}
+                  userId={getUserId}
+                  setPost={setPost}
+                  setPostResponse={setPostResponse}
+                  setProfileView={setProfileView}
+                  setUser={setUser}
+                  user={user}
+                />
+              ))}
+            </ul>
+          ) : (
+            <p className='no-posts-message'>There are no posts at the moment.</p>
+          )
+        }
+      </section>
       {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
     </>
   );

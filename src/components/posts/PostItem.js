@@ -7,6 +7,7 @@ import {
   Chip,
   AvatarGroup,
 } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
@@ -14,11 +15,13 @@ import { useNavigate } from 'react-router-dom';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import GradeIcon from '@mui/icons-material/Grade';
 import { createLike, deleteLike } from './utils/likeRequests';
 import client from '../../utils/client';
 import { LikesView } from './LikesView';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
+import { formatTime } from './utils/getAllPosts';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -28,9 +31,13 @@ const editBtnStyle = { text: 'Edit', color: 'primary' };
 const confirmEditStyle = { text: 'Save', color: 'success' };
 const likesToBeHotTopic = 10;
 
+const theme = createTheme({
+  typography: {
+    fontSize: 16
+  }
+});
 
 const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setProfileView }) => {
-
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -119,9 +126,11 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
+      .then(() => {
+        setProfileView(true)
+        navigate('/profile')
+      })
       .catch(err => console.error(err.response));
-    setProfileView(true)
-    navigate('/profile');
   };
 
   const handleLike = e => {
@@ -133,11 +142,16 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
     }
   };
 
+  let liClasses = 'post-item'
+  if (post.isPostOfTheWeek) {
+    liClasses += ' post-of-the-week'
+  }
+
   return (
-    <li className="post-item">
-      <div className="post-wrap">
-        <div className="post-header-wrap">
-          <div className="post-profile-wrap">
+    <li className={liClasses}>
+      <div className='post-wrap'>
+        <div className='post-header-wrap'>
+          <div className='post-profile-wrap'>
             <Avatar
               src={post.user.profile.profileImageUrl}
               alt="profile"
@@ -148,18 +162,25 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
             </h3>
           </div>
           <div>
-            {post.likes.length >= likesToBeHotTopic ? (
-              <Chip
-                size="small"
-                color="error"
-                icon={<LocalFireDepartmentOutlinedIcon />}
-                label="Hot Topic"
-                variant="outlined"
+            {post.isPostOfTheWeek ?
+              <Chip size='medium'
+                color='warning'
+                icon={<GradeIcon size="medium" />}
+                label={'Post of the Week'}
+                variant='outlined'
+                theme={theme}
               />
-            ) : (
-              <div className="hot-topic-placeholder"></div>
-            )}
-            <p className="createdAt-time">{post.createdAt}</p>
+              :
+              (
+                post.likes.length >= likesToBeHotTopic ?
+                  <Chip size='small'
+                    color='error'
+                    icon={<LocalFireDepartmentOutlinedIcon />}
+                    label='Hot Topic'
+                    variant='outlined'
+                  /> : <div className='hot-topic-placeholder'></div>
+              )}
+            <p className='createdAt-time'>{formatTime(post.createdAt)}</p>
           </div>
         </div>
 
