@@ -30,8 +30,12 @@ export function formatTime(timeString) {
 }
 
 async function getAllPosts() {
-  const response = await client.get('/posts')
-  return response.data.data
+  try {
+    const response = await client.get('/posts')
+    return response.data.data
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function getPostsWithin7Days(posts) {
