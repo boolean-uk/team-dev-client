@@ -1,5 +1,5 @@
 import client from '../../../utils/client';
-const moment = require('moment');
+import moment from 'moment';
 
 const secOneMin = 60;
 const secOneHour = secOneMin * 60;
@@ -32,7 +32,6 @@ export function formatTime(timeString) {
 async function getAllPosts() {
   try {
     const response = await client.get('/posts')
-    console.log(response);
     return response.data.data
   } catch (err) {
     console.error(err);
