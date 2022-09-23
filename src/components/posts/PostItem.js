@@ -142,8 +142,13 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
     }
   };
 
+  let liClasses = 'post-item'
+  if (post.isPostOfTheWeek) {
+    liClasses += ' post-of-the-week'
+  }
+
   return (
-    <li className={`post-item ${post.isPostOfTheWeek ? 'post-of-the-week' : null}`}>
+    <li className={liClasses}>
       <div className='post-wrap'>
         <div className='post-header-wrap'>
           <div className='post-profile-wrap'>
@@ -163,7 +168,6 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
                 icon={<GradeIcon size="medium" />}
                 label={'Post of the Week'}
                 variant='outlined'
-                // styles={styles.label}
                 theme={theme}
               />
               :
