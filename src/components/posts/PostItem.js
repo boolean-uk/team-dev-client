@@ -126,9 +126,11 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
     client
       .get(`/user/${id}`)
       .then(res => setUser(res.data.data.user))
+      .then(() => {
+        setProfileView(true)
+        navigate('/profile')
+      })
       .catch(err => console.error(err.response));
-    setProfileView(true)
-    navigate('/profile');
   };
 
   const handleLike = e => {
