@@ -13,9 +13,10 @@ import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
 import ViewCohort from './pages/viewCohort';
+import LoggedInUserProvider from './context/LoggedInUser';
 
 function App() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [profileView, setProfileView] = useState(false);
   const [user, setUser] = useState({
     first_name: '',
@@ -35,11 +36,11 @@ function App() {
       .get(`/user/${userId}`)
       .then(res => setUser(res.data.data.user))
       .catch(err => {
-        const authMessage = err.response.data.data.authentication
+        const authMessage = err.response.data.data.authentication;
         if (authMessage === 'Token has expired') {
-          navigate('/', { state: { token: 'expired' } })
+          navigate('/', { state: { token: 'expired' } });
         } else {
-          console.log(err)
+          console.error(err);
         }
       });
     // eslint-disable-next-line
@@ -63,13 +64,14 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-
-            element={<Profile
-              getLoggedInUserId={getLoggedInUserId}
-              user={user}
-              setUser={setUser}
-              profileView={profileView}
-            />}
+            element={
+              <Profile
+                getLoggedInUserId={getLoggedInUserId}
+                user={user}
+                setUser={setUser}
+                profileView={profileView}
+              />
+            }
           />
           <Route
             path="/cohort/:cohortId"
@@ -99,17 +101,17 @@ function App() {
               />
             }
           />
+          <Route
+            path="/account"
+            element={
+              <Account
+                getLoggedInUserId={getLoggedInUserId}
+                user={user}
+                setUser={setUser}
+              />
+            }
+          />
         </Route>
-        <Route
-          path="/account"
-          element={
-            <Account
-              getLoggedInUserId={getLoggedInUserId}
-              user={user}
-              setUser={setUser}
-            />
-          }
-        />
       </Routes>
     </div>
   );
@@ -129,7 +131,9 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
 
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} />
+      <LoggedInUserProvider>
+        <Header companyName={`Cohort Manager 2.0`} />
+      </LoggedInUserProvider>
     </>
   );
 };
