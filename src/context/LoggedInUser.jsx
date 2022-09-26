@@ -23,7 +23,6 @@ const LoggedInUserProvider = ({ children }) => {
       setUser(null);
     }
   }, [token]);
-
   return (
     <LoggedInUser.Provider value={{ user }}>{children}</LoggedInUser.Provider>
   );

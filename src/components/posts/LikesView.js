@@ -12,16 +12,15 @@ import React from 'react';
 
 export const LikesView = ({ post, openDialog, setOpenDialog, handleClick }) => {
   return (
-    <Dialog open={openDialog} scroll='body'>
+    <Dialog open={openDialog} scroll="body">
       <DialogContent>
         <ClickAwayListener onClickAway={() => setOpenDialog(false)}>
           <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
             {post.likes.map((like, i) => {
               return (
-                <ListItem onClick={e => handleClick(e, like.user.id)}>
+                <ListItem key={i} onClick={e => handleClick(e, like.user.id)}>
                   <ListItemAvatar>
                     <Avatar
-                      key={i}
                       src={like.user.profile.profileImageUrl}
                       alt={like.user.profile.firstName}
                     />

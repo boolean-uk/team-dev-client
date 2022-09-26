@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import Header from '../Header/Header';
 import './style.css';
 import EditDetails from './EditDetails';
 import client from '../../utils/client';
@@ -67,7 +66,6 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
 
   return (
     <>
-      <Header companyName={`Cohort Manager 2.0`} />
       <TableContainer component={Paper} className="table-container">
         <h1>Account Information</h1>
         <Table sx={{ minWidth: 300, maxWidth: 700 }} aria-label="simple table">

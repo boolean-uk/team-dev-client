@@ -5,15 +5,12 @@ import './fonts.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import LoggedInUserProvider from './context/LoggedInUser';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoggedInUserProvider>
-        <App />
-      </LoggedInUserProvider>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );
