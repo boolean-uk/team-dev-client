@@ -53,7 +53,7 @@ const Profile = () => {
   };
 
   const handleAdminClick = () => {
-  navigate('/account', { state: { userDisplayed }})
+  navigate('/account', { state: { user: userDisplayed }})
   }
 
   return (

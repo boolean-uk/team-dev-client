@@ -24,10 +24,10 @@ const Account = () => {
   const [user, setUser] = useState({})
   const loggedInUser = useLoggedInUser().user
   const location = useLocation()
-
+  console.log(location, loggedInUser)
   useEffect(() => {
     if (location.state) {
-      setUser(location.state.userDisplayed)
+      setUser(location.state.user)
     }
     else {
     setUser(loggedInUser)
