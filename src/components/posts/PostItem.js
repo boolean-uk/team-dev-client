@@ -37,15 +37,7 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({
-  post,
-  userId,
-  setPostResponse,
-  setPost,
-  setUser,
-  user,
-  setProfileView,
-}) => {
+const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -133,10 +125,8 @@ const PostItem = ({
   const handleClick = (e, id = post.userId) => {
     client
       .get(`/user/${id}`)
-      .then(res => setUser(res.data.data.user))
-      .then(() => {
-        setProfileView(true);
-        navigate('/profile');
+      .then(res => {
+        navigate('/profile', { state: { user: res.data.data.user } });
       })
       .catch(err => console.error(err.response));
   };
@@ -263,11 +253,7 @@ const PostItem = ({
       </div>
 
       <div className="comment-wrap">
-        <CommentForm
-          setPostResponse={setPostResponse}
-          post={post}
-          user={user}
-        />
+        <CommentForm setPostResponse={setPostResponse} post={post} />
         <Comments
           userId={userId}
           setUser={setUser}

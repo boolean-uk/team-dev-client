@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,22 +11,26 @@ import './style.css';
 import EditDetails from './EditDetails';
 import client from '../../utils/client';
 import { Alert } from '@mui/material';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 function createData(key, value) {
   return { key, value };
 }
 
-const Account = ({ getLoggedInUserId, user, setUser }) => {
+const Account = () => {
   const [updateEmailError, setUpdateEmailError] = useState(false);
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
+  const [user, setUser] = useState({})
+  const loggedInUser = useLoggedInUser().user
 
-  const { email } = user;
+  useEffect(() => {
+    setUser(loggedInUser)
+  }, [loggedInUser])
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const reqBody = { email };
 
-    const userId = getLoggedInUserId();
+  const handleUpdate = (newEmail) => {
+    const reqBody = { email: newEmail };
+    const userId = user.id;
     if (userId === null) {
       return;
     }
@@ -51,15 +55,7 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
       });
   };
 
-  const handleChange = event => {
-    event.preventDefault();
-    const { value, name } = event.target;
 
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
 
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
@@ -85,9 +81,7 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
         </Table>
       </TableContainer>
       <EditDetails
-        user={user}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
+        handleUpdate={handleUpdate}
       />
       {updateEmailError && (
         <Alert severity="error">New email is the same as current</Alert>

@@ -5,12 +5,30 @@ import TextField from '@mui/material/TextField';
 import DialogContent from '@mui/material/DialogContent';
 import './style.css';
 
-const EditForm = ({ user, handleSubmit, handleChange }) => {
-  const { first_name, last_name, biography, github_url, profile_image_url } = user;
+const EditForm = ({ handleSubmit }) => {
   const [open, setOpen] = useState(false);
+  const [newInfo, setNewInfo] = useState({})
+  const { first_name, last_name, biography, github_url, profile_image_url } = newInfo;
 
   const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const handleClose = () => setOpen(false)
+
+  const handleUpdate = (event) => {
+    event.preventDefault();
+
+    handleSubmit(newInfo)
+    handleClose()
+  };
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+
+    setNewInfo({
+      ...newInfo,
+      [name]: value,
+    });
+  };
 
   return (
     <div>
@@ -25,7 +43,7 @@ const EditForm = ({ user, handleSubmit, handleChange }) => {
       >
         <h1 className="dialog-title">Edit Profile</h1>
         <DialogContent>
-          <form className="user-form" onSubmit={handleSubmit}>
+          <form className="user-form" onSubmit={handleUpdate}>
             <TextField
               className="user-form-input"
               label="First Name"
@@ -69,7 +87,6 @@ const EditForm = ({ user, handleSubmit, handleChange }) => {
               onChange={handleChange}
             />
             <Button
-              onClick={handleClose}
               id="user-submit-button"
               type="submit"
               variant="contained"

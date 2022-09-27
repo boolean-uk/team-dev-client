@@ -12,7 +12,7 @@ import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
 
-const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
+const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -98,9 +98,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           getUserId={getUserId}
           setPost={setPost}
           setPostResponse={setPostResponse}
-          setProfileView={setProfileView}
-          setUser={setUser}
-          user={user}
         />
 
         {posts?.length > 0 ? (
@@ -112,9 +109,6 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
                 userId={getUserId}
                 setPost={setPost}
                 setPostResponse={setPostResponse}
-                setProfileView={setProfileView}
-                setUser={setUser}
-                user={user}
               />
             ))}
           </ul>
@@ -122,7 +116,7 @@ const PostsPage = ({ getUserId, setProfileView, user, setUser }) => {
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
       </section>
-      {user.role !== 'TEACHER' && <StudentList setUser={setUser} />}
+      {!isTeacher && <StudentList />}
     </>
   );
 };

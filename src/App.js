@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import './App.css';
 
@@ -17,15 +17,6 @@ import LoggedInUserProvider from './context/LoggedInUser';
 
 function App() {
   const navigate = useNavigate();
-  const [profileView, setProfileView] = useState(false);
-  const [user, setUser] = useState({
-    first_name: '',
-    last_name: '',
-    biography: '',
-    profile_image_url: '',
-    github_url: '',
-    email: '',
-  });
 
   useEffect(() => {
     const userId = getLoggedInUserId();
@@ -34,7 +25,6 @@ function App() {
     }
     client
       .get(`/user/${userId}`)
-      .then(res => setUser(res.data.data.user))
       .catch(err => {
         const authMessage = err.response.data.data.authentication;
         if (authMessage === 'Token has expired') {
@@ -55,6 +45,7 @@ function App() {
     return decoded.userId;
   };
 
+
   return (
     <div className="App">
       <Routes>
@@ -67,24 +58,18 @@ function App() {
             element={
               <Profile
                 getLoggedInUserId={getLoggedInUserId}
-                user={user}
-                setUser={setUser}
-                profileView={profileView}
               />
             }
           />
           <Route
             path="/cohort/:cohortId"
-            element={<ViewCohort {...{ setProfileView }} />}
+            element={<ViewCohort />}
           />
           <Route
             path="/posts"
             element={
               <PostsPage
                 getUserId={getLoggedInUserId}
-                setProfileView={setProfileView}
-                user={user}
-                setUser={setUser}
               />
             }
           />
@@ -92,23 +77,13 @@ function App() {
           <Route
             path="/profile"
             element={
-              <Profile
-                getLoggedInUserId={getLoggedInUserId}
-                user={user}
-                setUser={setUser}
-                profileView={profileView}
-                setProfileView={setProfileView}
-              />
+              <Profile />
             }
           />
           <Route
             path="/account"
             element={
-              <Account
-                getLoggedInUserId={getLoggedInUserId}
-                user={user}
-                setUser={setUser}
-              />
+              <Account />
             }
           />
         </Route>
