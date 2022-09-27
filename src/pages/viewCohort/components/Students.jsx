@@ -3,12 +3,21 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import DEFAULTIMG from '../../../assets/default.png';
 
-const Students = ({ cohort, setProfileView }) => {
+const Students = ({ cohort }) => {
   const navigate = useNavigate();
 
-  const handleProfileClick = userId => {
-    setProfileView(userId);
-    navigate('/profile');
+  const handleProfileClick = user => {
+    const thisUser = {
+      'first_name': user.profile.firstName,
+      'last_name': user.profile.lastName,
+      'email': user.email,
+      'biography': user.profile.bio,
+      'github_url': user.profile.githubUrl,
+      'cohort_id': cohort.id,
+      'profile_image_url': user.profile.profileImageUrl,
+      'role': user.role,
+    }
+    navigate('/profile', { state: { user: thisUser } });
   };
 
   return (
@@ -27,7 +36,7 @@ const Students = ({ cohort, setProfileView }) => {
             <li
               key={user.email}
               className="view-cohort__student-card"
-              onClick={() => handleProfileClick(user.id)}
+              onClick={() => handleProfileClick(user)}
             >
               <img
                 className="view-cohort__profile-image"

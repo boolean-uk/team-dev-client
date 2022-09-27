@@ -5,12 +5,25 @@ import TextField from '@mui/material/TextField';
 import DialogContent from '@mui/material/DialogContent';
 import './style.css';
 
-const EditDetails = ({ user, handleSubmit, handleChange }) => {
-  const { email } = user;
+const EditDetails = ({ handleUpdate }) => {
   const [open, setOpen] = useState(false);
+  const [newEmail, setNewEmail] = useState('')
 
   const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setNewEmail('')
+    setOpen(false)
+  };
+
+  const handleChange = event => {
+    setNewEmail(event.target.value)
+  };
+
+  const handleSubmit = (e) => {
+    setOpen(false)
+    e.preventDefault();
+    handleUpdate(newEmail)
+  }
 
   return (
     <div>
@@ -32,11 +45,11 @@ const EditDetails = ({ user, handleSubmit, handleChange }) => {
               type="email"
               variant="outlined"
               name="email"
-              placeholder={email}
+              value={newEmail}
               onChange={handleChange}
             />
             <Button
-              onClick={handleClose}
+              // onClick={handleClose}
               id="user-submit-button"
               type="submit"
               variant="contained"

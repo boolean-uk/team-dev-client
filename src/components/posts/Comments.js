@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
 import FilterMenu from './utils/filterMenu'
 
-const Comments = ({ post, setUser, showingAll, setShowingAll }) => {
+const Comments = ({ post, showingAll, setShowingAll }) => {
   const [sortType, setSortType] = useState('Most Recent')
   const [comments, setComments] = useState(post.comments)
 
@@ -28,45 +28,44 @@ const Comments = ({ post, setUser, showingAll, setShowingAll }) => {
   const handleShowAll = () => {
     setShowingAll(!showingAll)
   }
-  
+
   return (
     <div className="comments-section">
-        {
+      {
         showingAll &&
         <div className='comment-filter'>
-            <FilterMenu setSortType={setSortType} />
+          <FilterMenu setSortType={setSortType} />
         </div>
-        }
-        <ul className='comments-list'>
-            {
-            !showingAll 
-                ?
-            (comments.length >= 1 && <CommentItem comment={comments[0]} setUser={setUser} />)
-                :
-            ( 
-                comments.length > 0 &&
-                (comments.map((comment, index) => (
-                    <CommentItem
-                        comment={comment}
-                        key={index}
-                        setUser={setUser}
-                    />
-                )))
-            )
-            }
-        </ul>
+      }
+      <ul className='comments-list'>
         {
+          !showingAll
+            ?
+            (comments.length >= 1 && <CommentItem comment={comments[0]} />)
+            :
+            (
+              comments.length > 0 &&
+              (comments.map((comment, index) => (
+                <CommentItem
+                  comment={comment}
+                  key={index}
+                />
+              )))
+            )
+        }
+      </ul>
+      {
         comments.length > 1 &&
         <p className='comments-show-all' onClick={handleShowAll}>
-            { 
-            !showingAll 
-            ? 
-            `Show All Comments (${comments.length})` 
-            : 
-            'Hide Comments'
-            }
+          {
+            !showingAll
+              ?
+              `Show All Comments (${comments.length})`
+              :
+              'Hide Comments'
+          }
         </p>
-        }
+      }
     </div>
   )
 }
