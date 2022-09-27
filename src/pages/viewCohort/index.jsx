@@ -9,7 +9,7 @@ import DeliveryLogs from './components/DeliveryLogs';
 
 import './style.css';
 
-const ViewCohort = ({ setProfileView }) => {
+const ViewCohort = () => {
   const [cohort, setCohort] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const cohortId = parseInt(useParams().cohortId);
@@ -41,7 +41,7 @@ const ViewCohort = ({ setProfileView }) => {
           <>
             <h2>{cohort?.name}</h2>
             <div className="view-cohort-content">
-              <Students {...{ cohort, setProfileView }} />
+              <Students {...{ cohort }} />
               <DeliveryLogs
                 deliveryLogs={cohort.deliveryLogs}
                 {...{ setCohort }}

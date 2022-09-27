@@ -39,7 +39,7 @@ const LoginPage = () => {
         });
       })
       .catch(err => {
-        console.log(err.response);
+        console.error(err.response);
         setLoginError(true);
         setTimeout(() => {
           setLoginError(false);
