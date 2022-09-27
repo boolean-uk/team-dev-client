@@ -8,7 +8,7 @@ import StudentList from '../../components/studentList/StudentList';
 
 const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView }) => {
   const userLoggedIn = useLoggedInUser().user
-  const isAdmin = userLoggedIn?.role === 'TEACHER'
+  const isAdmin = userLoggedIn?.role === 'ADMIN'
   console.log(userLoggedIn)
   const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
 
