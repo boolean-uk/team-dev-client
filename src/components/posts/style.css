@@ -253,3 +253,12 @@
 .posts-of-the-week-wrap {
   margin: 2rem 0;
 }
+
+.comment-like-wrap{
+  margin-right:0;
+  margin-left:auto
+}
+
+.count {
+  display: inline-block;
+}
