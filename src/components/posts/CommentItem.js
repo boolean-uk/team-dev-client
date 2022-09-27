@@ -4,14 +4,14 @@ import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 
-const CommentItem = ({ comment, setUser }) => {
+const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [commentRes, setCommentRes] = useState('');
-  const [likesCount, setLikesCount] = useState(0);
   const navigate = useNavigate();
+  const [likesCount, setLikesCount] = useState(0);
+  const commentLikes = comment.likes;
 
   const handleClick = e => {
     client
@@ -21,12 +21,23 @@ const CommentItem = ({ comment, setUser }) => {
     navigate('/profile');
   };
 
+  useEffect(() => {
+    setLikesCount(commentLikes.length);
+    const getUserId = userId();
+    comment.likes.forEach(like => {
+      if (getUserId === like.userId) {
+        setIsLiked(true);
+      }
+    });
+  }, [commentLikes.length, userId, comment.likes]);
+
   const handleLike = e => {
     setIsLiked(e.target.checked);
     if (!isLiked) {
-      createCommentLike(setCommentRes, comment.id);
+      createCommentLike(setPostResponse, post.id, comment.id, setLikesCount);
     } else {
-      deleteCommentLike(setCommentRes, comment.id);
+      deleteCommentLike(setPostResponse, post.id, comment.id, setLikesCount);
+      setIsLiked(false);
     }
   };
 
