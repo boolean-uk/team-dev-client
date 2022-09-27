@@ -1,22 +1,30 @@
-import { Button, Avatar, Link, Dialog } from '@mui/material';
+import { Button, Avatar, Link } from '@mui/material';
 import './style.css';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {useLoggedInUser} from '../../context/LoggedInUser'
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useLoggedInUser } from '../../context/LoggedInUser';
+import { useState, useEffect } from 'react';
 
 const Profile = () => {
-  const location = useLocation()
   const [userDisplayed, setUserDisplayed] = useState({})
-  const [isopen, setIsOpen] = useState(false)
-  const isAdmin = userLoggedIn?.role === 'TEACHER'
-  console.log(userLoggedIn)
-const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = userDisplayed
   const userLoggedIn = useLoggedInUser().user
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = userDisplayed
   let isOwner = false
+
+  useEffect(() => {
+    setUserDisplayed(location.state.user)
+  }, [location])
+
+  if (userLoggedIn.id === userDisplayed.id) {
+    isOwner = true
+  }
+
+  const isAdmin = userLoggedIn?.role === 'TEACHER'
+  
 
   if (userLoggedIn.id === userDisplayed.id) {
     isOwner = true
@@ -44,12 +52,9 @@ const { first_name, last_name, biography, github_url, cohort_id, profile_image_u
       .catch(err => console.error(err.response));
   };
 
-
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
+  const handleAdminClick = () => {
+  navigate('/account', { state: { userDisplayed }})
+  }
 
   return (
     <>
@@ -73,23 +78,16 @@ const { first_name, last_name, biography, github_url, cohort_id, profile_image_u
           </div>
           <p>"{biography}"</p>
         </div>
-        {isAdmin ? <Button variant='outlined' onClick={() => setIsOpen(true)}>
+        {isAdmin ? <Button variant='outlined' onClick={handleAdminClick}>
                   Account Informations</Button> :
                 (isOwner) && <EditForm
-          handleSubmit={handleSubmit}
+          handleSubmit={() => handleSubmit()}
         />
-              }
-            </div>
-            <div>
-              
-                <Dialog open={isopen}>
-                  <ChangeRole setIsOpen={setIsOpen} user={user}/>
-                </Dialog>
-                
+        }    
       </div>
       {role !== 'TEACHER' && <StudentList />}
     </>
   )
-
+}
 
 export default Profile;

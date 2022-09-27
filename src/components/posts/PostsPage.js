@@ -118,7 +118,7 @@ const PostsPage = ({ getUserId }) => {
           )
         }
       </section>
-      {!isTeacher && <StudentList />}
+      {!isTeacherorAdmin && <StudentList />}
     </>
   );
 };

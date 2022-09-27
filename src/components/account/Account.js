@@ -12,6 +12,7 @@ import EditDetails from './EditDetails';
 import client from '../../utils/client';
 import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
+import { useLocation } from 'react-router-dom';
 
 function createData(key, value) {
   return { key, value };
@@ -22,10 +23,16 @@ const Account = () => {
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
   const [user, setUser] = useState({})
   const loggedInUser = useLoggedInUser().user
+  const location = useLocation()
 
   useEffect(() => {
+    if (location.state) {
+      setUser(location.state.userDisplayed)
+    }
+    else {
     setUser(loggedInUser)
-  }, [loggedInUser])
+    }
+  }, [loggedInUser, location])
 
 
   const handleUpdate = (newEmail) => {
