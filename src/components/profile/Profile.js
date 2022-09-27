@@ -1,13 +1,16 @@
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './style.css';
-
+import {useLoggedInUser} from '../../context/LoggedInUser'
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
 
 const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView }) => {
-    const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
+  const userLoggedIn = useLoggedInUser().user
+  const isAdmin = userLoggedIn?.role === 'TEACHER'
+  console.log(userLoggedIn)
+  const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -63,7 +66,7 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView
                     </div>
                     <p>"{biography}"</p>
                 </div>
-                {!profileView && <EditForm
+                {isAdmin && <EditForm
                     user={user}
                     handleSubmit={handleSubmit}
                     handleChange={handleChange}
