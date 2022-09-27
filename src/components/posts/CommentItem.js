@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
 
-const CommentItem = ({ comment, setUser }) => {
+const CommentItem = ({ comment }) => {
   const navigate = useNavigate();
 
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
-      .then(res => setUser(res.data.data.user))
+      .then(res => navigate('/profile', { state: { user: res.data.data.user } }))
       .catch(err => console.error(err.response));
-    navigate('/profile');
+    ;
   };
 
   return (

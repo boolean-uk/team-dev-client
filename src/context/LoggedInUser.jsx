@@ -2,12 +2,24 @@ import jwtDecode from 'jwt-decode';
 import { createContext, useContext, useEffect, useState } from 'react';
 import client from '../utils/client';
 
-const LoggedInUser = createContext();
+export const LoggedInUser = createContext();
 
 export const useLoggedInUser = () => useContext(LoggedInUser);
 
+const userInit = {
+  biography: null,
+  cohort_id: null,
+  email: '',
+  first_name: '',
+  github_url: '',
+  id: '',
+  last_name: '',
+  profile_image_url: '',
+  role: ''
+}
+
 const LoggedInUserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(userInit);
 
   const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
 
@@ -20,7 +32,7 @@ const LoggedInUserProvider = ({ children }) => {
         .then(res => setUser(res.data.data.user))
         .catch(err => console.log('[User Error]', err));
     } else {
-      setUser(null);
+      setUser(userInit);
     }
   }, [token]);
   return (
