@@ -23,6 +23,7 @@ const EditDetails = ({ handleUpdate }) => {
     setOpen(false)
     e.preventDefault();
     handleUpdate(newEmail)
+    setNewEmail('')
   }
 
   return (
@@ -49,7 +50,6 @@ const EditDetails = ({ handleUpdate }) => {
               onChange={handleChange}
             />
             <Button
-              // onClick={handleClose}
               id="user-submit-button"
               type="submit"
               variant="contained"
