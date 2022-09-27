@@ -55,11 +55,13 @@ const Comments = ({
                 post={post}
                 comment={comments[0]}
                 setUser={setUser}
+                showingAll={showingAll}
               />
             )
           : comments.length > 0 &&
             comments.map((comment, index) => (
               <CommentItem
+                showingAll={showingAll}
                 userId={userId}
                 post={post}
                 comment={comment}

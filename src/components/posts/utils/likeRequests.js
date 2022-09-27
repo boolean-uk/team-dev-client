@@ -23,18 +23,13 @@ export function createCommentLike(
   client
     .post(`/post/${postId}/comment/${commentId}/like`)
     .then(res => {
-      console.log(res);
       setLikesCount(res.data.data.like.commentLikes);
+      setPostResponse(res.data);
     })
     .catch(e => console.error);
 }
 
-export function deleteCommentLike(
-  setPostResponse,
-  postId,
-  commentId,
-  setLikesCount
-) {
+export function deleteCommentLike(setPostResponse, postId, commentId) {
   client
     .delete(`/post/${postId}/comment/${commentId}/like`)
     .then(res => {

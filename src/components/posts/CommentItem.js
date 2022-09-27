@@ -7,7 +7,14 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentItem = ({
+  showingAll,
+  userId,
+  post,
+  comment,
+  setUser,
+  setPostResponse,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
   const [likesCount, setLikesCount] = useState(0);
@@ -23,21 +30,26 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
   useEffect(() => {
     setLikesCount(commentLikes.length);
+    setIsLiked();
     const getUserId = userId();
-    comment.likes.forEach(like => {
+    commentLikes.forEach(like => {
       if (getUserId === like.userId) {
         setIsLiked(true);
       }
     });
-  }, [commentLikes.length, userId, comment.likes]);
+  }, [commentLikes, userId, showingAll, likesCount]);
 
   const handleLike = e => {
     setIsLiked(e.target.checked);
     if (!isLiked) {
       createCommentLike(setPostResponse, post.id, comment.id, setLikesCount);
     } else {
-      deleteCommentLike(setPostResponse, post.id, comment.id, setLikesCount);
-      setIsLiked(false);
+      deleteCommentLike(setPostResponse, post.id, comment.id);
+    }
+    if (likesCount > 0) {
+      setLikesCount(likesCount.length);
+    } else {
+      setLikesCount(0);
     }
   };
 
