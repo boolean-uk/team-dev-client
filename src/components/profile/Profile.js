@@ -1,6 +1,6 @@
 import { Button, Avatar, Link } from '@mui/material';
 import './style.css';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {useLoggedInUser} from '../../context/LoggedInUser'
 import EditForm from './EditForm';
 import client from '../../utils/client';
