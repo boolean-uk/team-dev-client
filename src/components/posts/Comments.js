@@ -12,7 +12,6 @@ const Comments = ({
 }) => {
   const [sortType, setSortType] = useState('Most Recent');
   const [comments, setComments] = useState(post.comments);
-  console.log('comments', comments);
   useEffect(() => {
     setComments(post.comments);
     handleSorting();
