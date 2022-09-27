@@ -90,7 +90,7 @@ const Account = ({ getLoggedInUserId, user, setUser }) => {
         handleChange={handleChange}
       />
       {updateEmailError && (
-        <Alert severity="error">New email is the same as current</Alert>
+        <Alert severity="error">That email address is already registered</Alert>
       )}
 
       {successEmailUpdate && (
