@@ -87,7 +87,6 @@ const EditForm = ({ handleSubmit }) => {
               onChange={handleChange}
             />
             <Button
-              // onClick={handleUpdate(newInfo)}
               id="user-submit-button"
               type="submit"
               variant="contained"
