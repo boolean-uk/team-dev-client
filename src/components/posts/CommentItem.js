@@ -16,9 +16,18 @@ const CommentItem = ({
   setPostResponse,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    const getUserId = userId();
+    for (let i = 0; i < comment.likes.length; i++) {
+      if (getUserId === comment.likes[i].userId) {
+        return setIsLiked(true);
+      }
+    }
+    setIsLiked(false);
+  }, [comment, userId]);
+
   const navigate = useNavigate();
-  const [likesCount, setLikesCount] = useState(0);
-  const commentLikes = comment.likes;
 
   const handleClick = e => {
     client
@@ -28,28 +37,11 @@ const CommentItem = ({
     navigate('/profile');
   };
 
-  useEffect(() => {
-    setLikesCount(commentLikes.length);
-    setIsLiked();
-    const getUserId = userId();
-    commentLikes.forEach(like => {
-      if (getUserId === like.userId) {
-        setIsLiked(true);
-      }
-    });
-  }, [commentLikes, userId, showingAll, likesCount]);
-
-  const handleLike = e => {
-    setIsLiked(e.target.checked);
-    if (!isLiked) {
-      createCommentLike(setPostResponse, post.id, comment.id, setLikesCount);
-    } else {
+  const handleLike = () => {
+    if (isLiked) {
       deleteCommentLike(setPostResponse, post.id, comment.id);
-    }
-    if (likesCount > 0) {
-      setLikesCount(likesCount.length);
     } else {
-      setLikesCount(0);
+      createCommentLike(setPostResponse, post.id, comment.id);
     }
   };
 
@@ -78,9 +70,9 @@ const CommentItem = ({
           checked={isLiked}
           icon={<ThumbUpOutlinedIcon />}
           checkedIcon={<ThumbUpIcon />}
-          onChange={handleLike}
+          onClick={handleLike}
         />
-        <div className="count">{likesCount}</div>
+        <div className="count">{comment.likes.length}</div>
       </div>
     </li>
   );

@@ -3,7 +3,10 @@ import client from '../../../utils/client';
 export function createLike(setPostResponse, postId) {
   client
     .post(`/post/${postId}/like`)
-    .then(res => setPostResponse(res.data))
+    .then(res => {
+      console.log('like', res);
+      setPostResponse(res.data);
+    })
     .catch(e => console.error);
 }
 
@@ -14,16 +17,11 @@ export function deleteLike(setPostResponse, postId) {
     .catch(e => console.error);
 }
 
-export function createCommentLike(
-  setPostResponse,
-  postId,
-  commentId,
-  setLikesCount
-) {
+export function createCommentLike(setPostResponse, postId, commentId) {
   client
     .post(`/post/${postId}/comment/${commentId}/like`)
     .then(res => {
-      setLikesCount(res.data.data.like.commentLikes);
+      console.log('res', res);
       setPostResponse(res.data);
     })
     .catch(e => console.error);

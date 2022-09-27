@@ -274,6 +274,7 @@ const PostItem = ({
           post={post}
           showingAll={showingAll}
           setShowingAll={setShowingAll}
+          setPostResponse={setPostResponse}
         />
       </div>
     </li>
