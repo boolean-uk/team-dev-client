@@ -1,14 +1,16 @@
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
+import { Button, Avatar, Link, Dialog } from '@mui/material';
 import './style.css';
 import {useLoggedInUser} from '../../context/LoggedInUser'
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
+import { useState } from 'react';
+import { ChangeRole } from '../admin/ChangeRole';
 
 const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView }) => {
+  const [isopen, setIsOpen] = useState(false)
   const userLoggedIn = useLoggedInUser().user
-  const isAdmin = userLoggedIn?.role === 'ADMIN'
+  const isAdmin = userLoggedIn?.role === 'TEACHER'
   console.log(userLoggedIn)
   const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = user
 
@@ -66,11 +68,21 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView
                     </div>
                     <p>"{biography}"</p>
                 </div>
-                {isAdmin && <EditForm
+                {isAdmin ? <Button variant='outlined' onClick={() => setIsOpen(true)}>
+                  Account Informations</Button> :
+                (!profileView) && <EditForm
                     user={user}
                     handleSubmit={handleSubmit}
                     handleChange={handleChange}
-                />}
+                />
+              }
+            </div>
+            <div>
+              
+                <Dialog open={isopen}>
+                  <ChangeRole setIsOpen={setIsOpen} user={user}/>
+                </Dialog>
+                
             </div>
             {role !== 'TEACHER' && <StudentList setUser={setUser} setProfileView={setProfileView} />}
         </>
