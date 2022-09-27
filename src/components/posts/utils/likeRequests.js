@@ -14,6 +14,31 @@ export function deleteLike(setPostResponse, postId) {
     .catch(e => console.error);
 }
 
-export function createCommentLike(setCommentRes, commentId) {}
+export function createCommentLike(
+  setPostResponse,
+  postId,
+  commentId,
+  setLikesCount
+) {
+  client
+    .post(`/post/${postId}/comment/${commentId}/like`)
+    .then(res => {
+      console.log(res);
+      setLikesCount(res.data.data.like.commentLikes);
+    })
+    .catch(e => console.error);
+}
 
-export function deleteCommentLike(setCommentRes, commentId) {}
+export function deleteCommentLike(
+  setPostResponse,
+  postId,
+  commentId,
+  setLikesCount
+) {
+  client
+    .delete(`/post/${postId}/comment/${commentId}/like`)
+    .then(res => {
+      setPostResponse(res.data);
+    })
+    .catch(e => console.error);
+}
