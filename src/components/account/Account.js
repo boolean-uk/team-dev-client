@@ -26,10 +26,10 @@ const Account = () => {
   const loggedInUser = useLoggedInUser().user
   const location = useLocation()
   const isAdmin = loggedInUser.role === 'TEACHER'
-
-  console.log(location, loggedInUser)
+  const isOwner = loggedInUser.id === user.id
+  console.log(isOwner)
   useEffect(() => {
-    if (location.state) {
+    if (location?.state?.user) {
       setUser(location.state.user)
     }
     else {
@@ -90,14 +90,17 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {isAdmin? 
+      {isAdmin && 
         <>
-          <ChangeUserRole />
-        </> : 
+          <ChangeUserRole/>
+        </>
+      }
         <>
+        { (isAdmin & isOwner) ? (
           <EditDetails
             handleUpdate={handleUpdate}
           />
+        ) : <></>}
           {updateEmailError && (
             <Alert severity="error">New email is the same as current</Alert>
           )}
@@ -106,7 +109,6 @@ const Account = () => {
             <Alert severity="success">Email changed successfully</Alert>
           )}
         </>
-      }
     </>
   );
 };
