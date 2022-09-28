@@ -22,13 +22,12 @@ const PostsPage = ({ getUserId }) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log('postResponse', postResponse);
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if (!token) {
       return;
     }
-    const decoded = jwt_decode(token);
 
+    const decoded = jwt_decode(token);
     let id = decoded.userId;
 
     client

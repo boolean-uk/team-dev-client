@@ -9,30 +9,21 @@ import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 import CommentReplyForm from './CommentReplyForm';
 import Replies from './Replies';
 
-const CommentItem = ({
-  showingAll,
-  userId,
-  post,
-  comment,
-  setUser,
-  setPostResponse,
-}) => {
+const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserId = userId();
+
     for (let i = 0; i < comment.likes.length; i++) {
       if (getUserId === comment.likes[i].userId) {
         return setIsLiked(true);
       }
     }
+
     setIsLiked(false);
   }, [comment, userId]);
-
-  const navigate = useNavigate();
-
-  // const [showingAll, setShowingAll] = useState(false);
-
 
   const handleClick = e => {
     client
