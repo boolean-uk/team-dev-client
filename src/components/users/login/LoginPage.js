@@ -10,16 +10,16 @@ import client from '../../../utils/client';
 const LoginPage = () => {
   const location = useLocation()
   const [user, setUser] = useState(userBlankData());
-  const [loginResponse, setLoginResponse] = useState({
+  const [successLogin, setSuccessLogin] = useState({
     data: { token: '', user: {} },
   });
   let navigate = useNavigate();
-  const [loginError, setLoginError] = useState(false);
+  const [errorLogin, setErrorLogin] = useState(false);
 
   useEffect(() => {
     const loadedToken =
       localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || '';
-    setLoginResponse({ data: { token: loadedToken } });
+    setSuccessLogin({ data: { token: loadedToken } });
   }, []);
 
   const loginUser = event => {
@@ -32,7 +32,7 @@ const LoginPage = () => {
           res.data.data.token
         );
 
-        setLoginResponse(res.data);
+        setSuccessLogin(res.data);
 
         navigate('../posts', {
           replace: true,
@@ -40,9 +40,9 @@ const LoginPage = () => {
       })
       .catch(err => {
         console.error(err.response);
-        setLoginError(true);
+        setErrorLogin(true);
         setTimeout(() => {
-          setLoginError(false);
+          setErrorLogin(false);
         }, '2000');
       });
   };
@@ -69,12 +69,12 @@ const LoginPage = () => {
         login
       </Link>
       <h1>Login</h1>
-      <p>Status: {loginResponse.status}</p>
+      <p>Status: {successLogin.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
       {location.state !== null && location.state.token === 'expired' && (
         <Alert severity="error">Your session has expired. Please login again.</Alert>
       )}
-      {loginError && (
+      {errorLogin && (
         <Alert severity="error">Email or Password is incorrect</Alert>
       )}
     </div>

@@ -18,17 +18,17 @@ function createData(key, value) {
 }
 
 const Account = () => {
-  const [updateEmailError, setUpdateEmailError] = useState(false);
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
-  const [user, setUser] = useState({})
-  const loggedInUser = useLoggedInUser().user
+  const [errorEmailUpdate, setErrorEmailUpdate] = useState(false);
+  const [user, setUser] = useState({});
+  const loggedInUser = useLoggedInUser().user;
 
   useEffect(() => {
-    setUser(loggedInUser)
-  }, [loggedInUser])
+    setUser(loggedInUser);
+  }, [loggedInUser]);
 
-
-  const handleUpdate = (newEmail) => {
+  const handleUpdate = newEmail => {
+    // console.log(newEmail)
     const reqBody = { email: newEmail };
     const userId = user.id;
     if (userId === null) {
@@ -47,15 +47,12 @@ const Account = () => {
 
       .catch(err => {
         console.error(err.response);
-        setUpdateEmailError(true);
-
+        setErrorEmailUpdate(true);
         setTimeout(() => {
-          setUpdateEmailError(false);
+          setErrorEmailUpdate(false);
         }, '3000');
       });
   };
-
-
 
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
@@ -80,17 +77,21 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditDetails
-        handleUpdate={handleUpdate}
-      />
-      {updateEmailError && (
-        <Alert sx={{ maxWidth: '40%', margin: 'auto' }} severity="error">
+      <EditDetails handleUpdate={handleUpdate} />
+      {errorEmailUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
           That email address is already registered
         </Alert>
       )}
 
       {successEmailUpdate && (
-        <Alert sx={{ maxWidth: '40%', margin: 'auto' }} severity="success">
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="success"
+        >
           Email changed successfully
         </Alert>
       )}

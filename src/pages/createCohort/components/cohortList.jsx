@@ -113,7 +113,7 @@ const CohortList = ({ header }) => {
                     </Button>
                     {successCohortName && (
                       <Alert
-                        sx={{ maxWidth: '400px', margin: 'auto' }}
+                        sx={{ maxWidth: 'fit-content', margin: 'auto' }}
                         severity="success"
                       >
                         Cohort name updated successfully.
@@ -121,7 +121,7 @@ const CohortList = ({ header }) => {
                     )}
                     {errorCohortName && (
                       <Alert
-                        sx={{ maxWidth: '400px', margin: 'auto' }}
+                        sx={{ maxWidth: 'fit-content', margin: 'auto' }}
                         severity="error"
                       >
                         Cohort not updated, please provide a name.

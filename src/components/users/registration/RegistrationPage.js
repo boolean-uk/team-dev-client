@@ -12,8 +12,8 @@ const RegistrationPage = () => {
   const location = useLocation();
 
   const [user, setUser] = useState(userBlankData());
-  const [registerResponse, setRegisterResponse] = useState('');
-  const [emailError, setEmailError] = useState(test());
+  const [successRegisterUser, setSuccessRegisterUser] = useState('');
+  const [errorMissingEmail, setErrorMissingEmail] = useState(test());
 
   let navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const RegistrationPage = () => {
     event.preventDefault();
     client
       .post('/user', user, false)
-      .then(res => {setRegisterResponse(res.data); 
+      .then(res => {setSuccessRegisterUser(res.data); 
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
           res.data.data.token);
@@ -48,9 +48,9 @@ const RegistrationPage = () => {
 
       .catch(err => {
         console.error(err.response);
-        setEmailError(true);
+        setErrorMissingEmail(true);
         setTimeout(() => {
-          setEmailError(false);
+          setErrorMissingEmail(false);
         }, '3000');
 
 
@@ -83,12 +83,12 @@ const RegistrationPage = () => {
         login
       </Link>
       <h1>Sign up</h1>
-      {emailError && (
+      {errorMissingEmail && (
         <Alert severity="error">
           An account has already been registered with this email
         </Alert>
       )}
-      <p>Status: {registerResponse.status}</p>
+      <p>Status: {successRegisterUser.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={registerUser} />
     </div>
   );

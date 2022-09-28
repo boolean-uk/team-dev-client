@@ -15,7 +15,7 @@ const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({})
   const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = userDisplayed
   const [ successProfileUpdate, setSuccessProfileUpdate ] = useState(false)
-  const [ updateProfileError, setUpdateProfileError ] = useState(false)
+  const [ errorProfileUpdate, setErrorProfileUpdate ] = useState(false)
   const userLoggedIn = useLoggedInUser().user
   let isOwner = false
 
@@ -46,9 +46,16 @@ const Profile = () => {
       .then(res => {
         setUserDisplayed(res.data.data.user)
           setSuccessProfileUpdate(true);
+          setTimeout(() => {
+            setSuccessProfileUpdate(false);
+          }, '3000');
       })
-      .catch(err => console.error(err.response));
-        setUpdateProfileError(false);
+      .catch(err => 
+        console.error(err.response));
+        setErrorProfileUpdate(true);
+        setTimeout(() => {
+          setErrorProfileUpdate(false);
+        }, '3000');
   };
 
   return (
@@ -79,12 +86,12 @@ const Profile = () => {
       </div>
       {role !== 'TEACHER' && <StudentList />}
               {successProfileUpdate && (
-          <Alert sx={{ maxWidth: '300px', margin: 'auto' }} severity="success">
+          <Alert sx={{ maxWidth: 'fit-content', margin: 'auto' }} severity="success">
             Profile updated successfully
           </Alert>
         )}
-        {updateProfileError && (
-          <Alert sx={{ maxWidth: '300px', margin: 'auto' }} severity="error">
+        {errorProfileUpdate && (
+          <Alert sx={{ maxWidth: 'fit-content', margin: 'auto' }} severity="error">
             Profile not updated   
           </Alert>
         )}
