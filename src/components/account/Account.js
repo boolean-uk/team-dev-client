@@ -12,6 +12,8 @@ import EditDetails from './EditDetails';
 import client from '../../utils/client';
 import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
+import { useLocation } from 'react-router-dom';
+import ChangeUserRole from '../admin/ChangeUserRole';
 import PrivacyMenu from './PrivacyMenu';
 
 function createData(key, value) {
@@ -21,8 +23,11 @@ function createData(key, value) {
 const Account = () => {
   const [updateEmailError, setUpdateEmailError] = useState(false);
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
-  const [user, setUser] = useState({})
-  const loggedInUser = useLoggedInUser().user
+  const [user, setUser] = useState({});
+  const loggedInUser = useLoggedInUser().user;
+  const location = useLocation();
+  const isAdmin = loggedInUser.role === 'ADMIN';
+  const isOwner = loggedInUser.id === user.id;
 
   useEffect(() => {
     setUser(loggedInUser)
@@ -55,8 +60,6 @@ const Account = () => {
         }, '3000');
       });
   };
-
-
 
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
@@ -96,16 +99,26 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditDetails
-        handleUpdate={handleUpdate}
-      />
       {updateEmailError && (
         <Alert severity="error">New email is the same as current</Alert>
       )}
-
       {successEmailUpdate && (
         <Alert severity="success">Email changed successfully</Alert>
       )}
+      <div className="btns__container">
+        {(isAdmin & !isOwner) ? (
+          <div>
+            <ChangeUserRole setUser={setUser} user={user}/>
+          </div>
+        ) : <></>}
+        <>
+          {isOwner ? (
+            <EditDetails handleUpdate={handleUpdate} />
+          ) : (
+            <></>
+          )}
+        </>
+      </div>
     </>
   );
 };

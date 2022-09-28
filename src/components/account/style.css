@@ -10,3 +10,9 @@
 .table-container h1 {
   margin: 1rem;
 }
+
+.btns__container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
