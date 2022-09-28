@@ -2,9 +2,11 @@ import { Avatar, Divider, IconButton, Paper, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 import { createComment } from './utils/createComment';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
-const CommentForm = ({ setPostResponse, post, user }) => {
+const CommentForm = ({ setPostResponse, post }) => {
   const [commentValue, setCommentValue] = useState('');
+  const userLoggedIn = useLoggedInUser().user
 
   const handleCommentInput = e => {
     setCommentValue(e.target.value);
@@ -19,7 +21,7 @@ const CommentForm = ({ setPostResponse, post, user }) => {
   return (
     <form className="comment-form" onSubmit={handleCommentSubmit}>
       <Avatar
-        src={user.profile_image_url}
+        src={userLoggedIn.profile_image_url}
         alt="user avatar"
         sx={{ width: 35, height: 35 }}
       />

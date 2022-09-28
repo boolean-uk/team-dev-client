@@ -4,7 +4,6 @@ export function createLike(setPostResponse, postId) {
   client
     .post(`/post/${postId}/like`)
     .then(res => {
-      console.log('like', res);
       setPostResponse(res.data);
     })
     .catch(e => console.error);
@@ -21,7 +20,6 @@ export function createCommentLike(setPostResponse, postId, commentId) {
   client
     .post(`/post/${postId}/comment/${commentId}/like`)
     .then(res => {
-      console.log('res', res);
       setPostResponse(res.data);
     })
     .catch(e => console.error);

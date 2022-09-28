@@ -26,9 +26,10 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
-      .then(res => setUser(res.data.data.user))
+      .then(res =>
+        navigate('/profile', { state: { user: res.data.data.user } })
+      )
       .catch(err => console.error(err.response));
-    navigate('/profile');
   };
 
   const handleLike = () => {
