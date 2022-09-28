@@ -6,8 +6,15 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
+import PostComments from './PostComments';
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentItem = ({
+  userId,
+  post,
+  comment,
+  setPostResponse,
+  margin = 0,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
@@ -41,35 +48,50 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   };
 
   return (
-    <li className="comment-item">
-      <div className="comment-avatar">
-        <Avatar
-          src={comment.user.profile.profileImageUrl}
-          alt="profile"
-          sx={{ width: 35, height: 35 }}
+    <>
+      <li
+        className="comment-item"
+        style={{
+          marginLeft: margin,
+          borderLeft: '1px solid lightgray',
+          paddingLeft: 10,
+        }}
+      >
+        <div className="comment-avatar">
+          <Avatar
+            src={comment.user.profile.profileImageUrl}
+            alt="profile"
+            sx={{ width: 35, height: 35 }}
+          />
+        </div>
+        <div className="comment-content-wrap">
+          <h4 onClick={handleClick} className="post-owner-name">
+            {comment.user.profile.firstName} {comment.user.profile.lastName}
+          </h4>
+          <p className="createdAt-time">
+            &#183; {formatTime(comment.createdAt)}
+          </p>
+          <p className="comment-content">{comment.content}</p>
+        </div>
+        <div className="comment-like-wrap">
+          <Checkbox
+            label="like"
+            checked={isLiked}
+            icon={<ThumbUpOutlinedIcon />}
+            checkedIcon={<ThumbUpIcon />}
+            onClick={handleLike}
+          />
+          <div className="count">{comment.likes.length}</div>
+        </div>
+      </li>
+      {comment?.replies?.length && (
+        <PostComments
+          comments={comment.replies}
+          margin={margin + 20}
+          {...{ userId, post, setPostResponse }}
         />
-      </div>
-      <div className="comment-content-wrap">
-        <h4 onClick={handleClick} className="post-owner-name">
-          {comment.user.profile.firstName} {comment.user.profile.lastName}
-        </h4>
-        <p className="createdAt-time">
-          {' '}
-          &#183; {formatTime(comment.createdAt)}
-        </p>
-        <p className="comment-content">{comment.content}</p>
-      </div>
-      <div className="comment-like-wrap">
-        <Checkbox
-          label="like"
-          checked={isLiked}
-          icon={<ThumbUpOutlinedIcon />}
-          checkedIcon={<ThumbUpIcon />}
-          onClick={handleLike}
-        />
-        <div className="count">{comment.likes.length}</div>
-      </div>
-    </li>
+      )}
+    </>
   );
 };
 

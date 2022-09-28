@@ -1,6 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import CommentItem from './CommentItem';
+import PostComments from './PostComments';
 import FilterMenu from './utils/filterMenu';
+
+const formatData = comments => {
+  const map = new Map();
+  const commentsWithReplies = [];
+
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+    comment.replies = [];
+
+    map.set(comment.id, i);
+
+    if (comment.parentId) {
+      const parentIndex = map.get(comment.parentId);
+      comments[parentIndex].replies.push(comment);
+
+      continue;
+    }
+
+    commentsWithReplies.push(comment);
+  }
+
+  return commentsWithReplies;
+};
 
 const Comments = ({
   userId,
@@ -12,9 +36,10 @@ const Comments = ({
 }) => {
   const [sortType, setSortType] = useState('Most Recent');
   const [comments, setComments] = useState(post.comments);
-
+  console.log(comments);
   useEffect(() => {
-    setComments(post.comments);
+    const formattedData = formatData(post.comments);
+    setComments(formattedData);
 
     if (sortType === 'Most Recent') {
       setComments(prev =>
@@ -44,23 +69,17 @@ const Comments = ({
                 userId={userId}
                 post={post}
                 comment={comments[0]}
-                setUser={setUser}
-                showingAll={showingAll}
                 setPostResponse={setPostResponse}
               />
             )
-          : comments.length > 0 &&
-            comments.map((comment, index) => (
-              <CommentItem
-                showingAll={showingAll}
+          : comments.length > 0 && (
+              <PostComments
                 userId={userId}
                 post={post}
-                comment={comment}
-                key={index}
-                setUser={setUser}
+                comments={comments}
                 setPostResponse={setPostResponse}
               />
-            ))}
+            )}
       </ul>
       {comments.length > 1 && (
         <p className="comments-show-all" onClick={handleShowAll}>
