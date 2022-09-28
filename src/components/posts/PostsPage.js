@@ -11,9 +11,11 @@ import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const PostsPage = ({ getUserId }) => {
-  const [post, setPost] = useState({ content: '', isPrivate: true });
+  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false
+  const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
@@ -22,7 +24,6 @@ const PostsPage = ({ getUserId }) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log('postResponse', postResponse);
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if (!token) {
       return;
@@ -40,7 +41,8 @@ const PostsPage = ({ getUserId }) => {
       })
       .catch(err => console.error(err));
     renderPosts(setPosts, setPostsOfTheWeek);
-  }, [postResponse]);
+    setPost({...post, isPrivate: postPref})
+  }, [postResponse, postPref]);
 
   const createPost = async event => {
     event.preventDefault();
