@@ -48,7 +48,7 @@ const Profile = () => {
           setSuccessProfileUpdate(true);
       })
       .catch(err => console.error(err.response));
-        setUpdateProfileError(true);
+        setUpdateProfileError(false);
   };
 
   return (
@@ -79,13 +79,13 @@ const Profile = () => {
       </div>
       {role !== 'TEACHER' && <StudentList />}
               {successProfileUpdate && (
-          <Alert sx={{ maxWidth: '40%', margin: 'auto' }} severity="success">
+          <Alert sx={{ maxWidth: '300px', margin: 'auto' }} severity="success">
             Profile updated successfully
           </Alert>
         )}
         {updateProfileError && (
-          <Alert sx={{ maxWidth: '40%', margin: 'auto' }} severity="error">
-            Profile not updated
+          <Alert sx={{ maxWidth: '300px', margin: 'auto' }} severity="error">
+            Profile not updated   
           </Alert>
         )}
     </>

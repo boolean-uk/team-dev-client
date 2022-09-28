@@ -17,8 +17,6 @@ const RegistrationPage = () => {
 
   let navigate = useNavigate();
 
-
-
   function test() {
     let existingEmail = location.state
 
