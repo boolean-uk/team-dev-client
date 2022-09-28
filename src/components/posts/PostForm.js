@@ -1,5 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import ToggleSwitch from './utils/ToggleSwitch';
+const switchLabel = 'Post private'
 
 const PostForm = ({ handleSubmit, handleChange, value }) => {
   return (
@@ -11,9 +13,10 @@ const PostForm = ({ handleSubmit, handleChange, value }) => {
           label='New Post'
           variant='outlined'
           name='content'
-          value={value}
+          value={value.content}
           onChange={handleChange}
         />
+        <ToggleSwitch val={value} name='isPrivate' labelText={switchLabel} handleChange={handleChange} />
         <Button type='submit' variant='contained'>
           Submit
         </Button>

@@ -13,7 +13,7 @@ import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
 
 const PostsPage = ({ getUserId }) => {
-  const [post, setPost] = useState({ content: '' });
+  const [post, setPost] = useState({ content: '', isPrivate: true });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
@@ -48,7 +48,7 @@ const PostsPage = ({ getUserId }) => {
       .post('/post', post)
       .then(res => setPostResponse(res.data))
       .then(() => {
-        setPost({ content: '' });
+        setPost({ ...post, content: '' });
       })
       .catch(err => {
         console.error(err.response);
@@ -61,12 +61,20 @@ const PostsPage = ({ getUserId }) => {
   };
 
   const handleChange = event => {
-    event.preventDefault();
-    const { value } = event.target;
-    setPost({
-      ...post,
-      content: value,
-    });
+    if (event.target.name === 'content') {
+      event.preventDefault();
+      const { value } = event.target;
+      setPost({
+        ...post,
+        content: value,
+      });
+    } 
+    if (event.target.name === 'switch') {
+      setPost({
+        ...post,
+        isPrivate: !post.isPrivate,
+      });
+    }
   };
 
   const signOut = event => {
@@ -90,7 +98,7 @@ const PostsPage = ({ getUserId }) => {
         <PostForm
           handleSubmit={createPost}
           handleChange={handleChange}
-          value={post.content}
+          value={post}
         />
 
         <PostsOfTheWeek
