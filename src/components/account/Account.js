@@ -25,7 +25,7 @@ const Account = () => {
   const [user, setUser] = useState({});
   const loggedInUser = useLoggedInUser().user;
   const location = useLocation();
-  const isAdmin = loggedInUser.role === 'TEACHER';
+  const isAdmin = loggedInUser.role === 'ADMIN';
   const isOwner = loggedInUser.id === user.id;
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const Account = () => {
         <Alert severity="success">Email changed successfully</Alert>
       )}
       <div className="btns__container">
-        {isAdmin && (
+        {(isAdmin & !isOwner) && (
           <div>
             <ChangeUserRole />
           </div>

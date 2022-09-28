@@ -31,7 +31,7 @@ const Profile = () => {
     }
   }, [location, userLoggedIn])
 
-  const isAdmin = userLoggedIn?.role === 'TEACHER';
+  const isAdmin = userLoggedIn?.role === 'ADMIN';
 
   if (userLoggedIn.id === userDisplayed.id) {
     isOwner = true;

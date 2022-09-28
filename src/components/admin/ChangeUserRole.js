@@ -12,7 +12,6 @@ const ChangeUserRole = () => {
   const location = useLocation()
   const userLocation = location?.state?.user
   const [user, setUser] = useState(userLocation)
-  const path = `/admin/user/${user?.id}`
   
   const handleDialogShow = () => {
     setIsOpen(!isOpen)
@@ -25,7 +24,7 @@ const ChangeUserRole = () => {
   
   const handleSubmit = () => {
     client
-      .patch(path, { role: value })
+      .put(`/admin/user/${user.id}`, { role: value })
       .then(res => {
         const user = res.data
         setRoleChanged(true)
