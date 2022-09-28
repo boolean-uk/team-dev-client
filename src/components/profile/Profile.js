@@ -100,7 +100,7 @@ const Profile = ({ getLoggedInUserId, user, setUser, profileView, setProfileView
         )}
         {updateProfileError && (
           <Alert sx={{ maxWidth: '40%', margin: 'auto' }} severity="error">
-            Error
+            Profile not updated
           </Alert>
         )}
       </>
