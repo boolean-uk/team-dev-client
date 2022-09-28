@@ -26,8 +26,8 @@ const PostsPage = ({ getUserId }) => {
     if (!token) {
       return;
     }
-    const decoded = jwt_decode(token);
 
+    const decoded = jwt_decode(token);
     let id = decoded.userId;
 
     client
@@ -100,23 +100,21 @@ const PostsPage = ({ getUserId }) => {
           setPostResponse={setPostResponse}
         />
 
-        {
-          posts?.length > 0 ? (
-            <ul className='posts-list'>
-              {posts?.map((post, index) => (
-                <PostItem
-                  post={post}
-                  key={index}
-                  userId={getUserId}
-                  setPost={setPost}
-                  setPostResponse={setPostResponse}
-                />
-              ))}
-            </ul>
-          ) : (
-            <p className='no-posts-message'>There are no posts at the moment.</p>
-          )
-        }
+        {posts?.length > 0 ? (
+          <ul className="posts-list">
+            {posts?.map((post, index) => (
+              <PostItem
+                post={post}
+                key={index}
+                userId={getUserId}
+                setPost={setPost}
+                setPostResponse={setPostResponse}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
       </section>
       {!isTeacherorAdmin && <StudentList />}
     </>

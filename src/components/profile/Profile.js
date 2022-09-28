@@ -24,12 +24,12 @@ const Profile = () => {
   let isOwner = false;
   
   useEffect(() => {
-    setUserDisplayed(location.state.user);
-  }, [location]);
-
-  if (userLoggedIn.id === userDisplayed.id) {
-    isOwner = true;
-  }
+    if (location.state) {
+      setUserDisplayed(location.state.user)
+    } else {
+      setUserDisplayed(userLoggedIn)
+    }
+  }, [location, userLoggedIn])
 
   const isAdmin = userLoggedIn?.role === 'TEACHER';
 
