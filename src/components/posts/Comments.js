@@ -12,33 +12,23 @@ const Comments = ({
 }) => {
   const [sortType, setSortType] = useState('Most Recent');
   const [comments, setComments] = useState(post.comments);
-  console.log('comments', comments);
+
   useEffect(() => {
     setComments(post.comments);
-    handleSorting();
-    // eslint-disable-next-line
-  }, [sortType, post]);
 
-  const handleSorting = () => {
     if (sortType === 'Most Recent') {
-      setComments(
-        [...post.comments].sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+      setComments(curr =>
+        [...curr].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
     }
     if (sortType === 'Oldest') {
-      setComments(
-        [...post.comments].sort((a, b) => {
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        })
+      setComments(curr =>
+        [...curr].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       );
     }
-  };
+  }, [sortType, post]);
 
-  const handleShowAll = () => {
-    setShowingAll(!showingAll);
-  };
+  const handleShowAll = () => setShowingAll(!showingAll);
 
   return (
     <div className="comments-section">
