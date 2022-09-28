@@ -13,6 +13,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const getUserId = userId();
 
@@ -41,6 +42,8 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
       createCommentLike(setPostResponse, post.id, comment.id);
     }
   };
+
+
 
   return (
     <li className="comment-item">

@@ -7,8 +7,6 @@ const Replies = ({ post, comment }) => {
   const [comments, setComments] = useState(comment.replies)
   const [showingAll, setShowingAll] = useState(false);
 
-  console.log('comment', comment)
-
 
   useEffect(() => {
     setComments(comment.replies)
@@ -32,6 +30,7 @@ const Replies = ({ post, comment }) => {
   const handleShowAll = () => {
     setShowingAll(!showingAll)
   }
+
 
   return (
     <div className="comments-section">

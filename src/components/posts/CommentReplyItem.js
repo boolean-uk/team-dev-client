@@ -4,6 +4,7 @@ import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
 
 const CommentReplyItem = ({ comment }) => {
+
   const navigate = useNavigate();
 
   const handleClick = e => {

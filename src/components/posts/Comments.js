@@ -16,6 +16,7 @@ const Comments = ({
   useEffect(() => {
     setComments(post.comments);
 
+
     if (sortType === 'Most Recent') {
       setComments(prev =>
         [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -29,6 +30,9 @@ const Comments = ({
   }, [sortType, post]);
 
   const handleShowAll = () => setShowingAll(!showingAll);
+
+  // console.log('comments in commentJs', post.comments)
+
 
   return (
     <div className="comments-section">
