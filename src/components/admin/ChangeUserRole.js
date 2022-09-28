@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Dialog, DialogContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ClickAwayListener } from '@mui/material'
 import { useState } from 'react'
-import './style.css'
 import client from '../../utils/client';
 import { useLocation } from 'react-router-dom';
 

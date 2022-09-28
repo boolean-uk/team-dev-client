@@ -22,23 +22,21 @@ function createData(key, value) {
 const Account = () => {
   const [updateEmailError, setUpdateEmailError] = useState(false);
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
-  const [user, setUser] = useState({})
-  const loggedInUser = useLoggedInUser().user
-  const location = useLocation()
-  const isAdmin = loggedInUser.role === 'TEACHER'
-  const isOwner = loggedInUser.id === user.id
-  console.log(isOwner)
+  const [user, setUser] = useState({});
+  const loggedInUser = useLoggedInUser().user;
+  const location = useLocation();
+  const isAdmin = loggedInUser.role === 'TEACHER';
+  const isOwner = loggedInUser.id === user.id;
+  console.log(isOwner);
   useEffect(() => {
     if (location?.state?.user) {
-      setUser(location.state.user)
+      setUser(location.state.user);
+    } else {
+      setUser(loggedInUser);
     }
-    else {
-    setUser(loggedInUser)
-    }
-  }, [loggedInUser, location])
+  }, [loggedInUser, location]);
 
-
-  const handleUpdate = (newEmail) => {
+  const handleUpdate = newEmail => {
     const reqBody = { email: newEmail };
     const userId = user.id;
     if (userId === null) {
@@ -65,8 +63,6 @@ const Account = () => {
       });
   };
 
-
-
   const info = Object.entries(user);
   const rows = info.map(([key, val]) => createData(key, val));
 
@@ -90,17 +86,18 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {isAdmin && 
+      <div className="edit_details__">
+        {isAdmin && (
+          <div>
+            <ChangeUserRole />
+          </div>
+        )}
         <>
-          <ChangeUserRole/>
-        </>
-      }
-        <>
-        { (isAdmin & isOwner) ? (
-          <EditDetails
-            handleUpdate={handleUpdate}
-          />
-        ) : <></>}
+          {isAdmin & isOwner ? (
+            <EditDetails handleUpdate={handleUpdate} />
+          ) : (
+            <></>
+          )}
           {updateEmailError && (
             <Alert severity="error">New email is the same as current</Alert>
           )}
@@ -109,6 +106,7 @@ const Account = () => {
             <Alert severity="success">Email changed successfully</Alert>
           )}
         </>
+      </div>
     </>
   );
 };
