@@ -22,6 +22,8 @@ import { LikesView } from './LikesView';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
+import VerticalDotMenu from './utils/VerticalDotMenu';
+import LockIcon from '@mui/icons-material/Lock';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -158,6 +160,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
             <h3 onClick={handleClick} className="post-owner-name">
               {post.user.profile.firstName} {post.user.profile.lastName}
             </h3>
+            {post.isPrivate && <LockIcon fontSize='small' color='disabled' />}
           </div>
           <div>
             {post.isPostOfTheWeek ? (
@@ -180,6 +183,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
             ) : (
               <div className="hot-topic-placeholder"></div>
             )}
+            {isOwner && <VerticalDotMenu post={post} setPostResponse={setPostResponse} />}
             <p className="createdAt-time">{formatTime(post.createdAt)}</p>
           </div>
         </div>

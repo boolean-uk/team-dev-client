@@ -84,6 +84,12 @@
   cursor: pointer;
 }
 
+.post-vertical-menu {
+  position: absolute;
+  top: 1.25rem;
+  right: 0rem;
+}
+
 .btn-likes-wrap {
   display: flex;
   justify-content: space-between;
