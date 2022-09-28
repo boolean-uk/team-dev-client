@@ -5,13 +5,13 @@ import client from '../../utils/client';
 import './style.css'
 import { useLocation } from 'react-router-dom';
 
-const ChangeUserRole = () => {
+const ChangeUserRole = ({ setUser, user }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [value, setValue] = useState('')
-  const [roleChanged, setRoleChanged] = useState(false)
+  const [roleChangedSuccess, setRoleChangedSuccess] = useState(false)
+  const [roleChangedError, setRoleChangedError] = useState(false)
   const location = useLocation()
   const userLocation = location?.state?.user
-  const [user, setUser] = useState(userLocation)
   
   const handleDialogShow = () => {
     setIsOpen(!isOpen)
@@ -24,18 +24,30 @@ const ChangeUserRole = () => {
   
   const handleSubmit = () => {
     client
-      .put(`/admin/user/${user.id}`, { role: value })
+      .put(`/admin/user/${userLocation.id}`, { role: value })
       .then(res => {
-        const user = res.data
-        setRoleChanged(true)
-        setUser(user)
+        const role = res.data.data.role
+        const updatedUser = {
+          ...user,
+          role
+        }
+        setRoleChangedSuccess(true)
+        setUser(updatedUser)
 
         setTimeout(() => {
-          setRoleChanged(false)
+          setRoleChangedSuccess(false)
           setIsOpen(false)
           setValue('')
         }, '2500');
       })
+      .catch(err => {
+        console.error(err.response);
+        setRoleChangedError(true);
+
+        setTimeout(() => {
+          setRoleChangedError(false);
+        }, '2500');
+      });
   }
 
   return (
@@ -44,7 +56,12 @@ const ChangeUserRole = () => {
         Change Role
       </Button>
         <Dialog open={isOpen}>
-          {roleChanged && 
+          {roleChangedError &&
+            <Alert severity='error'>
+              Unable to change the Role
+            </Alert>
+          }
+          {roleChangedSuccess && 
             <Alert severity="success">
               Role changed successfully
             </Alert>

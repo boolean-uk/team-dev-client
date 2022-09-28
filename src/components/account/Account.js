@@ -36,6 +36,7 @@ const Account = () => {
     }
   }, [loggedInUser, location]);
 
+  
   const handleUpdate = newEmail => {
     const reqBody = { email: newEmail };
     const userId = user.id;
@@ -93,13 +94,13 @@ const Account = () => {
         <Alert severity="success">Email changed successfully</Alert>
       )}
       <div className="btns__container">
-        {(isAdmin & !isOwner) && (
+        {(isAdmin & !isOwner) ? (
           <div>
-            <ChangeUserRole />
+            <ChangeUserRole setUser={setUser} user={user}/>
           </div>
-        )}
+        ) : <></>}
         <>
-          {isAdmin & isOwner ? (
+          {isOwner ? (
             <EditDetails handleUpdate={handleUpdate} />
           ) : (
             <></>
