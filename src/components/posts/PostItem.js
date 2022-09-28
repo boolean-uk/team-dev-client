@@ -247,11 +247,10 @@ const PostItem = ({ post, userId, setPostResponse, setPost }) => {
       </div>
 
       <div className="comment-wrap">
-        <CommentForm
-          setPostResponse={setPostResponse}
-          post={post}
-        />
+        <CommentForm setPostResponse={setPostResponse} post={post} />
         <Comments
+          userId={userId}
+          setUser={setUser}
           post={post}
           showingAll={showingAll}
           setShowingAll={setShowingAll}
