@@ -12,6 +12,7 @@ import EditDetails from './EditDetails';
 import client from '../../utils/client';
 import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
+import PrivacyMenu from './PrivacyMenu';
 
 function createData(key, value) {
   return { key, value };
@@ -28,8 +29,8 @@ const Account = () => {
   }, [loggedInUser])
 
 
-  const handleUpdate = (newEmail) => {
-    const reqBody = { email: newEmail };
+  const handleUpdate = (reqData) => {
+    const reqBody = reqData.includes('@') ? { email: reqData } : { postPrivacyPref: reqData }
     const userId = user.id;
     if (userId === null) {
       return;
@@ -71,10 +72,25 @@ const Account = () => {
                 key={row.key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.key}
-                </TableCell>
-                <TableCell align="right">{row.value}</TableCell>
+                { row.key === 'postPrivacyPref'  ?
+                  <>
+                    <TableCell component="th" scope="row">
+                    Post Visibility Preference
+                    </TableCell>
+                    <TableCell align="right" sx={{ float: 'right' }} >
+                      <PrivacyMenu user={user} handleUpdate={handleUpdate} />
+                    </TableCell>
+                  </>
+                :
+                  <>
+                    <TableCell component="th" scope="row">
+                      {row.key}
+                    </TableCell>
+                    <TableCell align="right">
+                      {row.value}
+                    </TableCell>
+                  </>
+                }
               </TableRow>
             ))}
           </TableBody>
