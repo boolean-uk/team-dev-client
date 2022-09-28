@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 
-const StudentList = ({ setUser, setProfileView }) => {
+const StudentList = () => {
     const navigate = useNavigate()
     const [cohortId, setCohortId] = useState()
     const [listOfStudents, setListOfStudents] = useState([])
@@ -45,9 +45,7 @@ const StudentList = ({ setUser, setProfileView }) => {
     };
 
     const handleClick = (u) => {
-        setUser(u)
-        setProfileView(true)
-        navigate('/profile')
+        navigate('/profile', { state: { user: u } })
     }
 
     return (

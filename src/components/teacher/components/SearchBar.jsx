@@ -28,7 +28,7 @@ function SearchBar() {
       .then(res => {
 
         const users = res.data.data.users;
-  
+
         const foundUser = users.filter(user =>
           user.first_name.toLowerCase().includes(inputText.value.toLowerCase())
         );
@@ -36,18 +36,18 @@ function SearchBar() {
         setSearchResult(foundUser);
       })
 
-      .catch(err => console.log(err.response));
+      .catch(err => console.error(err.response));
   };
 
-  const routeChange = id => {
-    localStorage.setItem('id', id);
-    let path = `/user/${id}/profile`;
-    navigate(path);
+  const routeChange = user => {
+    localStorage.setItem('id', user.id);
+    let path = `/user/${user.id}/profile`;
+    navigate(path, { state: { user } });
   };
 
   return (
     <div className='search__container'>
-      <Box 
+      <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -77,7 +77,7 @@ function SearchBar() {
               <li key={index}>
                 {user.first_name} {''}
                 {user.last_name} {''}
-                <Button onClick={() => routeChange(user.id)}>Profile</Button>
+                <Button onClick={() => routeChange(user)}>Profile</Button>
               </li>
             );
           })}

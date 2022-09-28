@@ -33,11 +33,11 @@ const likesToBeHotTopic = 10;
 
 const theme = createTheme({
   typography: {
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });
 
-const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setProfileView }) => {
+const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -125,10 +125,8 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
   const handleClick = (e, id = post.userId) => {
     client
       .get(`/user/${id}`)
-      .then(res => setUser(res.data.data.user))
-      .then(() => {
-        setProfileView(true)
-        navigate('/profile')
+      .then(res => {
+        navigate('/profile', { state: { user: res.data.data.user } });
       })
       .catch(err => console.error(err.response));
   };
@@ -142,16 +140,16 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
     }
   };
 
-  let liClasses = 'post-item'
+  let liClasses = 'post-item';
   if (post.isPostOfTheWeek) {
-    liClasses += ' post-of-the-week'
+    liClasses += ' post-of-the-week';
   }
 
   return (
     <li className={liClasses}>
-      <div className='post-wrap'>
-        <div className='post-header-wrap'>
-          <div className='post-profile-wrap'>
+      <div className="post-wrap">
+        <div className="post-header-wrap">
+          <div className="post-profile-wrap">
             <Avatar
               src={post.user.profile.profileImageUrl}
               alt="profile"
@@ -162,25 +160,27 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
             </h3>
           </div>
           <div>
-            {post.isPostOfTheWeek ?
-              <Chip size='medium'
-                color='warning'
+            {post.isPostOfTheWeek ? (
+              <Chip
+                size="medium"
+                color="warning"
                 icon={<GradeIcon size="medium" />}
                 label={'Post of the Week'}
-                variant='outlined'
+                variant="outlined"
                 theme={theme}
               />
-              :
-              (
-                post.likes.length >= likesToBeHotTopic ?
-                  <Chip size='small'
-                    color='error'
-                    icon={<LocalFireDepartmentOutlinedIcon />}
-                    label='Hot Topic'
-                    variant='outlined'
-                  /> : <div className='hot-topic-placeholder'></div>
-              )}
-            <p className='createdAt-time'>{formatTime(post.createdAt)}</p>
+            ) : post.likes.length >= likesToBeHotTopic ? (
+              <Chip
+                size="small"
+                color="error"
+                icon={<LocalFireDepartmentOutlinedIcon />}
+                label="Hot Topic"
+                variant="outlined"
+              />
+            ) : (
+              <div className="hot-topic-placeholder"></div>
+            )}
+            <p className="createdAt-time">{formatTime(post.createdAt)}</p>
           </div>
         </div>
 
@@ -218,23 +218,27 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
           ) : (
             <div></div>
           )}
-          <div className='like-wrap'>
-            <LikesView post={post} setOpenDialog={setOpenDialog} openDialog={openDialog} handleClick={handleClick} />
-            <AvatarGroup onClick={(e) => handleGroupAvatars(e)} max={6}>
-              {
-                post.likes.map((like, i) => {
-                  return (
-                    <Avatar
-                      key={i}
-                      sx={{ cursor: 'pointer' }}
-                      total={post.likes.length}
-                      onClick={(e) => handleClick(e, like.user.id)}
-                      size='small'
-                      alt={like.user.profile.firstName}
-                      src={like.user.profile.profileImageUrl} />
-                  )
-                })
-              }
+          <div className="like-wrap">
+            <LikesView
+              post={post}
+              setOpenDialog={setOpenDialog}
+              openDialog={openDialog}
+              handleClick={handleClick}
+            />
+            <AvatarGroup onClick={e => handleGroupAvatars(e)} max={6}>
+              {post.likes.map((like, i) => {
+                return (
+                  <Avatar
+                    key={i}
+                    sx={{ cursor: 'pointer' }}
+                    total={post.likes.length}
+                    onClick={e => handleClick(e, like.user.id)}
+                    size="small"
+                    alt={like.user.profile.firstName}
+                    src={like.user.profile.profileImageUrl}
+                  />
+                );
+              })}
             </AvatarGroup>
             <Checkbox
               label="like"
@@ -249,16 +253,14 @@ const PostItem = ({ post, userId, setPostResponse, setPost, setUser, user, setPr
       </div>
 
       <div className="comment-wrap">
-        <CommentForm
-          setPostResponse={setPostResponse}
-          post={post}
-          user={user}
-        />
+        <CommentForm setPostResponse={setPostResponse} post={post} />
         <Comments
+          userId={userId}
           setUser={setUser}
           post={post}
           showingAll={showingAll}
           setShowingAll={setShowingAll}
+          setPostResponse={setPostResponse}
         />
       </div>
     </li>
