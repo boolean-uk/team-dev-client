@@ -17,13 +17,13 @@ const Comments = ({
     setComments(post.comments);
 
     if (sortType === 'Most Recent') {
-      setComments(curr =>
-        [...curr].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      setComments(prev =>
+        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
     }
     if (sortType === 'Oldest') {
-      setComments(curr =>
-        [...curr].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      setComments(prev =>
+        [...prev].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       );
     }
   }, [sortType, post]);
