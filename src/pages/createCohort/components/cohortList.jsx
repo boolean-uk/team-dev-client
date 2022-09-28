@@ -1,6 +1,7 @@
 import { Button, Card, IconButton } from '@mui/material';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Alert } from '@mui/material';
 import client from '../../../utils/client';
 import './style.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -11,8 +12,8 @@ const CohortList = ({ header }) => {
   const [cohorts, setCohorts] = useState([]);
   const [expand, setExpand] = useState('');
   const [newCohortName, setNewCohortName] = useState('');
-  const [updateCohortNameRes, setUpdateCohortRes] = useState(false);
-  const [error, setError] = useState(false);
+  const [successCohortName, setCohortName] = useState(false);
+  const [errorCohortName, setErrorCohortName] = useState(false);
 
   useEffect(() => {
     client
@@ -26,16 +27,16 @@ const CohortList = ({ header }) => {
   const updateCohortName = event => {
     event.preventDefault();
     if (!newCohortName) {
-      setError(true);
+      setErrorCohortName(true);
       setTimeout(() => {
-        setError(false);
+        setErrorCohortName(false);
       }, 3000);
     } else {
       client
         .patch(`/cohort/${event.target.id}`, { name: newCohortName }, true)
         .then(res => {
           if (res.data.status === 'success') {
-            setUpdateCohortRes(true);
+            setCohortName(true);
           }
         })
         .then(
@@ -51,7 +52,7 @@ const CohortList = ({ header }) => {
       setNewCohortName('');
 
       setTimeout(() => {
-        setUpdateCohortRes(false);
+        setCohortName(false);
       }, 3000);
     }
   };
@@ -66,11 +67,11 @@ const CohortList = ({ header }) => {
     return (
       <div className="cohort-teacher-view">
         {cohorts.map(cohort => {
-            return (
-              <Card key={cohort.id} className="cohort-view">
-                { cohort.name ? `Name: ${cohort.name}` : `ID: ${cohort.id}` }
-              </Card>
-            );
+          return (
+            <Card key={cohort.id} className="cohort-view">
+              {cohort.name ? `Name: ${cohort.name}` : `ID: ${cohort.id}`}
+            </Card>
+          );
         })}
       </div>
     );
@@ -110,8 +111,22 @@ const CohortList = ({ header }) => {
                     >
                       submit
                     </Button>
-                    {updateCohortNameRes === true && <p>successful</p>}
-                    {error === true && <p>please enter a valid name!</p>}
+                    {successCohortName && (
+                      <Alert
+                        sx={{ maxWidth: '400px', margin: 'auto' }}
+                        severity="success"
+                      >
+                        Cohort name updated successfully.
+                      </Alert>
+                    )}
+                    {errorCohortName && (
+                      <Alert
+                        sx={{ maxWidth: '400px', margin: 'auto' }}
+                        severity="error"
+                      >
+                        Cohort not updated, please provide a name.
+                      </Alert>
+                    )}
                     <br></br>
                     <Link to={`/cohort/${cohort.id}`} key={cohort.id}>
                       <Button
