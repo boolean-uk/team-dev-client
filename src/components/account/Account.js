@@ -27,7 +27,6 @@ const Account = () => {
   const location = useLocation();
   const isAdmin = loggedInUser.role === 'TEACHER';
   const isOwner = loggedInUser.id === user.id;
-  
 
   useEffect(() => {
     if (location?.state?.user) {
@@ -93,7 +92,7 @@ const Account = () => {
       {successEmailUpdate && (
         <Alert severity="success">Email changed successfully</Alert>
       )}
-      <div className="edit_details__">
+      <div className="btns__container">
         {isAdmin && (
           <div>
             <ChangeUserRole />

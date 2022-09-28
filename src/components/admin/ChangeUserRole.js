@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Dialog, DialogContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ClickAwayListener } from '@mui/material'
+import { Button, Dialog, DialogContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ClickAwayListener, Alert } from '@mui/material'
 import { useState } from 'react'
 import client from '../../utils/client';
+import './style.css'
 import { useLocation } from 'react-router-dom';
 
 const ChangeUserRole = () => {
@@ -9,24 +10,33 @@ const ChangeUserRole = () => {
   const [value, setValue] = useState('')
   const [roleChanged, setRoleChanged] = useState(false)
   const location = useLocation()
-  const user = location?.state?.user
+  const userLocation = location?.state?.user
+  const [user, setUser] = useState(userLocation)
   const path = `/admin/user/${user?.id}`
   
   const handleDialogShow = () => {
     setIsOpen(!isOpen)
+    setValue('')
   }
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
   
-  const handleSubmit = (e) => {
-    user.role = value
-    console.log(user)
-    // client
-    //   .patch(path, { role: value })
-    //   .then(res => console.log(res))
+  const handleSubmit = () => {
+    client
+      .patch(path, { role: value })
+      .then(res => {
+        const user = res.data
+        setRoleChanged(true)
+        setUser(user)
 
+        setTimeout(() => {
+          setRoleChanged(false)
+          setIsOpen(false)
+          setValue('')
+        }, '2500');
+      })
   }
 
   return (
@@ -35,6 +45,11 @@ const ChangeUserRole = () => {
         Change Role
       </Button>
         <Dialog open={isOpen}>
+          {roleChanged && 
+            <Alert severity="success">
+              Role changed successfully
+            </Alert>
+          }
           <ClickAwayListener onClickAway={handleDialogShow}>
             <DialogContent>
                 <h1>Change Role</h1>
@@ -51,14 +66,13 @@ const ChangeUserRole = () => {
                     <FormControlLabel value="TEACHER" control={<Radio />} label="TEACHER" />
                     <FormControlLabel value="STUDENT" control={<Radio />} label="STUDENT" />
                   </RadioGroup>
-                  <div className='change_role__submit_button'>
-                    <Button variant='contained' onClick={handleSubmit}>Update</Button>
+                  <div className='admin_btn_update'>
+                    <Button variant='contained' sx={{ padding: '0.5rem 2rem' }} onClick={handleSubmit}>Update</Button>
                   </div>
                 </FormControl>
             </DialogContent>
           </ClickAwayListener>
         </Dialog>
-    
     </>
   )
 }

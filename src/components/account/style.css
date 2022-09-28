@@ -11,7 +11,7 @@
   margin: 1rem;
 }
 
-.edit_details__ {
+.btns__container {
   display: flex;
   justify-content: center;
   gap: 10px;
