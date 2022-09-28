@@ -32,7 +32,7 @@ const ChangeUserRole = () => {
   return (
     <>
       <Button variant='outlined' onClick={handleDialogShow}>
-        ChangeRole
+        Change Role
       </Button>
         <Dialog open={isOpen}>
           <ClickAwayListener onClickAway={handleDialogShow}>
