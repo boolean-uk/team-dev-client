@@ -18,7 +18,6 @@ describe("User Login Logout", () => {
       cy.get('input[name=password]').type('test12')
       cy.get('input[name=biography]').type('a long bio')
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
-      cy.get('[value="STUDENT"]').first().check()
       cy.get('#user-submit-button').click()
 
       cy.get('#user-login-link').click()
@@ -41,7 +40,6 @@ describe("User Login Logout", () => {
       cy.get('input[name=password]').type('test12')
       cy.get('input[name=biography]').type('a long bio')
       cy.get('input[name=github_url]').type('https://github.com/dearshrewdwit')
-      cy.get('[value="STUDENT"]').first().check()
       cy.get('#user-submit-button').click()
 
       cy.get('#user-login-link').click()

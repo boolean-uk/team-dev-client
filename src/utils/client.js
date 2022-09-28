@@ -41,6 +41,16 @@ const client = {
 
     return axios.delete(url, { headers });
   },
+
+  put: (path, data, withToken = true) => {
+    const url = `${host}${path}`
+    let headers = {}
+    if (withToken) {
+    headers = {
+      Authorization: `Bearer ${localStorage.getItem(tokenKey)}`
+    }}
+    return axios.put(url, data, { headers })
+  }
 };
 
 export default client;

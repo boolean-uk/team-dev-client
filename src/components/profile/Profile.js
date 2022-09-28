@@ -1,21 +1,28 @@
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
+import { Button, Avatar, Link } from '@mui/material';
 import './style.css';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useLoggedInUser } from '../../context/LoggedInUser';
+import { useState, useEffect } from 'react';
 
 const Profile = () => {
-  const location = useLocation()
-  const [userDisplayed, setUserDisplayed] = useState({})
-  const { first_name, last_name, biography, github_url, cohort_id, profile_image_url, role } = userDisplayed
-  const userLoggedIn = useLoggedInUser().user
-  let isOwner = false
-
+  const [userDisplayed, setUserDisplayed] = useState({});
+  const userLoggedIn = useLoggedInUser().user;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {
+    first_name,
+    last_name,
+    biography,
+    github_url,
+    cohort_id,
+    profile_image_url,
+    role,
+  } = userDisplayed;
+  let isOwner = false;
+  
   useEffect(() => {
     if (location.state) {
       setUserDisplayed(location.state.user)
@@ -24,7 +31,13 @@ const Profile = () => {
     }
   }, [location, userLoggedIn])
 
-  const handleSubmit = (newInfo) => {
+  const isAdmin = userLoggedIn?.role === 'ADMIN';
+
+  if (userLoggedIn.id === userDisplayed.id) {
+    isOwner = true;
+  }
+
+  const handleSubmit = newInfo => {
     const reqBody = {
       firstName: newInfo.first_name,
       lastName: newInfo.last_name,
@@ -41,22 +54,27 @@ const Profile = () => {
     client
       .patch('/user/myprofile', reqBody)
       .then(res => {
-        setUserDisplayed(res.data.data.user)
+        setUserDisplayed(res.data.data.user);
       })
       .catch(err => console.error(err.response));
   };
 
+  const handleAdminClick = () => {
+    navigate('/account', { state: { user: userDisplayed } });
+  };
 
   return (
     <>
-      <div className='profile'>
+      <div className="profile">
         <Avatar
           alt="Profile Pic"
           sx={{ width: 325, height: 325, border: '#4b4b56 solid 5px' }}
           src={profile_image_url}
         />
-        <h1>{first_name} {last_name}</h1>
-        <div className='profile-info'>
+        <h1>
+          {first_name} {last_name}
+        </h1>
+        <div className="profile-info">
           <div>
             <p>Cohort: {cohort_id === null ? 'N/A' : cohort_id}</p>
             <Link
@@ -67,16 +85,18 @@ const Profile = () => {
               My GitHub
             </Link>
           </div>
-          <p>"{biography}"</p>
+          <p>{biography}</p>
         </div>
-        {isOwner && <EditForm
-          handleSubmit={handleSubmit}
-        />}
+        {isAdmin & !isOwner ? (
+          <Button variant="outlined" onClick={handleAdminClick}>
+            Account Informations
+          </Button>) : <></>
+        }
+        {isOwner && <EditForm handleSubmit={() => handleSubmit()} />}
       </div>
       {role !== 'TEACHER' && <StudentList />}
     </>
-  )
-}
-
+  );
+};
 
 export default Profile;
