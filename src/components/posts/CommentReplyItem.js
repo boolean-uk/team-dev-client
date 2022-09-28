@@ -1,16 +1,10 @@
 import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
-import CommentReplyForm from './CommentReplyForm';
-import Replies from './Replies';
 
-const CommentItem = ({ post, setPostResponse, comment }) => {
+const CommentReplyItem = ({ comment }) => {
   const navigate = useNavigate();
-
-  const [showingAll, setShowingAll] = useState(false);
-
 
   const handleClick = e => {
     client
@@ -36,22 +30,8 @@ const CommentItem = ({ post, setPostResponse, comment }) => {
         <p className='createdAt-time'> &#183; {formatTime(comment.createdAt)}</p>
         <p className='comment-content'>{comment.content}</p>
       </div>
-      <div className="comment-wrap">
-        <CommentReplyForm
-          setPostResponse={setPostResponse}
-          post={post}
-          comment={comment}
-        />
-        <Replies
-          post={post}
-          showingAll={showingAll}
-          setShowingAll={setShowingAll}
-          setPostResponse={setPostResponse}
-          comment={comment}
-        />
-      </div>
     </li>
   );
 };
 
-export default CommentItem;
+export default CommentReplyItem;
