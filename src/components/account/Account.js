@@ -13,6 +13,7 @@ import client from '../../utils/client';
 import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import { useLocation } from 'react-router-dom';
+import ChangeUserRole from '../admin/ChangeUserRole';
 
 function createData(key, value) {
   return { key, value };
@@ -24,6 +25,8 @@ const Account = () => {
   const [user, setUser] = useState({})
   const loggedInUser = useLoggedInUser().user
   const location = useLocation()
+  const isAdmin = loggedInUser.role === 'TEACHER'
+
   console.log(location, loggedInUser)
   useEffect(() => {
     if (location.state) {
@@ -87,16 +90,23 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditDetails
-        handleUpdate={handleUpdate}
-      />
-      {updateEmailError && (
-        <Alert severity="error">New email is the same as current</Alert>
-      )}
+      {isAdmin? 
+        <>
+          <ChangeUserRole />
+        </> : 
+        <>
+          <EditDetails
+            handleUpdate={handleUpdate}
+          />
+          {updateEmailError && (
+            <Alert severity="error">New email is the same as current</Alert>
+          )}
 
-      {successEmailUpdate && (
-        <Alert severity="success">Email changed successfully</Alert>
-      )}
+          {successEmailUpdate && (
+            <Alert severity="success">Email changed successfully</Alert>
+          )}
+        </>
+      }
     </>
   );
 };
