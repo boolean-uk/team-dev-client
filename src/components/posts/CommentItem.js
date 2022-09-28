@@ -1,6 +1,5 @@
 import { Avatar, Checkbox } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -32,7 +31,7 @@ const CommentItem = ({
 
   const navigate = useNavigate();
 
-  const [showingAll, setShowingAll] = useState(false);
+  // const [showingAll, setShowingAll] = useState(false);
 
 
   const handleClick = e => {
@@ -89,8 +88,6 @@ const CommentItem = ({
         />
         <Replies
           post={post}
-          showingAll={showingAll}
-          setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
           comment={comment}
         />

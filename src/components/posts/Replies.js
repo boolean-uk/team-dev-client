@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import CommentReplyItem from './CommentReplyItem'
 import FilterMenu from './utils/filterMenu'
 
-const Replies = ({ post, showingAll, setShowingAll, comment }) => {
+const Replies = ({ post, comment }) => {
   const [sortType, setSortType] = useState('Most Recent')
   const [comments, setComments] = useState(comment.replies)
+  const [showingAll, setShowingAll] = useState(false);
 
   console.log('comment', comment)
 
