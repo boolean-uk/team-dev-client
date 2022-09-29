@@ -13,12 +13,14 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [thisUserId, setThisUserId] = useState(0);
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUserId = userId();
+    setThisUserId(getUserId);
 
     for (let i = 0; i < comment.likes.length; i++) {
       if (getUserId === comment.likes[i].userId) {
@@ -103,30 +105,32 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
         <p className="comment-content">{comment.content}</p>
       </div>
       <div className="comment-nav-wrap">
-        <div className="edit-button-form-wrap">
-          {editCommentStatus.length > 0 && <TryAgain />}
-          {isEditing && (
-            <>
-              <TextField
-                label="enter your new comment"
-                variant="outlined"
-                size="small"
-                onChange={createNewComment}
-              />
-              <Button
-                className="submit-edited-comment"
-                onClick={submitNewComment}
-              >
-                <ArrowUpwardIcon />
+        {thisUserId === comment.userId && (
+          <div className="edit-button-form-wrap">
+            {editCommentStatus.length > 0 && <TryAgain />}
+            {isEditing && (
+              <>
+                <TextField
+                  label="enter your new comment"
+                  variant="outlined"
+                  size="small"
+                  onChange={createNewComment}
+                />
+                <Button
+                  className="submit-edited-comment"
+                  onClick={submitNewComment}
+                >
+                  <ArrowUpwardIcon />
+                </Button>
+              </>
+            )}
+            {!isEditing && (
+              <Button className="edit-button-icon" onClick={editcomment}>
+                <EditIcon />
               </Button>
-            </>
-          )}
-          {!isEditing && (
-            <Button className="edit-button-icon" onClick={editcomment}>
-              <EditIcon />
-            </Button>
-          )}
-        </div>
+            )}
+          </div>
+        )}
         <div className="delete-button">
           <Button className="delete-button-icon">
             <DeleteIcon />
