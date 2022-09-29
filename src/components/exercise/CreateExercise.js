@@ -41,6 +41,7 @@ const CreateExercise = () => {
                 {Array(objectives).fill('Quack').map((_, i) => {
                     return (
                         <TextField
+                            key={i}
                             id="standard-basic"
                             label={`Objective ${i + 1}`}
                             variant="standard"

@@ -11,3 +11,25 @@
     border-radius: 3px;
     border: #4b4b56 solid 5px;
 }
+
+.exercise-list {
+    width: 400px;
+}
+
+.exercise {
+    margin-top: 1rem;
+    border: #4b4b56 solid 1px;
+    padding: 1rem;
+    width: 400px;
+    border-radius: 3px;
+}
+
+.exercise h1 {
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.objective {
+    display: flex;
+    align-items: center;
+}
