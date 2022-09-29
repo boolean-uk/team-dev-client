@@ -1,12 +1,14 @@
-import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
 import client from '../../../utils/client';
-import InputBase from '@mui/material/InputBase';
+import {
+  Dialog,
+  TextField, Button
+} from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './style.css'
+import './style.css';
 
 function SearchBar() {
+  const [open, setOpen] = useState(false)
   const [inputText, setInputText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -15,25 +17,21 @@ function SearchBar() {
   // handle the text input to search bar
   const handleChange = event => {
     event.preventDefault();
-    const { value } = event.target;
-    setInputText({
-      value,
-    });
+    const value = event.target.value;
+
+    setInputText(value);
+
   };
 
   // handle onclick of button
   const submitSearch = () => {
+    setOpen(true)
     client
-      .get(`/users`)
+      .get(`/users?firstName=${inputText}`)
       .then(res => {
-
         const users = res.data.data.users;
 
-        const foundUser = users.filter(user =>
-          user.first_name.toLowerCase().includes(inputText.value.toLowerCase())
-        );
-
-        setSearchResult(foundUser);
+        setSearchResult(users);
       })
 
       .catch(err => console.error(err.response));
@@ -46,31 +44,19 @@ function SearchBar() {
   };
 
   return (
-    <div className='search__container'>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignContent: 'center',
-          border: '1px solid black',
-          borderRadius: '0.3rem',
-          marginLeft: '1rem'
-        }}
-      >
-        <Box sx={{ backgroundColor: 'white' }}>
-          <InputBase
-            onChange={handleChange}
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Box>
-        <Box>
-          <Button onClick={submitSearch} variant="contained">
-            Search User
-          </Button>
-        </Box>
-      </Box>
-      <Box>
+    <div className="search__container">
+      <TextField
+        variant='outlined'
+        label='Search..'
+        value={inputText}
+        onChange={handleChange}
+      />
+      <Button
+        variant='contained'
+        onClick={submitSearch}>
+        Search
+      </Button>
+      <Dialog>
         <ul>
           {searchResult.map((user, index) => {
             return (
@@ -82,9 +68,25 @@ function SearchBar() {
             );
           })}
         </ul>
-      </Box>
+      </Dialog>
     </div>
   );
 }
 
 export default SearchBar;
+
+// searchResult.map((user, i) => {
+//   return (
+//     <ListItem key={i}>
+//       <ListItemAvatar>
+//         <Avatar
+//           src={user.profile.profileImageUrl}
+//           alt={user.profile.firstName}
+//         />
+//       </ListItemAvatar>
+//       <ListItemText
+//         primary={`${user.profile.firstName} ${user.profile.lastName}`}
+//       />
+//     </ListItem>
+//   );
+// })
