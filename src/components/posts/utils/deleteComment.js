@@ -6,5 +6,5 @@ export function deleteComment(setPostResponse, postId, commentId) {
     .then(res => {
       setPostResponse(res.data);
     })
-    .catch(() => console.log('Unable to delete comment'));
+    .catch(() => console.error('Unable to delete comment'));
 }
