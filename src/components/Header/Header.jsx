@@ -35,7 +35,7 @@ const Header = ({ companyName }) => {
     // eslint-disable-next-line
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (location) => {
     const userId = userLoggedIn.id;
     if (userId === null) {
       return;
@@ -43,15 +43,16 @@ const Header = ({ companyName }) => {
     client
       .get(`/user/${userId}`)
       .then(res => {
-        navigate('/profile', { state: { user: userLoggedIn } })
+        navigate(`/${location}`, { state: { user: userLoggedIn } })
       })
       .catch(err => console.error(err));
   }
 
   return (
     <>
-      {authError && (
-        <Alert severity="success">This user cannot be found</Alert>
+    {authError && (
+        <Alert severity="error">This user cannot be found</Alert>
+
       )}
       <Box
         sx={{
@@ -72,9 +73,9 @@ const Header = ({ companyName }) => {
         <Box>
           <Stack spacing={2} direction="row">
             <Button variant="contained" href="/posts">Posts</Button>
-            <Button variant="contained" onClick={handleClick}>Profile</Button>
+            <Button variant="contained" onClick={() => handleClick('profile')}>Profile</Button>
             <Button variant="contained" href="/">Logout</Button>
-            <Button href="/account"><Avatar src={userLoggedIn.profile_image_url} /></Button>
+            <Button onClick={() => handleClick('account')}><Avatar src={userLoggedIn.profile_image_url} /></Button>
           </Stack>
         </Box>
       </Box>

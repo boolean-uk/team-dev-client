@@ -14,6 +14,8 @@ import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
 import ViewCohort from './pages/viewCohort';
 import LoggedInUserProvider from './context/LoggedInUser';
+import Exercise from './components/exercise/Exercise';
+import CreateExercise from './components/exercise/CreateExercise';
 
 function App() {
   const navigate = useNavigate();
@@ -87,6 +89,8 @@ function App() {
             }
           />
         </Route>
+        <Route path='/exercise' element={<Exercise />} />
+        <Route path='/exercise/create' element={<CreateExercise />} />
       </Routes>
     </div>
   );

@@ -4,7 +4,7 @@ import client from '../../../utils/client';
 import InputBase from '@mui/material/InputBase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './style.css'
+import './style.css';
 
 function SearchBar() {
   const [inputText, setInputText] = useState('');
@@ -26,8 +26,8 @@ function SearchBar() {
     client
       .get(`/users`)
       .then(res => {
-
         const users = res.data.data.users;
+        console.log('Users', users);
 
         const foundUser = users.filter(user =>
           user.first_name.toLowerCase().includes(inputText.value.toLowerCase())
@@ -46,7 +46,7 @@ function SearchBar() {
   };
 
   return (
-    <div className='search__container'>
+    <div className="search__container">
       <Box
         sx={{
           display: 'flex',
@@ -54,20 +54,26 @@ function SearchBar() {
           alignContent: 'center',
           border: '1px solid black',
           borderRadius: '0.3rem',
-          marginLeft: '1rem'
+          marginLeft: '1rem',
         }}
       >
         <Box sx={{ backgroundColor: 'white' }}>
+          <form>
           <InputBase
-            onChange={handleChange}
+            value={inputText}
             placeholder="Search…"
+            onChange={handleChange}
+            required
             inputProps={{ 'aria-label': 'search' }}
           />
-        </Box>
-        <Box>
-          <Button onClick={submitSearch} variant="contained">
+          <Button 
+            type='submit'
+            onClick={submitSearch} variant="contained">
             Search User
           </Button>
+          </form>
+        </Box>
+        <Box>
         </Box>
       </Box>
       <Box>

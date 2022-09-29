@@ -11,9 +11,11 @@ import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const PostsPage = ({ getUserId }) => {
-  const [post, setPost] = useState({ content: '' });
+  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false
+  const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
@@ -40,7 +42,9 @@ const PostsPage = ({ getUserId }) => {
       })
       .catch(err => console.error(err));
     renderPosts(setPosts, setPostsOfTheWeek);
-  }, [postResponse]);
+    setPost({...post, isPrivate: postPref})
+    // eslint-disable-next-line
+  }, [postResponse, postPref]);
 
   const createPost = async event => {
     event.preventDefault();
@@ -48,7 +52,7 @@ const PostsPage = ({ getUserId }) => {
       .post('/post', post)
       .then(res => setPostResponse(res.data))
       .then(() => {
-        setPost({ content: '' });
+        setPost({ ...post, content: '' });
       })
       .catch(err => {
         console.error(err.response);
@@ -61,12 +65,20 @@ const PostsPage = ({ getUserId }) => {
   };
 
   const handleChange = event => {
-    event.preventDefault();
-    const { value } = event.target;
-    setPost({
-      ...post,
-      content: value,
-    });
+    if (event.target.name === 'content') {
+      event.preventDefault();
+      const { value } = event.target;
+      setPost({
+        ...post,
+        content: value,
+      });
+    } 
+    if (event.target.name === 'switch') {
+      setPost({
+        ...post,
+        isPrivate: !post.isPrivate,
+      });
+    }
   };
 
   const signOut = event => {
@@ -91,7 +103,7 @@ const PostsPage = ({ getUserId }) => {
         <PostForm
           handleSubmit={createPost}
           handleChange={handleChange}
-          value={post.content}
+          value={post}
         />
 
         <PostsOfTheWeek
