@@ -12,11 +12,13 @@ const EditForm = ({ handleSubmit }) => {
 
   const handleClickOpen = () => setOpen(true);
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    setNewInfo({});
+  }
 
   const handleUpdate = (event) => {
     event.preventDefault();
-
     handleSubmit(newInfo)
     handleClose()
   };

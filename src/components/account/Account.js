@@ -21,8 +21,10 @@ function createData(key, value) {
 }
 
 const Account = () => {
-  const [updateEmailError, setUpdateEmailError] = useState(false);
   const [successEmailUpdate, setSuccessEmailUpdate] = useState(false);
+  const [errorEmailUpdate, setErrorEmailUpdate] = useState(false);
+  const [successPrefUpdate, setSuccessPrefUpdate] = useState(false);
+  const [errorPrefUpdate, setErrorPrefUpdate] = useState(false);
   const [user, setUser] = useState({});
   const loggedInUser = useLoggedInUser().user;
   const location = useLocation();
@@ -49,18 +51,17 @@ const Account = () => {
       .patch('/user/myprofile', reqBody)
       .then(res => {
         setUser(res.data.data.user);
-        setSuccessEmailUpdate(true);
+        reqBody.email ? setSuccessEmailUpdate(true) : setSuccessPrefUpdate(true)
         setTimeout(() => {
-          setSuccessEmailUpdate(false);
+          reqBody.email ? setSuccessEmailUpdate(false) : setSuccessPrefUpdate(false)
         }, '3000');
       })
 
       .catch(err => {
         console.error(err.response);
-        setUpdateEmailError(true);
-
+        reqBody.email ? setErrorEmailUpdate(true) : setErrorPrefUpdate(true)  
         setTimeout(() => {
-          setUpdateEmailError(false);
+          reqBody.email ? setErrorEmailUpdate(false) : setErrorPrefUpdate(false)
         }, '3000');
       });
   };
@@ -79,51 +80,68 @@ const Account = () => {
                 key={row.key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                { row.key === 'postPrivacyPref'
-                  ?
-                    <TableCell component="th" scope="row">
+                {row.key === 'postPrivacyPref' ? (
+                  <TableCell component="th" scope="row">
                     Post Visibility Preference
-                    </TableCell>
-                  :
-                    <TableCell component="th" scope="row">
-                      {row.key}
-                    </TableCell>
-                }
-                {
-                  (isOwner || isAdmin) && (row.key === 'postPrivacyPref')
-                  ?
-                    <TableCell align="right" sx={{ float: 'right' }} >
-                        <PrivacyMenu user={user} handleUpdate={handleUpdate} />
-                    </TableCell>
-                  :
-                    <TableCell align="right">
-                        {row.value}
-                    </TableCell>
-                }
+                  </TableCell>
+                ) : (
+                  <TableCell component="th" scope="row">
+                    {row.key}
+                  </TableCell>
+                )}
+                {(isOwner || isAdmin) && row.key === 'postPrivacyPref' ? (
+                  <TableCell align="right" sx={{ float: 'right' }}>
+                    <PrivacyMenu user={user} handleUpdate={handleUpdate} />
+                  </TableCell>
+                ) : (
+                  <TableCell align="right">{row.value}</TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {updateEmailError && (
-        <Alert severity="error">New email is the same as current</Alert>
+      {errorEmailUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          That email address is already registered
+        </Alert>
       )}
       {successEmailUpdate && (
-        <Alert severity="success">Email changed successfully</Alert>
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="success"
+        >
+          Email changed successfully
+        </Alert>
+      )}
+      {errorPrefUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          Your post privacy has not been updated
+        </Alert>
+      )}
+      {successPrefUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="success"
+        >
+          Your post privacy has been updated
+        </Alert>
       )}
       <div className="btns__container">
-        {(isAdmin && !isOwner) ? (
+        {isAdmin && !isOwner ? (
           <div>
-            <ChangeUserRole setUser={setUser} user={user}/>
+            <ChangeUserRole setUser={setUser} user={user} />
           </div>
-        ) : <></>}
-        <>
-          {isOwner ? (
-            <EditDetails handleUpdate={handleUpdate} />
-          ) : (
-            <></>
-          )}
-        </>
+        ) : (
+          <></>
+        )}
+        <>{isOwner ? <EditDetails handleUpdate={handleUpdate} /> : <></>}</>
       </div>
     </>
   );

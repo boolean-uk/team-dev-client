@@ -50,8 +50,9 @@ const Header = ({ companyName }) => {
 
   return (
     <>
-      {authError && (
-        <Alert severity="success">This user cannot be found</Alert>
+    {authError && (
+        <Alert severity="error">This user cannot be found</Alert>
+
       )}
       <Box
         sx={{
