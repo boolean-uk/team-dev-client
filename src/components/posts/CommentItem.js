@@ -84,7 +84,7 @@ const CommentItem = ({
           <div className="count">{comment.likes.length}</div>
         </div>
       </li>
-      {comment?.replies?.length && (
+      {comment?.replies?.length > 0 && (
         <PostComments
           comments={comment.replies}
           margin={margin + 20}

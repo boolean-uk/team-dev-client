@@ -84,7 +84,7 @@ const Comments = ({
       {comments.length > 1 && (
         <p className="comments-show-all" onClick={handleShowAll}>
           {!showingAll
-            ? `Show All Comments (${comments.length})`
+            ? `Show All Comments (${post.comments.length})`
             : 'Hide Comments'}
         </p>
       )}
