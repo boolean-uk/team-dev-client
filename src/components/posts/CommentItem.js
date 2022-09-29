@@ -143,97 +143,77 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             {' '}
             &#183; {formatTime(comment.createdAt)}
           </p>
-          <p className="comment-content">{comment.content}</p>
-        </div>
-        <div className="comment-like-wrap">
-          <Checkbox
-            label="like"
-            checked={isLiked}
-            icon={<ThumbUpOutlinedIcon />}
-            checkedIcon={<ThumbUpIcon />}
-            onClick={handleLike}
-          />
-          <div className="count">{comment.likes.length}</div>
-        </div>
-      </div>
-      <div className="comment-content-wrap">
-        <h4 onClick={handleClick} className="post-owner-name">
-          {comment.user.profile.firstName} {comment.user.profile.lastName}
-        </h4>
-        <p className="createdAt-time">
-          {' '}
-          &#183; {formatTime(comment.createdAt)}
-        </p>
-        {editCommentStatus.length > 0 && (
-          <div className="try-again">
-            <TryAgain />
-          </div>
-        )}
-        {isEditing ? (
-          <>
-            <div className="edit-content-wrap">
-              <TextField
-                fullWidth
-                defaultValue={comment.content}
-                variant="outlined"
-                size="small"
-                onChange={createNewComment}
-              ></TextField>
-              <Button
-                className="submit-edited-comment"
-                onClick={submitNewComment}
-              >
-                <ArrowUpwardIcon />
-              </Button>
-              <Button
-                className="cancel-edit"
-                onClick={() => {
-                  setIsEditing(false);
-                }}
-              >
-                <ClearIcon />
-              </Button>
+          {editCommentStatus.length > 0 && (
+            <div className="try-again">
+              <TryAgain />
             </div>
-          </>
-        ) : (
-          <p className="comment-content">{comment.content}</p>
-        )}
-      </div>
-      <div className="comment-nav-wrap">
-        {thisUserId === comment.userId && (
-          <div className="edit-button-form-wrap">
-            {!isEditing && (
-              <Button className="edit-button-icon" onClick={editcomment}>
-                <EditIcon />
+          )}
+          {isEditing ? (
+            <>
+              <div className="edit-content-wrap">
+                <TextField
+                  fullWidth
+                  defaultValue={comment.content}
+                  variant="outlined"
+                  size="small"
+                  onChange={createNewComment}
+                ></TextField>
+                <Button
+                  className="submit-edited-comment"
+                  onClick={submitNewComment}
+                >
+                  <ArrowUpwardIcon />
+                </Button>
+                <Button
+                  className="cancel-edit"
+                  onClick={() => {
+                    setIsEditing(false);
+                  }}
+                >
+                  <ClearIcon />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <p className="comment-content">{comment.content}</p>
+          )}
+        </div>
+        <div className="comment-nav-wrap">
+          {thisUserId === comment.userId && (
+            <div className="edit-button-form-wrap">
+              {!isEditing && (
+                <Button className="edit-button-icon" onClick={editcomment}>
+                  <EditIcon />
+                </Button>
+              )}
+            </div>
+          )}
+          <div className="delete-button">
+            <ClickAwayListener onClickAway={resetDelBtn}>
+              <Button
+                className="delete-button-icon"
+                color={delStyle.color}
+                onClick={handleDeleteComment}
+              >
+                <DeleteIcon />
+              </Button>
+            </ClickAwayListener>
+            {confirmDeleteText && (
+              <Button variant="text" color="error" onClick={handleDeleteComment}>
+                confirm delete?
               </Button>
             )}
           </div>
-        )}
-        <div className="delete-button">
-          <ClickAwayListener onClickAway={resetDelBtn}>
-            <Button
-              className="delete-button-icon"
-              color={delStyle.color}
-              onClick={handleDeleteComment}
-            >
-              <DeleteIcon />
-            </Button>
-          </ClickAwayListener>
-          {confirmDeleteText && (
-            <Button variant="text" color="error" onClick={handleDeleteComment}>
-              confirm delete?
-            </Button>
-          )}
-        </div>
-        <div className="comment-like-wrap">
-          <Checkbox
-            label="like"
-            checked={isLiked}
-            icon={<ThumbUpOutlinedIcon />}
-            checkedIcon={<ThumbUpIcon />}
-            onClick={handleLike}
-          />
-          <div className="count">{comment.likes.length}</div>
+          <div className="comment-like-wrap">
+            <Checkbox
+              label="like"
+              checked={isLiked}
+              icon={<ThumbUpOutlinedIcon />}
+              checkedIcon={<ThumbUpIcon />}
+              onClick={handleLike}
+            />
+            <div className="count">{comment.likes.length}</div>
+          </div>
         </div>
       </div>
       <div className="comment-wrap">
