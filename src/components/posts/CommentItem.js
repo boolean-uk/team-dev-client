@@ -1,4 +1,10 @@
-import { Avatar, Button, Checkbox } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  TextField,
+  ClickAwayListener,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
@@ -8,13 +14,23 @@ import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteComment } from './utils/deleteComment';
+
+const delBtn = { color: 'info' };
+const confirmDelStyle = { color: 'error' };
 
 const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
+
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [delStyle, setDelStyle] = useState(delBtn);
+  const [confirmDeleteText, setConfirmDeleteText] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUserId = userId();
+    resetDelBtn();
 
     for (let i = 0; i < comment.likes.length; i++) {
       if (getUserId === comment.likes[i].userId) {
@@ -42,7 +58,25 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     }
   };
 
+  const resetDelBtn = () => {
+    setDelStyle(delBtn);
+    setIsDeleting(false);
+    setConfirmDeleteText(false);
+  };
+
   const editcomment = () => {};
+
+  const handleDeleteComment = () => {
+    if (!isDeleting) {
+      setDelStyle(confirmDelStyle);
+      setIsDeleting(true);
+      setConfirmDeleteText(true);
+    } else {
+      console.log();
+      deleteComment(setPostResponse, post.id, comment.id);
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <li className="comment-item">
@@ -70,9 +104,20 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           </Button>
         </div>
         <div className="delete-button">
-          <Button className="delete-button-icon">
-            <DeleteIcon />
-          </Button>
+          <ClickAwayListener onClickAway={resetDelBtn}>
+            <Button
+              className="delete-button-icon"
+              color={delStyle.color}
+              onClick={handleDeleteComment}
+            >
+              <DeleteIcon />
+            </Button>
+          </ClickAwayListener>
+          {confirmDeleteText && (
+            <Button variant="text" color="error" onClick={handleDeleteComment}>
+              confirm delete?
+            </Button>
+          )}
         </div>
         <div className="comment-like-wrap">
           <Checkbox
