@@ -63,12 +63,12 @@ import { useEffect, useState } from 'react';
             setSuccessProfileUpdate(false);
           }, '3000');
       })
-      .catch(err => 
-        console.error(err.response));
+      .catch(err => {
+        console.error(err.response);
         setErrorProfileUpdate(true);
         setTimeout(() => {
           setErrorProfileUpdate(false);
-        }, '3000');
+        }, '3000')})
   };
 
   const handleAdminClick = () => {
