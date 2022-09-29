@@ -1,0 +1,9 @@
+.MuiFormControl-root.css-1nrlq1o-MuiFormControl-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin_btn_update {
+  margin: 2rem;
+}

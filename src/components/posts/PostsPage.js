@@ -16,8 +16,8 @@ const PostsPage = ({ getUserId }) => {
   const [post, setPost] = useState({ content: '' });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
+  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
 
@@ -33,8 +33,9 @@ const PostsPage = ({ getUserId }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        if (res.data.data.user.role === 'TEACHER') {
-          setIsTeacher(true);
+        const userRole = res.data.data.user.role
+        if (userRole === 'TEACHER' || userRole === 'ADMIN') {
+          setIsTeacherorAdmin(true);
         }
       })
       .catch(err => console.error(err));
@@ -77,7 +78,7 @@ const PostsPage = ({ getUserId }) => {
 
   return (
     <>
-      {isTeacher && <TeacherAdmin />}
+      {isTeacherorAdmin && <TeacherAdmin />}
 
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
@@ -116,7 +117,7 @@ const PostsPage = ({ getUserId }) => {
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
       </section>
-      {!isTeacher && <StudentList />}
+      {!isTeacherorAdmin && <StudentList />}
     </>
   );
 };
