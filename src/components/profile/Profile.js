@@ -99,7 +99,7 @@ import { useEffect, useState } from 'react';
           </div>
           <p>{biography}</p>
         </div>
-        {isAdmin || !isOwner ? (
+        {isAdmin && !isOwner ? (
           <Button variant="outlined" onClick={handleAdminClick}>
             Account Information
           </Button>) : <></>
