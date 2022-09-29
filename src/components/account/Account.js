@@ -86,7 +86,6 @@ const Account = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditDetails handleUpdate={handleUpdate} />
       {errorEmailUpdate && (
         <Alert
           sx={{ maxWidth: 'fit-content', margin: 'auto' }}
