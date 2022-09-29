@@ -71,7 +71,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           setIsEditing(false);
         });
     }
-    setEditCommentStatus('successful');
+
     setIsEditing(false);
   };
 
