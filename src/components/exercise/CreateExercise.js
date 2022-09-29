@@ -15,8 +15,7 @@ const CreateExercise = () => {
         e.preventDefault()
         client
             .post(`/exercise`, { name, gitHubUrl, objectives: obj })
-
-        navigate('/exercise')
+            .then (() => navigate('/exercise'))
     }
 
     const editObj = (e, i) => obj[i] = e
