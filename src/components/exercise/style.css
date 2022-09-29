@@ -17,6 +17,7 @@
 }
 
 .exercise {
+    display: inline-block;
     margin-top: 1rem;
     border: #4b4b56 solid 1px;
     padding: 1rem;

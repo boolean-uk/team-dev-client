@@ -11,29 +11,28 @@ const Exercise = () => {
         client
             .get(`/exercise`)
             .then(res => setExercises(res.data.data.exercises))
-    }, []);
+    }, [exercises]);
 
     const handleClick = () => navigate('/exercise/create')
 
     const handleDelete = (id) => {
         client
             .delete(`/exercise/${id}`)
-
-        navigate('/posts')
+            .then(res => navigate('/exercise'))
     }
 
     const handleNavigate = (id) => navigate(`/exercise/${id}`, { state: { id } })
 
     return (
-        <div style={{ marginTop: '2rem' }}>
-            <Button variant="contained" color="success" onClick={handleClick}>
+        <div style={{ marginTop: '2rem', display: 'inline-block' }}>
+            <Button sx={{ marginBottom: '1rem' }} variant="contained" color="success" onClick={handleClick}>
                 Create New Exercise
             </Button>
             <List className='exercise-list'>
                 {exercises.map((e) => {
                     return (
                         <div key={e.id}>
-                            <ListItem button onClick={() => handleNavigate(e.id)}>
+                            <ListItem sx={{ cursor:'pointer' }} onClick={() => handleNavigate(e.id)}>
                                 <ListItemText primary={e.name} />
                                 <Button
                                     variant="outlined"

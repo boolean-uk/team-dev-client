@@ -26,16 +26,14 @@ function App() {
     if (userId === null) {
       return;
     }
-    client
-      .get(`/user/${userId}`)
-      .catch(err => {
-        const authMessage = err.response.data.data.authentication;
-        if (authMessage === 'Token has expired') {
-          navigate('/', { state: { token: 'expired' } });
-        } else {
-          console.error(err);
-        }
-      });
+    client.get(`/user/${userId}`).catch(err => {
+      const authMessage = err.response.data.data.authentication;
+      if (authMessage === 'Token has expired') {
+        navigate('/', { state: { token: 'expired' } });
+      } else {
+        console.error(err);
+      }
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -48,7 +46,6 @@ function App() {
     return decoded.userId;
   };
 
-
   return (
     <div className="App">
       <Routes>
@@ -58,41 +55,20 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-            element={
-              <Profile
-                getLoggedInUserId={getLoggedInUserId}
-              />
-            }
+            element={<Profile getLoggedInUserId={getLoggedInUserId} />}
           />
-          <Route
-            path="/cohort/:cohortId"
-            element={<ViewCohort />}
-          />
+          <Route path="/cohort/:cohortId" element={<ViewCohort />} />
           <Route
             path="/posts"
-            element={
-              <PostsPage
-                getUserId={getLoggedInUserId}
-              />
-            }
+            element={<PostsPage getUserId={getLoggedInUserId} />}
           />
           <Route path="/enrolment" element={<EnrolmentPage />} />
-          <Route
-            path="/profile"
-            element={
-              <Profile />
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              <Account />
-            }
-          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/exercise" element={<Exercise />} />
+          <Route path="/exercise/create" element={<CreateExercise />} />
+          <Route path="/exercise/:id" element={<ExerciseView />} />
         </Route>
-        <Route path='/exercise' element={<Exercise />} />
-        <Route path='/exercise/create' element={<CreateExercise />} />
-        <Route path='/exercise/:id' element={<ExerciseView />} />
       </Routes>
     </div>
   );
