@@ -46,33 +46,35 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
 
   return (
-    <li className="comment-item">
-      <div className="comment-avatar">
-        <Avatar
-          src={comment.user.profile.profileImageUrl}
-          alt="profile"
-          sx={{ width: 35, height: 35 }}
-        />
-      </div>
-      <div className="comment-content-wrap">
-        <h4 onClick={handleClick} className="post-owner-name">
-          {comment.user.profile.firstName} {comment.user.profile.lastName}
-        </h4>
-        <p className="createdAt-time">
-          {' '}
-          &#183; {formatTime(comment.createdAt)}
-        </p>
-        <p className="comment-content">{comment.content}</p>
-      </div>
-      <div className="comment-like-wrap">
-        <Checkbox
-          label="like"
-          checked={isLiked}
-          icon={<ThumbUpOutlinedIcon />}
-          checkedIcon={<ThumbUpIcon />}
-          onClick={handleLike}
-        />
-        <div className="count">{comment.likes.length}</div>
+    <li className='comment-list'>
+      <div className="comment-item">
+        <div className="comment-avatar">
+          <Avatar
+            src={comment.user.profile.profileImageUrl}
+            alt="profile"
+            sx={{ width: 35, height: 35 }}
+          />
+        </div>
+        <div className="comment-content-wrap">
+          <h4 onClick={handleClick} className="post-owner-name">
+            {comment.user.profile.firstName} {comment.user.profile.lastName}
+          </h4>
+          <p className="createdAt-time">
+            {' '}
+            &#183; {formatTime(comment.createdAt)}
+          </p>
+          <p className="comment-content">{comment.content}</p>
+        </div>
+        <div className="comment-like-wrap">
+          <Checkbox
+            label="like"
+            checked={isLiked}
+            icon={<ThumbUpOutlinedIcon />}
+            checkedIcon={<ThumbUpIcon />}
+            onClick={handleLike}
+          />
+          <div className="count">{comment.likes.length}</div>
+        </div>
       </div>
       <div className="comment-wrap">
         <CommentReplyForm
@@ -84,6 +86,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
+          userId={userId}
         />
       </div>
     </li>

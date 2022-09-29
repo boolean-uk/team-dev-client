@@ -75,6 +75,8 @@ export function renderPosts(setPosts, setPostsOfTheWeek) {
     const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts))
     setPostsOfTheWeek(mostPopular)
 
+    console.log('allPosts', allPosts)
+
     const postsToRender = allPosts.filter(post => !mostPopular.includes(post))
     setPosts(postsToRender);
   }).catch(err => console.error(err));

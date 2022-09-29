@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import CommentReplyItem from './CommentReplyItem'
 import FilterMenu from './utils/filterMenu'
 
-const Replies = ({ post, comment }) => {
-  const [sortType, setSortType] = useState('Most Recent')
+const Replies = ({ post, comment, userId, setPostResponse }) => {
+  const [sortType, setSortType] = useState('Most Liked')
   const [comments, setComments] = useState(comment.replies)
   const [showingAll, setShowingAll] = useState(false);
 
@@ -25,6 +25,11 @@ const Replies = ({ post, comment }) => {
         return new Date(a.createdAt) - new Date(b.createdAt)
       }));
     }
+    if (sortType === 'Most Liked') {
+        setComments([...comment.replies].sort((a, b) => {
+          return b.likes.length - a.likes.length
+        }));
+      }
   }
 
   const handleShowAll = () => {
@@ -44,14 +49,26 @@ const Replies = ({ post, comment }) => {
         {
           !showingAll
             ?
-            (comments.length >= 1 && <CommentReplyItem comment={comments[0]} />)
+            (comments.length >= 1 && 
+                <CommentReplyItem
+                    userId={userId}
+                    post={post}
+                    comment={comments[0]}
+                    showingAll={showingAll}
+                    setPostResponse={setPostResponse} 
+                />
+            )
             :
             (
               comments.length > 0 &&
               (comments.map((comment, index) => (
                 <CommentReplyItem
-                  comment={comment}
-                  key={index}
+                    showingAll={showingAll}
+                    userId={userId}
+                    post={post}
+                    comment={comment}
+                    key={index}
+                    setPostResponse={setPostResponse}
                 />
               )))
             )
@@ -63,9 +80,9 @@ const Replies = ({ post, comment }) => {
           {
             !showingAll
               ?
-              `Show All Comments (${comments.length})`
+              `Show All Replies (${comments.length})`
               :
-              'Hide Comments'
+              'Hide Replies'
           }
         </p>
       }
