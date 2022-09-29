@@ -109,6 +109,8 @@
 
   display: flex;
   flex-direction: row;
+  align-self: auto;
+  align-content: stretch;
   gap: 0.5rem;
 }
 
@@ -261,4 +263,18 @@
 
 .count {
   display: inline-block;
+}
+
+.comment-nav-wrap {
+  display:flex;
+  flex-direction: row;
+  align-content: flex-end;
+  margin-right: 0.5rem;
+  margin-left: auto;
+
+}
+
+.comment-like-wrap{
+  display: inline-block;
+
 }
