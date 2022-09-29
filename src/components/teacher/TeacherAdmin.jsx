@@ -25,10 +25,10 @@ function TeacherAdmin() {
               <Button variant="contained">
                 <NavLink to="/enrolment">Enrolment</NavLink>
               </Button>
+              <SearchBar />
               <Button variant="contained">
                 <NavLink to="/exercise">Exercises</NavLink>
               </Button>
-              <SearchBar />
             </CardActions>
             <h4>Current Cohorts:</h4> <CohortList header="true" />
           </Card>
