@@ -163,8 +163,8 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             checkedIcon={<ThumbUpIcon />}
             onClick={handleLike}
           />
+          <div className="count">{comment.likes.length}</div>
         </div>
-        <div className="count">{comment.likes.length}</div>
       </div>
     </li>
   );
