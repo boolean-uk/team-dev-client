@@ -30,8 +30,12 @@ const Account = () => {
   const isOwner = loggedInUser.id === user.id;
 
   useEffect(() => {
-    setUser(loggedInUser)
-  }, [loggedInUser])
+    if (location?.state?.user) {
+      setUser(location.state.user);
+    } else {
+      setUser(loggedInUser);
+    }
+  }, [loggedInUser, location]);
 
 
   const handleUpdate = (reqData) => {
