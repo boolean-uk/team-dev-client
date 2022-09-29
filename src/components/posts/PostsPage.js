@@ -43,6 +43,7 @@ const PostsPage = ({ getUserId }) => {
       .catch(err => console.error(err));
     renderPosts(setPosts, setPostsOfTheWeek);
     setPost({...post, isPrivate: postPref})
+    // eslint-disable-next-line
   }, [postResponse, postPref]);
 
   const createPost = async event => {

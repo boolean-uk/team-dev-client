@@ -15,6 +15,7 @@ export default function VerticalDotMenu({ post, setPostResponse}) {
 
     React.useEffect(() => {
         setValues({...values, isPrivate: post.isPrivate})
+    // eslint-disable-next-line
     }, [post])
     
     const handleClick = (event) => {
