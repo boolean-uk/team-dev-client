@@ -9,6 +9,8 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  DialogContent,
+  Divider,
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +44,6 @@ function SearchBar() {
       .get(`/users?firstName=${inputText}`)
       .then(res => {
         const users = res.data.data.users;
-        console.log(users)
         setSearchResult(users);
       })
 
@@ -66,26 +67,27 @@ function SearchBar() {
       <Button variant="contained" onClick={submitSearch}>
         Search
       </Button>
-      <Dialog open={open}>
-        <ClickAwayListener onClickAway={() => setOpen(false)}>
-          <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
-            {searchResult?.map((user, i) => {
-              return (
-                <ListItem key={i} onClick={(e) => routeChange(e, user)}>
-                  <ListItemAvatar>
-                    <Avatar
-                      src={user.profile_image_url}
-                      alt={user.first_name}
-                    />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${user.first_name}`}
-                  />
-                </ListItem>
-              );
-            })}
-          </List>
-        </ClickAwayListener>
+      <Dialog open={open} scroll="body">
+        <DialogContent className='search__bar__dialog'>
+          <ClickAwayListener onClickAway={() => setOpen(false)}>
+            <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
+              {searchResult?.map((user, i) => {
+                return (
+                  <>
+                    <ListItem key={i} onClick={e => routeChange(e, user)}>
+                      <ListItemAvatar>
+                        <Avatar
+                          src={user.profile_image_url}
+                          alt={user.first_name} />
+                      </ListItemAvatar>
+                      <ListItemText primary={`${user.first_name}`} />
+                    </ListItem><Divider />
+                  </>
+                );
+              })}
+            </List>
+          </ClickAwayListener>
+        </DialogContent>
       </Dialog>
     </div>
   );

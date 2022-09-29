@@ -5,3 +5,7 @@
     width: 27rem;
     gap: 1rem;
 }
+
+.MuiDialogContent-root.css-ypiqx9-MuiDialogContent-root.search__bar__dialog {
+    width: 15rem;
+}
