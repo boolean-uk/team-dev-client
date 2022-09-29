@@ -53,6 +53,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   };
 
   const createNewComment = e => {
+    setEditCommentStatus('');
     setNewComment(e.target.value);
   };
 
@@ -94,6 +95,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           sx={{ width: 35, height: 35 }}
         />
       </div>
+
       <div className="comment-content-wrap">
         <h4 onClick={handleClick} className="post-owner-name">
           {comment.user.profile.firstName} {comment.user.profile.lastName}
@@ -102,28 +104,32 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           {' '}
           &#183; {formatTime(comment.createdAt)}
         </p>
-        <p className="comment-content">{comment.content}</p>
+        {isEditing ? (
+          <>
+            <div className="edit-content-wrap">
+              <TextField
+                fullWidth
+                defaultValue={comment.content}
+                variant="outlined"
+                size="small"
+                onChange={createNewComment}
+              ></TextField>
+              <Button
+                className="submit-edited-comment"
+                onClick={submitNewComment}
+              >
+                <ArrowUpwardIcon />
+              </Button>
+            </div>
+          </>
+        ) : (
+          <p className="comment-content">{comment.content}</p>
+        )}
       </div>
       <div className="comment-nav-wrap">
         {thisUserId === comment.userId && (
           <div className="edit-button-form-wrap">
             {editCommentStatus.length > 0 && <TryAgain />}
-            {isEditing && (
-              <>
-                <TextField
-                  label="enter your new comment"
-                  variant="outlined"
-                  size="small"
-                  onChange={createNewComment}
-                />
-                <Button
-                  className="submit-edited-comment"
-                  onClick={submitNewComment}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-              </>
-            )}
             {!isEditing && (
               <Button className="edit-button-icon" onClick={editcomment}>
                 <EditIcon />

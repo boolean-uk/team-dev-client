@@ -278,3 +278,8 @@
   display: inline-block;
 
 }
+
+.edit-content-wrap{
+  display: flex;
+  flex-direction: row;
+}
