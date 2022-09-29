@@ -79,24 +79,26 @@ const Account = () => {
                 key={row.key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                { row.key === 'postPrivacyPref'  ?
-                  <>
+                { row.key === 'postPrivacyPref'
+                  ?
                     <TableCell component="th" scope="row">
                     Post Visibility Preference
                     </TableCell>
-                    <TableCell align="right" sx={{ float: 'right' }} >
-                      <PrivacyMenu user={user} handleUpdate={handleUpdate} />
-                    </TableCell>
-                  </>
-                :
-                  <>
+                  :
                     <TableCell component="th" scope="row">
                       {row.key}
                     </TableCell>
-                    <TableCell align="right">
-                      {row.value}
+                }
+                {
+                  (isOwner || isAdmin) && (row.key === 'postPrivacyPref')
+                  ?
+                    <TableCell align="right" sx={{ float: 'right' }} >
+                        <PrivacyMenu user={user} handleUpdate={handleUpdate} />
                     </TableCell>
-                  </>
+                  :
+                    <TableCell align="right">
+                        {row.value}
+                    </TableCell>
                 }
               </TableRow>
             ))}
@@ -110,7 +112,7 @@ const Account = () => {
         <Alert severity="success">Email changed successfully</Alert>
       )}
       <div className="btns__container">
-        {(isAdmin & !isOwner) ? (
+        {(isAdmin && !isOwner) ? (
           <div>
             <ChangeUserRole setUser={setUser} user={user}/>
           </div>
