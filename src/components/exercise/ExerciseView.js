@@ -15,7 +15,6 @@ const ExerciseView = () => {
     }, [location.state.id]);
 
     if (!currentExercise.objectives) {
-        console.log('current exercise objective empty')
         return <></>
     }
 
