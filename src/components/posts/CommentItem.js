@@ -104,6 +104,11 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           {' '}
           &#183; {formatTime(comment.createdAt)}
         </p>
+        {editCommentStatus.length > 0 && (
+          <div className="try-again">
+            <TryAgain />
+          </div>
+        )}
         {isEditing ? (
           <>
             <div className="edit-content-wrap">
@@ -129,7 +134,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
       <div className="comment-nav-wrap">
         {thisUserId === comment.userId && (
           <div className="edit-button-form-wrap">
-            {editCommentStatus.length > 0 && <TryAgain />}
             {!isEditing && (
               <Button className="edit-button-icon" onClick={editcomment}>
                 <EditIcon />

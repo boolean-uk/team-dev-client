@@ -283,3 +283,8 @@
   display: flex;
   flex-direction: row;
 }
+
+.try-again{
+  margin-left: 0.5rem;
+  color: red;
+}
