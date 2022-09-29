@@ -1,14 +1,21 @@
 import client from '../../../utils/client';
 import {
   Dialog,
-  TextField, Button, ClickAwayListener
+  TextField,
+  Button,
+  ClickAwayListener,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 function SearchBar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -20,63 +27,64 @@ function SearchBar() {
     const value = event.target.value;
 
     setInputText(value);
-
   };
 
   const handleEnter = event => {
     if (event.keyCode === 13) {
-      return submitSearch()
+      return submitSearch();
     }
-  }
+  };
 
   // handle onclick of button
   const submitSearch = () => {
-    setOpen(true)
+    setOpen(true);
     client
       .get(`/users?firstName=${inputText}`)
       .then(res => {
         const users = res.data.data.users;
-
+        console.log(users)
         setSearchResult(users);
       })
 
       .catch(err => console.error(err.response));
   };
 
-  const routeChange = user => {
-    localStorage.setItem('id', user.id);
-    let path = `/user/${user.id}/profile`;
-    navigate(path, { state: { user } });
+  const routeChange = (e, user) => {
+    navigate('/profile', { state: { user } });
   };
 
   return (
     <div className="search__container">
       <TextField
         fullWidth
-        variant='outlined'
-        label='Search..'
+        variant="outlined"
+        label="Search.."
         value={inputText}
         onChange={handleChange}
         onKeyUp={handleEnter}
       />
-      <Button
-        variant='contained'
-        onClick={submitSearch}>
+      <Button variant="contained" onClick={submitSearch}>
         Search
       </Button>
       <Dialog open={open}>
         <ClickAwayListener onClickAway={() => setOpen(false)}>
-        <ul>
-          {searchResult.map((user, index) => {
-            return (
-              <li key={index}>
-                {user.first_name} {''}
-                {user.last_name} {''}
-                <Button onClick={() => routeChange(user)}>Profile</Button>
-              </li>
-            );
-          })}
-        </ul>
+          <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
+            {searchResult?.map((user, i) => {
+              return (
+                <ListItem key={i} onClick={(e) => routeChange(e, user)}>
+                  <ListItemAvatar>
+                    <Avatar
+                      src={user.profile_image_url}
+                      alt={user.first_name}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${user.first_name}`}
+                  />
+                </ListItem>
+              );
+            })}
+          </List>
         </ClickAwayListener>
       </Dialog>
     </div>
