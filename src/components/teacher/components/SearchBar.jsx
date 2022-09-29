@@ -20,6 +20,7 @@ function SearchBar() {
   const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const enterKey = 13
 
   let navigate = useNavigate();
 
@@ -32,7 +33,7 @@ function SearchBar() {
   };
 
   const handleEnter = event => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === enterKey) {
       return submitSearch();
     }
   };
