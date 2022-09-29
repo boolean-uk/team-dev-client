@@ -23,7 +23,7 @@ import CommentForm from './CommentForm';
 import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
-import LockIcon from '@mui/icons-material/Lock';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -43,6 +43,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
+  const [isPrivate, setIsPrivate] = useState(post.isPrivate);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -59,6 +60,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
 
   useEffect(() => {
     setIsOwner(false);
+    setIsPrivate(post.isPrivate);
     resetDelBtn();
     resetEditBtn();
     setContent(post.content);
@@ -149,6 +151,11 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
 
   return (
     <li className={liClasses}>
+      {isPrivate && 
+      <div onClick={() => setIsPrivate(false)} className='post-hidden-overlay'>
+        <VisibilityOffIcon fontSize='large' color='disabled' />
+      </div>
+      }
       <div className="post-wrap">
         <div className="post-header-wrap">
           <div className="post-profile-wrap">
@@ -160,7 +167,6 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
             <h3 onClick={handleClick} className="post-owner-name">
               {post.user.profile.firstName} {post.user.profile.lastName}
             </h3>
-            {post.isPrivate && <LockIcon fontSize='small' color='disabled' />}
           </div>
           <div>
             {post.isPostOfTheWeek ? (

@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ToggleSwitch from './utils/ToggleSwitch';
-const switchLabel = 'Post private'
+const switchLabel = 'Post privately'
 
 const PostForm = ({ handleSubmit, handleChange, value }) => {
   return (
