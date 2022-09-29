@@ -104,7 +104,7 @@ import { useEffect, useState } from 'react';
             Account Information
           </Button>) : <></>
         }
-        {isOwner && <EditForm handleSubmit={() => handleSubmit()} />}
+        {isOwner && <EditForm handleSubmit={handleSubmit} />}
       </div>
       {role !== 'TEACHER' && <StudentList />}
               {successProfileUpdate && (
