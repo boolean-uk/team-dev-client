@@ -14,6 +14,7 @@ import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import { useLocation } from 'react-router-dom';
 import ChangeUserRole from '../admin/ChangeUserRole';
+import PrivacyMenu from './PrivacyMenu';
 
 function createData(key, value) {
   return { key, value };
@@ -36,9 +37,9 @@ const Account = () => {
     }
   }, [loggedInUser, location]);
 
-  
-  const handleUpdate = newEmail => {
-    const reqBody = { email: newEmail };
+
+  const handleUpdate = (reqData) => {
+    const reqBody = reqData.includes('@') ? { email: reqData } : { postPrivacyPref: reqData }
     const userId = user.id;
     if (userId === null) {
       return;
@@ -77,10 +78,27 @@ const Account = () => {
                 key={row.key}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.key}
-                </TableCell>
-                <TableCell align="right">{row.value}</TableCell>
+                { row.key === 'postPrivacyPref'
+                  ?
+                    <TableCell component="th" scope="row">
+                    Post Visibility Preference
+                    </TableCell>
+                  :
+                    <TableCell component="th" scope="row">
+                      {row.key}
+                    </TableCell>
+                }
+                {
+                  (isOwner || isAdmin) && (row.key === 'postPrivacyPref')
+                  ?
+                    <TableCell align="right" sx={{ float: 'right' }} >
+                        <PrivacyMenu user={user} handleUpdate={handleUpdate} />
+                    </TableCell>
+                  :
+                    <TableCell align="right">
+                        {row.value}
+                    </TableCell>
+                }
               </TableRow>
             ))}
           </TableBody>
@@ -103,7 +121,7 @@ const Account = () => {
         </Alert>
       )}
       <div className="btns__container">
-        {(isAdmin & !isOwner) ? (
+        {(isAdmin && !isOwner) ? (
           <div>
             <ChangeUserRole setUser={setUser} user={user}/>
           </div>

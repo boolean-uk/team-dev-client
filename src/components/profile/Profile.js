@@ -99,9 +99,9 @@ import { useEffect, useState } from 'react';
           </div>
           <p>{biography}</p>
         </div>
-        {isAdmin & !isOwner ? (
+        {isAdmin || !isOwner ? (
           <Button variant="outlined" onClick={handleAdminClick}>
-            Account Informations
+            Account Information
           </Button>) : <></>
         }
         {isOwner && <EditForm handleSubmit={() => handleSubmit()} />}

@@ -15,7 +15,8 @@ const userInit = {
   id: '',
   last_name: '',
   profile_image_url: '',
-  role: ''
+  role: '',
+  postPrivacyPref: ''
 }
 
 const LoggedInUserProvider = ({ children }) => {

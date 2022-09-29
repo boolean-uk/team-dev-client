@@ -84,6 +84,12 @@
   cursor: pointer;
 }
 
+.post-vertical-menu {
+  position: absolute;
+  top: 1.25rem;
+  right: 0rem;
+}
+
 .btn-likes-wrap {
   display: flex;
   justify-content: space-between;
@@ -91,6 +97,20 @@
 
 .like-wrap {
   display: flex;
+}
+
+.post-hidden-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(17, 17, 17, 0.216);
+  backdrop-filter: saturate(110%) blur(8px);
+  border-radius: 0.2rem;
+
+  z-index: 1;
+  display: grid;
+  place-items: center;
 }
 
 .comment-form {
