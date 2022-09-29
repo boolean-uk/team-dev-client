@@ -2,8 +2,10 @@ import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import './style.css'
 import client from '../../utils/client'
+import { useNavigate } from 'react-router-dom';
 
 const CreateExercise = () => {
+    const navigate = useNavigate()
     const [objectives, setObjectives] = useState(1)
     const [name, setName] = useState('')
     const [gitHubUrl, setGitHubUrl] = useState('')
@@ -13,13 +15,15 @@ const CreateExercise = () => {
         e.preventDefault()
         client
             .post(`/exercise`, { name, gitHubUrl, objectives: obj })
+
+        navigate('/posts')
     }
 
     const editObj = (e, i) => obj[i] = e
 
     return (
         <div>
-            <h1>Create New Exercise</h1>
+            <h1 className='form-title'>Create New Exercise</h1>
             <form className='form' onSubmit={handleSubmit}>
                 <TextField
                     id="standard-basic"
