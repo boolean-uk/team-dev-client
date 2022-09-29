@@ -64,7 +64,9 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
       setIsEditing(false);
     } else {
       client
-        .patch(`/post/${post.id}/comment/${comment.id}`, newComment)
+        .patch(`/post/${post.id}/comment/${comment.id}`, {
+          content: newComment,
+        })
         .then(res => {
           setPostResponse(res.data);
         })
