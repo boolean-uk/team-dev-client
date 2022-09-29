@@ -103,9 +103,9 @@
 .comment-item {
   list-style: none;
   color: #000;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 0;
-  border-top: 1px solid rgba(128, 128, 128, 0.221);
+  padding: 0.5rem;
+  border-left: 1px solid rgba(128, 128, 128, 0.221);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.221);
 
   display: flex;
   flex-direction: row;
@@ -142,12 +142,11 @@
 }
 
 .comments-show-all {
-  border-top: 1px solid rgba(128, 128, 128, 0.221);
   color: #3b89d7;
   cursor: pointer;
 }
 
-.comment-wrap{
+.comment-wrap {
   padding: 0.5rem 2rem;
   border-top: solid 2px #3e3e3e2c;
   border-radius: 0 0 0.2rem 0.2rem;
@@ -254,9 +253,9 @@
   margin: 2rem 0;
 }
 
-.comment-like-wrap{
-  margin-right:0;
-  margin-left:auto
+.comment-like-wrap {
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .count {
