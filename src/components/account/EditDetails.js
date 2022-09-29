@@ -48,6 +48,7 @@ const EditDetails = ({ handleUpdate }) => {
               name="email"
               value={newEmail}
               onChange={handleChange}
+              required
             />
             <Button
               id="user-submit-button"

@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import client from '../../../utils/client';
 import { Button, TextField } from '@mui/material';
+import { Alert } from '@mui/material';
 import './style.css';
 
 const CreateCohortByName = () => {
-  const [createCohortRes, setCreateCohortRes] = useState(false);
+  const [successCohortCreate, setSuccessCohortCreate] = useState(false);
+  const [errorCohortCreate, setErrorCohortCreate] = useState(false);
   const [name, setCohortName] = useState('');
-  
 
   function createCohortName(event) {
     event.preventDefault();
     setCohortName(event.target.value);
-    
   }
-  
+
   function createCohort(event) {
     event.preventDefault();
     client
@@ -22,15 +22,19 @@ const CreateCohortByName = () => {
 
       .then(res => {
         if (res.data.status === 'success') {
-          setCreateCohortRes(true);
-          
+          setSuccessCohortCreate(true);
         }
+        setTimeout(() => {
+          setSuccessCohortCreate(false);
+        }, '3000');
       })
-      .catch(console.log);
-    setTimeout(() => {
-      setCreateCohortRes(false);
-    }, 3000);
-    
+    .catch(err => {
+      console.error(err.response);
+      setErrorCohortCreate(true);
+      setTimeout(() => {
+        setErrorCohortCreate(false);
+      }, '3000');
+    })
   }
 
   return (
@@ -47,7 +51,19 @@ const CreateCohortByName = () => {
           <Button variant="contained" onClick={createCohort}>
             Create New Cohort
           </Button>
-          {createCohortRes && <p>Cohort created! Please refresh the page</p>}
+          {successCohortCreate && (
+            <Alert
+              sx={{ maxWidth: '400px', margin: 'auto' }}
+              severity="success"
+            >
+              Cohort created successfully. Please refresh.
+            </Alert>
+          )}
+          {errorCohortCreate && (
+            <Alert sx={{ maxWidth: '400px', margin: 'auto' }} severity="error">
+              Cohort not created, please provide a name.
+            </Alert>
+          )}
         </div>
       </div>
     </>

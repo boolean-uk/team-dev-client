@@ -68,7 +68,7 @@ function SearchBar() {
         Search
       </Button>
       <Dialog open={open} scroll="body">
-        <DialogContent className='search__bar__dialog'>
+        <DialogContent className="search__bar__dialog">
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
               {searchResult?.map((user, i) => {
@@ -78,10 +78,12 @@ function SearchBar() {
                       <ListItemAvatar>
                         <Avatar
                           src={user.profile_image_url}
-                          alt={user.first_name} />
+                          alt={user.first_name}
+                        />
                       </ListItemAvatar>
                       <ListItemText primary={`${user.first_name}`} />
-                    </ListItem><Divider />
+                    </ListItem>
+                    <Divider />
                   </>
                 );
               })}
@@ -94,19 +96,3 @@ function SearchBar() {
 }
 
 export default SearchBar;
-
-// searchResult.map((user, i) => {
-//   return (
-//     <ListItem key={i}>
-//       <ListItemAvatar>
-//         <Avatar
-//           src={user.profile.profileImageUrl}
-//           alt={user.profile.firstName}
-//         />
-//       </ListItemAvatar>
-//       <ListItemText
-//         primary={`${user.profile.firstName} ${user.profile.lastName}`}
-//       />
-//     </ListItem>
-//   );
-// })
