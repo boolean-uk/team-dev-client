@@ -16,6 +16,7 @@ import ViewCohort from './pages/viewCohort';
 import LoggedInUserProvider from './context/LoggedInUser';
 import Exercise from './components/exercise/Exercise';
 import CreateExercise from './components/exercise/CreateExercise';
+import ExerciseView from './components/exercise/ExerciseView';
 
 function App() {
   const navigate = useNavigate();
@@ -91,6 +92,7 @@ function App() {
         </Route>
         <Route path='/exercise' element={<Exercise />} />
         <Route path='/exercise/create' element={<CreateExercise />} />
+        <Route path='/exercise/:id' element={<ExerciseView />} />
       </Routes>
     </div>
   );
