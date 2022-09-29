@@ -1,3 +1,7 @@
-.search__container ul {
-    list-style-type: none;
+.search__container {
+    margin-left: 1rem;
+    display: inline-flex;
+    place-items: center;
+    width: 27rem;
+    gap: 1rem;
 }

@@ -1,7 +1,7 @@
 import client from '../../../utils/client';
 import {
   Dialog,
-  TextField, Button
+  TextField, Button, ClickAwayListener
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,12 @@ function SearchBar() {
     setInputText(value);
 
   };
+
+  const handleEnter = event => {
+    if (event.keyCode === 13) {
+      return submitSearch()
+    }
+  }
 
   // handle onclick of button
   const submitSearch = () => {
@@ -46,17 +52,20 @@ function SearchBar() {
   return (
     <div className="search__container">
       <TextField
+        fullWidth
         variant='outlined'
         label='Search..'
         value={inputText}
         onChange={handleChange}
+        onKeyUp={handleEnter}
       />
       <Button
         variant='contained'
         onClick={submitSearch}>
         Search
       </Button>
-      <Dialog>
+      <Dialog open={open}>
+        <ClickAwayListener onClickAway={() => setOpen(false)}>
         <ul>
           {searchResult.map((user, index) => {
             return (
@@ -68,6 +77,7 @@ function SearchBar() {
             );
           })}
         </ul>
+        </ClickAwayListener>
       </Dialog>
     </div>
   );
