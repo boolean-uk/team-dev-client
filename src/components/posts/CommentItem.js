@@ -1,4 +1,4 @@
-import { Avatar, Button, Checkbox } from '@mui/material';
+import { Avatar, Button, Checkbox, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
 import { formatTime } from './utils/getAllPosts';
@@ -8,9 +8,13 @@ import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  const [editCommentStatus, setEditCommentStatus] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +46,42 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     }
   };
 
-  const editcomment = () => {};
+  const editcomment = () => {
+    setIsEditing(true);
+  };
+
+  const createNewComment = e => {
+    setNewComment(e.target.value);
+  };
+
+  const submitNewComment = () => {
+    if (!newComment) {
+      setEditCommentStatus('Missing content!');
+      setIsEditing(false);
+    } else {
+      client
+        .patch(`/post/${post.id}/comment/${comment.id}`, newComment)
+        .then(res => {
+          setPostResponse(res.data);
+        })
+        .catch(e => {
+          setEditCommentStatus('error, try again please!');
+          setIsEditing(false);
+        });
+    }
+    setEditCommentStatus('successful');
+    setIsEditing(false);
+  };
+
+  const TryAgain = () => {
+    try {
+      return editCommentStatus;
+    } finally {
+      setTimeout(() => {
+        setEditCommentStatus(false);
+      }, 3000);
+    }
+  };
 
   return (
     <li className="comment-item">
@@ -64,10 +103,29 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
         <p className="comment-content">{comment.content}</p>
       </div>
       <div className="comment-nav-wrap">
-        <div className="edit-button">
-          <Button className="edit-button-icon" onClick={editcomment}>
-            <EditIcon />
-          </Button>
+        <div className="edit-button-form-wrap">
+          {editCommentStatus.length > 0 && <TryAgain />}
+          {isEditing && (
+            <>
+              <TextField
+                label="enter your new comment"
+                variant="outlined"
+                size="small"
+                onChange={createNewComment}
+              />
+              <Button
+                className="submit-edited-comment"
+                onClick={submitNewComment}
+              >
+                <ArrowUpwardIcon />
+              </Button>
+            </>
+          )}
+          {!isEditing && (
+            <Button className="edit-button-icon" onClick={editcomment}>
+              <EditIcon />
+            </Button>
+          )}
         </div>
         <div className="delete-button">
           <Button className="delete-button-icon">
