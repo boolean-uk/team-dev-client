@@ -9,6 +9,7 @@ import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -124,6 +125,14 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
                 onClick={submitNewComment}
               >
                 <ArrowUpwardIcon />
+              </Button>
+              <Button
+                className="cancel-edit"
+                onClick={() => {
+                  setIsEditing(false);
+                }}
+              >
+                <ClearIcon />
               </Button>
             </div>
           </>
