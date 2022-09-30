@@ -16,13 +16,14 @@ const userInit = {
   last_name: '',
   profile_image_url: '',
   role: '',
-  postPrivacyPref: ''
-}
+  postPrivacyPref: '',
+};
 
 const LoggedInUserProvider = ({ children }) => {
   const [user, setUser] = useState(userInit);
-
-  const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
+  const [token, setToken] = useState(
+    localStorage.getItem(process.env.REACT_APP_USER_TOKEN) || ''
+  );
 
   useEffect(() => {
     if (token) {
@@ -32,12 +33,13 @@ const LoggedInUserProvider = ({ children }) => {
         .get(`/user/${userId}`)
         .then(res => setUser(res.data.data.user))
         .catch(err => console.log('[User Error]', err));
-    } else {
-      setUser(userInit);
     }
   }, [token]);
+
   return (
-    <LoggedInUser.Provider value={{ user }}>{children}</LoggedInUser.Provider>
+    <LoggedInUser.Provider value={{ user, setToken }}>
+      {children}
+    </LoggedInUser.Provider>
   );
 };
 

@@ -6,9 +6,11 @@ import { Alert } from '@mui/material';
 import userBlankData from '../utils/userHelpers';
 import UserForm from './UserForm';
 import client from '../../../utils/client';
+import { useLoggedInUser } from '../../../context/LoggedInUser';
 
 const LoginPage = () => {
-  const location = useLocation()
+  const { setToken } = useLoggedInUser();
+  const location = useLocation();
   const [user, setUser] = useState(userBlankData());
   const [successLogin, setSuccessLogin] = useState({
     data: { token: '', user: {} },
@@ -32,6 +34,7 @@ const LoginPage = () => {
           res.data.data.token
         );
 
+        setToken(res.data.data.token);
         setSuccessLogin(res.data);
 
         navigate('../posts', {
@@ -72,7 +75,9 @@ const LoginPage = () => {
       <p>Status: {successLogin.status}</p>
       <UserForm handleChange={handleChange} handleSubmit={loginUser} />
       {location.state !== null && location.state.token === 'expired' && (
-        <Alert severity="error">Your session has expired. Please login again.</Alert>
+        <Alert severity="error">
+          Your session has expired. Please login again.
+        </Alert>
       )}
       {errorLogin && (
         <Alert severity="error">Email or Password is incorrect</Alert>
