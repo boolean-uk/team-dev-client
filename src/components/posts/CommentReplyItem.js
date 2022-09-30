@@ -44,10 +44,9 @@ const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostR
 
     setThisUserId(getUserId);
 
-    for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
+    const userHasLiked = comment.likes.find((commentLike) => commentLike.userId === getUserId) 
+    if(userHasLiked){
         return setIsLiked(true);
-      }
     }
 
     setIsLiked(false);
@@ -218,35 +217,6 @@ const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostR
           </div>
         </div>
       </div>
-      {/* <div className="comment-item">
-        <div className="comment-avatar">
-          <Avatar
-            src={comment.user.profile.profileImageUrl}
-            alt="profile"
-            sx={{ width: 35, height: 35 }}
-          />
-        </div>
-        <div className="comment-content-wrap">
-          <h4 onClick={handleClick} className="post-owner-name">
-            {comment.user.profile.firstName} {comment.user.profile.lastName}
-          </h4>
-          <p className="createdAt-time">
-            {' '}
-            &#183; {formatTime(comment.createdAt)}
-          </p>
-          <p className="comment-content">{comment.content}</p>
-        </div>
-        <div className="comment-like-wrap">
-          <Checkbox
-            label="like"
-            checked={isLiked}
-            icon={<ThumbUpOutlinedIcon />}
-            checkedIcon={<ThumbUpIcon />}
-            onClick={handleLike}
-          />
-          <div className="count">{comment.likes.length}</div>
-        </div>
-      </div> */}
     </li>
   );
 };
