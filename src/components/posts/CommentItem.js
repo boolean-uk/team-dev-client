@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CommentIcon from '@mui/icons-material/Comment';
 import { deleteComment } from './utils/deleteComment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -34,6 +35,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [thisUserId, setThisUserId] = useState(0);
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
+  const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
 
@@ -125,6 +127,10 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     }
   };
 
+  const displayCommentReplyForm = () => {
+    setShowForm(!showForm);
+  }
+
   return (
     <li className='comment-list'>
       <div className="comment-item">
@@ -179,6 +185,14 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           )}
         </div>
         <div className="comment-nav-wrap">
+          <div className="reply-button">
+              <Button
+                className="reply-button-icon"
+                onClick={displayCommentReplyForm}
+              >
+                <CommentIcon />
+              </Button>
+          </div>
           {thisUserId === comment.userId && (
             <div className="edit-button-form-wrap">
               {!isEditing && (
@@ -217,11 +231,16 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
         </div>
       </div>
       <div className="comment-wrap">
-        <CommentReplyForm
-          setPostResponse={setPostResponse}
-          post={post}
-          comment={comment}
-        />
+        {  showForm ?        
+          <CommentReplyForm
+            setPostResponse={setPostResponse}
+            post={post}
+            comment={comment}
+            showForm={showForm}
+            setShowForm={setShowForm}
+          />
+          : null
+        }
         <Replies
           post={post}
           setPostResponse={setPostResponse}
