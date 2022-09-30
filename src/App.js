@@ -13,7 +13,6 @@ import client from './utils/client';
 import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
 import ViewCohort from './pages/viewCohort';
-import LoggedInUserProvider from './context/LoggedInUser';
 import Exercise from './components/exercise/Exercise';
 import CreateExercise from './components/exercise/CreateExercise';
 import ExerciseView from './components/exercise/ExerciseView';
@@ -27,7 +26,7 @@ function App() {
       return;
     }
     client.get(`/user/${userId}`).catch(err => {
-      const authMessage = err.response.data.data.authentication;
+      const authMessage = err.response?.data?.data?.authentication;
       if (authMessage === 'Token has expired') {
         navigate('/', { state: { token: 'expired' } });
       } else {
@@ -76,7 +75,7 @@ function App() {
 
 function isLoggedIn() {
   const loadedToken = localStorage.getItem('token');
-  return !(loadedToken === '');
+  return loadedToken?.length > 1;
 }
 
 export default App;
@@ -88,9 +87,7 @@ const AuthenticateUser = ({ children, redirectPath = '/' }) => {
 
   return (
     <>
-      <LoggedInUserProvider>
-        <Header companyName={`Cohort Manager 2.0`} />
-      </LoggedInUserProvider>
+      <Header companyName={`Cohort Manager 2.0`} />
     </>
   );
 };

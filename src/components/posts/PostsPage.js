@@ -14,11 +14,12 @@ import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const PostsPage = ({ getUserId }) => {
-  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false
+  const postPref =
+    useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false;
   const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
+  const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
   const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
@@ -35,14 +36,14 @@ const PostsPage = ({ getUserId }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        const userRole = res.data.data.user.role
+        const userRole = res.data.data.user.role;
         if (userRole === 'TEACHER' || userRole === 'ADMIN') {
           setIsTeacherorAdmin(true);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error('user error', err));
     renderPosts(setPosts, setPostsOfTheWeek);
-    setPost({...post, isPrivate: postPref})
+    setPost({ ...post, isPrivate: postPref });
     // eslint-disable-next-line
   }, [postResponse, postPref]);
 
@@ -72,7 +73,7 @@ const PostsPage = ({ getUserId }) => {
         ...post,
         content: value,
       });
-    } 
+    }
     if (event.target.name === 'switch') {
       setPost({
         ...post,
@@ -86,7 +87,6 @@ const PostsPage = ({ getUserId }) => {
     localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
     navigate('../', { replace: true });
   };
-
 
   return (
     <>
