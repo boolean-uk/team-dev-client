@@ -87,6 +87,7 @@ const PostsPage = ({ getUserId }) => {
     navigate('../', { replace: true });
   };
 
+
   return (
     <>
       {isTeacherorAdmin && <TeacherAdmin />}

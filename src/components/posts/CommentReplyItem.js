@@ -1,10 +1,12 @@
+// import { Avatar, Checkbox } from '@mui/material';
+
 import {
-  Avatar,
-  Button,
-  Checkbox,
-  TextField,
-  ClickAwayListener,
-} from '@mui/material';
+    Avatar,
+    Button,
+    Checkbox,
+    TextField,
+    ClickAwayListener,
+  } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
@@ -13,18 +15,17 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteComment } from './utils/deleteComment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
-import CommentReplyForm from './CommentReplyForm';
-import Replies from './Replies';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -34,6 +35,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [thisUserId, setThisUserId] = useState(0);
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
+
   const navigate = useNavigate();
 
 
@@ -42,10 +44,9 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
     setThisUserId(getUserId);
 
-    for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
+    const userHasLiked = comment.likes.find((commentLike) => commentLike.userId === getUserId) 
+    if(userHasLiked){
         return setIsLiked(true);
-      }
     }
 
     setIsLiked(false);
@@ -127,7 +128,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
   return (
     <li className='comment-list'>
-      <div className="comment-item">
+        <div className="comment-item">
         <div className="comment-avatar">
           <Avatar
             src={comment.user.profile.profileImageUrl}
@@ -216,21 +217,8 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           </div>
         </div>
       </div>
-      <div className="comment-wrap">
-        <CommentReplyForm
-          setPostResponse={setPostResponse}
-          post={post}
-          comment={comment}
-        />
-        <Replies
-          post={post}
-          setPostResponse={setPostResponse}
-          comment={comment}
-          userId={userId}
-        />
-      </div>  
     </li>
   );
 };
 
-export default CommentItem;
+export default CommentReplyItem;

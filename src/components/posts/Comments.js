@@ -10,11 +10,13 @@ const Comments = ({
   setShowingAll,
   setPostResponse,
 }) => {
-  const [sortType, setSortType] = useState('Most Recent');
+  const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(post.comments);
 
   useEffect(() => {
-    setComments(post.comments);
+    const postCommentsOnly = post.comments.filter(comment => !comment.parentId)
+
+    setComments(postCommentsOnly);
 
     if (sortType === 'Most Recent') {
       setComments(prev =>
@@ -26,9 +28,15 @@ const Comments = ({
         [...prev].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       );
     }
+    if (sortType === 'Most Liked') {
+      setComments(prev =>
+        [...prev].sort((a, b) => b.likes.length - a.likes.length)
+      );
+    }
   }, [sortType, post]);
 
   const handleShowAll = () => setShowingAll(!showingAll);
+
 
   return (
     <div className="comments-section">

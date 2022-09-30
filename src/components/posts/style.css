@@ -120,6 +120,10 @@
   margin-bottom: 0.5rem;
 }
 
+.comment-list {
+  list-style: none;
+}
+
 .comment-item {
   list-style: none;
   color: #000;
@@ -175,6 +179,10 @@
   border-radius: 0 0 0.2rem 0.2rem;
 
   background-color: rgb(235, 235, 235);
+}
+
+.comment-item .comment-wrap{
+  margin-top: auto;
 }
 
 .count {
