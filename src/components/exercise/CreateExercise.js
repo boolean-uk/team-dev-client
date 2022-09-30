@@ -15,14 +15,13 @@ const CreateExercise = () => {
         e.preventDefault()
         client
             .post(`/exercise`, { name, gitHubUrl, objectives: obj })
-
-        navigate('/posts')
+            .then (() => navigate('/exercise'))
     }
 
     const editObj = (e, i) => obj[i] = e
 
     return (
-        <div>
+        <div style={{ display: 'inline-block'}}>
             <h1 className='form-title'>Create New Exercise</h1>
             <form className='form' onSubmit={handleSubmit}>
                 <TextField
