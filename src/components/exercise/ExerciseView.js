@@ -22,15 +22,15 @@ const ExerciseView = () => {
         <div className='exercise'>
             <h1>{currentExercise.name}</h1>
             <h3 style={{ textAlign: 'start' }}>Learning Objectives</h3>
-            <div>{currentExercise.objectives.map((o, i) => {
+            <div>{currentExercise.objectives.map(o => {
                 return (
                     <div className='objective' key={o.id}>
-                        <p>{i + 1}. {o}</p>
                         <Checkbox {...label} />
+                        <p>{o}</p>
                     </div>
                 )
             })}</div>
-            <Link href={currentExercise.gitHubUrl} underline="hover">Go to GitHub</Link>
+            <Link href={currentExercise.gitHubUrl} underline="hover">Go to GitHub Repository</Link>
         </div>
     )
 }
