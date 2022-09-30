@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Input } from '@mui/material';
+import { Button, Input, Autocomplete, TextField, Link } from '@mui/material';
 
 import DEFAULTIMG from '../../../assets/default.png';
 import client from '../../../utils/client';
@@ -11,11 +11,19 @@ const DeliveryLogItem = ({ log, setCohort }) => {
   const [newLine, setNewLine] = useState(false);
   const [lineValue, setLineValue] = useState('');
   const [logLines, setLogLines] = useState(log.lines);
+  const [exerciseList, setExerciseList] = useState([])
+  const [selectedExercise, setSelectedExercise] = useState('')
   const { user } = useLoggedInUser();
 
   const formatDate = new Date(log.date);
   const date = formatDate.toLocaleString();
   const isAuthor = log?.userId === user?.id;
+
+  useEffect(() => {
+    client
+      .get(`/exercise`)
+      .then(res => setExerciseList(res.data.data.exercises));
+  }, []);
 
   const handleLineChange = e => {
     setLineValue(e.target.value);
@@ -58,6 +66,15 @@ const DeliveryLogItem = ({ log, setCohort }) => {
       .catch(err => console.error('[error]', err));
   };
 
+  const handleOption = (_, exercise) => {
+    exerciseList.map(e => {
+      if (e.name === exercise) {
+        setSelectedExercise(e)
+      }
+      return e
+    })
+  }
+
   return (
     <li className="view-cohort__log-card">
       <div className="view-cohort__log-card-user">
@@ -73,6 +90,28 @@ const DeliveryLogItem = ({ log, setCohort }) => {
           <span>{log?.user?.profile.lastName}</span>
           <p className="view-cohort__user-email">{date}</p>
         </div>
+      </div>
+
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={exerciseList.map(e => e.name)}
+        sx={{ width: 300, marginTop: '2rem' }}
+        onChange={(_, value) => handleOption(_, value)}
+        renderInput={(params) => <TextField {...params} label="Exercise" />}
+      />
+
+      <div className='log-exercise'>
+        <h3>{selectedExercise.name}</h3>
+        <h5 style={{ textAlign: 'start' }}>Learning Objectives</h5>
+        <div>{selectedExercise.objectives.map(o => {
+          return (
+            <div key={o.id}>
+              <p>- {o}</p>
+            </div>
+          )
+        })}</div>
+        <Link href={selectedExercise.gitHubUrl} underline="hover">Go to GitHub Repository</Link>
       </div>
 
       <ul className="logs-list">
