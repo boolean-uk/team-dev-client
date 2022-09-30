@@ -67,6 +67,9 @@ const DeliveryLogItem = ({ log, setCohort }) => {
   };
 
   const handleOption = (_, exercise) => {
+    if (exercise === null) {
+      setSelectedExercise('')
+    }
     exerciseList.map(e => {
       if (e.name === exercise) {
         setSelectedExercise(e)
@@ -101,18 +104,18 @@ const DeliveryLogItem = ({ log, setCohort }) => {
         renderInput={(params) => <TextField {...params} label="Exercise" />}
       />
 
-      <div className='log-exercise'>
+      {selectedExercise && <div className='log-exercise'>
         <h3>{selectedExercise.name}</h3>
         <h5 style={{ textAlign: 'start' }}>Learning Objectives</h5>
-        <div>{selectedExercise.objectives.map(o => {
+        <div>{selectedExercise && selectedExercise.objectives.map((o, i) => {
           return (
-            <div key={o.id}>
+            <div key={i}>
               <p>- {o}</p>
             </div>
           )
         })}</div>
         <Link href={selectedExercise.gitHubUrl} underline="hover">Go to GitHub Repository</Link>
-      </div>
+      </div>}
 
       <ul className="logs-list">
         {logLines?.map(line => (
