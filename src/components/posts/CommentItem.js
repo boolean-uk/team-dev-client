@@ -36,7 +36,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const getUserId = userId();
 
@@ -126,7 +125,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   };
 
   return (
-    <li className='comment-list'>
+    <li className="comment-list">
       <div className="comment-item">
         <div className="comment-avatar">
           <Avatar
@@ -199,7 +198,11 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               </Button>
             </ClickAwayListener>
             {confirmDeleteText && (
-              <Button variant="text" color="error" onClick={handleDeleteComment}>
+              <Button
+                variant="text"
+                color="error"
+                onClick={handleDeleteComment}
+              >
                 confirm delete?
               </Button>
             )}
@@ -216,7 +219,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           </div>
         </div>
       </div>
-      <div className="comment-wrap">
+      <div>
         <CommentReplyForm
           setPostResponse={setPostResponse}
           post={post}
@@ -228,7 +231,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           comment={comment}
           userId={userId}
         />
-      </div>  
+      </div>
     </li>
   );
 };

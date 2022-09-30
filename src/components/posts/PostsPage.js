@@ -14,8 +14,7 @@ import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const PostsPage = ({ getUserId }) => {
-  const postPref =
-    useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false;
+  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE';
   const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
@@ -90,7 +89,7 @@ const PostsPage = ({ getUserId }) => {
 
   return (
     <>
-      {isTeacherorAdmin && <TeacherAdmin />}
+      {/* {isTeacherorAdmin && <TeacherAdmin />} */}
 
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
