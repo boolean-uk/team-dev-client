@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import './style.css';
 
-import { CardActions } from '@mui/material';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CohortList from '../../pages/createCohort/components/cohortList';

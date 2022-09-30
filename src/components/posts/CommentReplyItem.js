@@ -53,7 +53,7 @@ const CommentReplyItem = ({
     const userHasLiked = comment.likes.find(
       commentLike => commentLike.userId === getUserId
     );
-    console.log('replyItem', comment);
+
     if (userHasLiked) {
       return setIsLiked(true);
     }
@@ -129,7 +129,6 @@ const CommentReplyItem = ({
       setIsDeleting(true);
       setConfirmDeleteText(true);
     } else {
-      console.log();
       deleteComment(setPostResponse, post.id, comment.id);
       setIsDeleting(false);
     }

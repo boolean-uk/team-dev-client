@@ -42,7 +42,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     const getUserId = userId();
 
     setThisUserId(getUserId);
-    console.log('commentItem', comment);
+
     for (let i = 0; i < comment.likes.length; i++) {
       if (getUserId === comment.likes[i].userId) {
         return setIsLiked(true);
@@ -120,7 +120,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
       setIsDeleting(true);
       setConfirmDeleteText(true);
     } else {
-      console.log();
       deleteComment(setPostResponse, post.id, comment.id);
       setIsDeleting(false);
     }

@@ -32,7 +32,7 @@ const LoggedInUserProvider = ({ children }) => {
       client
         .get(`/user/${userId}`)
         .then(res => setUser(res.data.data.user))
-        .catch(err => console.log('[User Error]', err));
+        .catch(err => console.error('[User Error]', err.response));
     }
   }, [token]);
 
