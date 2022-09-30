@@ -122,6 +122,22 @@
   cursor: pointer;
 }
 
+.log-exercise {
+  border: #4b4b56 solid 1px;
+  border-radius: 3px;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.log-exercise h3 {
+  margin-bottom: 0.5rem;
+}
+
+.log-exercise p {
+  font-size: 0.75rem;
+  text-align: start;
+}
+
 @media (max-width: 750px) {
   .view-cohort-content {
     display: block;
