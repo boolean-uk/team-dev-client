@@ -26,7 +26,7 @@ const ExerciseView = () => {
                 return (
                     <div className='objective' key={o.id}>
                         <p>{i + 1}. {o}</p>
-                        <Checkbox {...label} />
+                        <Checkbox key={i} {...label} />
                     </div>
                 )
             })}</div>
