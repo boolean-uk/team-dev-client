@@ -149,11 +149,13 @@
 }
 
 .comment-content-wrap .createdAt-time {
+  margin-top: 0.75rem;
   font-size: 0.75rem;
 }
 
 .comment-content {
   display: grid;
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
   font-size: 0.9rem;
 }
@@ -296,6 +298,7 @@
   align-items: center;
   margin-right: 0.5rem;
   margin-left: auto;
+  margin-top: 1rem;
 }
 
 .comment-like-wrap {
