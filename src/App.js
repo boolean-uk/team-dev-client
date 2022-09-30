@@ -14,6 +14,7 @@ import Account from './components/account/Account';
 import CreateCohort from './pages/createCohort';
 import ViewCohort from './pages/viewCohort';
 import LoggedInUserProvider from './context/LoggedInUser';
+import DeveloperPage from './components/developer/DeveloperPage';
 
 function App() {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
+          <Route path='/events' element={<DeveloperPage />} />
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
