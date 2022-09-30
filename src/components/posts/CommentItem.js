@@ -40,7 +40,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     const getUserId = userId();
 
     setThisUserId(getUserId);
-
+    console.log('commentItem', comment);
     for (let i = 0; i < comment.likes.length; i++) {
       if (getUserId === comment.likes[i].userId) {
         return setIsLiked(true);
@@ -133,49 +133,51 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             alt="profile"
             sx={{ width: 35, height: 35 }}
           />
-        </div>
-        <div className="comment-content-wrap">
-          <h4 onClick={handleClick} className="post-owner-name">
-            {comment.user.profile.firstName} {comment.user.profile.lastName}
-          </h4>
-          <p className="createdAt-time">
-            {' '}
-            &#183; {formatTime(comment.createdAt)}
-          </p>
-          {editCommentStatus.length > 0 && (
-            <div className="try-again">
-              <TryAgain />
-            </div>
-          )}
-          {isEditing ? (
-            <>
-              <div className="edit-content-wrap">
-                <TextField
-                  fullWidth
-                  defaultValue={comment.content}
-                  variant="outlined"
-                  size="small"
-                  onChange={createNewComment}
-                ></TextField>
-                <Button
-                  className="submit-edited-comment"
-                  onClick={submitNewComment}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-                <Button
-                  className="cancel-edit"
-                  onClick={() => {
-                    setIsEditing(false);
-                  }}
-                >
-                  <ClearIcon />
-                </Button>
+          <div className="comment-content-wrap">
+            <h4 onClick={handleClick} className="post-owner-name">
+              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            </h4>
+            <p className="createdAt-time">
+              {' '}
+              &#183; {formatTime(comment.createdAt)}
+            </p>
+            {editCommentStatus.length > 0 && (
+              <div className="try-again">
+                <TryAgain />
               </div>
-            </>
-          ) : (
-            <p className="comment-content">{comment.content}</p>
-          )}
+            )}
+            {isEditing ? (
+              <>
+                <div className="edit-content-wrap">
+                  <TextField
+                    fullWidth
+                    defaultValue={comment.content}
+                    variant="outlined"
+                    size="small"
+                    multiline
+                    inputProps={{ maxLength: 150 }}
+                    onChange={createNewComment}
+                  ></TextField>
+                  <Button
+                    className="submit-edited-comment"
+                    onClick={submitNewComment}
+                  >
+                    <ArrowUpwardIcon />
+                  </Button>
+                  <Button
+                    className="cancel-edit"
+                    onClick={() => {
+                      setIsEditing(false);
+                    }}
+                  >
+                    <ClearIcon />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <p className="comment-content">{comment.content}</p>
+            )}
+          </div>
         </div>
         <div className="comment-nav-wrap">
           {thisUserId === comment.userId && (

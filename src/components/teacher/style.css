@@ -1,3 +1,42 @@
-.admin__container {
-    margin-top: 1rem;
+.admin-section {
+  max-width: 60rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-inline: auto;
+}
+
+@media screen and (max-width: 975px) {
+  .admin-section {
+    padding-inline: 1rem;
+  }
+}
+
+.admin-section-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 650px) {
+  .admin-section-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.admin-section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-section-nav button {
+  height: fit-content;
+}
+
+.admin-section-cohort__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
 }

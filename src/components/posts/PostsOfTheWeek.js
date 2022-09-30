@@ -7,21 +7,19 @@ const PostsOfTheWeek = ({ posts, getUserId, setPost, setPostResponse }) => {
   });
 
   return (
-    <div className="posts-of-the-week-wrap">
-      {postsOfTheWeek?.length > 0 && (
-        <ul className="posts-list">
-          {postsOfTheWeek?.map((post, index) => (
-            <PostItem
-              post={post}
-              key={index}
-              userId={getUserId}
-              setPost={setPost}
-              setPostResponse={setPostResponse}
-            />
-          ))}
-        </ul>
-      )}
-    </div>
+    postsOfTheWeek?.length > 0 && (
+      <ul className="posts-list">
+        {postsOfTheWeek?.map((post, index) => (
+          <PostItem
+            post={post}
+            key={index}
+            userId={getUserId}
+            setPost={setPost}
+            setPostResponse={setPostResponse}
+          />
+        ))}
+      </ul>
+    )
   );
 };
 

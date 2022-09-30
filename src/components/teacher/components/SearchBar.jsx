@@ -12,7 +12,7 @@ import {
   DialogContent,
   Divider,
 } from '@mui/material';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 
@@ -20,7 +20,7 @@ function SearchBar() {
   const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const enterKey = 13
+  const enterKey = 13;
 
   let navigate = useNavigate();
 
@@ -59,6 +59,7 @@ function SearchBar() {
     <div className="search__container">
       <TextField
         fullWidth
+        size="small"
         variant="outlined"
         label="Search.."
         value={inputText}
@@ -71,11 +72,11 @@ function SearchBar() {
       <Dialog open={open} scroll="body">
         <DialogContent className="search__bar__dialog">
           <ClickAwayListener onClickAway={() => setOpen(false)}>
-            <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
-              {searchResult?.map((user, i) => {
+            <List sx={{ cursor: 'pointer' }}>
+              {searchResult?.map(user => {
                 return (
-                  <>
-                    <ListItem key={i} onClick={e => routeChange(e, user)}>
+                  <React.Fragment key={user.id}>
+                    <ListItem onClick={e => routeChange(e, user)}>
                       <ListItemAvatar>
                         <Avatar
                           src={user.profile_image_url}
@@ -85,7 +86,7 @@ function SearchBar() {
                       <ListItemText primary={`${user.first_name}`} />
                     </ListItem>
                     <Divider />
-                  </>
+                  </React.Fragment>
                 );
               })}
             </List>

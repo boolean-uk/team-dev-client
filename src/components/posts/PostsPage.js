@@ -23,6 +23,7 @@ const PostsPage = ({ getUserId }) => {
   const [postError, setPostError] = useState(false);
   let navigate = useNavigate();
 
+  console.log('rerender', posts);
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
     if (!token) {
@@ -89,7 +90,7 @@ const PostsPage = ({ getUserId }) => {
 
   return (
     <>
-      {/* {isTeacherorAdmin && <TeacherAdmin />} */}
+      {isTeacherorAdmin && <TeacherAdmin />}
 
       <section className="posts-section">
         <button id="user-signout-button" onClick={signOut}>
