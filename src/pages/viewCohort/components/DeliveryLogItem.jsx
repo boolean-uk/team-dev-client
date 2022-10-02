@@ -25,6 +25,17 @@ const DeliveryLogItem = ({ log, setCohort }) => {
       .then(res => setExerciseList(res.data.data.exercises));
   }, []);
 
+  useEffect(() => {
+    if (log.exerciseId !== null) {
+      exerciseList.map(e => {
+        if (e.id === log.exerciseId) {
+          setSelectedExercise(e)
+        }
+        return e
+      })
+    }
+  }, [exerciseList, log.exerciseId]);
+
   const handleLineChange = e => {
     setLineValue(e.target.value);
   };
@@ -69,13 +80,16 @@ const DeliveryLogItem = ({ log, setCohort }) => {
   const handleOption = (_, exercise) => {
     if (exercise === null) {
       setSelectedExercise('')
+    } else {
+      exerciseList.map(e => {
+        if (e.name === exercise) {
+          client
+            .patch(`/log/${log.id}`, { 'exerciseId': `${e.id}` })
+            .then(_ => setSelectedExercise(e));
+        }
+        return e
+      })
     }
-    exerciseList.map(e => {
-      if (e.name === exercise) {
-        setSelectedExercise(e)
-      }
-      return e
-    })
   }
 
   return (
