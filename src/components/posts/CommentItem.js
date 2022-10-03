@@ -38,7 +38,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const getUserId = userId();
 
@@ -121,7 +120,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
       setIsDeleting(true);
       setConfirmDeleteText(true);
     } else {
-      console.log();
       deleteComment(setPostResponse, post.id, comment.id);
       setIsDeleting(false);
     }
@@ -129,10 +127,10 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
   const displayCommentReplyForm = () => {
     setShowForm(!showForm);
-  }
+  };
 
   return (
-    <li className='comment-list'>
+    <li className="comment-list">
       <div className="comment-item">
         <div className="comment-avatar">
           <Avatar
@@ -140,59 +138,53 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             alt="profile"
             sx={{ width: 35, height: 35 }}
           />
-        </div>
-        <div className="comment-content-wrap">
-          <h4 onClick={handleClick} className="post-owner-name">
-            {comment.user.profile.firstName} {comment.user.profile.lastName}
-          </h4>
-          <p className="createdAt-time">
-            {' '}
-            &#183; {formatTime(comment.createdAt)}
-          </p>
-          {editCommentStatus.length > 0 && (
-            <div className="try-again">
-              <TryAgain />
-            </div>
-          )}
-          {isEditing ? (
-            <>
-              <div className="edit-content-wrap">
-                <TextField
-                  fullWidth
-                  defaultValue={comment.content}
-                  variant="outlined"
-                  size="small"
-                  onChange={createNewComment}
-                ></TextField>
-                <Button
-                  className="submit-edited-comment"
-                  onClick={submitNewComment}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-                <Button
-                  className="cancel-edit"
-                  onClick={() => {
-                    setIsEditing(false);
-                  }}
-                >
-                  <ClearIcon />
-                </Button>
+          <div className="comment-content-wrap">
+            <h4 onClick={handleClick} className="post-owner-name">
+              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            </h4>
+            <p className="createdAt-time">
+              {' '}
+              &#183; {formatTime(comment.createdAt)}
+            </p>
+            {editCommentStatus.length > 0 && (
+              <div className="try-again">
+                <TryAgain />
               </div>
-            </>
-          ) : (
-            <p className="comment-content">{comment.content}</p>
-          )}
+            )}
+            {isEditing ? (
+              <>
+                <div className="edit-content-wrap">
+                  <TextField
+                    fullWidth
+                    defaultValue={comment.content}
+                    variant="outlined"
+                    size="small"
+                    multiline
+                    inputProps={{ maxLength: 150 }}
+                    onChange={createNewComment}
+                  ></TextField>
+                  <Button
+                    className="submit-edited-comment"
+                    onClick={submitNewComment}
+                  >
+                    <ArrowUpwardIcon />
+                  </Button>
+                  <Button
+                    className="cancel-edit"
+                    onClick={() => {
+                      setIsEditing(false);
+                    }}
+                  >
+                    <ClearIcon />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <p className="comment-content">{comment.content}</p>
+            )}
+          </div>
         </div>
         <div className="comment-nav-wrap">
-          <div className="reply-button">
-              <Button
-                className="reply-button-icon"
-                onClick={displayCommentReplyForm}
-              >
-                <CommentIcon />
-              </Button>
-          </div>
           {thisUserId === comment.userId && (
             <div className="edit-button-form-wrap">
               {!isEditing && (
@@ -213,10 +205,22 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               </Button>
             </ClickAwayListener>
             {confirmDeleteText && (
-              <Button variant="text" color="error" onClick={handleDeleteComment}>
+              <Button
+                variant="text"
+                color="error"
+                onClick={handleDeleteComment}
+              >
                 confirm delete?
               </Button>
             )}
+          </div>
+          <div className="reply-button">
+            <Button
+              className="reply-button-icon"
+              onClick={displayCommentReplyForm}
+            >
+              <CommentIcon />
+            </Button>
           </div>
           <div className="comment-like-wrap">
             <Checkbox
@@ -230,8 +234,9 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           </div>
         </div>
       </div>
-      <div className="comment-wrap">
-        {  showForm ?        
+
+      <div>
+        {showForm ? (
           <CommentReplyForm
             setPostResponse={setPostResponse}
             post={post}
@@ -239,15 +244,15 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             showForm={showForm}
             setShowForm={setShowForm}
           />
-          : null
-        }
+        ) : null}
+
         <Replies
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
           userId={userId}
         />
-      </div>  
+      </div>
     </li>
   );
 };

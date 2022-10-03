@@ -1,11 +1,4 @@
 .search__container {
-    margin-left: 1rem;
-    display: inline-flex;
-    place-items: center;
-    width: 27rem;
-    gap: 1rem;
-}
-
-.MuiDialogContent-root.css-ypiqx9-MuiDialogContent-root.search__bar__dialog {
-    width: 15rem;
+  display: flex;
+  gap: 1rem;
 }

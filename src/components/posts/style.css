@@ -6,7 +6,8 @@
 }
 
 .post-form {
-  width: 50vw;
+  max-width: 60rem;
+  width: 100%;
   margin-top: 1rem;
 }
 
@@ -18,6 +19,8 @@
 .posts-list {
   margin: 20px;
   list-style: none;
+  max-width: 60rem;
+  width: 100%;
 }
 
 .teacher-section {
@@ -27,7 +30,7 @@
 
 .post-item {
   position: relative;
-  width: 50vw;
+  width: 100%;
 
   list-style: none;
   background-color: #fff;
@@ -131,16 +134,12 @@
   padding: 0.5rem 0;
   border-top: 1px solid rgba(128, 128, 128, 0.221);
 
-  display: flex;
-  flex-direction: row;
-  align-self: auto;
-  align-content: stretch;
-  gap: 0.5rem;
+  display: grid;
 }
 
 .comment-avatar {
-  display: grid;
-  align-items: center;
+  display: flex;
+  width: 100%;
 }
 
 .comment-content-wrap h4,
@@ -150,17 +149,20 @@
 }
 
 .comment-content-wrap .createdAt-time {
+  margin-top: 0.75rem;
   font-size: 0.75rem;
 }
 
 .comment-content {
   display: grid;
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
   font-size: 0.9rem;
 }
 
 .comment-content-wrap {
   text-align: start;
+  width: 100%;
 }
 
 .comment-form-textfield fieldset {
@@ -173,7 +175,7 @@
   cursor: pointer;
 }
 
-.comment-wrap{
+.comment-wrap {
   padding: 0.5rem 2rem;
   border-top: solid 2px #3e3e3e2c;
   border-radius: 0 0 0.2rem 0.2rem;
@@ -181,7 +183,7 @@
   background-color: rgb(235, 235, 235);
 }
 
-.comment-item .comment-wrap{
+.comment-item .comment-wrap {
   margin-top: auto;
 }
 
@@ -198,10 +200,7 @@
 .post-of-the-week::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   -webkit-box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
   box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
   z-index: -1;
@@ -284,9 +283,9 @@
   margin: 2rem 0;
 }
 
-.comment-like-wrap{
-  margin-right:0;
-  margin-left:auto
+.comment-like-wrap {
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .count {
@@ -294,27 +293,26 @@
 }
 
 .comment-nav-wrap {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  align-content: flex-end;
+  align-items: center;
   margin-right: 0.5rem;
   margin-left: auto;
-
+  margin-top: 1rem;
 }
 
-.comment-like-wrap{
+.comment-like-wrap {
   display: inline-block;
   display: flex;
   flex-direction: row;
-
 }
 
-.edit-content-wrap{
+.edit-content-wrap {
   display: flex;
   flex-direction: row;
 }
 
-.try-again{
+.try-again {
   margin-left: 0.5rem;
   color: red;
 }

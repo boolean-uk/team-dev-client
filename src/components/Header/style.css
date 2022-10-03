@@ -1,13 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 0.5rem 0 0 1rem;
+.header-container {
+  display: flex;
+  background-color: grey;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
 }
 
-.company-name {
-    font-family: 'Rubik Dirt', cursive;
-    font-size: 1.7rem;
+@media screen and (max-width: 700px) {
+  .logo-container {
+    visibility: hidden;
+    width: 0;
+  }
 }

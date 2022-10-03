@@ -14,7 +14,7 @@ const Comments = ({
   const [comments, setComments] = useState(post.comments);
 
   useEffect(() => {
-    const postCommentsOnly = post.comments.filter(comment => !comment.parentId)
+    const postCommentsOnly = post.comments.filter(comment => !comment.parentId);
 
     setComments(postCommentsOnly);
 
@@ -36,7 +36,6 @@ const Comments = ({
   }, [sortType, post]);
 
   const handleShowAll = () => setShowingAll(!showingAll);
-
 
   return (
     <div className="comments-section">
@@ -64,7 +63,7 @@ const Comments = ({
                 userId={userId}
                 post={post}
                 comment={comment}
-                key={index}
+                key={comment.id}
                 setUser={setUser}
                 setPostResponse={setPostResponse}
               />

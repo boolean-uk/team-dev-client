@@ -1,12 +1,12 @@
 // import { Avatar, Checkbox } from '@mui/material';
 
 import {
-    Avatar,
-    Button,
-    Checkbox,
-    TextField,
-    ClickAwayListener,
-  } from '@mui/material';
+  Avatar,
+  Button,
+  Checkbox,
+  TextField,
+  ClickAwayListener,
+} from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import client from '../../utils/client';
@@ -25,7 +25,14 @@ import ClearIcon from '@mui/icons-material/Clear';
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostResponse }) => {
+const CommentReplyItem = ({
+  userId,
+  post,
+  comment,
+  setUser,
+  showingAll,
+  setPostResponse,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -38,15 +45,17 @@ const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostR
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const getUserId = userId();
 
     setThisUserId(getUserId);
 
-    const userHasLiked = comment.likes.find((commentLike) => commentLike.userId === getUserId) 
-    if(userHasLiked){
-        return setIsLiked(true);
+    const userHasLiked = comment.likes.find(
+      commentLike => commentLike.userId === getUserId
+    );
+
+    if (userHasLiked) {
+      return setIsLiked(true);
     }
 
     setIsLiked(false);
@@ -120,64 +129,65 @@ const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostR
       setIsDeleting(true);
       setConfirmDeleteText(true);
     } else {
-      console.log();
       deleteComment(setPostResponse, post.id, comment.id);
       setIsDeleting(false);
     }
   };
 
   return (
-    <li className='comment-list'>
-        <div className="comment-item">
-        <div className="comment-avatar">
+    <li className="comment-list" style={{ marginLeft: '40px' }}>
+      <div className="comment-item">
+        <div className="comment-avatar" style={{ width: '100%' }}>
           <Avatar
             src={comment.user.profile.profileImageUrl}
             alt="profile"
             sx={{ width: 35, height: 35 }}
           />
-        </div>
-        <div className="comment-content-wrap">
-          <h4 onClick={handleClick} className="post-owner-name">
-            {comment.user.profile.firstName} {comment.user.profile.lastName}
-          </h4>
-          <p className="createdAt-time">
-            {' '}
-            &#183; {formatTime(comment.createdAt)}
-          </p>
-          {editCommentStatus.length > 0 && (
-            <div className="try-again">
-              <TryAgain />
-            </div>
-          )}
-          {isEditing ? (
-            <>
-              <div className="edit-content-wrap">
-                <TextField
-                  fullWidth
-                  defaultValue={comment.content}
-                  variant="outlined"
-                  size="small"
-                  onChange={createNewComment}
-                ></TextField>
-                <Button
-                  className="submit-edited-comment"
-                  onClick={submitNewComment}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-                <Button
-                  className="cancel-edit"
-                  onClick={() => {
-                    setIsEditing(false);
-                  }}
-                >
-                  <ClearIcon />
-                </Button>
+          <div className="comment-content-wrap">
+            <h4 onClick={handleClick} className="post-owner-name">
+              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            </h4>
+            <p className="createdAt-time">
+              {' '}
+              &#183; {formatTime(comment.createdAt)}
+            </p>
+            {editCommentStatus.length > 0 && (
+              <div className="try-again">
+                <TryAgain />
               </div>
-            </>
-          ) : (
-            <p className="comment-content">{comment.content}</p>
-          )}
+            )}
+            {isEditing ? (
+              <>
+                <div className="edit-content-wrap">
+                  <TextField
+                    fullWidth
+                    defaultValue={comment.content}
+                    variant="outlined"
+                    size="small"
+                    multiline
+                    inputProps={{ maxLength: 150 }}
+                    onChange={createNewComment}
+                  ></TextField>
+                  <Button
+                    className="submit-edited-comment"
+                    onClick={submitNewComment}
+                  >
+                    <ArrowUpwardIcon />
+                  </Button>
+                  <Button
+                    className="cancel-edit"
+                    onClick={() => {
+                      setIsEditing(false);
+                    }}
+                  >
+                    <ClearIcon />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <p className="comment-content">{comment.content}</p>
+            )}
+          </div>
         </div>
         <div className="comment-nav-wrap">
           {thisUserId === comment.userId && (
@@ -200,7 +210,11 @@ const CommentReplyItem = ({ userId, post, comment, setUser, showingAll, setPostR
               </Button>
             </ClickAwayListener>
             {confirmDeleteText && (
-              <Button variant="text" color="error" onClick={handleDeleteComment}>
+              <Button
+                variant="text"
+                color="error"
+                onClick={handleDeleteComment}
+              >
                 confirm delete?
               </Button>
             )}
