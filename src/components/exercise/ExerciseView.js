@@ -41,7 +41,7 @@ const ExerciseView = () => {
                 )
             })}</div>
             <h3 style={{ textAlign: 'start' }}>Logs:</h3>
-            <div className='log-list'>{logList.map(l => {
+            <div className='log-list'>{logList && logList.map(l => {
                 return (
                     <p key={l.id} onClick={() => handleClick(l)}>{l.date}</p>
                 )
