@@ -8,7 +8,6 @@ const constants = {
       'password',
       'biography',
       'github_url',
-      'role',
     ],
   },
   post: {

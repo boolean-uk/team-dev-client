@@ -44,6 +44,7 @@ const RegistrationPage = () => {
           res.data.data.token
         );
       })
+      .then(() => login())
 
       .catch(err => {
         console.error(err.response);
@@ -55,9 +56,7 @@ const RegistrationPage = () => {
         if (err.response.data.data.email === 'Email already in use') {
           navigate('/signup', { state: { emailError: true } });
         }
-      })
-
-      .finally(login());
+      });
   };
 
   const handleChange = event => {
