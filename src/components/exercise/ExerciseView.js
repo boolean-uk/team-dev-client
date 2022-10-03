@@ -18,9 +18,9 @@ const ExerciseView = () => {
 
     useEffect(() => {
         client
-            .get(`/log?exerciseId=2`)
+            .get(`/log?exerciseId=${location.state.id}`)
             .then(res => setLogList(res.data.data.logs))
-    }, [])
+    }, [location.state.id])
 
     const handleClick = (log) => navigate(`/cohort/${log.cohortId}`)
 
