@@ -34,3 +34,15 @@
     display: flex;
     align-items: center;
 }
+
+.log-list {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-top: 0.5rem;
+}
+
+.log-list p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
