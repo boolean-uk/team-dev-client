@@ -42,7 +42,12 @@
   text-align: justify;
 }
 
+.event-user-name {
+  font-weight: bold;
+}
+
 .event-user-name:hover {
   text-decoration: underline;
   cursor: pointer;
+  font-weight: bold;
 }
