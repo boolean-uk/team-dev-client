@@ -27,11 +27,10 @@ const DeliveryLogItem = ({ log, setCohort }) => {
 
   useEffect(() => {
     if (log.exerciseId !== null) {
-      exerciseList.map(e => {
+      exerciseList.forEach(e => {
         if (e.id === log.exerciseId) {
           setSelectedExercise(e)
         }
-        return e
       })
     }
   }, [exerciseList, log.exerciseId]);
@@ -81,13 +80,12 @@ const DeliveryLogItem = ({ log, setCohort }) => {
     if (exercise === null) {
       setSelectedExercise('')
     } else {
-      exerciseList.map(e => {
+      exerciseList.forEach(e => {
         if (e.name === exercise) {
           client
             .patch(`/log/${log.id}`, { 'exerciseId': `${e.id}` })
             .then(_ => setSelectedExercise(e));
         }
-        return e
       })
     }
   }
