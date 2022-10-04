@@ -45,3 +45,322 @@
   width: 100%;
   background-color: white;
 }
+
+.posts-section {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-form {
+  max-width: 60rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.post-form .user-form-input {
+  border-radius: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.posts-list {
+  margin: 20px;
+  list-style: none;
+  max-width: 60rem;
+  width: 100%;
+}
+
+.teacher-section {
+  display: grid;
+  align-items: center;
+}
+
+.post-item {
+  position: relative;
+  width: 100%;
+
+  list-style: none;
+  background-color: #fff;
+  color: #000;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.post-wrap {
+  padding: 1.5rem 2rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.post-header-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-profile-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.post-content {
+  text-align: justify;
+}
+
+.no-posts-message {
+  margin: 1rem;
+}
+
+.modify-btn-wrap {
+  display: flex;
+  gap: 1rem;
+}
+
+.modify-btn:hover {
+  border-bottom: 1px solid;
+}
+
+.teacher-section {
+  margin-top: 30px;
+}
+
+.post-owner-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.post-vertical-menu {
+  position: absolute;
+  top: 1.25rem;
+  right: 0rem;
+}
+
+.btn-likes-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.like-wrap {
+  display: flex;
+}
+
+.post-hidden-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(17, 17, 17, 0.216);
+  backdrop-filter: saturate(110%) blur(8px);
+  border-radius: 0.2rem;
+
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-list {
+  list-style: none;
+}
+
+.comment-item {
+  list-style: none;
+  color: #000;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.221);
+
+  display: grid;
+}
+
+.comment-avatar {
+  display: flex;
+  width: 100%;
+}
+
+.comment-content-wrap h4,
+.comment-content-wrap .createdAt-time {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.comment-content-wrap .createdAt-time {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.comment-content {
+  display: grid;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.comment-content-wrap {
+  text-align: start;
+  width: 100%;
+}
+
+.comment-form-textfield fieldset {
+  border: 0;
+}
+
+.comments-show-all {
+  border-top: 1px solid rgba(128, 128, 128, 0.221);
+  color: #3b89d7;
+  cursor: pointer;
+}
+
+.comment-wrap {
+  padding: 0.5rem 2rem;
+  border-top: solid 2px #3e3e3e2c;
+  border-radius: 0 0 0.2rem 0.2rem;
+
+  background-color: rgb(235, 235, 235);
+}
+
+.comment-item .comment-wrap {
+  margin-top: auto;
+}
+
+.count {
+  display: flex;
+  align-self: center;
+}
+
+.hot-topic-placeholder {
+  width: 87px;
+  height: 25px;
+}
+
+.post-of-the-week::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  -webkit-box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+  box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+  z-index: -1;
+  -webkit-animation-name: gradient-shadow;
+  animation-name: gradient-shadow;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+@-webkit-keyframes gradient-shadow {
+  0% {
+    -webkit-box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+  }
+  20% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(87, 147, 196),
+      0 0 4px 2px rgb(87, 147, 196);
+    box-shadow: 0 0 17px 3px rgb(87, 147, 196), 0 0 4px 2px rgb(87, 147, 196);
+  }
+  40% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(129, 199, 129),
+      0 0 4px 2px rgb(129, 199, 129);
+    box-shadow: 0 0 17px 3px rgb(129, 199, 129), 0 0 4px 2px rgb(129, 199, 129);
+  }
+  60% {
+    -webkit-box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+    box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+  }
+  80% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(223, 132, 132),
+      0 0 4px 2px rgb(223, 132, 132);
+    box-shadow: 0 0 17px 3px rgb(223, 132, 132), 0 0 4px 2px rgb(223, 132, 132);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+  }
+}
+
+@keyframes gradient-shadow {
+  0% {
+    -webkit-box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+  }
+  20% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(87, 147, 196),
+      0 0 4px 2px rgb(87, 147, 196);
+    box-shadow: 0 0 17px 3px rgb(87, 147, 196), 0 0 4px 2px rgb(87, 147, 196);
+  }
+  40% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(129, 199, 129),
+      0 0 4px 2px rgb(129, 199, 129);
+    box-shadow: 0 0 17px 3px rgb(129, 199, 129), 0 0 4px 2px rgb(129, 199, 129);
+  }
+  60% {
+    -webkit-box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+    box-shadow: 0 0 17px 3px #c7c75f, 0 0 4px 2px #c7c75f;
+  }
+  80% {
+    -webkit-box-shadow: 0 0 17px 3px rgb(223, 132, 132),
+      0 0 4px 2px rgb(223, 132, 132);
+    box-shadow: 0 0 17px 3px rgb(223, 132, 132), 0 0 4px 2px rgb(223, 132, 132);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+  }
+}
+
+.posts-of-the-week-wrap {
+  margin: 2rem 0;
+}
+
+.comment-like-wrap {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.count {
+  display: inline-block;
+}
+
+.comment-nav-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 0.5rem;
+  margin-left: auto;
+  margin-top: 1rem;
+}
+
+.comment-like-wrap {
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
+}
+
+.edit-content-wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.try-again {
+  margin-left: 0.5rem;
+  color: red;
+}

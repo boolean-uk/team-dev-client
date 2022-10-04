@@ -6,7 +6,6 @@ import './style.css';
 import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
-
 import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
@@ -103,6 +102,7 @@ const PostsPage = ({ getUserId }) => {
           handleSubmit={createPost}
           handleChange={handleChange}
           value={post}
+
         />
 
         <PostsOfTheWeek
@@ -110,6 +110,7 @@ const PostsPage = ({ getUserId }) => {
           getUserId={getUserId}
           setPost={setPost}
           setPostResponse={setPostResponse}
+          
         />
 
         {posts?.length > 0 ? (
