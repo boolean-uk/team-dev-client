@@ -151,11 +151,14 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
 
   return (
     <li className={liClasses}>
-      {isPrivate && 
-      <div onClick={() => setIsPrivate(false)} className='post-hidden-overlay'>
-        <VisibilityOffIcon fontSize='large' color='disabled' />
-      </div>
-      }
+      {isPrivate && (
+        <div
+          onClick={() => setIsPrivate(false)}
+          className="post-hidden-overlay"
+        >
+          <VisibilityOffIcon fontSize="large" color="disabled" />
+        </div>
+      )}
       <div className="post-wrap">
         <div className="post-header-wrap">
           <div className="post-profile-wrap">
@@ -189,7 +192,9 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
             ) : (
               <div className="hot-topic-placeholder"></div>
             )}
-            {isOwner && <VerticalDotMenu post={post} setPostResponse={setPostResponse} />}
+            {isOwner && (
+              <VerticalDotMenu post={post} setPostResponse={setPostResponse} />
+            )}
             <p className="createdAt-time">{formatTime(post.createdAt)}</p>
           </div>
         </div>

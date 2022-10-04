@@ -1,3 +1,5 @@
+// import { Avatar, Checkbox } from '@mui/material';
+
 import {
   Avatar,
   Button,
@@ -13,19 +15,24 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useEffect, useState } from 'react';
 import { createCommentLike, deleteCommentLike } from './utils/likeRequests';
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CommentIcon from '@mui/icons-material/Comment';
 import { deleteComment } from './utils/deleteComment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
-import CommentReplyForm from './CommentReplyForm';
-import Replies from './Replies';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentReplyItem = ({
+  userId,
+  post,
+  comment,
+  setUser,
+  showingAll,
+  setPostResponse,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -35,7 +42,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [thisUserId, setThisUserId] = useState(0);
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
-  const [showForm, setShowForm] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,10 +50,12 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
 
     setThisUserId(getUserId);
 
-    for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
-        return setIsLiked(true);
-      }
+    const userHasLiked = comment.likes.find(
+      commentLike => commentLike.userId === getUserId
+    );
+
+    if (userHasLiked) {
+      return setIsLiked(true);
     }
 
     setIsLiked(false);
@@ -125,14 +134,10 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     }
   };
 
-  const displayCommentReplyForm = () => {
-    setShowForm(!showForm);
-  };
-
   return (
-    <li className="comment-list">
+    <li className="comment-list" style={{ marginLeft: '40px' }}>
       <div className="comment-item">
-        <div className="comment-avatar">
+        <div className="comment-avatar" style={{ width: '100%' }}>
           <Avatar
             src={comment.user.profile.profileImageUrl}
             alt="profile"
@@ -214,14 +219,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               </Button>
             )}
           </div>
-          <div className="reply-button">
-            <Button
-              className="reply-button-icon"
-              onClick={displayCommentReplyForm}
-            >
-              <CommentIcon />
-            </Button>
-          </div>
           <div className="comment-like-wrap">
             <Checkbox
               label="like"
@@ -234,27 +231,8 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           </div>
         </div>
       </div>
-
-      <div>
-        {showForm ? (
-          <CommentReplyForm
-            setPostResponse={setPostResponse}
-            post={post}
-            comment={comment}
-            showForm={showForm}
-            setShowForm={setShowForm}
-          />
-        ) : null}
-
-        <Replies
-          post={post}
-          setPostResponse={setPostResponse}
-          comment={comment}
-          userId={userId}
-        />
-      </div>
     </li>
   );
 };
 
-export default CommentItem;
+export default CommentReplyItem;

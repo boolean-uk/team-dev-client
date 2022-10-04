@@ -7,6 +7,7 @@ import Menu from '@mui/material/Menu';
 
 const options = [
   'Select an Option',
+  'Most Liked',
   'Most Recent',
   'Oldest',
 ];

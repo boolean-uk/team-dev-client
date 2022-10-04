@@ -1,8 +1,13 @@
 import client from '../../../utils/client';
 
-export const createComment = (setPostResponse, postId, content) => {
+export const createReplyComment = (
+  setPostResponse,
+  postId,
+  content,
+  parentId
+) => {
   client
-    .post(`/post/${postId}/comment`, { content })
+    .post(`/post/${postId}/comment`, { content, parentId })
     .then(res => {
       setPostResponse(res.data);
     })

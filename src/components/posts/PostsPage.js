@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import client from '../../utils/client';
 import './style.css';
@@ -14,14 +13,13 @@ import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const PostsPage = ({ getUserId }) => {
-  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE' ? true : false
+  const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE';
   const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
-  const [postsOfTheWeek, setPostsOfTheWeek] = useState([])
+  const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
   const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
-  let navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem(process.env.REACT_APP_USER_TOKEN);
@@ -35,14 +33,14 @@ const PostsPage = ({ getUserId }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        const userRole = res.data.data.user.role
+        const userRole = res.data.data.user.role;
         if (userRole === 'TEACHER' || userRole === 'ADMIN') {
           setIsTeacherorAdmin(true);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error('user error', err));
     renderPosts(setPosts, setPostsOfTheWeek);
-    setPost({...post, isPrivate: postPref})
+    setPost({ ...post, isPrivate: postPref });
     // eslint-disable-next-line
   }, [postResponse, postPref]);
 
@@ -72,7 +70,7 @@ const PostsPage = ({ getUserId }) => {
         ...post,
         content: value,
       });
-    } 
+    }
     if (event.target.name === 'switch') {
       setPost({
         ...post,
@@ -81,20 +79,11 @@ const PostsPage = ({ getUserId }) => {
     }
   };
 
-  const signOut = event => {
-    event.preventDefault();
-    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
-    navigate('../', { replace: true });
-  };
-
   return (
     <>
       {isTeacherorAdmin && <TeacherAdmin />}
 
       <section className="posts-section">
-        <button id="user-signout-button" onClick={signOut}>
-          sign out
-        </button>
 
         {postError && <Alert severity="error">Must provide content</Alert>}
 

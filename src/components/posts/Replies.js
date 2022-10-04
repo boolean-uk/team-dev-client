@@ -1,41 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import CommentItem from './CommentItem';
+import CommentReplyItem from './CommentReplyItem';
 import FilterMenu from './utils/filterMenu';
 
-const Comments = ({
-  userId,
-  post,
-  setUser,
-  showingAll,
-  setShowingAll,
-  setPostResponse,
-}) => {
+const Replies = ({ post, comment, userId, setPostResponse }) => {
   const [sortType, setSortType] = useState('Most Liked');
-  const [comments, setComments] = useState(post.comments);
+  const [comments, setComments] = useState(comment.replies);
+  const [showingAll, setShowingAll] = useState(false);
 
   useEffect(() => {
-    const postCommentsOnly = post.comments.filter(comment => !comment.parentId);
-
-    setComments(postCommentsOnly);
-
     if (sortType === 'Most Recent') {
-      setComments(prev =>
-        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      setComments(
+        [...comment.replies].sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
       );
     }
     if (sortType === 'Oldest') {
-      setComments(prev =>
-        [...prev].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      setComments(
+        [...comment.replies].sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        })
       );
     }
     if (sortType === 'Most Liked') {
-      setComments(prev =>
-        [...prev].sort((a, b) => b.likes.length - a.likes.length)
+      setComments(
+        [...comment.replies].sort((a, b) => {
+          return b.likes.length - a.likes.length;
+        })
       );
     }
-  }, [sortType, post]);
+  }, [sortType, comment]);
 
-  const handleShowAll = () => setShowingAll(!showingAll);
+  const handleShowAll = () => {
+    setShowingAll(!showingAll);
+  };
 
   return (
     <div className="comments-section">
@@ -47,24 +45,22 @@ const Comments = ({
       <ul className="comments-list">
         {!showingAll
           ? comments.length >= 1 && (
-              <CommentItem
+              <CommentReplyItem
                 userId={userId}
                 post={post}
                 comment={comments[0]}
-                setUser={setUser}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
               />
             )
           : comments.length > 0 &&
-            comments.map((comment, index) => (
-              <CommentItem
+            comments.map(comment => (
+              <CommentReplyItem
                 showingAll={showingAll}
                 userId={userId}
                 post={post}
                 comment={comment}
                 key={comment.id}
-                setUser={setUser}
                 setPostResponse={setPostResponse}
               />
             ))}
@@ -72,12 +68,12 @@ const Comments = ({
       {comments.length > 1 && (
         <p className="comments-show-all" onClick={handleShowAll}>
           {!showingAll
-            ? `Show All Comments (${comments.length})`
-            : 'Hide Comments'}
+            ? `Show All Replies (${comments.length})`
+            : 'Hide Replies'}
         </p>
       )}
     </div>
   );
 };
 
-export default Comments;
+export default Replies;

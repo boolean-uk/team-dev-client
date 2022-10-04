@@ -6,5 +6,5 @@ export function deletePost(setPostResponse, postId) {
     .then(res => {
       setPostResponse(res.data);
     })
-    .catch(() => console.log('Unable to delete post'));
+    .catch(err => console.error('Unable to delete post', err.response));
 }

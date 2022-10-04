@@ -12,58 +12,51 @@ const RegistrationPage = () => {
   const location = useLocation();
 
   const [user, setUser] = useState(userBlankData());
-  const [registerResponse, setRegisterResponse] = useState('');
-  const [emailError, setEmailError] = useState(test());
+  const [successRegisterUser, setSuccessRegisterUser] = useState('');
+  const [errorMissingEmail, setErrorMissingEmail] = useState(test());
 
   let navigate = useNavigate();
 
-
-
   function test() {
-    let existingEmail = location.state
+    let existingEmail = location.state;
 
-    if(existingEmail) {
-      window.history.replaceState(null, '')
+    if (existingEmail) {
+      window.history.replaceState(null, '');
 
-      return true
-    }
-    else {
-      return false
+      return true;
+    } else {
+      return false;
     }
   }
-
 
   const login = () => {
-    navigate('../posts', { replace: true })
-  }
-
+    navigate('../posts', { replace: true });
+  };
 
   const registerUser = event => {
     event.preventDefault();
     client
       .post('/user', user, false)
-      .then(res => {setRegisterResponse(res.data); 
+      .then(res => {
+        setSuccessRegisterUser(res.data);
         localStorage.setItem(
           process.env.REACT_APP_USER_TOKEN,
-          res.data.data.token);
+          res.data.data.token
+        );
       })
+      .then(() => login())
 
       .catch(err => {
         console.error(err.response);
-        setEmailError(true);
+        setErrorMissingEmail(true);
         setTimeout(() => {
-          setEmailError(false);
+          setErrorMissingEmail(false);
         }, '3000');
 
-
-        if(err.response.data.data.email === 'Email already in use'){
-          navigate('/signup', {state:{emailError: true}} );
+        if (err.response.data.data.email === 'Email already in use') {
+          navigate('/signup', { state: { emailError: true } });
         }
-      })
-
-      .finally(
-        login()
-      )
+      });
   };
 
   const handleChange = event => {
@@ -77,21 +70,23 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="registration-page">
-      <Link id="user-registration-link" to="/signup">
-        sign up
-      </Link>{' '}
-      <Link id="user-login-link" to="/">
-        login
-      </Link>
-      <h1>Sign up</h1>
-      {emailError && (
-        <Alert severity="error">
-          An account has already been registered with this email
-        </Alert>
-      )}
-      <p>Status: {registerResponse.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={registerUser} />
+    <div className="auth-page-container">
+      <div className="registration-page">
+        <Link id="user-registration-link" to="/signup">
+          sign up
+        </Link>{' '}
+        <Link id="user-login-link" to="/">
+          login
+        </Link>
+        <h1>Sign up</h1>
+        {errorMissingEmail && (
+          <Alert severity="error">
+            An account has already been registered with this email
+          </Alert>
+        )}
+        <p>Status: {successRegisterUser.status}</p>
+        <UserForm handleChange={handleChange} handleSubmit={registerUser} />
+      </div>
     </div>
   );
 };

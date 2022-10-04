@@ -5,10 +5,13 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
-import { useState, useEffect } from 'react';
+import { Alert } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
+  const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
+  const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,14 +25,14 @@ const Profile = () => {
     role,
   } = userDisplayed;
   let isOwner = false;
-  
+
   useEffect(() => {
     if (location.state) {
-      setUserDisplayed(location.state.user)
+      setUserDisplayed(location.state.user);
     } else {
-      setUserDisplayed(userLoggedIn)
+      setUserDisplayed(userLoggedIn);
     }
-  }, [location, userLoggedIn])
+  }, [location, userLoggedIn]);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -52,11 +55,21 @@ const Profile = () => {
     }
 
     client
-      .patch('/user/myprofile', reqBody)
+      .patch(`/user/${userDisplayed.id}`, reqBody)
       .then(res => {
         setUserDisplayed(res.data.data.user);
+        setSuccessProfileUpdate(true);
+        setTimeout(() => {
+          setSuccessProfileUpdate(false);
+        }, '3000');
       })
-      .catch(err => console.error(err.response));
+      .catch(err => {
+        console.error(err.response);
+        setErrorProfileUpdate(true);
+        setTimeout(() => {
+          setErrorProfileUpdate(false);
+        }, '3000');
+      });
   };
 
   const handleAdminClick = () => {
@@ -87,14 +100,32 @@ const Profile = () => {
           </div>
           <p>{biography}</p>
         </div>
-        {isAdmin || !isOwner ? (
+        {isAdmin && !isOwner ? (
           <Button variant="outlined" onClick={handleAdminClick}>
             Account Information
-          </Button>) : <></>
-        }
-        {isOwner && <EditForm handleSubmit={() => handleSubmit()} />}
+          </Button>
+        ) : (
+          <></>
+        )}
+        {isOwner && <EditForm handleSubmit={handleSubmit} />}
       </div>
       {role !== 'TEACHER' && <StudentList />}
+      {successProfileUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="success"
+        >
+          Profile updated successfully
+        </Alert>
+      )}
+      {errorProfileUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          Profile not updated
+        </Alert>
+      )}
     </>
   );
 };

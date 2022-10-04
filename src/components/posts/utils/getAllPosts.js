@@ -31,51 +31,57 @@ export function formatTime(timeString) {
 
 async function getAllPosts() {
   try {
-    const response = await client.get('/posts')
-    return response.data.data
+    const response = await client.get('/posts');
+    return response.data.data;
   } catch (err) {
-    console.error(err);
+    console.error('posts error', err);
   }
 }
 
 function getPostsWithin7Days(posts) {
-  let postsInAWeek = []
+  let postsInAWeek = [];
   if (posts.length > 0) {
-    let lastWeek = moment().subtract(6, 'days').format('L')
-    lastWeek = new Date(lastWeek)
-    postsInAWeek = posts.filter(post => new Date(post.createdAt) > lastWeek ? post : null)
+    let lastWeek = moment().subtract(6, 'days').format('L');
+    lastWeek = new Date(lastWeek);
+    postsInAWeek = posts.filter(post =>
+      new Date(post.createdAt) > lastWeek ? post : null
+    );
   }
-  return postsInAWeek
+  return postsInAWeek;
 }
 
 function getPopularity(post) {
-  return post.comments.length + post.likes.length
+  return post.comments.length + post.likes.length;
 }
 
 function getMostPopularPosts(posts) {
-  let mostPopular = []
+  let mostPopular = [];
   posts.forEach((post, index) => {
     if (index === 0) {
-      mostPopular.push(post)
+      mostPopular.push(post);
     } else if (getPopularity(mostPopular[0]) < getPopularity(post)) {
-      mostPopular = [post]
+      mostPopular = [post];
     } else if (getPopularity(mostPopular[0]) === getPopularity(post)) {
-      mostPopular.push(post)
+      mostPopular.push(post);
     }
-  })
+  });
 
-  return mostPopular
+  return mostPopular;
 }
 
 export function renderPosts(setPosts, setPostsOfTheWeek) {
-  let allPosts = []
-  getAllPosts().then(response => {
-    allPosts = response
+  let allPosts = [];
+  getAllPosts()
+    .then(response => {
+      allPosts = response;
 
-    const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts))
-    setPostsOfTheWeek(mostPopular)
+      const mostPopular = getMostPopularPosts(getPostsWithin7Days(allPosts));
+      setPostsOfTheWeek(mostPopular);
 
-    const postsToRender = allPosts.filter(post => !mostPopular.includes(post))
-    setPosts(postsToRender);
-  }).catch(err => console.error(err));
+      const postsToRender = allPosts.filter(
+        post => !mostPopular.includes(post)
+      );
+      setPosts(postsToRender);
+    })
+    .catch(err => console.error(err));
 }
