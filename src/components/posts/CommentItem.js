@@ -25,7 +25,14 @@ import Replies from './Replies';
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentItem = ({
+  userId,
+  post,
+  comment,
+  setUser,
+  setPostResponse,
+  isActive,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);

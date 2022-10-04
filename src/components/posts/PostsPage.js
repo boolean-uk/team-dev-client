@@ -21,6 +21,7 @@ const PostsPage = ({ getUserId }) => {
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
   const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -121,6 +122,7 @@ const PostsPage = ({ getUserId }) => {
                 userId={getUserId}
                 setPost={setPost}
                 setPostResponse={setPostResponse}
+                isTeacherorAdmin={isTeacherorAdmin}
               />
             ))}
           </ul>

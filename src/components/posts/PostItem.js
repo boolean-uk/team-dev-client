@@ -39,7 +39,13 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, userId, setPostResponse, setUser }) => {
+const PostItem = ({
+  post,
+  userId,
+  setPostResponse,
+  setUser,
+  isTeacherorAdmin,
+}) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -54,6 +60,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -207,8 +214,8 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
           <p className="post-content">{post.content}</p>
         )}
         <div className="btn-likes-wrap">
-          {isOwner ? (
-            <div className="modify-btn-wrap">
+          <div className="modify-btn-wrap">
+            {isOwner ? (
               <Button
                 color={editStyle.color}
                 variant="text"
@@ -218,7 +225,10 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
               >
                 {editStyle.text}
               </Button>
-
+            ) : (
+              <div></div>
+            )}
+            {isOwner || isTeacherorAdmin ? (
               <ClickAwayListener onClickAway={resetDelBtn}>
                 <Button
                   variant="text"
@@ -229,10 +239,10 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
                   {delStyle.text}
                 </Button>
               </ClickAwayListener>
-            </div>
-          ) : (
-            <div></div>
-          )}
+            ) : (
+              <div></div>
+            )}
+          </div>
           <div className="like-wrap">
             <LikesView
               post={post}
@@ -276,6 +286,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
           showingAll={showingAll}
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
+          isActive={isActive}
         />
       </div>
     </li>
