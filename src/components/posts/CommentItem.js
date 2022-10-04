@@ -164,16 +164,6 @@ const CommentItem = ({
               <div>
                 {comment.user.profile.firstName} {comment.user.profile.lastName}
               </div>
-
-              {/* className="post-owner-name">
-              {isActive ? (
-                <div>
-                  {comment.user.profile.firstName}{' '}
-                  {comment.user.profile.lastName}
-                </div>
-              ) : (
-                `[removed]`
-              )} */}
             </h4>
             <p className="createdAt-time">
               {' '}
