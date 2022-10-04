@@ -39,29 +39,55 @@ const Account = () => {
     }
   }, [loggedInUser, location]);
 
+  const handleEmailUpdate = reqData => {
+    const reqBody = { email: reqData };
 
-  const handleUpdate = (reqData) => {
-    const reqBody = reqData.includes('@') ? { email: reqData } : { postPrivacyPref: reqData }
     const userId = user.id;
     if (userId === null) {
       return;
     }
 
     client
-      .patch('/user/myprofile', reqBody)
+      .patch(`/user/${user.id}`, reqBody)
       .then(res => {
         setUser(res.data.data.user);
-        reqBody.email ? setSuccessEmailUpdate(true) : setSuccessPrefUpdate(true)
+        setSuccessEmailUpdate(true);
         setTimeout(() => {
-          reqBody.email ? setSuccessEmailUpdate(false) : setSuccessPrefUpdate(false)
+          setSuccessEmailUpdate(false);
         }, '3000');
       })
 
       .catch(err => {
         console.error(err.response);
-        reqBody.email ? setErrorEmailUpdate(true) : setErrorPrefUpdate(true)  
+        setErrorEmailUpdate(true);
         setTimeout(() => {
-          reqBody.email ? setErrorEmailUpdate(false) : setErrorPrefUpdate(false)
+          setErrorEmailUpdate(false);
+        }, '3000');
+      });
+  };
+
+  const handlePrivacyUpdate = reqData => {
+    const reqBody = { postPrivacyPref: reqData };
+    const userId = user.id;
+    if (userId === null) {
+      return;
+    }
+
+    client
+      .patch(`/user/${user.id}/privacy`, reqBody)
+      .then(res => {
+        setUser(res.data.data.user);
+        setSuccessPrefUpdate(true);
+        setTimeout(() => {
+          setSuccessPrefUpdate(false);
+        }, '3000');
+      })
+
+      .catch(err => {
+        console.error(err.response);
+        setErrorPrefUpdate(true);
+        setTimeout(() => {
+          setErrorPrefUpdate(false);
         }, '3000');
       });
   };
@@ -91,7 +117,10 @@ const Account = () => {
                 )}
                 {(isOwner || isAdmin) && row.key === 'postPrivacyPref' ? (
                   <TableCell align="right" sx={{ float: 'right' }}>
-                    <PrivacyMenu user={user} handleUpdate={handleUpdate} />
+                    <PrivacyMenu
+                      user={user}
+                      handleUpdate={handlePrivacyUpdate}
+                    />
                   </TableCell>
                 ) : (
                   <TableCell align="right">{row.value}</TableCell>
@@ -141,7 +170,9 @@ const Account = () => {
         ) : (
           <></>
         )}
-        <>{isOwner ? <EditDetails handleUpdate={handleUpdate} /> : <></>}</>
+        <>
+          {isOwner ? <EditDetails handleUpdate={handleEmailUpdate} /> : <></>}
+        </>
       </div>
     </>
   );
