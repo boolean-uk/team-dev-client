@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import client from '../../utils/client'
+import client from '../../../utils/client'
 
 const EventItem = (devEvent) => {
     const [receivedBy, setReceivedBy] = useState({})
     const [createdBy, setCreatedBy] = useState({})
-    console.log('in EventItem', devEvent)
     const eventLog = devEvent.devEvent
 
     useEffect(() => {
@@ -21,8 +20,6 @@ const EventItem = (devEvent) => {
             .get(`/user/${eventLog.createdById}`)
             .then(res => {setCreatedBy(res.data.data.user)})
         }
-        console.log('createdBy', createdBy)
-        console.log('receivedBy', receivedBy)
     },[])
 
   return (
@@ -37,6 +34,8 @@ const EventItem = (devEvent) => {
             <span className='event-user-name'>{receivedBy.first_name} {receivedBy.last_name}</span>
             {' '}
             {eventLog.topic}
+            {' '}
+            {eventLog.content}
             {' '}
             <span className='event-user-name'>{createdBy.first_name} {createdBy.last_name}</span>
         </p>

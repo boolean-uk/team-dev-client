@@ -5,6 +5,15 @@
   align-items: center;
 }
 
+.event-form {
+  display: flex;
+  gap: 2rem;
+}
+
+.event-form * {
+  color: white !important;
+}
+
 .events-list {
   margin: 20px;
   list-style: none;
