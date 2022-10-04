@@ -6,6 +6,7 @@ import {
   ClickAwayListener,
   Chip,
   AvatarGroup,
+  Fab,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -62,10 +63,6 @@ const PostItem = ({
   const [openDialog, setOpenDialog] = useState(false);
   const [isActive, setIsActive] = useState(true);
 
-  const [test, setIsTest] = useState(true);
-
-  const [isDeactive, setIsDeactive] = useState(false);
-
   const navigate = useNavigate();
   const getUserId = userId();
 
@@ -77,6 +74,7 @@ const PostItem = ({
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
+    setIsActive(post.user.isActive);
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
@@ -155,16 +153,6 @@ const PostItem = ({
     }
   };
 
-  const deactivatedUser = () => {
-    if (test) {
-      setIsActive(false);
-      setIsDeactive(true);
-    } else {
-      setIsDeactive(false);
-      setIsActive(true);
-    }
-  };
-
   let liClasses = 'post-item';
   if (post.isPostOfTheWeek) {
     liClasses += ' post-of-the-week';
@@ -188,13 +176,10 @@ const PostItem = ({
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            {/* <h3
-              // onMouseEnter={deactivatedUser}
+            <h3
               onClick={handleClick}
-              // className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
-            > */}
-            {post.user.profile.firstName} {post.user.profile.lastName}
-            <h3 onClick={handleClick} className="post-owner-name">
+              className={`post-owner-name ${!isActive && 'deactive-user'}`}
+            >
               {isActive ? (
                 <div>
                   {post.user.profile.firstName} {post.user.profile.lastName}
@@ -297,6 +282,7 @@ const PostItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
+              className={!isActive && 'deactive-user'}
             />
             <div className="count">{likesCount}</div>
           </div>
