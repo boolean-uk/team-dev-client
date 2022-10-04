@@ -4,17 +4,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import EditForm from './EditForm';
 import client from '../../utils/client';
+import jwt_decode from 'jwt-decode';
 import StudentList from '../../components/studentList/StudentList';
 import { Alert } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { renderPosts } from '../posts/utils/getAllPosts';
 import PostItem from '../posts/PostItem';
+// import PostsOfTheWeek from '../posts/utils/PostsOfTheWeek';
 
-const Profile = ({ getUserId }) => {
+
+const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
+  const [userProfileId, setUserProfileId] = useState(0);
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState({ content: '', isPrivate: false });
+
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
@@ -34,22 +40,26 @@ const Profile = ({ getUserId }) => {
   useEffect(() => {
     if (location.state) {
       setUserDisplayed(location.state.user);
+      setUserProfileId(location.state.user.id)
       getAllPosts();
     } else {
       setUserDisplayed(userLoggedIn);
     }
-  }, [location, userLoggedIn]);
+  }, [location, userLoggedIn, userProfileId]);
 
   async function getAllPosts() {
     console.log('getting');
     try {
+
       const response = await client.get('/posts');
+
       console.log('response', response.data.data);
+
+      console.log('userDisplayedId', userDisplayed.id);
       const filteredResults = response.data.data.filter(
-        post => post.userId === 1
+        post => post.userId === userDisplayed.id
       );
       console.log('filteredResults', filteredResults);
-      console.log('userDisplayedId', userDisplayed.id);
       return setPosts(filteredResults);
     } catch (err) {
       console.error('posts error', err);
@@ -156,14 +166,26 @@ const Profile = ({ getUserId }) => {
               <PostItem
                 post={post}
                 key={index}
-                userId={getUserId}
-          
+                userId={userProfileId}
+                setPost={setPost}
               />
             ))}
           </ul>
         ) : (
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
+      {/* // {posts?.length > 0 ? (
+      //   <ul className="posts-list">
+      //     {posts?.map((post, index) => (
+      //       <li>
+      //         <p>{post.content}</p>
+      //         <p>{post.createdAt}</p>
+      //       </li>
+      //     ))}
+      //   </ul>
+      // ) : (
+      //   <p className="no-posts-message">There are no posts at the moment.</p>
+      // )} */}
     </>
   );
 };

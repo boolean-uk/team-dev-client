@@ -57,7 +57,7 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-            element={<Profile getLoggedInUserId={getLoggedInUserId} getUserId={getLoggedInUserId} />}
+            element={<Profile getUserId={getLoggedInUserId} />}
           />
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
           <Route
