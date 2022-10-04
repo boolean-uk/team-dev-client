@@ -25,6 +25,7 @@ import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -63,6 +64,8 @@ const PostItem = ({
   const [openDialog, setOpenDialog] = useState(false);
   const isActive = post.user.isActive;
 
+  const { user } = useLoggedInUser();
+
   const navigate = useNavigate();
   const getUserId = userId();
 
@@ -74,6 +77,9 @@ const PostItem = ({
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
+
+    console.log(post);
+
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
@@ -175,18 +181,22 @@ const PostItem = ({
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
+
             <h3
               onClick={handleClick}
-              className={`post-owner-name ${!isActive && 'deactive-user'}`}
+              className={`post-owner-name ${
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }`}
             >
-              {isActive ? (
-                <div>
-                  {post.user.profile.firstName} {post.user.profile.lastName}
-                </div>
-              ) : (
-                `[removed]`
-              )}
+              <div>
+                {post.user.profile.firstName} {post.user.profile.lastName}
+              </div>
             </h3>
+            {!isActive && isTeacherorAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip variant="outlined" color="error" label="deactivated" />
+              </div>
+            )}
           </div>
           <div>
             {post.isPostOfTheWeek ? (

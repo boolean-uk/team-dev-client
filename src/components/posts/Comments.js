@@ -9,7 +9,6 @@ const Comments = ({
   showingAll,
   setShowingAll,
   setPostResponse,
-
   isTeacherorAdmin,
 }) => {
   const [sortType, setSortType] = useState('Most Liked');

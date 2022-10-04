@@ -6,6 +6,7 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip,
 } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +52,10 @@ const CommentReplyItem = ({
     const getUserId = userId();
 
     setThisUserId(getUserId);
+
+    if (comment.user.isActive === false) {
+      setIsActive(false);
+    }
 
     const userHasLiked = comment.likes.find(
       commentLike => commentLike.userId === getUserId
@@ -147,19 +152,24 @@ const CommentReplyItem = ({
           />
           <div className="comment-content-wrap">
             <h4 onClick={handleClick} className="post-owner-name">
-              {isActive ? (
-                <div>
-                  {comment.user.profile.firstName}{' '}
-                  {comment.user.profile.lastName}
-                </div>
-              ) : (
-                `[removed]`
-              )}
+              <div>
+                {comment.user.profile.firstName} {comment.user.profile.lastName}
+              </div>
             </h4>
             <p className="createdAt-time">
               {' '}
               &#183; {formatTime(comment.createdAt)}
             </p>
+            {!isActive && isTeacherorAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                  label="deactivated"
+                />
+              </div>
+            )}
             {editCommentStatus.length > 0 && (
               <div className="try-again">
                 <TryAgain />
