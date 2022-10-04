@@ -1,4 +1,6 @@
-.registration-page {
+.auth-page-container {
+  margin-inline: auto;
+  max-width: 400px;
 }
 
 .user-form {

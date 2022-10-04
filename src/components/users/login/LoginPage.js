@@ -61,27 +61,29 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page">
-      <div>
-        <h1>Cohort Manager 2.0</h1>
+    <div className="auth-page-container">
+      <div className="login-page">
+        <div>
+          <h1>Cohort Manager 2.0</h1>
+        </div>
+        <Link id="user-registration-link" to="/signup">
+          sign up
+        </Link>
+        <Link id="user-login-link" to="/">
+          login
+        </Link>
+        <h1>Login</h1>
+        <p>Status: {successLogin.status}</p>
+        <UserForm handleChange={handleChange} handleSubmit={loginUser} />
+        {location.state !== null && location.state.token === 'expired' && (
+          <Alert severity="error">
+            Your session has expired. Please login again.
+          </Alert>
+        )}
+        {errorLogin && (
+          <Alert severity="error">Email or Password is incorrect</Alert>
+        )}
       </div>
-      <Link id="user-registration-link" to="/signup">
-        sign up
-      </Link>
-      <Link id="user-login-link" to="/">
-        login
-      </Link>
-      <h1>Login</h1>
-      <p>Status: {successLogin.status}</p>
-      <UserForm handleChange={handleChange} handleSubmit={loginUser} />
-      {location.state !== null && location.state.token === 'expired' && (
-        <Alert severity="error">
-          Your session has expired. Please login again.
-        </Alert>
-      )}
-      {errorLogin && (
-        <Alert severity="error">Email or Password is incorrect</Alert>
-      )}
     </div>
   );
 };

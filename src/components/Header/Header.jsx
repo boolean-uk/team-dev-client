@@ -49,6 +49,11 @@ const Header = ({ companyName }) => {
       .catch(err => console.error(err));
   };
 
+  const handleLogOut = () => {
+    localStorage.setItem(process.env.REACT_APP_USER_TOKEN, '');
+    navigate('../', { replace: true });
+  };
+
   return (
     <>
       {authError && <Alert severity="error">This user cannot be found</Alert>}
@@ -67,7 +72,7 @@ const Header = ({ companyName }) => {
             <Button variant="contained" onClick={() => handleClick('profile')}>
               Profile
             </Button>
-            <Button variant="contained" href="/">
+            <Button variant="contained" onClick={handleLogOut}>
               Logout
             </Button>
             <Button onClick={() => handleClick('account')}>
