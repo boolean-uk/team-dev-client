@@ -6,6 +6,7 @@ import {
   ClickAwayListener,
   Chip,
   AvatarGroup,
+  Fab,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -24,6 +25,7 @@ import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -60,11 +62,9 @@ const PostItem = ({
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [isActive, setIsActive] = useState(true);
+  const isActive = post.user.isActive;
 
-  const [test, setIsTest] = useState(true);
-
-  const [isDeactive, setIsDeactive] = useState(false);
+  const { user } = useLoggedInUser();
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -79,9 +79,6 @@ const PostItem = ({
     setLikesCount(post.likes.length);
 
     console.log(post);
-    if (post.user.isActive === false) {
-      setIsActive(false);
-    }
 
     if (getUserId === post.userId) {
       setIsOwner(true);
@@ -161,16 +158,6 @@ const PostItem = ({
     }
   };
 
-  const deactivatedUser = () => {
-    if (test) {
-      setIsActive(false);
-      setIsDeactive(true);
-    } else {
-      setIsDeactive(false);
-      setIsActive(true);
-    }
-  };
-
   let liClasses = 'post-item';
   if (post.isPostOfTheWeek) {
     liClasses += ' post-of-the-week';
@@ -194,13 +181,13 @@ const PostItem = ({
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            {/* <h3
-              // onMouseEnter={deactivatedUser}
-              onClick={handleClick}
-              // className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
-            > */}
 
-            <h3 onClick={handleClick} className="post-owner-name">
+            <h3
+              onClick={handleClick}
+              className={`post-owner-name ${
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }`}
+            >
               <div>
                 {post.user.profile.firstName} {post.user.profile.lastName}
               </div>
@@ -304,6 +291,9 @@ const PostItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
+              className={
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }
             />
             <div className="count">{likesCount}</div>
           </div>

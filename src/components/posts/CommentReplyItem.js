@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteComment } from './utils/deleteComment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
@@ -46,6 +47,7 @@ const CommentReplyItem = ({
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const [isActive, setIsActive] = useState(true);
 
+  const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -151,7 +153,12 @@ const CommentReplyItem = ({
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name">
+            <h4
+              onClick={handleClick}
+              className={`post-owner-name ${
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }`}
+            >
               <div>
                 {comment.user.profile.firstName} {comment.user.profile.lastName}
               </div>
@@ -249,6 +256,9 @@ const CommentReplyItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
+              className={
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }
             />
             <div className="count">{comment.likes.length}</div>
           </div>
