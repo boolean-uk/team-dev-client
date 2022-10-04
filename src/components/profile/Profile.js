@@ -12,15 +12,12 @@ import { renderPosts } from '../posts/utils/getAllPosts';
 import PostItem from '../posts/PostItem';
 // import PostsOfTheWeek from '../posts/utils/PostsOfTheWeek';
 
-
-const Profile = () => {
+const Profile = ({ getUserId }) => {
   const [userDisplayed, setUserDisplayed] = useState({});
-  const [userProfileId, setUserProfileId] = useState(0);
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({ content: '', isPrivate: false });
-
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
@@ -40,17 +37,15 @@ const Profile = () => {
   useEffect(() => {
     if (location.state) {
       setUserDisplayed(location.state.user);
-      setUserProfileId(location.state.user.id)
       getAllPosts();
     } else {
       setUserDisplayed(userLoggedIn);
     }
-  }, [location, userLoggedIn, userProfileId]);
+  }, [location, userLoggedIn]);
 
   async function getAllPosts() {
     console.log('getting');
     try {
-
       const response = await client.get('/posts');
 
       console.log('response', response.data.data);
@@ -161,31 +156,17 @@ const Profile = () => {
         </Alert>
       )}
       {posts?.length > 0 ? (
-          <ul className="posts-list">
-            {posts?.map((post, index) => (
-              <PostItem
-                post={post}
-                key={index}
-                userId={userProfileId}
-                setPost={setPost}
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="no-posts-message">There are no posts at the moment.</p>
-        )}
-      {/* // {posts?.length > 0 ? (
-      //   <ul className="posts-list">
-      //     {posts?.map((post, index) => (
-      //       <li>
-      //         <p>{post.content}</p>
-      //         <p>{post.createdAt}</p>
-      //       </li>
-      //     ))}
-      //   </ul>
-      // ) : (
-      //   <p className="no-posts-message">There are no posts at the moment.</p>
-      // )} */}
+        <ul className="posts-list">
+          {posts?.map((post, index) => (
+            <li key={index}>
+              <p>{post.content}</p>
+              <p>{post.createdAt}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="no-posts-message">There are no posts at the moment.</p>
+      )}
     </>
   );
 };

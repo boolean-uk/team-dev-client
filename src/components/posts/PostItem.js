@@ -56,7 +56,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
-  const getUserId = userId( );
+  const getUserId = userId();
 
   useEffect(() => {
     setIsOwner(false);
