@@ -9,6 +9,8 @@ const Comments = ({
   showingAll,
   setShowingAll,
   setPostResponse,
+  isActive,
+  isTeacherorAdmin,
 }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(post.comments);
@@ -54,6 +56,8 @@ const Comments = ({
                 setUser={setUser}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
+                isActive={isActive}
+                isTeacherorAdmin={isTeacherorAdmin}
               />
             )
           : comments.length > 0 &&
@@ -66,6 +70,8 @@ const Comments = ({
                 key={comment.id}
                 setUser={setUser}
                 setPostResponse={setPostResponse}
+                isActive={isActive}
+                isTeacherorAdmin={isTeacherorAdmin}
               />
             ))}
       </ul>

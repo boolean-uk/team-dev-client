@@ -5,13 +5,13 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 import EditForm from './EditForm';
 import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
-import { Alert } from '@mui/material' 
+import { Alert } from '@mui/material';
 import { useEffect, useState } from 'react';
-  
-  const Profile = () => {
-    const [userDisplayed, setUserDisplayed] = useState({});
-    const [ successProfileUpdate, setSuccessProfileUpdate ] = useState(false)
-    const [ errorProfileUpdate, setErrorProfileUpdate ] = useState(false)
+
+const Profile = () => {
+  const [userDisplayed, setUserDisplayed] = useState({});
+  const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
+  const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,14 +25,14 @@ import { useEffect, useState } from 'react';
     role,
   } = userDisplayed;
   let isOwner = false;
-  
+
   useEffect(() => {
     if (location.state) {
-      setUserDisplayed(location.state.user)
+      setUserDisplayed(location.state.user);
     } else {
-      setUserDisplayed(userLoggedIn)
+      setUserDisplayed(userLoggedIn);
     }
-  }, [location, userLoggedIn])
+  }, [location, userLoggedIn]);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -55,20 +55,21 @@ import { useEffect, useState } from 'react';
     }
 
     client
-      .patch('/user/myprofile', reqBody)
+      .patch(`/user/${userDisplayed.id}`, reqBody)
       .then(res => {
-        setUserDisplayed(res.data.data.user)
-          setSuccessProfileUpdate(true);
-          setTimeout(() => {
-            setSuccessProfileUpdate(false);
-          }, '3000');
+        setUserDisplayed(res.data.data.user);
+        setSuccessProfileUpdate(true);
+        setTimeout(() => {
+          setSuccessProfileUpdate(false);
+        }, '3000');
       })
       .catch(err => {
         console.error(err.response);
         setErrorProfileUpdate(true);
         setTimeout(() => {
           setErrorProfileUpdate(false);
-        }, '3000')})
+        }, '3000');
+      });
   };
 
   const handleAdminClick = () => {
@@ -102,21 +103,29 @@ import { useEffect, useState } from 'react';
         {isAdmin && !isOwner ? (
           <Button variant="outlined" onClick={handleAdminClick}>
             Account Information
-          </Button>) : <></>
-        }
+          </Button>
+        ) : (
+          <></>
+        )}
         {isOwner && <EditForm handleSubmit={handleSubmit} />}
       </div>
       {role !== 'TEACHER' && <StudentList />}
-              {successProfileUpdate && (
-          <Alert sx={{ maxWidth: 'fit-content', margin: 'auto' }} severity="success">
-            Profile updated successfully
-          </Alert>
-        )}
-        {errorProfileUpdate && (
-          <Alert sx={{ maxWidth: 'fit-content', margin: 'auto' }} severity="error">
-            Profile not updated   
-          </Alert>
-        )}
+      {successProfileUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="success"
+        >
+          Profile updated successfully
+        </Alert>
+      )}
+      {errorProfileUpdate && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          Profile not updated
+        </Alert>
+      )}
     </>
   );
 };
