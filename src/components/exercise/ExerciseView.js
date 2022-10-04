@@ -19,7 +19,7 @@ const ExerciseView = () => {
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
       '(\\#[-a-z\\d_]*)?$','i'); 
-    return !!urlPattern.test(urlString);
+    return urlPattern.test(urlString);
   }
 
     useEffect(() => {
