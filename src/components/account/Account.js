@@ -15,6 +15,7 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 import { useLocation } from 'react-router-dom';
 import ChangeUserRole from '../admin/ChangeUserRole';
 import PrivacyMenu from './PrivacyMenu';
+import DeactivateForm from './DeactivatedForm';
 
 function createData(key, value) {
   return { key, value };
@@ -171,7 +172,14 @@ const Account = () => {
           <></>
         )}
         <>
-          {isOwner ? <EditDetails handleUpdate={handleEmailUpdate} /> : <></>}
+          {isOwner ? (
+            <>
+              <EditDetails handleUpdate={handleEmailUpdate} />
+              <DeactivateForm />
+            </>
+          ) : (
+            <></>
+          )}
         </>
       </div>
     </>

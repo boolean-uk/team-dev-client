@@ -16,3 +16,23 @@
   justify-content: center;
   gap: 10px;
 }
+
+.dialog-instruction {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.dialog-instruction > p {
+  margin-bottom: 1rem;
+}
+
+.dialog-warning {
+  color: red;
+}
+
+.deactivate-buttons-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
