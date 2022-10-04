@@ -72,7 +72,7 @@ const Header = ({ companyName }) => {
             <Button variant="contained" onClick={() => handleClick('profile')}>
               Profile
             </Button>
-            <Button variant="contained" onClick={handleLogOut}>
+            <Button id="user-signout-button" variant="contained" onClick={handleLogOut}>
               Logout
             </Button>
             <Button onClick={() => handleClick('account')}>
