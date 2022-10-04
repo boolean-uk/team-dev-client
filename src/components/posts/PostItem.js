@@ -61,7 +61,7 @@ const PostItem = ({
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [isActive, setIsActive] = useState(true);
+  const isActive = post.user.isActive;
 
   const navigate = useNavigate();
   const getUserId = userId();
@@ -74,7 +74,6 @@ const PostItem = ({
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
-    setIsActive(post.user.isActive);
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
