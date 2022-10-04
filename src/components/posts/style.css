@@ -322,9 +322,7 @@
   cursor: not-allowed;
 }
 
-.deactive-user-teacher-admin:hover {
-  cursor: not-allowed;
-}
+
 
 .deactive-user-teacher-admin{
   display:inline-block;
