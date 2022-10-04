@@ -77,6 +77,12 @@ const PostItem = ({
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
+
+    console.log(post);
+    if (post.user.isActive === false) {
+      setIsActive(false);
+    }
+
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
@@ -193,16 +199,17 @@ const PostItem = ({
               onClick={handleClick}
               // className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
             > */}
-            {post.user.profile.firstName} {post.user.profile.lastName}
+
             <h3 onClick={handleClick} className="post-owner-name">
-              {isActive ? (
-                <div>
-                  {post.user.profile.firstName} {post.user.profile.lastName}
-                </div>
-              ) : (
-                `[removed]`
-              )}
+              <div>
+                {post.user.profile.firstName} {post.user.profile.lastName}
+              </div>
             </h3>
+            {!isActive && isTeacherorAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip variant="outlined" color="error" label="deactivated" />
+              </div>
+            )}
           </div>
           <div>
             {post.isPostOfTheWeek ? (
