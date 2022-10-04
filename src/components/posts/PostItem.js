@@ -291,7 +291,9 @@ const PostItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
-              className={!isActive && 'deactive-user'}
+              className={
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }
             />
             <div className="count">{likesCount}</div>
           </div>
