@@ -9,12 +9,13 @@ const CreateExercise = () => {
     const [objectives, setObjectives] = useState(1)
     const [name, setName] = useState('')
     const [gitHubUrl, setGitHubUrl] = useState('')
+    const [readMeUrl, setReadMeUrl] = useState('No README file available/provided')
     const [obj] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         client
-            .post(`/exercise`, { name, gitHubUrl, objectives: obj })
+            .post(`/exercise`, { name, gitHubUrl, readMeUrl, objectives: obj })
             .then (() => navigate('/exercise'))
     }
 
@@ -35,6 +36,12 @@ const CreateExercise = () => {
                     label="GitHub URL"
                     variant="standard"
                     onChange={(e) => setGitHubUrl(e.target.value)}
+                />
+                <TextField
+                    id="standard-basic"
+                    label="raw README file URL"
+                    variant="standard"
+                    onChange={(e) => setReadMeUrl(e.target.value)}
                 />
                 <Button variant="contained" onClick={() => setObjectives(objectives + 1)}>Add Objective</Button>
                 {Array(objectives).fill('Quack').map((_, i) => {
