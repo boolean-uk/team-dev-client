@@ -22,6 +22,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
 import CommentReplyForm from './CommentReplyForm';
 import Replies from './Replies';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
@@ -45,6 +46,8 @@ const CommentItem = ({
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [isActive, setIsActive] = useState(true);
+
+  const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -152,7 +155,17 @@ const CommentItem = ({
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name">
+            <h4
+              onClick={handleClick}
+              className={`post-owner-name ${
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }`}
+            >
+              <div>
+                {comment.user.profile.firstName} {comment.user.profile.lastName}
+              </div>
+
+              {/* className="post-owner-name">
               {isActive ? (
                 <div>
                   {comment.user.profile.firstName}{' '}
@@ -160,7 +173,7 @@ const CommentItem = ({
                 </div>
               ) : (
                 `[removed]`
-              )}
+              )} */}
             </h4>
             <p className="createdAt-time">
               {' '}
@@ -263,7 +276,9 @@ const CommentItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
-              className="deactive-user"
+              className={
+                !isActive && user.role === 'STUDENT' && 'deactive-user'
+              }
             />
             <div className="count">{comment.likes.length}</div>
           </div>
