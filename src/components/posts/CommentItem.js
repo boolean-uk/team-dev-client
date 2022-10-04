@@ -31,7 +31,6 @@ const CommentItem = ({
   comment,
   setUser,
   setPostResponse,
-  isActive,
   isTeacherorAdmin,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -44,6 +43,7 @@ const CommentItem = ({
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -147,8 +147,15 @@ const CommentItem = ({
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name deactive-user">
-              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            <h4 onClick={handleClick} className="post-owner-name">
+              {isActive ? (
+                <div>
+                  {comment.user.profile.firstName}{' '}
+                  {comment.user.profile.lastName}
+                </div>
+              ) : (
+                `[removed]`
+              )}
             </h4>
             <p className="createdAt-time">
               {' '}
@@ -256,6 +263,7 @@ const CommentItem = ({
             comment={comment}
             showForm={showForm}
             setShowForm={setShowForm}
+            isActive={isActive}
           />
         ) : null}
 
@@ -265,6 +273,7 @@ const CommentItem = ({
           comment={comment}
           userId={userId}
           isTeacherorAdmin={isTeacherorAdmin}
+          isActive={isActive}
         />
       </div>
     </li>

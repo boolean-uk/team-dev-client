@@ -9,7 +9,7 @@ const Comments = ({
   showingAll,
   setShowingAll,
   setPostResponse,
-  isActive,
+
   isTeacherorAdmin,
 }) => {
   const [sortType, setSortType] = useState('Most Liked');
@@ -56,7 +56,6 @@ const Comments = ({
                 setUser={setUser}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
-                isActive={isActive}
                 isTeacherorAdmin={isTeacherorAdmin}
               />
             )
@@ -70,7 +69,6 @@ const Comments = ({
                 key={comment.id}
                 setUser={setUser}
                 setPostResponse={setPostResponse}
-                isActive={isActive}
                 isTeacherorAdmin={isTeacherorAdmin}
               />
             ))}

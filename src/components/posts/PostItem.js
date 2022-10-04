@@ -188,17 +188,21 @@ const PostItem = ({
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            <h3
-              onMouseEnter={deactivatedUser}
+            {/* <h3
+              // onMouseEnter={deactivatedUser}
               onClick={handleClick}
-              className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
-            >
-              {post.user.profile.firstName} {post.user.profile.lastName}
+              // className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
+            > */}
+            {post.user.profile.firstName} {post.user.profile.lastName}
+            <h3 onClick={handleClick} className="post-owner-name">
+              {isActive ? (
+                <div>
+                  {post.user.profile.firstName} {post.user.profile.lastName}
+                </div>
+              ) : (
+                `[removed]`
+              )}
             </h3>
-            {/* 
-            {isActive ?? <div className="deactive-user"></div>} */}
-
-            {/* {isActive ? <div className="deactive-user"></div> : <></>} */}
           </div>
           <div>
             {post.isPostOfTheWeek ? (
@@ -308,7 +312,6 @@ const PostItem = ({
           showingAll={showingAll}
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
-          isActive={isActive}
           isTeacherorAdmin={isTeacherorAdmin}
         />
       </div>
