@@ -45,3 +45,8 @@
   width: 100%;
   background-color: white;
 }
+
+/* Deactive users on hover effect */
+.deactive-user:hover {
+  cursor: not-allowed;
+}

@@ -139,7 +139,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name">
+            <h4 onClick={handleClick} className="post-owner-name deactive-user">
               {comment.user.profile.firstName} {comment.user.profile.lastName}
             </h4>
             <p className="createdAt-time">
@@ -229,6 +229,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
+              className="deactive-user"
             />
             <div className="count">{comment.likes.length}</div>
           </div>

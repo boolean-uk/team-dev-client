@@ -55,6 +55,12 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
+  const [test, setIsTest] = useState(true);
+
+  const [isActive, setIsActive] = useState(true);
+
+  const [isDeactive, setIsDeactive] = useState(false);
+
   const navigate = useNavigate();
   const getUserId = userId();
 
@@ -144,6 +150,16 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
     }
   };
 
+  const deactivatedUser = () => {
+    if (test) {
+      setIsActive(false);
+      setIsDeactive(true);
+    } else {
+      setIsDeactive(false);
+      setIsActive(true);
+    }
+  };
+
   let liClasses = 'post-item';
   if (post.isPostOfTheWeek) {
     liClasses += ' post-of-the-week';
@@ -167,9 +183,17 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            <h3 onClick={handleClick} className="post-owner-name">
+            <h3
+              onMouseEnter={deactivatedUser}
+              onClick={handleClick}
+              className={`post-owner-name ${isDeactive ? 'deactive-user' : ''}`}
+            >
               {post.user.profile.firstName} {post.user.profile.lastName}
             </h3>
+            {/* 
+            {isActive ?? <div className="deactive-user"></div>} */}
+
+            {/* {isActive ? <div className="deactive-user"></div> : <></>} */}
           </div>
           <div>
             {post.isPostOfTheWeek ? (
