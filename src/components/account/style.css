@@ -17,6 +17,13 @@
   gap: 10px;
 }
 
+.user-account-actions {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
 .dialog-instruction {
   margin-top: 3rem;
   text-align: center;

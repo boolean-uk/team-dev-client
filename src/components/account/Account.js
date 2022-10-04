@@ -124,7 +124,7 @@ const Account = () => {
                     />
                   </TableCell>
                 ) : (
-                  <TableCell align="right">{row.value}</TableCell>
+                  <TableCell align="right">{`${row.value}`}</TableCell>
                 )}
               </TableRow>
             ))}
@@ -164,21 +164,17 @@ const Account = () => {
         </Alert>
       )}
       <div className="btns__container">
-        {isAdmin && !isOwner ? (
+        {isAdmin && !isOwner && (
           <div>
             <ChangeUserRole setUser={setUser} user={user} />
           </div>
-        ) : (
-          <></>
         )}
         <>
-          {isOwner ? (
-            <>
+          {isOwner && (
+            <div className="user-account-actions">
               <EditDetails handleUpdate={handleEmailUpdate} />
               <DeactivateForm />
-            </>
-          ) : (
-            <></>
+            </div>
           )}
         </>
       </div>
