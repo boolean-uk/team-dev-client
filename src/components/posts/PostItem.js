@@ -175,7 +175,13 @@ const PostItem = ({
               sx={{ width: 56, height: 56 }}
             />
             <h3 onClick={handleClick} className="post-owner-name">
-              {post.user.profile.firstName} {post.user.profile.lastName}
+              {isActive ? (
+                <div>
+                  {post.user.profile.firstName} {post.user.profile.lastName}
+                </div>
+              ) : (
+                `[removed]`
+              )}
             </h3>
           </div>
           <div>
@@ -286,7 +292,6 @@ const PostItem = ({
           showingAll={showingAll}
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
-          isActive={isActive}
           isTeacherorAdmin={isTeacherorAdmin}
         />
       </div>
