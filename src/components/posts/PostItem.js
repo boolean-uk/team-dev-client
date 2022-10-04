@@ -287,6 +287,7 @@ const PostItem = ({
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
           isActive={isActive}
+          isTeacherorAdmin={isTeacherorAdmin}
         />
       </div>
     </li>

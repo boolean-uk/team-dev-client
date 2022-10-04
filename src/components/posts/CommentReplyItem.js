@@ -32,6 +32,7 @@ const CommentReplyItem = ({
   setUser,
   showingAll,
   setPostResponse,
+  isTeacherorAdmin,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -199,26 +200,30 @@ const CommentReplyItem = ({
               )}
             </div>
           )}
-          <div className="delete-button">
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                className="delete-button-icon"
-                color={delStyle.color}
-                onClick={handleDeleteComment}
-              >
-                <DeleteIcon />
-              </Button>
-            </ClickAwayListener>
-            {confirmDeleteText && (
-              <Button
-                variant="text"
-                color="error"
-                onClick={handleDeleteComment}
-              >
-                confirm delete?
-              </Button>
-            )}
-          </div>
+          {thisUserId === comment.userId ||
+            (isTeacherorAdmin && (
+              <div className="delete-button">
+                <ClickAwayListener onClickAway={resetDelBtn}>
+                  <Button
+                    className="delete-button-icon"
+                    color={delStyle.color}
+                    onClick={handleDeleteComment}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </ClickAwayListener>
+                {confirmDeleteText && (
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={handleDeleteComment}
+                  >
+                    confirm delete?
+                  </Button>
+                )}
+              </div>
+            ))}
+
           <div className="comment-like-wrap">
             <Checkbox
               label="like"

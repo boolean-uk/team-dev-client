@@ -32,6 +32,7 @@ const CommentItem = ({
   setUser,
   setPostResponse,
   isActive,
+  isTeacherorAdmin,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -201,26 +202,30 @@ const CommentItem = ({
               )}
             </div>
           )}
-          <div className="delete-button">
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                className="delete-button-icon"
-                color={delStyle.color}
-                onClick={handleDeleteComment}
-              >
-                <DeleteIcon />
-              </Button>
-            </ClickAwayListener>
-            {confirmDeleteText && (
-              <Button
-                variant="text"
-                color="error"
-                onClick={handleDeleteComment}
-              >
-                confirm delete?
-              </Button>
-            )}
-          </div>
+          {thisUserId === comment.userId ||
+            (isTeacherorAdmin && (
+              <div className="delete-button">
+                <ClickAwayListener onClickAway={resetDelBtn}>
+                  <Button
+                    className="delete-button-icon"
+                    color={delStyle.color}
+                    onClick={handleDeleteComment}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </ClickAwayListener>
+                {confirmDeleteText && (
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={handleDeleteComment}
+                  >
+                    confirm delete?
+                  </Button>
+                )}
+              </div>
+            ))}
+
           <div className="reply-button">
             <Button
               className="reply-button-icon"
@@ -258,6 +263,7 @@ const CommentItem = ({
           setPostResponse={setPostResponse}
           comment={comment}
           userId={userId}
+          isTeacherorAdmin={isTeacherorAdmin}
         />
       </div>
     </li>
