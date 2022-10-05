@@ -24,6 +24,8 @@ import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useLoggedInUser } from '../../context/LoggedInUser';
+
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -39,7 +41,7 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, userId, setPostResponse, setUser }) => {
+const PostItem = ({ post, setPostResponse }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -56,7 +58,8 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
-  const getUserId = userId();
+  const loggedInUserId = useLoggedInUser().user.id;
+
 
   useEffect(() => {
     setIsOwner(false);
@@ -66,16 +69,16 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
-    if (getUserId === post.userId) {
+    if (loggedInUserId === post.userId) {
       setIsOwner(true);
     }
     post.likes.forEach(like => {
-      if (getUserId === like.userId) {
+      if (loggedInUserId === like.userId) {
         setIsLiked(true);
       }
     });
     // eslint-disable-next-line
-  }, [post, userId]);
+  }, [post, loggedInUserId]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -270,8 +273,6 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
       <div className="comment-wrap">
         <CommentForm setPostResponse={setPostResponse} post={post} />
         <Comments
-          userId={userId}
-          setUser={setUser}
           post={post}
           showingAll={showingAll}
           setShowingAll={setShowingAll}

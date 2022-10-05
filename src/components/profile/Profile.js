@@ -4,20 +4,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import EditForm from './EditForm';
 import client from '../../utils/client';
-import jwt_decode from 'jwt-decode';
 import StudentList from '../../components/studentList/StudentList';
 import { Alert } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { renderPosts } from '../posts/utils/getAllPosts';
 import PostItem from '../posts/PostItem';
-// import PostsOfTheWeek from '../posts/utils/PostsOfTheWeek';
 
-const Profile = ({ getUserId }) => {
+const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState({ content: '', isPrivate: false });
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
@@ -44,31 +40,21 @@ const Profile = ({ getUserId }) => {
   }, [location, userLoggedIn]);
 
   async function getAllPosts() {
-    console.log('getting');
+
     try {
-      const response = await client.get('/posts');
+      const response = await client.get(`/posts?user=${userDisplayed.id}`);
 
-      console.log('response', response.data.data);
-
-      console.log('userDisplayedId', userDisplayed.id);
-      const filteredResults = response.data.data.filter(
-        post => post.userId === userDisplayed.id
-      );
-      console.log('filteredResults', filteredResults);
-      return setPosts(filteredResults);
+      return setPosts(response.data.data);
     } catch (err) {
-      console.error('posts error', err);
+      console.error(err)
     }
   }
-
-  console.log('user logged in ', userLoggedIn);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
   if (userLoggedIn.id === userDisplayed.id) {
     isOwner = true;
   }
-  console.log('posts', posts);
   const handleSubmit = newInfo => {
     const reqBody = {
       firstName: newInfo.first_name,
@@ -155,18 +141,22 @@ const Profile = ({ getUserId }) => {
           Profile not updated
         </Alert>
       )}
+      <div className='postProfile-display'>
+
       {posts?.length > 0 ? (
-        <ul className="posts-list">
-          {posts?.map((post, index) => (
-            <li key={index}>
-              <p>{post.content}</p>
-              <p>{post.createdAt}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="no-posts-message">There are no posts at the moment.</p>
-      )}
+          <ul className="posts-list">
+            {posts?.map((post, index) => (
+              <PostItem
+                post={post}
+                key={index}
+    
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className="no-posts-message">There are no posts at the moment.</p>
+        )}
+      </div>
     </>
   );
 };

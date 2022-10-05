@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommentReplyItem from './CommentReplyItem';
 import FilterMenu from './utils/filterMenu';
 
-const Replies = ({ post, comment, userId, setPostResponse }) => {
+const Replies = ({ post, comment, setPostResponse }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(comment.replies);
   const [showingAll, setShowingAll] = useState(false);
@@ -46,7 +46,6 @@ const Replies = ({ post, comment, userId, setPostResponse }) => {
         {!showingAll
           ? comments.length >= 1 && (
               <CommentReplyItem
-                userId={userId}
                 post={post}
                 comment={comments[0]}
                 showingAll={showingAll}
@@ -57,7 +56,6 @@ const Replies = ({ post, comment, userId, setPostResponse }) => {
             comments.map(comment => (
               <CommentReplyItem
                 showingAll={showingAll}
-                userId={userId}
                 post={post}
                 comment={comment}
                 key={comment.id}

@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteComment } from './utils/deleteComment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
@@ -45,13 +46,13 @@ const CommentReplyItem = ({
 
   const navigate = useNavigate();
 
+  const loggedInUserId = useLoggedInUser().user.id
   useEffect(() => {
-    const getUserId = userId();
 
-    setThisUserId(getUserId);
+    setThisUserId(loggedInUserId);
 
     const userHasLiked = comment.likes.find(
-      commentLike => commentLike.userId === getUserId
+      commentLike => commentLike.userId === loggedInUserId
     );
 
     if (userHasLiked) {
@@ -59,7 +60,7 @@ const CommentReplyItem = ({
     }
 
     setIsLiked(false);
-  }, [comment, userId]);
+  }, [comment, loggedInUserId]);
 
   const handleClick = e => {
     client

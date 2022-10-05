@@ -19,11 +19,9 @@ import ExerciseView from './components/exercise/ExerciseView';
 
 function App() {
   const navigate = useNavigate();
-  console.log('starting app');
 
   useEffect(() => {
     const userId = getLoggedInUserId();
-    console.log('use effect that gets loggedinuserid');
     if (userId === null) {
       return;
     }
@@ -39,7 +37,6 @@ function App() {
   }, []);
 
   const getLoggedInUserId = () => {
-    console.log('function to get logged in id');
     const loadedToken = localStorage.getItem('token');
     if (loadedToken === null || loadedToken === '') {
       return null;
@@ -78,14 +75,12 @@ function App() {
 
 function isLoggedIn() {
   const loadedToken = localStorage.getItem('token');
-  console.log('is logged in?');
   return loadedToken?.length > 1;
 }
 
 export default App;
 
 const AuthenticateUser = ({ children, redirectPath = '/' }) => {
-  console.log('authenticating');
   if (!isLoggedIn()) {
     return <Navigate to={redirectPath} replace />;
   }

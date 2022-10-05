@@ -1,3 +1,9 @@
+.postProfile-display {
+  display: flex;
+  justify-content: center;
+
+}
+
 .profile {
   margin: 2rem;
   display: flex;

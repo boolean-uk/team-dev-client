@@ -21,11 +21,12 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
 import CommentReplyForm from './CommentReplyForm';
 import Replies from './Replies';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentItem = ({ post, comment, setUser, setPostResponse }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -38,19 +39,19 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
+  const loggedInUserId = useLoggedInUser().user.id
   useEffect(() => {
-    const getUserId = userId();
 
-    setThisUserId(getUserId);
+    setThisUserId(loggedInUserId);
 
     for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
+      if (loggedInUserId === comment.likes[i].userId) {
         return setIsLiked(true);
       }
     }
 
     setIsLiked(false);
-  }, [comment, userId]);
+  }, [comment, loggedInUserId]);
 
   const handleClick = e => {
     client
@@ -250,7 +251,6 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
-          userId={userId}
         />
       </div>
     </li>

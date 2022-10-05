@@ -3,7 +3,6 @@ import CommentItem from './CommentItem';
 import FilterMenu from './utils/filterMenu';
 
 const Comments = ({
-  userId,
   post,
   setUser,
   showingAll,
@@ -48,7 +47,6 @@ const Comments = ({
         {!showingAll
           ? comments.length >= 1 && (
               <CommentItem
-                userId={userId}
                 post={post}
                 comment={comments[0]}
                 setUser={setUser}
@@ -60,7 +58,6 @@ const Comments = ({
             comments.map((comment, index) => (
               <CommentItem
                 showingAll={showingAll}
-                userId={userId}
                 post={post}
                 comment={comment}
                 key={comment.id}
