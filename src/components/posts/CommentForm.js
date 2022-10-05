@@ -46,7 +46,11 @@ const CommentForm = ({ setPostResponse, post }) => {
           inputProps={{ maxLength: 150 }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton type="submit" sx={{ p: '10px' }}>
+        <IconButton
+          type="submit"
+          sx={{ p: '10px' }}
+          disabled={!isActive && userLoggedIn.role === 'STUDENT' ? true : false}
+        >
           <SendIcon
             type="submit"
             variant="contained"
