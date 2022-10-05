@@ -46,6 +46,7 @@ export default function EventFilter({formValues, setFormValues, handleSubmit, so
 
   useEffect(() => {
     handleSubmit()
+    // eslint-disable-next-line
   }, [types, sortType]);
 
   const handleChange = (event) => {

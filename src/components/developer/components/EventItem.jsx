@@ -20,6 +20,7 @@ const EventItem = (devEvent) => {
             .get(`/user/${eventLog.createdById}`)
             .then(res => {setCreatedBy(res.data.data.user)})
         }
+        // eslint-disable-next-line
     },[])
 
   return (

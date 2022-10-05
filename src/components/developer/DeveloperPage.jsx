@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { InputAdornment, MenuItem, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import client from '../../utils/client';
@@ -7,10 +7,13 @@ import './style.css';
 import EventFilter from './components/EventFilter';
 import FilterMenu from '../posts/utils/filterMenu';
 
+const rangeOptions = ['content', 'username', 'role']
+
 const DeveloperPage = () => {
     const [eventLogs, setEventLogs] = useState([])
     const [authError, setAuthError] = useState(false)
-    const [formValues, setFormValues] = useState({ 
+    const [formValues, setFormValues] = useState({
+      range: rangeOptions[0],
       content: '',
       types: [],
       sortBy: '',
@@ -28,6 +31,7 @@ const DeveloperPage = () => {
       .get(`/events`)
       .then(res => {
           setEventLogs(res.data.data);
+          console.log('events', res.data);
           setAuthError(false);
       })
       .catch(err => {
@@ -49,7 +53,7 @@ const DeveloperPage = () => {
 
       if (formValues.types.length > 0) {
         formValues.types.map((type) => {
-          url += `&type=${type}`
+          return url += `&type=${type}`
         })
       }
 
@@ -60,6 +64,12 @@ const DeveloperPage = () => {
     }
 
     const handleSubmit = e => {
+      if (formValues.range && formValues.range !== 'content') {
+        searchByRange()
+      } else getEvents()
+    }
+
+    const getEvents = () => {
       client
       .get(createUrl())
       .then(res => {
@@ -74,13 +84,21 @@ const DeveloperPage = () => {
           setAuthError(false);
           }, '3000');
       });
-      console.log('hi')
+    }
+
+    const searchByRange = () => {
+      console.log('searching by range...')
+      // const logsByRange = eventLogs.filter((event) => {
+      //   if (formValues.range === 'username') {
+      //     event.
+      //   }
+      // })
     }
 
     const handleChange = e => {
       e.preventDefault();
-      if (e.target.name === 'search') {
-        setFormValues({...formValues, content: e.target.value})
+      if (e.target) {
+        setFormValues({...formValues, [e.target.name]: e.target.value})
       }
       console.log(createUrl())
     }
@@ -104,14 +122,35 @@ const DeveloperPage = () => {
         <FilterMenu setSortType={setSortType} />
         <TextField
           id='standard-search'
-          name='search'
+          name='content'
           label='Search field'
           type='search'
           variant='standard'
           value={formValues.content}
           onChange={handleChange}
           onKeyPress={handleEnter}
-        />
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <TextField
+                  id="outlined-select-range"
+                  select
+                  name='range'
+                  value={formValues.range}
+                  onChange={handleChange}
+                  sx={{ '& *': { border: 'none' } }}
+                >
+                  {rangeOptions.map((option, index) => (
+                    <MenuItem key={option} value={option} >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </InputAdornment>
+            ),
+          }}
+        >
+        </TextField>
       </form>
       <EventList eventLogs={eventLogs} />
     </main> 
