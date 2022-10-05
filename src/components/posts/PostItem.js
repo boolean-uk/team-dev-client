@@ -204,7 +204,7 @@ const PostItem = ({
             )}
             {inactiveWaring && (
               <div className="inactive-warning">
-                <p>User is deactivated!</p>
+                <p>User account is deactivated!</p>
               </div>
             )}
           </div>

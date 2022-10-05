@@ -46,6 +46,7 @@ const CommentItem = ({
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [isActive, setIsActive] = useState(true);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
 
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
@@ -71,9 +72,16 @@ const CommentItem = ({
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
-      .then(res =>
-        navigate('/profile', { state: { user: res.data.data.user } })
-      )
+      .then(res => {
+        if (comment.user.isActive || isTeacherorAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
+      })
       .catch(err => console.error(err.response));
   };
 
@@ -177,6 +185,11 @@ const CommentItem = ({
                   color="error"
                   label="deactivated"
                 />
+              </div>
+            )}
+            {inactiveWaring && (
+              <div className="inactive-warning">
+                User account is deactivated!
               </div>
             )}
             {editCommentStatus.length > 0 && (
