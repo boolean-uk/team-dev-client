@@ -6,7 +6,6 @@ import {
   ClickAwayListener,
   Chip,
   AvatarGroup,
-  Fab,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -62,6 +61,7 @@ const PostItem = ({
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
   const isActive = post.user.isActive;
 
   const { user } = useLoggedInUser();
@@ -77,8 +77,6 @@ const PostItem = ({
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
-
-    console.log(post);
 
     if (getUserId === post.userId) {
       setIsOwner(true);
@@ -144,7 +142,14 @@ const PostItem = ({
     client
       .get(`/user/${id}`)
       .then(res => {
-        navigate('/profile', { state: { user: res.data.data.user } });
+        if (post.user.isActive || isTeacherorAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
       })
       .catch(err => console.error(err.response));
   };
@@ -195,6 +200,11 @@ const PostItem = ({
             {!isActive && isTeacherorAdmin && (
               <div className="deactive-user-teacher-admin">
                 <Chip variant="outlined" color="error" label="deactivated" />
+              </div>
+            )}
+            {inactiveWaring && (
+              <div className="inactive-warning">
+                <p>User account is deactivated!</p>
               </div>
             )}
           </div>

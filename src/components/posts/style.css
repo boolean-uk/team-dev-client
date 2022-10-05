@@ -332,3 +332,9 @@
   display:inline-block;
   margin-left:0.5rem
 }
+
+.inactive-warning{
+  color: red;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
