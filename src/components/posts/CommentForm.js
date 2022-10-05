@@ -6,7 +6,8 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const CommentForm = ({ setPostResponse, post }) => {
   const [commentValue, setCommentValue] = useState('');
-  const userLoggedIn = useLoggedInUser().user
+  const userLoggedIn = useLoggedInUser().user;
+  const isActive = post.user.isActive;
 
   const handleCommentInput = e => {
     setCommentValue(e.target.value);
@@ -46,7 +47,13 @@ const CommentForm = ({ setPostResponse, post }) => {
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <IconButton type="submit" sx={{ p: '10px' }}>
-          <SendIcon type="submit" variant="contained" />
+          <SendIcon
+            type="submit"
+            variant="contained"
+            className={
+              !isActive && userLoggedIn.role === 'STUDENT' && 'deactive-user'
+            }
+          />
         </IconButton>
       </Paper>
     </form>
