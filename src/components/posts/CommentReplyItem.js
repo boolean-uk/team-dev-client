@@ -259,6 +259,7 @@ const CommentReplyItem = ({
               className={
                 !isActive && user.role === 'STUDENT' && 'deactive-user'
               }
+              disabled={!isActive && user.role === 'STUDENT' ? true : false}
             />
             <div className="count">{comment.likes.length}</div>
           </div>

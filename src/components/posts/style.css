@@ -323,7 +323,10 @@
   text-decoration: none;
 }
 
-
+.MuiButtonBase-root:disabled {
+  cursor: not-allowed;
+  pointer-events: auto;
+}
 
 .deactive-user-teacher-admin{
   display:inline-block;

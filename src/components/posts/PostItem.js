@@ -294,6 +294,7 @@ const PostItem = ({
               className={
                 !isActive && user.role === 'STUDENT' && 'deactive-user'
               }
+              disabled={!isActive && user.role === 'STUDENT' ? true : false}
             />
             <div className="count">{likesCount}</div>
           </div>
