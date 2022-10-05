@@ -3,8 +3,12 @@ import './style.css'
 import { useNavigate } from 'react-router-dom';
 
 const ListTemplate = ({ templateData, templateType }) => {
-    const templateCode = templateType.charCodeAt(0)
     const navigate = useNavigate()
+    let templateCode
+
+    if (templateType) {
+        templateCode = templateType.charCodeAt(0)
+    }
 
     const handleClick = (data) => {
         navigate(`/${templateType}/${data.id}`, { state: { data } })

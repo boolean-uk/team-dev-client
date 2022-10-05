@@ -2,7 +2,11 @@ import { Button } from '@mui/material';
 import './style.css'
 
 const ViewTemplate = ({ templateData }) => {
-    const templateCode = templateData.learningObj[0].charCodeAt(0)
+    let templateCode
+
+    if (templateData) {
+        templateCode = templateData.learningObj[0].charCodeAt(0)
+    }
 
     return (
         <div className='content'>

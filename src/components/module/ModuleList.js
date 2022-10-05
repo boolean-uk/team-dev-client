@@ -19,12 +19,10 @@ const templateType = 'module'
 
 const ModuleList = () => {
     return (
-        <>
-            <ListTemplate
-                templateData={temporaryModuleDataToBeDeletedLater}
-                templateType={templateType}
-            />
-        </>
+        <ListTemplate
+            templateData={temporaryModuleDataToBeDeletedLater}
+            templateType={templateType}
+        />
     )
 }
 

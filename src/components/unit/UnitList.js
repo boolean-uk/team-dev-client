@@ -19,12 +19,10 @@ const templateType = 'unit'
 
 const UnitList = () => {
     return (
-        <>
-            <ListTemplate
-                templateData={temporaryUnitDataToBeDeletedLater}
-                templateType={templateType}
-            />
-        </>
+        <ListTemplate
+            templateData={temporaryUnitDataToBeDeletedLater}
+            templateType={templateType}
+        />
     )
 }
 

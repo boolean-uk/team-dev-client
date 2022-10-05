@@ -19,12 +19,10 @@ const templateType = 'lesson'
 
 const LessonList = () => {
     return (
-        <>
-            <ListTemplate
-                templateData={temporaryLessonDataToBeDeletedLater}
-                templateType={templateType}
-            />
-        </>
+        <ListTemplate
+            templateData={temporaryLessonDataToBeDeletedLater}
+            templateType={templateType}
+        />
     )
 }
 
