@@ -153,6 +153,8 @@ const CommentItem = ({
     setShowForm(!showForm);
   };
 
+  const inactiveUser = !isActive && user.role === 'STUDENT';
+
   return (
     <li className="comment-list">
       <div className="comment-item">
@@ -165,9 +167,7 @@ const CommentItem = ({
           <div className="comment-content-wrap">
             <h4
               onClick={handleClick}
-              className={`post-owner-name ${
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }`}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
             >
               <div>
                 {comment.user.profile.firstName} {comment.user.profile.lastName}
@@ -268,6 +268,7 @@ const CommentItem = ({
             <Button
               className="reply-button-icon"
               onClick={displayCommentReplyForm}
+              disabled={inactiveUser}
             >
               <CommentIcon />
             </Button>
@@ -279,9 +280,7 @@ const CommentItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
-              className={
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }
+              disabled={inactiveUser}
             />
             <div className="count">{comment.likes.length}</div>
           </div>

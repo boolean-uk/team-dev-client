@@ -168,6 +168,8 @@ const PostItem = ({
     liClasses += ' post-of-the-week';
   }
 
+  const inactiveUser = !isActive && user.role === 'STUDENT';
+
   return (
     <li className={liClasses}>
       {isPrivate && (
@@ -189,9 +191,7 @@ const PostItem = ({
 
             <h3
               onClick={handleClick}
-              className={`post-owner-name ${
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }`}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
             >
               <div>
                 {post.user.profile.firstName} {post.user.profile.lastName}
@@ -301,10 +301,7 @@ const PostItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
-              className={
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }
-              disabled={!isActive && user.role === 'STUDENT' ? true : false}
+              disabled={inactiveUser}
             />
             <div className="count">{likesCount}</div>
           </div>

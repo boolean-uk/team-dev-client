@@ -151,6 +151,8 @@ const CommentReplyItem = ({
     }
   };
 
+  const inactiveUser = !isActive && user.role === 'STUDENT';
+
   return (
     <li className="comment-list" style={{ marginLeft: '40px' }}>
       <div className="comment-item">
@@ -163,9 +165,7 @@ const CommentReplyItem = ({
           <div className="comment-content-wrap">
             <h4
               onClick={handleClick}
-              className={`post-owner-name ${
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }`}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
             >
               <div>
                 {comment.user.profile.firstName} {comment.user.profile.lastName}
@@ -269,10 +269,7 @@ const CommentReplyItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
-              className={
-                !isActive && user.role === 'STUDENT' && 'deactive-user'
-              }
-              disabled={!isActive && user.role === 'STUDENT' ? true : false}
+              disabled={inactiveUser}
             />
             <div className="count">{comment.likes.length}</div>
           </div>

@@ -317,15 +317,9 @@
   color: red;
 }
 
-
 .deactive-user:hover {
   cursor: not-allowed;
   text-decoration: none;
-}
-
-.MuiButtonBase-root:disabled {
-  cursor: not-allowed;
-  pointer-events: auto;
 }
 
 .deactive-user-teacher-admin{

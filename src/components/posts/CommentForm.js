@@ -19,6 +19,8 @@ const CommentForm = ({ setPostResponse, post }) => {
     setCommentValue('');
   };
 
+  const inactiveUser = !isActive && userLoggedIn.role === 'STUDENT';
+
   return (
     <form className="comment-form" onSubmit={handleCommentSubmit}>
       <Avatar
@@ -46,18 +48,8 @@ const CommentForm = ({ setPostResponse, post }) => {
           inputProps={{ maxLength: 150 }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton
-          type="submit"
-          sx={{ p: '10px' }}
-          disabled={!isActive && userLoggedIn.role === 'STUDENT' ? true : false}
-        >
-          <SendIcon
-            type="submit"
-            variant="contained"
-            className={
-              !isActive && userLoggedIn.role === 'STUDENT' && 'deactive-user'
-            }
-          />
+        <IconButton type="submit" sx={{ p: '10px' }} disabled={inactiveUser}>
+          <SendIcon type="submit" variant="contained" />
         </IconButton>
       </Paper>
     </form>
