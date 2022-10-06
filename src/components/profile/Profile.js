@@ -18,8 +18,6 @@ const Profile = () => {
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
   const [pinnedPost, setPinnedPost] = useState([]);
-  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
-  const [post, setPost] = useState({ content: '', isPinned: false });
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
