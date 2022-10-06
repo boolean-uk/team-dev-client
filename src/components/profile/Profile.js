@@ -45,7 +45,9 @@ const Profile = () => {
   }, [location, userLoggedIn]);
 
   useEffect(() => {
-    renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+    if (userDisplayed.id) {
+      renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+    }
   }, [userDisplayed, postResponse]);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
