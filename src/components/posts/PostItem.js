@@ -27,7 +27,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import PushPinIcon from '@mui/icons-material/PushPin';
 
-
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
@@ -47,7 +46,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
-  const [, setIsPinned] = useState(post.isPinned);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -67,7 +65,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
-    setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
     setContent(post.content);
@@ -83,8 +80,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
       }
     });
     // eslint-disable-next-line
-
-  }, [post, loggedInUser, setIsPinned]);
+  }, [post, loggedInUser]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -167,10 +163,9 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
 
   if (post.isPinnedPost) {
     liClasses += ' pinned-post';
+  }
 
   const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
-
-
   return (
     <li className={liClasses}>
       {isPrivate && (
@@ -336,5 +331,5 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     </li>
   );
 };
-}
-export default PostItem
+
+export default PostItem;
