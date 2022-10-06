@@ -45,6 +45,7 @@ const PostsPage = ({ getUserId }) => {
     // eslint-disable-next-line
   }, [postResponse, postPref]);
 
+
   const createPost = async event => {
     event.preventDefault();
     client

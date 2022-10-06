@@ -35,27 +35,23 @@ const Profile = () => {
 
   let isOwner = false;
 
-  console.log('1 Profile loaded');
 
   useEffect(() => {
-    console.log('use Effect Runs');
     if (location.state) {
-      console.log('Location state: ', location.state);
       setUserDisplayed(location.state.user);
-
-
     } else {
-      console.log('Set User Displayed to: ', userLoggedIn);
       setUserDisplayed(userLoggedIn);
-
     }
-    console.log('useEffect Values posts rendered', posts);
-    console.log('userDisplayed', userDisplayed);
-    renderPinnedPosts(posts, setPosts, setPinnedPost, userDisplayed.id)
-    
-
-
   }, [location, userLoggedIn]);
+
+
+
+  useEffect(() => {
+
+    renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+  }, [userDisplayed]);
+
+
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
