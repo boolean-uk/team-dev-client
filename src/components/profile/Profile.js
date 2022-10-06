@@ -17,7 +17,6 @@ const Profile = () => {
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
   const [pinnedPost, setPinnedPost] = useState([]);
-  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
   const [post, setPost] = useState({ content: '', isPinned: false });
 
   const userLoggedIn = useLoggedInUser().user;
@@ -35,7 +34,6 @@ const Profile = () => {
 
   let isOwner = false;
 
-
   useEffect(() => {
     if (location.state) {
       setUserDisplayed(location.state.user);
@@ -44,14 +42,10 @@ const Profile = () => {
     }
   }, [location, userLoggedIn]);
 
-
-
   useEffect(() => {
 
     renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
   }, [userDisplayed]);
-
-
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -73,7 +67,7 @@ const Profile = () => {
     }
 
     client
-      .patch('/user/myprofile', reqBody)
+      .patch(`/user/${userDisplayed.id}`, reqBody)
       .then(res => {
         setUserDisplayed(res.data.data.user);
         setSuccessProfileUpdate(true);

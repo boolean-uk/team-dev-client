@@ -21,6 +21,15 @@ function TeacherAdmin() {
               <NavLink to="/enrolment">Enrolment</NavLink>
             </Button>
             <Button variant="contained">
+              <NavLink to="/module">Modules</NavLink>
+            </Button>
+            <Button variant="contained">
+              <NavLink to="/unit">Units</NavLink>
+            </Button>
+            <Button variant="contained">
+              <NavLink to="/lesson">Lessons</NavLink>
+            </Button>
+            <Button variant="contained">
               <NavLink to="/exercise">Exercises</NavLink>
             </Button>
           </div>

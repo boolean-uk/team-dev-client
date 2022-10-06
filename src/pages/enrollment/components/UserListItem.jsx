@@ -26,7 +26,7 @@ const UserListItem = ({
     const cohort_id = selectedCohort;
 
     client
-      .patch(`/user/${id}`, { cohort_id })
+      .patch(`/user/${id}/cohort`, { cohort_id })
       .then(res => setUserCohort(res.data.data.user.cohort_id))
       .catch(err => setError('error'));
   };

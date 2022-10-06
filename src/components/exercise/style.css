@@ -35,6 +35,11 @@
     align-items: center;
 }
 
+.exercise-readme {
+    text-align: left;
+    margin-top: 1rem;
+}
+
 .log-list {
     display: flex;
     flex-direction: column;
