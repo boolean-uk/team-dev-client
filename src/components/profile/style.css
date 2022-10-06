@@ -370,6 +370,7 @@
   margin-left: 0.5rem;
   color: red;
 
+}
 /* Deactive users on hover effect */
 .deactive-user:hover {
   cursor: not-allowed;
