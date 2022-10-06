@@ -15,7 +15,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      maxWidth: 250,
     },
   },
 };
@@ -60,8 +60,7 @@ export default function EventFilter({formValues, setFormValues, handleSubmit, so
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: '80%', float: 'left', margin: 'none', align: 'center' }}>
         <InputLabel id="demo-multiple-chip-label">Filter by Type:</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
@@ -92,6 +91,5 @@ export default function EventFilter({formValues, setFormValues, handleSubmit, so
           ))}
         </Select>
       </FormControl>
-    </div>
   );
 }

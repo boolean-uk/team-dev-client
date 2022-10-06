@@ -6,10 +6,14 @@
 }
 
 .event-form {
-  width: 60vw;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  gap: 0.5rem;
+}
+
+.event-form, .events-section h1{
+  margin: 1rem 0;
 }
 
 .event-form * {
@@ -61,4 +65,12 @@
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
+}
+
+.sort_by_event {
+  width: 7.5rem;
+}
+
+.sort_by_event nav, .sort_by_event nav div {
+  padding: 0;
 }
