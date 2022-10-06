@@ -47,7 +47,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
-  const [isPinned, setIsPinned] = useState(post.isPinned);
+  const [, setIsPinned] = useState(post.isPinned);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
