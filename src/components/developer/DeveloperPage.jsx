@@ -98,10 +98,6 @@ const DeveloperPage = () => {
       }
     }
 
-    if (formValues.range === 'content') {
-      handleSubmit()
-    }
-
   return (
     <main className='events-section'>
       <h2>Events</h2>

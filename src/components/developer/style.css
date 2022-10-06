@@ -6,8 +6,9 @@
 }
 
 .event-form {
-  width: 50vw;
+  width: 60vw;
   display: flex;
+  justify-content: center;
   gap: 2rem;
 }
 
