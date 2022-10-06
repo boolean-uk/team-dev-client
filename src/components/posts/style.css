@@ -316,3 +316,19 @@
   margin-left: 0.5rem;
   color: red;
 }
+
+.deactive-user:hover {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.deactive-user-teacher-admin{
+  display:inline-block;
+  margin-left:0.5rem
+}
+
+.inactive-warning{
+  color: red;
+  display: inline-block;
+  margin-left: 0.5rem;
+}

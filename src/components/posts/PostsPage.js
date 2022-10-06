@@ -17,7 +17,7 @@ const PostsPage = ({ getUserId }) => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
-  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
+  const [isTeacherOrAdmin, setIsTeacherOrAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const PostsPage = ({ getUserId }) => {
       .then(res => {
         const userRole = res.data.data.user.role;
         if (userRole === 'TEACHER' || userRole === 'ADMIN') {
-          setIsTeacherorAdmin(true);
+          setIsTeacherOrAdmin(true);
         }
       })
       .catch(err => console.error('user error', err));
@@ -87,10 +87,9 @@ const PostsPage = ({ getUserId }) => {
 
   return (
     <>
-      {isTeacherorAdmin && <TeacherAdmin />}
+      {isTeacherOrAdmin && <TeacherAdmin />}
 
       <section className="posts-section">
-
         {postError && <Alert severity="error">Must provide content</Alert>}
 
         <p>Status: {postResponse.status}</p>
@@ -118,6 +117,7 @@ const PostsPage = ({ getUserId }) => {
                 userId={getUserId}
                 setPost={setPost}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
           </ul>
@@ -125,7 +125,7 @@ const PostsPage = ({ getUserId }) => {
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
       </section>
-      {!isTeacherorAdmin && <StudentList />}
+      {!isTeacherOrAdmin && <StudentList />}
     </>
   );
 };

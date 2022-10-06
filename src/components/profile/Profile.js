@@ -88,6 +88,13 @@ const Profile = () => {
     navigate('/account', { state: { user: userDisplayed } });
   };
 
+  let githubUrlClass = 'githubUrl';
+  let fullNameClass = 'full-name';
+  if (!userDisplayed.isActive) {
+    githubUrlClass += ' deactivated';
+    fullNameClass += ' deactivated';
+  }
+
   return (
     <>
       <div className="profile">
@@ -96,8 +103,9 @@ const Profile = () => {
           sx={{ width: 325, height: 325, border: '#4b4b56 solid 5px' }}
           src={profile_image_url}
         />
-        <h1>
+        <h1 className={fullNameClass}>
           {first_name} {last_name}
+          {!userDisplayed.isActive && ' [Deactivated]'}
         </h1>
         <div className="profile-info">
           <div>
@@ -106,6 +114,7 @@ const Profile = () => {
               href={github_url}
               sx={{ textDecoration: 'none' }}
               underline="hover"
+              className={githubUrlClass}
             >
               My GitHub
             </Link>

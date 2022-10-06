@@ -27,6 +27,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import PushPinIcon from '@mui/icons-material/PushPin';
 
+
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
 const delBtnStyle = { text: deleteBtnText, color: 'primary' };
@@ -41,7 +42,7 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, setPostResponse }) => {
+const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -57,9 +58,12 @@ const PostItem = ({ post, setPostResponse }) => {
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
+  const isActive = post.user.isActive;
 
   const navigate = useNavigate();
   const loggedInUserId = useLoggedInUser().user.id;
+  const loggedInUser = useLoggedInUser().user;
 
   useEffect(() => {
     setIsOwner(false);
@@ -70,16 +74,18 @@ const PostItem = ({ post, setPostResponse }) => {
     setContent(post.content);
     setNewContent(post.content);
     setLikesCount(post.likes.length);
-    if (loggedInUserId === post.userId) {
+
+    if (loggedInUser.id === post.userId) {
       setIsOwner(true);
     }
     post.likes.forEach(like => {
-      if (loggedInUserId === like.userId) {
+      if (loggedInUser.id === like.userId) {
         setIsLiked(true);
       }
     });
     // eslint-disable-next-line
-  }, [post, loggedInUserId]);
+
+  }, [post, loggedInUser]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -134,7 +140,14 @@ const PostItem = ({ post, setPostResponse }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        navigate('/profile', { state: { user: res.data.data.user } });
+        if (post.user.isActive || isTeacherOrAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
       })
       .catch(err => console.error(err.response));
   };
@@ -155,7 +168,9 @@ const PostItem = ({ post, setPostResponse }) => {
 
   if (post.isPinnedPost) {
     liClasses += ' pinned-post';
-  }
+
+  const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
+
 
   return (
     <li className={liClasses}>
@@ -175,9 +190,25 @@ const PostItem = ({ post, setPostResponse }) => {
               alt="profile"
               sx={{ width: 56, height: 56 }}
             />
-            <h3 onClick={handleClick} className="post-owner-name">
-              {post.user.profile.firstName} {post.user.profile.lastName}
+
+            <h3
+              onClick={handleClick}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
+            >
+              <div>
+                {post.user.profile.firstName} {post.user.profile.lastName}
+              </div>
             </h3>
+            {!isActive && isTeacherOrAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip variant="outlined" color="error" label="deactivated" />
+              </div>
+            )}
+            {inactiveWaring && (
+              <div className="inactive-warning">
+                <p>User account is deactivated!</p>
+              </div>
+            )}
           </div>
           <div>
             {post.isPostOfTheWeek ? (
@@ -229,8 +260,8 @@ const PostItem = ({ post, setPostResponse }) => {
           <p className="post-content">{post.content}</p>
         )}
         <div className="btn-likes-wrap">
-          {isOwner ? (
-            <div className="modify-btn-wrap">
+          <div className="modify-btn-wrap">
+            {isOwner ? (
               <Button
                 color={editStyle.color}
                 variant="text"
@@ -240,7 +271,10 @@ const PostItem = ({ post, setPostResponse }) => {
               >
                 {editStyle.text}
               </Button>
-
+            ) : (
+              <div></div>
+            )}
+            {isOwner || isTeacherOrAdmin ? (
               <ClickAwayListener onClickAway={resetDelBtn}>
                 <Button
                   variant="text"
@@ -251,10 +285,10 @@ const PostItem = ({ post, setPostResponse }) => {
                   {delStyle.text}
                 </Button>
               </ClickAwayListener>
-            </div>
-          ) : (
-            <div></div>
-          )}
+            ) : (
+              <div></div>
+            )}
+          </div>
           <div className="like-wrap">
             <LikesView
               post={post}
@@ -283,6 +317,7 @@ const PostItem = ({ post, setPostResponse }) => {
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onChange={handleLike}
+              disabled={inactiveUser}
             />
             <div className="count">{likesCount}</div>
           </div>
@@ -296,6 +331,7 @@ const PostItem = ({ post, setPostResponse }) => {
           showingAll={showingAll}
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
+          isTeacherOrAdmin={isTeacherOrAdmin}
         />
       </div>
     </li>

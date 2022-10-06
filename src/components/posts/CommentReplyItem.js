@@ -6,6 +6,7 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip,
 } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
@@ -27,12 +28,11 @@ const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
 const CommentReplyItem = ({
-  userId,
   post,
   comment,
-  setUser,
   showingAll,
   setPostResponse,
+  isTeacherOrAdmin,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -43,16 +43,22 @@ const CommentReplyItem = ({
   const [thisUserId, setThisUserId] = useState(0);
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
+  const [isActive, setIsActive] = useState(true);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
 
   const navigate = useNavigate();
 
-  const loggedInUserId = useLoggedInUser().user.id
-  useEffect(() => {
 
-    setThisUserId(loggedInUserId);
+  const loggedInUser = useLoggedInUser().user;
+  useEffect(() => {
+    setThisUserId(loggedInUser.id);
+
+    if (comment.user.isActive === false) {
+      setIsActive(false);
+    }
 
     const userHasLiked = comment.likes.find(
-      commentLike => commentLike.userId === loggedInUserId
+      commentLike => commentLike.userId === loggedInUser.id
     );
 
     if (userHasLiked) {
@@ -60,14 +66,22 @@ const CommentReplyItem = ({
     }
 
     setIsLiked(false);
-  }, [comment, loggedInUserId]);
+
+  }, [comment, loggedInUser]);
 
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
-      .then(res =>
-        navigate('/profile', { state: { user: res.data.data.user } })
-      )
+      .then(res => {
+        if (comment.user.isActive || isTeacherOrAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
+      })
       .catch(err => console.error(err.response));
   };
 
@@ -135,6 +149,8 @@ const CommentReplyItem = ({
     }
   };
 
+  const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
+
   return (
     <li className="comment-list" style={{ marginLeft: '40px' }}>
       <div className="comment-item">
@@ -145,13 +161,33 @@ const CommentReplyItem = ({
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name">
-              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            <h4
+              onClick={handleClick}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
+            >
+              <div>
+                {comment.user.profile.firstName} {comment.user.profile.lastName}
+              </div>
             </h4>
             <p className="createdAt-time">
               {' '}
               &#183; {formatTime(comment.createdAt)}
             </p>
+            {!isActive && isTeacherOrAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                  label="deactivated"
+                />
+              </div>
+            )}
+            {inactiveWaring && (
+              <div className="inactive-warning">
+                User account is deactivated!
+              </div>
+            )}
             {editCommentStatus.length > 0 && (
               <div className="try-again">
                 <TryAgain />
@@ -200,26 +236,30 @@ const CommentReplyItem = ({
               )}
             </div>
           )}
-          <div className="delete-button">
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                className="delete-button-icon"
-                color={delStyle.color}
-                onClick={handleDeleteComment}
-              >
-                <DeleteIcon />
-              </Button>
-            </ClickAwayListener>
-            {confirmDeleteText && (
-              <Button
-                variant="text"
-                color="error"
-                onClick={handleDeleteComment}
-              >
-                confirm delete?
-              </Button>
-            )}
-          </div>
+          {thisUserId === comment.userId ||
+            (isTeacherOrAdmin && (
+              <div className="delete-button">
+                <ClickAwayListener onClickAway={resetDelBtn}>
+                  <Button
+                    className="delete-button-icon"
+                    color={delStyle.color}
+                    onClick={handleDeleteComment}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </ClickAwayListener>
+                {confirmDeleteText && (
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={handleDeleteComment}
+                  >
+                    confirm delete?
+                  </Button>
+                )}
+              </div>
+            ))}
+
           <div className="comment-like-wrap">
             <Checkbox
               label="like"
@@ -227,6 +267,7 @@ const CommentReplyItem = ({
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
+              disabled={inactiveUser}
             />
             <div className="count">{comment.likes.length}</div>
           </div>

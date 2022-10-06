@@ -64,12 +64,9 @@ function App() {
           <Route
             path="/user/:id/profile"
             element={<Profile getUserId={getLoggedInUserId} />}
-          />
+
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
-          <Route
-            path="/posts"
-            element={<PostsPage getUserId={getLoggedInUserId} />}
-          />
+          <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />

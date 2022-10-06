@@ -4,10 +4,10 @@ import FilterMenu from './utils/filterMenu';
 
 const Comments = ({
   post,
-  setUser,
   showingAll,
   setShowingAll,
   setPostResponse,
+  isTeacherOrAdmin,
 }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(post.comments);
@@ -49,9 +49,9 @@ const Comments = ({
               <CommentItem
                 post={post}
                 comment={comments[0]}
-                setUser={setUser}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             )
           : comments.length > 0 &&
@@ -61,8 +61,8 @@ const Comments = ({
                 post={post}
                 comment={comment}
                 key={comment.id}
-                setUser={setUser}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
       </ul>
