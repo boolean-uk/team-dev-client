@@ -63,7 +63,8 @@ function App() {
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-            element={<Profile getUserId={getLoggedInUserId} />} />
+            element={<Profile getUserId={getLoggedInUserId} />}
+          />
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
@@ -81,7 +82,6 @@ function App() {
           <Route path="/module/create" element={<ModuleCreate />} />
           <Route path="/unit/create" element={<UnitCreate />} />
           <Route path="/lesson/create" element={<LessonCreate />} />
-
         </Route>
       </Routes>
     </div>

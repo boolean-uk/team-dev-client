@@ -11,7 +11,7 @@ import PostsOfTheWeek from './PostsOfTheWeek';
 import { Alert } from '@mui/material';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 
-const PostsPage = ({ getUserId }) => {
+const PostsPage = () => {
   const postPref = useLoggedInUser().user.postPrivacyPref === 'PRIVATE';
   const [post, setPost] = useState({ content: '', isPrivate: false });
   const [postResponse, setPostResponse] = useState('');
@@ -42,7 +42,6 @@ const PostsPage = ({ getUserId }) => {
     setPost({ ...post, isPrivate: postPref });
     // eslint-disable-next-line
   }, [postResponse, postPref]);
-
 
   const createPost = async event => {
     event.preventDefault();
@@ -97,15 +96,12 @@ const PostsPage = ({ getUserId }) => {
           handleSubmit={createPost}
           handleChange={handleChange}
           value={post}
-
         />
 
         <PostsOfTheWeek
           posts={postsOfTheWeek}
-          getUserId={getUserId}
           setPost={setPost}
           setPostResponse={setPostResponse}
-          
         />
 
         {posts?.length > 0 ? (
@@ -114,7 +110,6 @@ const PostsPage = ({ getUserId }) => {
               <PostItem
                 post={post}
                 key={index}
-                userId={getUserId}
                 setPost={setPost}
                 setPostResponse={setPostResponse}
                 isTeacherOrAdmin={isTeacherOrAdmin}

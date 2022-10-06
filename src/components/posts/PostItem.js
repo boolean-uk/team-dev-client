@@ -41,7 +41,13 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
+const PostItem = ({
+  post,
+  setPostResponse,
+  isTeacherOrAdmin,
+  setErrorPinPost,
+  setErrorPrivatePost,
+}) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -226,7 +232,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
               <div className="hot-topic-placeholder"></div>
             )}
 
-            {post.isPinnedPost ? (
+            {post.isPinnedPost && (
               <Chip
                 size="medium"
                 color="warning"
@@ -235,12 +241,15 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
                 variant="outlined"
                 theme={theme}
               />
-            ) : (
-              post.isPinned === true
             )}
 
             {isOwner && (
-              <VerticalDotMenu post={post} setPostResponse={setPostResponse} />
+              <VerticalDotMenu
+                post={post}
+                setPostResponse={setPostResponse}
+                setErrorPinPost={setErrorPinPost}
+                setErrorPrivatePost={setErrorPrivatePost}
+              />
             )}
             <p className="createdAt-time">{formatTime(post.createdAt)}</p>
           </div>
@@ -268,7 +277,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
             ) : (
               <div></div>
             )}
-            {isOwner || isTeacherOrAdmin ? (
+            {(isOwner || isTeacherOrAdmin) && (
               <ClickAwayListener onClickAway={resetDelBtn}>
                 <Button
                   variant="text"
@@ -279,8 +288,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
                   {delStyle.text}
                 </Button>
               </ClickAwayListener>
-            ) : (
-              <div></div>
             )}
           </div>
           <div className="like-wrap">

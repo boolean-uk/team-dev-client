@@ -98,8 +98,10 @@ function getThePinnedPost(posts) {
 
 async function getAllPostsTwo(foundUserId) {
   try {
-    const response = await client.get(`/posts?user=${foundUserId}`);
-    return response.data.data;
+    if (foundUserId) {
+      const response = await client.get(`/posts?user=${foundUserId}`);
+      return response.data.data;
+    }
   } catch (err) {
     console.error(err);
   }
@@ -109,13 +111,16 @@ export function renderPinnedPosts(setPosts, setPinnedPost, foundUserId) {
   let allPosts = [];
   getAllPostsTwo(foundUserId)
     .then(response => {
-      allPosts = response;
+      if (response) {
+        allPosts = response;
+        const thePinned = getThePinnedPost(allPosts);
+        setPinnedPost(thePinned);
 
-      const thePinned = getThePinnedPost(allPosts);
-      setPinnedPost(thePinned);
-
-      const postsToRender = allPosts.filter(post => !thePinned.includes(post));
-      setPosts(postsToRender);
+        const postsToRender = allPosts.filter(
+          post => !thePinned.includes(post)
+        );
+        setPosts(postsToRender);
+      }
     })
     .catch(err => console.error(err));
 }

@@ -41,18 +41,24 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
     borderRadius: 16 / 2,
     opacity: 1,
     backgroundColor:
-      theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+      theme.palette.mode === 'dark'
+        ? 'rgba(255,255,255,.35)'
+        : 'rgba(0,0,0,.25)',
     boxSizing: 'border-box',
   },
 }));
 
 export default function ToggleSwitch({ labelText, handleChange, val }) {
   return (
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography>{labelText}</Typography>
-        <AntSwitch checked={val.isPrivate} inputProps={{ 'aria-label': 'ant design' }} onChange={() => {handleChange({target: {name: 'switch'}})}} />
-      </Stack>
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Typography>{labelText}</Typography>
+      <AntSwitch
+        checked={val}
+        inputProps={{ 'aria-label': 'ant design' }}
+        onChange={() => {
+          handleChange({ target: { name: 'switch' } });
+        }}
+      />
+    </Stack>
   );
 }
-
-
