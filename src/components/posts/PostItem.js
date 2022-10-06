@@ -62,7 +62,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const isActive = post.user.isActive;
 
   const navigate = useNavigate();
-  const loggedInUserId = useLoggedInUser().user.id;
   const loggedInUser = useLoggedInUser().user;
 
   useEffect(() => {
@@ -85,7 +84,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     });
     // eslint-disable-next-line
 
-  }, [post, loggedInUser]);
+  }, [post, loggedInUser, setIsPinned]);
 
   const handleChange = e => {
     e.preventDefault();

@@ -49,11 +49,11 @@ const Exercise = () => {
               </ListItem>
               <Divider color="white" />
             </div>
-          );
+          )
         })}
       </List>
     </div>
-  );
-};
+  )
+}
 
 export default Exercise;
