@@ -32,7 +32,7 @@ const CommentReplyItem = ({
   comment,
   showingAll,
   setPostResponse,
-  isTeacherorAdmin,
+  isTeacherOrAdmin,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -71,7 +71,7 @@ const CommentReplyItem = ({
     client
       .get(`/user/${comment.userId}`)
       .then(res => {
-        if (comment.user.isActive || isTeacherorAdmin) {
+        if (comment.user.isActive || isTeacherOrAdmin) {
           navigate('/profile', { state: { user: res.data.data.user } });
         } else {
           setInactiveWarning(true);
@@ -171,7 +171,7 @@ const CommentReplyItem = ({
               {' '}
               &#183; {formatTime(comment.createdAt)}
             </p>
-            {!isActive && isTeacherorAdmin && (
+            {!isActive && isTeacherOrAdmin && (
               <div className="deactive-user-teacher-admin">
                 <Chip
                   size="small"
@@ -235,7 +235,7 @@ const CommentReplyItem = ({
             </div>
           )}
           {thisUserId === comment.userId ||
-            (isTeacherorAdmin && (
+            (isTeacherOrAdmin && (
               <div className="delete-button">
                 <ClickAwayListener onClickAway={resetDelBtn}>
                   <Button

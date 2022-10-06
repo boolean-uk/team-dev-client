@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommentReplyItem from './CommentReplyItem';
 import FilterMenu from './utils/filterMenu';
 
-const Replies = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
+const Replies = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(comment.replies);
   const [showingAll, setShowingAll] = useState(false);
@@ -50,7 +50,7 @@ const Replies = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
                 comment={comments[0]}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
-                isTeacherorAdmin={isTeacherorAdmin}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             )
           : comments.length > 0 &&
@@ -61,7 +61,7 @@ const Replies = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
                 comment={comment}
                 key={comment.id}
                 setPostResponse={setPostResponse}
-                isTeacherorAdmin={isTeacherorAdmin}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
       </ul>

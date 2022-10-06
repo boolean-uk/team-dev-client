@@ -27,7 +27,7 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
+const CommentItem = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -65,7 +65,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
     client
       .get(`/user/${comment.userId}`)
       .then(res => {
-        if (comment.user.isActive || isTeacherorAdmin) {
+        if (comment.user.isActive || isTeacherOrAdmin) {
           navigate('/profile', { state: { user: res.data.data.user } });
         } else {
           setInactiveWarning(true);
@@ -169,7 +169,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
               {' '}
               &#183; {formatTime(comment.createdAt)}
             </p>
-            {!isActive && isTeacherorAdmin && (
+            {!isActive && isTeacherOrAdmin && (
               <div className="deactive-user-teacher-admin">
                 <Chip
                   size="small"
@@ -233,7 +233,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
             </div>
           )}
           {thisUserId === comment.userId ||
-            (isTeacherorAdmin && (
+            (isTeacherOrAdmin && (
               <div className="delete-button">
                 <ClickAwayListener onClickAway={resetDelBtn}>
                   <Button
@@ -295,7 +295,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
-          isTeacherorAdmin={isTeacherorAdmin}
+          isTeacherOrAdmin={isTeacherOrAdmin}
           isActive={isActive}
         />
       </div>
