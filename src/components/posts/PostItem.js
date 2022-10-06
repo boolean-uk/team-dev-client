@@ -337,5 +337,5 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     </li>
   );
 };
-
-export default PostItem;
+}
+export default PostItem
