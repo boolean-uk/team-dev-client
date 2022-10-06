@@ -23,6 +23,9 @@ import UnitList from './components/unit/UnitList';
 import LessonList from './components/lessons/LessonList';
 import UnitView from './components/unit/UnitView';
 import LessonView from './components/lessons/LessonView';
+import ModuleCreate from './components/module/ModuleCreate';
+import UnitCreate from './components/unit/UnitCreate';
+import LessonCreate from './components/lessons/LessonCreate';
 
 function App() {
   const navigate = useNavigate();
@@ -60,15 +63,9 @@ function App() {
         <Route element={<AuthenticateUser />}>
           <Route path='/events' element={<DeveloperPage />} />
           <Route path="/cohort" element={<CreateCohort />} />
-          <Route
-            path="/user/:id/profile"
-            element={<Profile getLoggedInUserId={getLoggedInUserId} />}
-          />
+          <Route path="/user/:id/profile" element={<Profile />} />
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
-          <Route
-            path="/posts"
-            element={<PostsPage getUserId={getLoggedInUserId} />}
-          />
+          <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
@@ -81,6 +78,10 @@ function App() {
           <Route path="/module/:id" element={<ModuleView />} />
           <Route path="/unit/:id" element={<UnitView />} />
           <Route path="/lesson/:id" element={<LessonView />} />
+          <Route path="/module/create" element={<ModuleCreate />} />
+          <Route path="/unit/create" element={<UnitCreate />} />
+          <Route path="/lesson/create" element={<LessonCreate />} />
+
         </Route>
       </Routes>
     </div>

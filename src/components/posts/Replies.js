@@ -3,7 +3,7 @@ import CommentReplyItem from './CommentReplyItem';
 import FilterMenu from './utils/filterMenu';
 import { commentOptions as options } from './utils/filterUtils';
 
-const Replies = ({ post, comment, userId, setPostResponse }) => {
+const Replies = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(comment.replies);
   const [showingAll, setShowingAll] = useState(false);
@@ -47,22 +47,22 @@ const Replies = ({ post, comment, userId, setPostResponse }) => {
         {!showingAll
           ? comments.length >= 1 && (
               <CommentReplyItem
-                userId={userId}
                 post={post}
                 comment={comments[0]}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             )
           : comments.length > 0 &&
             comments.map(comment => (
               <CommentReplyItem
                 showingAll={showingAll}
-                userId={userId}
                 post={post}
                 comment={comment}
                 key={comment.id}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
       </ul>
