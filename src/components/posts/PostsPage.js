@@ -78,6 +78,12 @@ const PostsPage = ({ getUserId }) => {
         isPrivate: !post.isPrivate,
       });
     }
+    if (event.target.name === 'toggle') {
+      setPost({
+        ...post,
+        isPinned: !post.isPinned,
+      });
+    }
   };
 
   const signOut = event => {

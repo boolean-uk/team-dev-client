@@ -25,7 +25,7 @@ import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
-
+import PushPinIcon from '@mui/icons-material/PushPin';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -46,6 +46,7 @@ const PostItem = ({ post, setPostResponse }) => {
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
+  const [isPinned, setIsPinned] = useState(post.isPinned);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -60,10 +61,10 @@ const PostItem = ({ post, setPostResponse }) => {
   const navigate = useNavigate();
   const loggedInUserId = useLoggedInUser().user.id;
 
-
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
+    setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
     setContent(post.content);
@@ -152,6 +153,10 @@ const PostItem = ({ post, setPostResponse }) => {
     liClasses += ' post-of-the-week';
   }
 
+  if (post.isPinnedPost) {
+    liClasses += ' pinned-post';
+  }
+
   return (
     <li className={liClasses}>
       {isPrivate && (
@@ -195,6 +200,20 @@ const PostItem = ({ post, setPostResponse }) => {
             ) : (
               <div className="hot-topic-placeholder"></div>
             )}
+
+            {post.isPinnedPost ? (
+              <Chip
+                size="medium"
+                color="warning"
+                icon={<PushPinIcon size="medium" />}
+                label={'Pinned Post'}
+                variant="outlined"
+                theme={theme}
+              />
+            ) : (
+              post.isPinned === true
+            )}
+
             {isOwner && (
               <VerticalDotMenu post={post} setPostResponse={setPostResponse} />
             )}

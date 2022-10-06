@@ -8,12 +8,17 @@ import StudentList from '../../components/studentList/StudentList';
 import { Alert } from '@mui/material';
 import { useEffect, useState } from 'react';
 import PostItem from '../posts/PostItem';
+import PinnedPost from '../posts/PinnedPost';
+import { renderPinnedPosts } from '../posts/utils/getAllPosts';
 
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [pinnedPost, setPinnedPost] = useState([]);
+  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
+  const [post, setPost] = useState({ content: '', isPinned: false });
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
@@ -30,25 +35,27 @@ const Profile = () => {
 
   let isOwner = false;
 
+  console.log('1 Profile loaded');
+
   useEffect(() => {
+    console.log('use Effect Runs');
     if (location.state) {
+      console.log('Location state: ', location.state);
       setUserDisplayed(location.state.user);
-      getAllPosts();
+
+
     } else {
+      console.log('Set User Displayed to: ', userLoggedIn);
       setUserDisplayed(userLoggedIn);
+
     }
+    console.log('useEffect Values posts rendered', posts);
+    console.log('userDisplayed', userDisplayed);
+    renderPinnedPosts(posts, setPosts, setPinnedPost, userDisplayed.id)
+    
+
+
   }, [location, userLoggedIn]);
-
-  async function getAllPosts() {
-
-    try {
-      const response = await client.get(`/posts?user=${userDisplayed.id}`);
-
-      return setPosts(response.data.data);
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -141,21 +148,27 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
-      <div className='postProfile-display'>
+      <div className="postProfile-display">
+        <section className="posts-section">
 
-      {posts?.length > 0 ? (
-          <ul className="posts-list">
-            {posts?.map((post, index) => (
-              <PostItem
-                post={post}
-                key={index}
-    
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="no-posts-message">There are no posts at the moment.</p>
-        )}
+          <PinnedPost 
+            posts={pinnedPost} 
+            userId={userLoggedIn}
+            
+            />
+
+          {posts?.length > 0 ? (
+            <ul className="posts-list">
+              {posts?.map((post, index) => (
+                <PostItem post={post} key={index} />
+              ))}
+            </ul>
+          ) : (
+            <p className="no-posts-message">
+              There are no posts at the moment.
+            </p>
+          )}
+        </section>
       </div>
     </>
   );
