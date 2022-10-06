@@ -7,7 +7,11 @@ import {
   Chip,
   AvatarGroup,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { createTheme } from '@mui/material/styles';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ClearIcon from '@mui/icons-material/Clear';
 import { useEffect, useState } from 'react';
 import { deletePost } from './utils/deletePost';
 import { editPost } from './utils/editPost';
@@ -24,6 +28,7 @@ import Comments from './Comments';
 import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -41,20 +46,21 @@ const theme = createTheme({
 
 const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [isOwner, setIsOwner] = useState(false);
-  const [content, setContent] = useState(post.content);
-  const [newContent, setNewContent] = useState(post.content);
+  // const [content, setContent] = useState(post.content);
+  // const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editStyle, setEditStyle] = useState(editBtnStyle);
-  const [delStyle, setDelStyle] = useState(delBtnStyle);
+  const [editPostContent, setEditPostContent] = useState('');
+  const [editError, setEditError] = useState('');
 
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
+  const { user } = useLoggedInUser();
   const navigate = useNavigate();
   const getUserId = userId();
 
@@ -63,66 +69,45 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
     setIsPrivate(post.isPrivate);
     resetDelBtn();
     resetEditBtn();
-    setContent(post.content);
-    setNewContent(post.content);
+    // setContent(post.content);
     setLikesCount(post.likes.length);
+
     if (getUserId === post.userId) {
       setIsOwner(true);
     }
+
     post.likes.forEach(like => {
-      if (getUserId === like.userId) {
+      if (user.id === like.userId) {
         setIsLiked(true);
+      } else {
+        setIsLiked(false);
       }
     });
     // eslint-disable-next-line
   }, [post, userId]);
 
-  const handleChange = e => {
-    e.preventDefault();
-    const { value } = e.target;
-    setNewContent(value);
-  };
-
   const resetDelBtn = () => {
-    setDelStyle(delBtnStyle);
     setIsDeleting(false);
   };
 
   const resetEditBtn = () => {
-    setEditStyle(editBtnStyle);
     setIsEditing(false);
   };
 
-  const handleEdit = e => {
-    if (!isEditing) {
-      setEditStyle(confirmEditStyle);
-      setIsEditing(true);
-    } else {
-      editPost(setPostResponse, post.id, newContent);
-      resetDelBtn();
+  const handleEditPost = async () => {
+    const res = await editPost(setPostResponse, post.id, editPostContent);
+    if (res?.status === 'fail') {
+      return setEditError(res.message);
     }
+    setIsEditing(false);
   };
 
-  const handleEditClickAway = () => {
-    if (newContent === content) {
-      resetEditBtn();
-    }
-  };
-
-  const handleDel = () => {
+  const handleDeletePost = () => {
     if (!isDeleting) {
-      setDelStyle(confirmDelStyle);
       setIsDeleting(true);
     } else {
-      deletePost(setPostResponse, post.id);
+      deletePost(setPostResponse, post.id, post.id);
       setIsDeleting(false);
-      setShowingAll(false);
-    }
-  };
-
-  const handleGroupAvatars = e => {
-    if (e.target.outerText.includes('+')) {
-      setOpenDialog(true);
     }
   };
 
@@ -136,11 +121,12 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   };
 
   const handleLike = e => {
-    setIsLiked(e.target.checked);
-    if (!isLiked) {
-      createLike(setPostResponse, post.id);
-    } else {
+    if (isLiked) {
       deleteLike(setPostResponse, post.id);
+      setIsLiked(false);
+    } else {
+      createLike(setPostResponse, post.id);
+      setIsLiked(true);
     }
   };
 
@@ -148,6 +134,16 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   if (post.isPostOfTheWeek) {
     liClasses += ' post-of-the-week';
   }
+
+  const TryAgain = () => {
+    try {
+      return editError;
+    } finally {
+      setTimeout(() => {
+        setEditError('');
+      }, 3000);
+    }
+  };
 
   return (
     <li className={liClasses}>
@@ -198,41 +194,72 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
             <p className="createdAt-time">{formatTime(post.createdAt)}</p>
           </div>
         </div>
-
+        {editError && (
+          <div style={{ textAlign: 'left', color: 'red' }}>
+            <TryAgain />
+          </div>
+        )}
         {isEditing ? (
-          <ClickAwayListener onClickAway={handleEditClickAway}>
-            <TextField multiline value={newContent} onChange={handleChange} />
-          </ClickAwayListener>
+          <>
+            <div className="edit-content-wrap">
+              <TextField
+                fullWidth
+                defaultValue={post.content}
+                variant="outlined"
+                size="small"
+                multiline
+                inputProps={{ maxLength: 150 }}
+                onChange={e => setEditPostContent(e.target.value)}
+              ></TextField>
+              <Button
+                className="submit-edited-comment"
+                onClick={handleEditPost}
+              >
+                <ArrowUpwardIcon />
+              </Button>
+              <Button
+                className="cancel-edit"
+                onClick={() => {
+                  setIsEditing(false);
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            </div>
+          </>
         ) : (
           <p className="post-content">{post.content}</p>
         )}
-        <div className="btn-likes-wrap">
-          {isOwner ? (
-            <div className="modify-btn-wrap">
-              <Button
-                color={editStyle.color}
-                variant="text"
-                id={'post-edit-btn' + post.id}
-                onClick={handleEdit}
-                className="modify-btn"
-              >
-                {editStyle.text}
-              </Button>
-
-              <ClickAwayListener onClickAway={resetDelBtn}>
+        <div className="comment-nav-wrap">
+          {isOwner && (
+            <div className="edit-button-form-wrap">
+              {!isEditing && (
                 <Button
-                  variant="text"
-                  color={delStyle.color}
-                  className="modify-btn"
-                  onClick={handleDel}
+                  className="edit-button-icon"
+                  onClick={() => setIsEditing(true)}
                 >
-                  {delStyle.text}
+                  <EditIcon />
                 </Button>
-              </ClickAwayListener>
+              )}
             </div>
-          ) : (
-            <div></div>
           )}
+          <div className="delete-button">
+            <ClickAwayListener onClickAway={resetDelBtn}>
+              <Button
+                className="delete-button-icon"
+                color={`${isDeleting ? 'error' : 'info'}`}
+                onClick={handleDeletePost}
+              >
+                <DeleteIcon />
+              </Button>
+            </ClickAwayListener>
+            {isDeleting && (
+              <Button variant="text" color="error" onClick={handleDeletePost}>
+                confirm delete?
+              </Button>
+            )}
+          </div>
+
           <div className="like-wrap">
             <LikesView
               post={post}
@@ -240,15 +267,12 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
               openDialog={openDialog}
               handleClick={handleClick}
             />
-            <AvatarGroup onClick={e => handleGroupAvatars(e)} max={6}>
-              {post.likes.map((like, i) => {
+            <AvatarGroup onClick={() => setOpenDialog(true)}>
+              {post.likes.map(like => {
                 return (
                   <Avatar
-                    key={i}
-                    sx={{ cursor: 'pointer' }}
+                    key={like.postId + like.userId}
                     total={post.likes.length}
-                    onClick={e => handleClick(e, like.user.id)}
-                    size="small"
                     alt={like.user.profile.firstName}
                     src={like.user.profile.profileImageUrl}
                   />
