@@ -5,7 +5,10 @@ const UnitView = () => {
     const location = useLocation()
 
     return (
-        <ViewTemplate templateData={location.state.data} />
+        <ViewTemplate
+            templateData={location.state.data}
+            templateType='unit'
+        />
     )
 }
 

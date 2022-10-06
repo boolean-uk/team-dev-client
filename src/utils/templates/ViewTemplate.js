@@ -1,11 +1,23 @@
 import { Button } from '@mui/material';
 import './style.css'
+import { useNavigate } from 'react-router-dom';
 
-const ViewTemplate = ({ templateData }) => {
-    let templateCode
+const ViewTemplate = ({ templateData, templateType }) => {
+    const navigate = useNavigate()
+    let templateCode, childTemplate = 'unit'
 
     if (templateData) {
         templateCode = templateData.learningObj[0].charCodeAt(0)
+    }
+
+    if (templateType === 'unit') {
+        childTemplate = 'lesson'
+    } else if (templateType === 'lesson') {
+        childTemplate = 'exercise'
+    }
+
+    const handleClick = () => {
+        navigate(`/${childTemplate}`)
     }
 
     return (
@@ -14,7 +26,13 @@ const ViewTemplate = ({ templateData }) => {
                 <h1>
                     {templateData.name !== undefined ? templateData.name : templateData.dayNumber}
                 </h1>
-                <Button variant="contained" color="primary">List Link</Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClick}
+                >
+                    {childTemplate}s
+                </Button>
             </header>
             <main>
                 <p className='desc'>
