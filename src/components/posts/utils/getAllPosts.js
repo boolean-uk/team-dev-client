@@ -85,3 +85,41 @@ export function renderPosts(setPosts, setPostsOfTheWeek) {
     })
     .catch(err => console.error(err));
 }
+
+function getThePinnedPost(posts) {
+  let onlyPinned = []
+  posts.forEach((post, index) => {
+
+    if (post.isPinned) {
+      onlyPinned.push(post)
+    }
+  });
+  return onlyPinned;
+}
+
+async function getAllPostsTwo(foundUserId) {
+  try {
+    const response = await client.get(`/posts?user=${foundUserId}`);
+    return response.data.data
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export function renderPinnedPosts(setPosts, setPinnedPost, foundUserId) {
+
+  let allPosts = [];
+  getAllPostsTwo(foundUserId)
+  .then(response => {
+    allPosts = response;
+  
+      const thePinned = getThePinnedPost(allPosts);
+      setPinnedPost(thePinned);
+
+      const postsToRender = allPosts.filter(
+        post => !thePinned.includes(post)
+      );
+      setPosts(postsToRender);
+    })
+    .catch(err => console.error(err));
+}
