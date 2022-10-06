@@ -50,3 +50,21 @@
 .deactive-user:hover {
   cursor: not-allowed;
 }
+
+.full-name.deactivated {
+  color: gray;
+}
+
+.githubUrl {
+  cursor: pointer;
+}
+
+.githubUrl.deactivated {
+  cursor: default;
+  text-decoration: none;
+  color: gray;
+}
+
+.githubUrl.deactivated:hover {
+  text-decoration: none;
+}
