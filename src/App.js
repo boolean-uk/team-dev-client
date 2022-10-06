@@ -16,6 +16,15 @@ import ViewCohort from './pages/viewCohort';
 import Exercise from './components/exercise/Exercise';
 import CreateExercise from './components/exercise/CreateExercise';
 import ExerciseView from './components/exercise/ExerciseView';
+import ModuleList from './components/module/ModuleList';
+import ModuleView from './components/module/ModuleView';
+import UnitList from './components/unit/UnitList';
+import LessonList from './components/lessons/LessonList';
+import UnitView from './components/unit/UnitView';
+import LessonView from './components/lessons/LessonView';
+import ModuleCreate from './components/module/ModuleCreate';
+import UnitCreate from './components/unit/UnitCreate';
+import LessonCreate from './components/lessons/LessonCreate';
 
 function App() {
   const navigate = useNavigate();
@@ -61,6 +70,16 @@ function App() {
           <Route path="/exercise" element={<Exercise />} />
           <Route path="/exercise/create" element={<CreateExercise />} />
           <Route path="/exercise/:id" element={<ExerciseView />} />
+          <Route path="/module" element={<ModuleList />} />
+          <Route path="/unit" element={<UnitList />} />
+          <Route path="/lesson" element={<LessonList />} />
+          <Route path="/module/:id" element={<ModuleView />} />
+          <Route path="/unit/:id" element={<UnitView />} />
+          <Route path="/lesson/:id" element={<LessonView />} />
+          <Route path="/module/create" element={<ModuleCreate />} />
+          <Route path="/unit/create" element={<UnitCreate />} />
+          <Route path="/lesson/create" element={<LessonCreate />} />
+
         </Route>
       </Routes>
     </div>
