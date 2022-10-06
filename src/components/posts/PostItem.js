@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { createTheme } from '@mui/material/styles';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useEffect, useState } from 'react';
@@ -31,38 +30,23 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import PushPinIcon from '@mui/icons-material/PushPin';
 
-const deleteBtnText = 'Delete';
-const confirmDeleteBtnText = 'Confirm Delete?';
-const delBtnStyle = { text: deleteBtnText, color: 'primary' };
-const confirmDelStyle = { text: confirmDeleteBtnText, color: 'error' };
-const editBtnStyle = { text: 'Edit', color: 'primary' };
-const confirmEditStyle = { text: 'Save', color: 'success' };
 const likesToBeHotTopic = 10;
-
-const theme = createTheme({
-  typography: {
-    fontSize: 16,
-  },
-});
 
 const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
-  // const [content, setContent] = useState(post.content);
-  // const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
   const [, setIsPinned] = useState(post.isPinned);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editPostContent, setEditPostContent] = useState('');
   const [editError, setEditError] = useState('');
-
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [inactiveWaring, setInactiveWarning] = useState(false);
-  const isActive = post.user.isActive;
 
+  const isActive = post.user.isActive;
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
@@ -72,7 +56,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
-    // setContent(post.content);
     setLikesCount(post.likes.length);
 
     if (user.id === post.userId) {
@@ -206,7 +189,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
                 icon={<GradeIcon size="medium" />}
                 label={'Post of the Week'}
                 variant="outlined"
-                theme={theme}
               />
             ) : post.likes.length >= likesToBeHotTopic ? (
               <Chip
@@ -227,7 +209,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
                 icon={<PushPinIcon size="medium" />}
                 label={'Pinned Post'}
                 variant="outlined"
-                theme={theme}
               />
             ) : (
               post.isPinned === true
