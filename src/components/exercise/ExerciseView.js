@@ -5,12 +5,13 @@ import { Link, Checkbox, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 
 const ExerciseView = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [currentExercise, setCurrentExercise] = useState({});
-  const [readMe, setReadMe] = useState('');
-  const [logList, setLogList] = useState([]);
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    const location = useLocation()
+    const navigate = useNavigate()
+    
+    const [currentExercise, setCurrentExercise] = useState({});
+    const [readMe, setReadMe] = useState('')
+    const [logList, setLogList] = useState([])
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
   const isValidUrl = urlString => {
     const urlPattern = new RegExp(

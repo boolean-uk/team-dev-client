@@ -46,13 +46,12 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function ToggleSwitch({ labelText, handleChange, val }) {
+export default function ToggleASwitch({ labelText, handleToggle, val }) {
   return (
       <Stack direction="row" spacing={1} alignItems="center">
         <Typography>{labelText}</Typography>
-        <AntSwitch checked={val.isPrivate} inputProps={{ 'aria-label': 'ant design' }} onChange={() => {handleChange({target: {name: 'switch'}})}} />
+        <AntSwitch checked={val.isPinned} inputProps={{ 'aria-label': 'ant design' }} onChange={() => {handleToggle({target: {name: 'toggle'}})}} />
       </Stack>
   );
 }
-
 

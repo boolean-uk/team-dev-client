@@ -7,11 +7,18 @@ import client from '../../utils/client';
 import StudentList from '../../components/studentList/StudentList';
 import { Alert } from '@mui/material';
 import { useEffect, useState } from 'react';
+import PostItem from '../posts/PostItem';
+import PinnedPost from '../posts/PinnedPost';
+import { renderPinnedPosts } from '../posts/utils/getAllPosts';
+
 
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [pinnedPost, setPinnedPost] = useState([]);
+
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,6 +31,7 @@ const Profile = () => {
     profile_image_url,
     role,
   } = userDisplayed;
+
   let isOwner = false;
 
   useEffect(() => {
@@ -34,12 +42,16 @@ const Profile = () => {
     }
   }, [location, userLoggedIn]);
 
+  useEffect(() => {
+
+    renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+  }, [userDisplayed]);
+
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
   if (userLoggedIn.id === userDisplayed.id) {
     isOwner = true;
   }
-
   const handleSubmit = newInfo => {
     const reqBody = {
       firstName: newInfo.first_name,
@@ -135,6 +147,30 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
+      
+      <div className="postProfile-display">
+        <section className="posts-section">
+
+          <PinnedPost 
+            posts={pinnedPost} 
+            userId={userLoggedIn}
+            
+            />
+
+          {posts?.length > 0 ? (
+            <ul className="posts-list">
+              {posts?.map((post, index) => (
+                <PostItem post={post} key={index} />
+              ))}
+            </ul>
+          ) : (
+            <p className="no-posts-message">
+              There are no posts at the moment.
+            </p>
+          )}
+        </section>
+      </div>
+
     </>
   );
 };

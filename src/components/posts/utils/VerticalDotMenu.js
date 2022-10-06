@@ -4,17 +4,20 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ToggleSwitch from './ToggleSwitch';
+import ToggleASwitch from './ToggleOther';
 import client from '../../../utils/client';
 
 const ITEM_HEIGHT = 48;
 
 export default function VerticalDotMenu({ post, setPostResponse}) {
     const [values, setValues] = React.useState({ isPrivate: null })
+    const [pinValues, setPinValues] = React.useState({ isPinned: null })
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
     React.useEffect(() => {
         setValues({...values, isPrivate: post.isPrivate})
+        setPinValues({...pinValues, isPinned: post.isPinned})
     // eslint-disable-next-line
     }, [post])
     
@@ -27,13 +30,14 @@ export default function VerticalDotMenu({ post, setPostResponse}) {
     };
     
     const handleChange = event => {
+      
         if (event.target.name === 'switch') {
             setValues({
                 ...values,
                 isPrivate: !post.isPrivate,
             });
             client
-                .patch(`/post/${post.id}/status`, { isPrivate: values.isPrivate })
+                .patch(`/post/${post.id}/status`, { isPrivate: values.isPrivate})
                 .then(res => setPostResponse(res.data))
                 .catch(err => {
                     console.error(err.response)
@@ -41,7 +45,22 @@ export default function VerticalDotMenu({ post, setPostResponse}) {
         }
     };
 
+    const handleToggle = event => {
+      if (event.target.name === 'toggle') {
+        setPinValues({
+              isPinned: !post.isPinned,
+          });
+          client
+              .patch(`/post/${post.id}/pinned`, { isPinned: values.isPinned })
+              .then(res => setPostResponse(res.data))
+              .catch(err => {
+                  console.error(err.response)
+              });
+      }
+  };
+
     const options = [
+      <ToggleASwitch labelText={'Post pinned'} val={pinValues} handleToggle={handleToggle} />,
       <ToggleSwitch labelText={'Post private'} val={values} handleChange={handleChange} />,
     ];
     
