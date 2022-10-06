@@ -22,6 +22,9 @@ const EventItem = (devEvent) => {
             {' '}
             {eventLog.content}
             {' '}
+            {eventLog.cohort && eventLog.topic !== 'create' && (eventLog.cohort.name || eventLog.cohort.id) + ' '}
+            {eventLog.cohort && eventLog.topic === 'create' && 'cohort ' + (eventLog.cohort.name || eventLog.cohort.id) + ' '}
+            {eventLog.createdBy && 'by '}
             <span className='event-user-name'>
                 {eventLog.createdBy?.profile.firstName}
                 {' '}
