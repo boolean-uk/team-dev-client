@@ -48,7 +48,7 @@ const DeveloperPage = () => {
     const createUrl = () => {
       let url = `/events?`
       
-      if (formValues.content) {
+      if (formValues.content && formValues.range === 'content') {
         url += `content=${formValues.content}`
       }
 
@@ -56,6 +56,15 @@ const DeveloperPage = () => {
         formValues.types.map((type) => {
           return url += `&type=${type}`
         })
+      }
+
+      if(formValues.range !== 'content') {
+        if (formValues.range === 'role') {
+          url += `role=${formValues.content}`
+        }
+        else {
+          url += `firstName=${formValues.content}`
+        }
       }
 
       if (sortType) {
@@ -66,9 +75,25 @@ const DeveloperPage = () => {
 
     const handleSubmit = e => {
       if (formValues.range && formValues.range !== 'content' && formValues.content !== '') {
-        searchByRange()
+        getEvents()
       } else getEvents()
     }
+
+    // const searchByRange = () => {
+    //   client
+    //     .get(createUrl())
+    //     .then(res => {
+    //       setEventLogs(res.data.data);
+    //       setAuthError(false);
+    //   })
+    //   .catch(err => {
+    //       console.error(err.response);
+    //       setAuthError(true);
+    //       setTimeout(() => {
+    //       setAuthError(false);
+    //       }, '3000');
+    //   });
+    // }
 
     const getEvents = () => {
       client
@@ -86,49 +111,49 @@ const DeveloperPage = () => {
       });
     }
 
-    const searchByRange = () => {
-      console.log('searching by range...')
-      const logsByRange = allLogs.filter((event) => {
-        console.log('event', event)
-        switch (formValues.range) {
-          case 'username':
-            const usernames = [
-              event.receivedBy?.profile.firstName,
-              event.receivedBy?.profile.lastName,
-              event.createdBy?.profile.firstName,
-              event.createdBy?.profile.lastName,
-            ]
-            for (let i = 0; i < usernames.length; i++) {
-              const name = usernames[i];
-              // if (name) {
-                if (name && name.toUpperCase().includes(formValues.content.toUpperCase())) {
-                  return true
-                }
-              // }
-              return false
-            }
-          break;
-          case 'role':
-            const roles = [
-              event.createdBy?.role,
-              event.receivedBy?.role,
-            ]
-            console.log('receivedBy', roles[1])
-            for (let i = 0; i < roles.length; i++) {
-              const role = roles[i];
-              if (role && role.toUpperCase().includes(formValues.content.toUpperCase())) {
-                console.log('role', role)
-                return true
-              }
-              return false
-            }
-            break;
-          default:
-          break;
-        }
-      });
-      setEventLogs(logsByRange)
-    }
+    // const searchByRange = () => {
+    //   console.log('searching by range...')
+    //   const logsByRange = allLogs.filter((event) => {
+    //     console.log('event', event)
+    //     switch (formValues.range) {
+    //       case 'username':
+    //         const usernames = [
+    //           event.receivedBy?.profile.firstName,
+    //           event.receivedBy?.profile.lastName,
+    //           event.createdBy?.profile.firstName,
+    //           event.createdBy?.profile.lastName,
+    //         ]
+    //         for (let i = 0; i < usernames.length; i++) {
+    //           const name = usernames[i];
+    //           // if (name) {
+    //             if (name && name.toUpperCase().includes(formValues.content.toUpperCase())) {
+    //               return true
+    //             }
+    //           // }
+    //           return false
+    //         }
+    //       break;
+    //       case 'role':
+    //         const roles = [
+    //           event.createdBy?.role,
+    //           event.receivedBy?.role,
+    //         ]
+    //         console.log('receivedBy', roles[1])
+    //         for (let i = 0; i < roles.length; i++) {
+    //           const role = roles[i];
+    //           if (role && role.toUpperCase().includes(formValues.content.toUpperCase())) {
+    //             console.log('role', role)
+    //             return true
+    //           }
+    //           return false
+    //         }
+    //         break;
+    //       default:
+    //       break;
+    //     }
+    //   });
+    //   setEventLogs(logsByRange)
+    // }
 
     const handleChange = e => {
       e.preventDefault();
@@ -147,7 +172,7 @@ const DeveloperPage = () => {
   return (
     <main className='events-section'>
       <h2>Events</h2>
-      <button onClick={() => {console.log('formValues', formValues)}}>TEST</button>
+      <button onClick={() => {console.log(createUrl())}}>TEST</button>
       <form className='event-form' onSubmit={handleSubmit} autoComplete='off' >
         <EventFilter
          formValues={formValues} 
