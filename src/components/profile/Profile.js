@@ -11,7 +11,6 @@ import PostItem from '../posts/PostItem';
 import PinnedPost from '../posts/PinnedPost';
 import { renderPinnedPosts } from '../posts/utils/getAllPosts';
 
-
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
@@ -43,8 +42,9 @@ const Profile = () => {
   }, [location, userLoggedIn]);
 
   useEffect(() => {
-
-    renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+    if (userDisplayed.id) {
+      renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+    }
   }, [userDisplayed]);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
@@ -147,15 +147,10 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
-      
+
       <div className="postProfile-display">
         <section className="posts-section">
-
-          <PinnedPost 
-            posts={pinnedPost} 
-            userId={userLoggedIn}
-            
-            />
+          <PinnedPost posts={pinnedPost} userId={userLoggedIn} />
 
           {posts?.length > 0 ? (
             <ul className="posts-list">
@@ -170,7 +165,6 @@ const Profile = () => {
           )}
         </section>
       </div>
-
     </>
   );
 };
