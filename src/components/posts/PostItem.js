@@ -40,7 +40,7 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
+const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -133,7 +133,7 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        if (post.user.isActive || isTeacherorAdmin) {
+        if (post.user.isActive || isTeacherOrAdmin) {
           navigate('/profile', { state: { user: res.data.data.user } });
         } else {
           setInactiveWarning(true);
@@ -188,7 +188,7 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
                 {post.user.profile.firstName} {post.user.profile.lastName}
               </div>
             </h3>
-            {!isActive && isTeacherorAdmin && (
+            {!isActive && isTeacherOrAdmin && (
               <div className="deactive-user-teacher-admin">
                 <Chip variant="outlined" color="error" label="deactivated" />
               </div>
@@ -249,7 +249,7 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
             ) : (
               <div></div>
             )}
-            {isOwner || isTeacherorAdmin ? (
+            {isOwner || isTeacherOrAdmin ? (
               <ClickAwayListener onClickAway={resetDelBtn}>
                 <Button
                   variant="text"
@@ -306,7 +306,7 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
           showingAll={showingAll}
           setShowingAll={setShowingAll}
           setPostResponse={setPostResponse}
-          isTeacherorAdmin={isTeacherorAdmin}
+          isTeacherOrAdmin={isTeacherOrAdmin}
         />
       </div>
     </li>
