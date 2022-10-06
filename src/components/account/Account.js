@@ -15,6 +15,7 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 import { useLocation } from 'react-router-dom';
 import ChangeUserRole from '../admin/ChangeUserRole';
 import PrivacyMenu from './PrivacyMenu';
+import DeactivateForm from './DeactivatedForm';
 
 function createData(key, value) {
   return { key, value };
@@ -123,7 +124,7 @@ const Account = () => {
                     />
                   </TableCell>
                 ) : (
-                  <TableCell align="right">{row.value}</TableCell>
+                  <TableCell align="right">{`${row.value}`}</TableCell>
                 )}
               </TableRow>
             ))}
@@ -163,15 +164,18 @@ const Account = () => {
         </Alert>
       )}
       <div className="btns__container">
-        {isAdmin && !isOwner ? (
+        {isAdmin && !isOwner && (
           <div>
             <ChangeUserRole setUser={setUser} user={user} />
           </div>
-        ) : (
-          <></>
         )}
         <>
-          {isOwner ? <EditDetails handleUpdate={handleEmailUpdate} /> : <></>}
+          {isOwner && (
+            <div className="user-account-actions">
+              <EditDetails handleUpdate={handleEmailUpdate} />
+              <DeactivateForm />
+            </div>
+          )}
         </>
       </div>
     </>

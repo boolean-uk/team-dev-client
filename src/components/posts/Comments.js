@@ -3,12 +3,11 @@ import CommentItem from './CommentItem';
 import FilterMenu from './utils/filterMenu';
 
 const Comments = ({
-  userId,
   post,
-  setUser,
   showingAll,
   setShowingAll,
   setPostResponse,
+  isTeacherOrAdmin,
 }) => {
   const [sortType, setSortType] = useState('Most Liked');
   const [comments, setComments] = useState(post.comments);
@@ -48,24 +47,22 @@ const Comments = ({
         {!showingAll
           ? comments.length >= 1 && (
               <CommentItem
-                userId={userId}
                 post={post}
                 comment={comments[0]}
-                setUser={setUser}
                 showingAll={showingAll}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             )
           : comments.length > 0 &&
             comments.map((comment, index) => (
               <CommentItem
                 showingAll={showingAll}
-                userId={userId}
                 post={post}
                 comment={comment}
                 key={comment.id}
-                setUser={setUser}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
       </ul>
