@@ -48,9 +48,11 @@ const CommentForm = ({ setPostResponse, post }) => {
           inputProps={{ maxLength: 150 }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton type="submit" sx={{ p: '10px' }} disabled={inactiveUser}>
-          <SendIcon type="submit" variant="contained" />
-        </IconButton>
+        <div style={{ cursor: inactiveUser && 'not-allowed' }}>
+          <IconButton type="submit" sx={{ p: '10px' }} disabled={inactiveUser}>
+            <SendIcon type="submit" variant="contained" />
+          </IconButton>
+        </div>
       </Paper>
     </form>
   );

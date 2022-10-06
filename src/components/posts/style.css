@@ -330,7 +330,7 @@
 
 .deactive-user:hover {
   cursor: not-allowed;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .deactive-user-teacher-admin {
