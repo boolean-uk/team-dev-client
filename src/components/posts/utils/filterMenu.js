@@ -5,17 +5,11 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-const options = [
-  'Select an Option',
-  'Most Liked',
-  'Most Recent',
-  'Oldest',
-];
-
-export default function FilterMenu({ setSortType }) {
+export default function FilterMenu({ setSortType, options }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const open = Boolean(anchorEl);
+
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };

@@ -6,6 +6,8 @@ import EventList from './components/EventList';
 import './style.css';
 import EventFilter from './components/EventFilter';
 import FilterMenu from '../posts/utils/filterMenu';
+import { devOptions as options} from '../posts/utils/filterUtils';
+
 
 const rangeOptions = ['content', 'username', 'role'];
 
@@ -110,7 +112,7 @@ const DeveloperPage = () => {
           />
         </div>
         <div className='sort_by_event'>
-          <FilterMenu setSortType={setSortType} />
+          <FilterMenu setSortType={setSortType} options={options} />
         </div>
         <div>
           <TextField
