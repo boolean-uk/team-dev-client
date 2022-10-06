@@ -1,0 +1,66 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header,
+.module {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #4b4b56 solid 3px;
+    width: 800px;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 1rem 0;
+}
+
+.module h3:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.desc {
+    padding: 1rem;
+    border-bottom: #4b4b56 solid 3px;
+}
+
+.objectives {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 800px;
+}
+
+.objectives h3 {
+    padding: 1rem 0 0.5rem 0;
+}
+
+.objectives p {
+    padding-bottom: 0.25rem;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-form {
+    background-color: #F0F8FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-top: 2rem;
+    border-radius: 3px;
+    color: black;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+form h1 {
+    margin: 0;
+}

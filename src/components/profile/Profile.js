@@ -11,6 +11,7 @@ import PostItem from '../posts/PostItem';
 import PinnedPost from '../posts/PinnedPost';
 import { renderPinnedPosts } from '../posts/utils/getAllPosts';
 
+
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
@@ -35,7 +36,6 @@ const Profile = () => {
 
   let isOwner = false;
 
-
   useEffect(() => {
     if (location.state) {
       setUserDisplayed(location.state.user);
@@ -44,14 +44,10 @@ const Profile = () => {
     }
   }, [location, userLoggedIn]);
 
-
-
   useEffect(() => {
 
     renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
   }, [userDisplayed]);
-
-
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -73,7 +69,7 @@ const Profile = () => {
     }
 
     client
-      .patch('/user/myprofile', reqBody)
+      .patch(`/user/${userDisplayed.id}`, reqBody)
       .then(res => {
         setUserDisplayed(res.data.data.user);
         setSuccessProfileUpdate(true);
@@ -144,6 +140,7 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
+      
       <div className="postProfile-display">
         <section className="posts-section">
 
@@ -166,6 +163,7 @@ const Profile = () => {
           )}
         </section>
       </div>
+
     </>
   );
 };
