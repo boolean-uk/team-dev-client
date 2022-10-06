@@ -100,6 +100,7 @@
 
 .like-wrap {
   display: flex;
+  align-items: center;
 }
 
 .post-hidden-overlay {
@@ -315,4 +316,14 @@
 .try-again {
   margin-left: 0.5rem;
   color: red;
+}
+
+.MuiAvatarGroup-root {
+  height: 24px !important;
+}
+.MuiAvatarGroup-avatar {
+  cursor: pointer;
+  font-size: 1rem !important;
+  width: 24px !important;
+  height: 24px !important;
 }
