@@ -35,11 +35,11 @@ function TeacherAdmin() {
           </div>
 
           <div>
-            <SearchBar />
-            <h4 style={{ textAlign: 'left', marginTop: '10px' }}>
-              Current Cohorts:
-            </h4>{' '}
-            <CohortList header="true" />
+              <SearchBar />
+            <div className="cohorts_view">
+              <h4>Current Cohorts:</h4> 
+              <CohortList header="true" />
+            </div>
           </div>
         </div>
       </Card>

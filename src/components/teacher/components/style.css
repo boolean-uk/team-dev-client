@@ -1,4 +1,11 @@
 .search__container {
+  margin: 0;
   display: flex;
+  justify-content: center;
   gap: 1rem;
+}
+
+.search__container .search__bar {
+  min-width: 100px;
+  width: 400px;
 }
