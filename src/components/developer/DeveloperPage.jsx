@@ -60,10 +60,10 @@ const DeveloperPage = () => {
 
       if(formValues.range !== 'content') {
         if (formValues.range === 'role') {
-          url += `role=${formValues.content}`
+          url += `role=${formValues.content.toUpperCase()}`
         }
         else {
-          url += `firstName=${formValues.content}`
+          url += `&firstName=${formValues.content}`
         }
       }
 
@@ -79,21 +79,21 @@ const DeveloperPage = () => {
       } else getEvents()
     }
 
-    // const searchByRange = () => {
-    //   client
-    //     .get(createUrl())
-    //     .then(res => {
-    //       setEventLogs(res.data.data);
-    //       setAuthError(false);
-    //   })
-    //   .catch(err => {
-    //       console.error(err.response);
-    //       setAuthError(true);
-    //       setTimeout(() => {
-    //       setAuthError(false);
-    //       }, '3000');
-    //   });
-    // }
+    const searchByRange = () => {
+      client
+        .get(createUrl())
+        .then(res => {
+          setEventLogs(res.data.data);
+          setAuthError(false);
+      })
+      .catch(err => {
+          console.error(err.response);
+          setAuthError(true);
+          setTimeout(() => {
+          setAuthError(false);
+          }, '3000');
+      });
+    }
 
     const getEvents = () => {
       client
