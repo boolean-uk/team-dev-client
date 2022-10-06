@@ -4,21 +4,32 @@ import { useNavigate } from 'react-router-dom';
 
 const ListTemplate = ({ templateData, templateType }) => {
     const navigate = useNavigate()
-    let templateCode
+    const templateCode = templateType.charCodeAt(0)
+    let parentTemplate = 'Curriculum'
 
-    if (templateType) {
-        templateCode = templateType.charCodeAt(0)
+    if (templateType === 'unit') {
+        parentTemplate = 'Module'
+    } else if (templateType === 'lesson') {
+        parentTemplate = 'Unit'
     }
 
-    const handleClick = (data) => {
-        navigate(`/${templateType}/${data.id}`, { state: { data } })
+    const handleClick = (action, data) => {
+        if (action === 'view') {
+            navigate(`/${templateType}/${data.id}`, { state: { data } })
+        } else {
+            navigate(`/${templateType}/create`, { state: { templateType } })
+        }
     }
 
     return (
         <div className='content'>
             <header>
-                <h1>{templateType}s</h1>
-                <Button variant="contained" color="success">
+                <h1>{parentTemplate} X - {templateType}s</h1>
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => handleClick('create')}
+                >
                     Create new {templateType}
                 </Button>
             </header>
@@ -26,7 +37,7 @@ const ListTemplate = ({ templateData, templateType }) => {
                 {templateData.map(t => {
                     return (
                         <div key={templateCode + t.id} className='module'>
-                            <h3 onClick={() => handleClick(t)}>
+                            <h3 onClick={() => handleClick('view', t)}>
                                 {t.name !== undefined ? t.name : t.dayNumber}
                             </h3>
                             <Button variant="contained" color="error">

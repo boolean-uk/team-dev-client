@@ -42,3 +42,25 @@ header h1 {
 .objectives p {
     padding-bottom: 0.25rem;
 }
+
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    background-color: #F0F8FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-top: 2rem;
+    border-radius: 3px;
+    color: black;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+form h1 {
+    margin: 0;
+}
