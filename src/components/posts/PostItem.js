@@ -29,6 +29,7 @@ import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
+import PushPinIcon from '@mui/icons-material/PushPin';
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -44,11 +45,12 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({ post, userId, setPostResponse, setUser }) => {
+const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
   // const [content, setContent] = useState(post.content);
   // const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
+  const [, setIsPinned] = useState(post.isPinned);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -59,20 +61,22 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
   const [likesCount, setLikesCount] = useState('');
   const [showingAll, setShowingAll] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
+  const isActive = post.user.isActive;
 
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
-  const getUserId = userId();
 
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
+    setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
     // setContent(post.content);
     setLikesCount(post.likes.length);
 
-    if (getUserId === post.userId) {
+    if (user.id === post.userId) {
       setIsOwner(true);
     }
 
@@ -83,8 +87,7 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
         setIsLiked(false);
       }
     });
-    // eslint-disable-next-line
-  }, [post, userId]);
+  }, [post, user.id, setIsPinned]);
 
   const resetDelBtn = () => {
     setIsDeleting(false);
@@ -115,7 +118,14 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
     client
       .get(`/user/${id}`)
       .then(res => {
-        navigate('/profile', { state: { user: res.data.data.user } });
+        if (post.user.isActive || isTeacherOrAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
       })
       .catch(err => console.error(err.response));
   };
@@ -145,165 +155,211 @@ const PostItem = ({ post, userId, setPostResponse, setUser }) => {
     }
   };
 
-  return (
-    <li className={liClasses}>
-      {isPrivate && (
-        <div
-          onClick={() => setIsPrivate(false)}
-          className="post-hidden-overlay"
-        >
-          <VisibilityOffIcon fontSize="large" color="disabled" />
-        </div>
-      )}
-      <div className="post-wrap">
-        <div className="post-header-wrap">
-          <div className="post-profile-wrap">
-            <Avatar
-              src={post.user.profile.profileImageUrl}
-              alt="profile"
-              sx={{ width: 56, height: 56 }}
-            />
-            <h3 onClick={handleClick} className="post-owner-name">
-              {post.user.profile.firstName} {post.user.profile.lastName}
-            </h3>
-          </div>
-          <div>
-            {post.isPostOfTheWeek ? (
-              <Chip
-                size="medium"
-                color="warning"
-                icon={<GradeIcon size="medium" />}
-                label={'Post of the Week'}
-                variant="outlined"
-                theme={theme}
-              />
-            ) : post.likes.length >= likesToBeHotTopic ? (
-              <Chip
-                size="small"
-                color="error"
-                icon={<LocalFireDepartmentOutlinedIcon />}
-                label="Hot Topic"
-                variant="outlined"
-              />
-            ) : (
-              <div className="hot-topic-placeholder"></div>
-            )}
-            {isOwner && (
-              <VerticalDotMenu post={post} setPostResponse={setPostResponse} />
-            )}
-            <p className="createdAt-time">{formatTime(post.createdAt)}</p>
-          </div>
-        </div>
-        {editError && (
-          <div style={{ textAlign: 'left', color: 'red' }}>
-            <TryAgain />
+  if (post.isPinnedPost) {
+    liClasses += ' pinned-post';
+
+    const inactiveUser = !isActive && user.role === 'STUDENT';
+
+    return (
+      <li className={liClasses}>
+        {isPrivate && (
+          <div
+            onClick={() => setIsPrivate(false)}
+            className="post-hidden-overlay"
+          >
+            <VisibilityOffIcon fontSize="large" color="disabled" />
           </div>
         )}
-        {isEditing ? (
-          <>
-            <div className="edit-content-wrap">
-              <TextField
-                fullWidth
-                defaultValue={post.content}
-                variant="outlined"
-                size="small"
-                multiline
-                inputProps={{ maxLength: 150 }}
-                onChange={e => setEditPostContent(e.target.value)}
-              ></TextField>
-              <Button
-                className="submit-edited-comment"
-                onClick={handleEditPost}
+        <div className="post-wrap">
+          <div className="post-header-wrap">
+            <div className="post-profile-wrap">
+              <Avatar
+                src={post.user.profile.profileImageUrl}
+                alt="profile"
+                sx={{ width: 56, height: 56 }}
+              />
+
+              <h3
+                onClick={handleClick}
+                className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
               >
-                <ArrowUpwardIcon />
-              </Button>
-              <Button
-                className="cancel-edit"
-                onClick={() => {
-                  setIsEditing(false);
-                }}
-              >
-                <ClearIcon />
-              </Button>
-            </div>
-          </>
-        ) : (
-          <p className="post-content">{post.content}</p>
-        )}
-        <div className="comment-nav-wrap">
-          {isOwner && (
-            <div className="edit-button-form-wrap">
-              {!isEditing && (
-                <Button
-                  className="edit-button-icon"
-                  onClick={() => setIsEditing(true)}
-                >
-                  <EditIcon />
-                </Button>
+                <div>
+                  {post.user.profile.firstName} {post.user.profile.lastName}
+                </div>
+              </h3>
+              {!isActive && isTeacherOrAdmin && (
+                <div className="deactive-user-teacher-admin">
+                  <Chip variant="outlined" color="error" label="deactivated" />
+                </div>
+              )}
+              {inactiveWaring && (
+                <div className="inactive-warning">
+                  <p>User account is deactivated!</p>
+                </div>
               )}
             </div>
-          )}
-          <div className="delete-button">
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                className="delete-button-icon"
-                color={`${isDeleting ? 'error' : 'info'}`}
-                onClick={handleDeletePost}
-              >
-                <DeleteIcon />
-              </Button>
-            </ClickAwayListener>
-            {isDeleting && (
-              <Button variant="text" color="error" onClick={handleDeletePost}>
-                confirm delete?
-              </Button>
-            )}
-          </div>
+            <div>
+              {post.isPostOfTheWeek ? (
+                <Chip
+                  size="medium"
+                  color="warning"
+                  icon={<GradeIcon size="medium" />}
+                  label={'Post of the Week'}
+                  variant="outlined"
+                  theme={theme}
+                />
+              ) : post.likes.length >= likesToBeHotTopic ? (
+                <Chip
+                  size="small"
+                  color="error"
+                  icon={<LocalFireDepartmentOutlinedIcon />}
+                  label="Hot Topic"
+                  variant="outlined"
+                />
+              ) : (
+                <div className="hot-topic-placeholder"></div>
+              )}
 
-          <div className="like-wrap">
-            <LikesView
-              post={post}
-              setOpenDialog={setOpenDialog}
-              openDialog={openDialog}
-              handleClick={handleClick}
-            />
-            <AvatarGroup onClick={() => setOpenDialog(true)}>
-              {post.likes.map(like => {
-                return (
-                  <Avatar
-                    key={like.postId + like.userId}
-                    total={post.likes.length}
-                    alt={like.user.profile.firstName}
-                    src={like.user.profile.profileImageUrl}
-                  />
-                );
-              })}
-            </AvatarGroup>
-            <Checkbox
-              label="like"
-              checked={isLiked}
-              icon={<ThumbUpOutlinedIcon />}
-              checkedIcon={<ThumbUpIcon />}
-              onChange={handleLike}
-            />
-            <div className="count">{likesCount}</div>
+              {post.isPinnedPost ? (
+                <Chip
+                  size="medium"
+                  color="warning"
+                  icon={<PushPinIcon size="medium" />}
+                  label={'Pinned Post'}
+                  variant="outlined"
+                  theme={theme}
+                />
+              ) : (
+                post.isPinned === true
+              )}
+
+              {isOwner && (
+                <VerticalDotMenu
+                  post={post}
+                  setPostResponse={setPostResponse}
+                />
+              )}
+              <p className="createdAt-time">{formatTime(post.createdAt)}</p>
+            </div>
+          </div>
+          {editError && (
+            <div style={{ textAlign: 'left', color: 'red' }}>
+              <TryAgain />
+            </div>
+          )}
+          {isEditing ? (
+            <>
+              <div className="edit-content-wrap">
+                <TextField
+                  fullWidth
+                  defaultValue={post.content}
+                  variant="outlined"
+                  size="small"
+                  multiline
+                  inputProps={{ maxLength: 150 }}
+                  onChange={e => setEditPostContent(e.target.value)}
+                ></TextField>
+                <Button
+                  className="submit-edited-comment"
+                  onClick={handleEditPost}
+                >
+                  <ArrowUpwardIcon />
+                </Button>
+                <Button
+                  className="cancel-edit"
+                  onClick={() => {
+                    setIsEditing(false);
+                  }}
+                >
+                  <ClearIcon />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <p className="post-content">{post.content}</p>
+          )}
+
+          <div className="comment-nav-wrap">
+            {isOwner && (
+              <div className="edit-button-form-wrap">
+                {!isEditing && (
+                  <Button
+                    className="edit-button-icon"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    <EditIcon />
+                  </Button>
+                )}
+              </div>
+            )}
+            {isOwner ||
+              (isTeacherOrAdmin && (
+                <div className="delete-button">
+                  <ClickAwayListener onClickAway={resetDelBtn}>
+                    <Button
+                      className="delete-button-icon"
+                      color={`${isDeleting ? 'error' : 'info'}`}
+                      onClick={handleDeletePost}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </ClickAwayListener>
+                  {isDeleting && (
+                    <Button
+                      variant="text"
+                      color="error"
+                      onClick={handleDeletePost}
+                    >
+                      confirm delete?
+                    </Button>
+                  )}
+                </div>
+              ))}
+
+            <div className="like-wrap">
+              <LikesView
+                post={post}
+                setOpenDialog={setOpenDialog}
+                openDialog={openDialog}
+                handleClick={handleClick}
+              />
+              <AvatarGroup onClick={() => setOpenDialog(true)}>
+                {post.likes.map(like => {
+                  return (
+                    <Avatar
+                      key={like.postId + like.userId}
+                      total={post.likes.length}
+                      alt={like.user.profile.firstName}
+                      src={like.user.profile.profileImageUrl}
+                    />
+                  );
+                })}
+              </AvatarGroup>
+              <Checkbox
+                label="like"
+                checked={isLiked}
+                icon={<ThumbUpOutlinedIcon />}
+                checkedIcon={<ThumbUpIcon />}
+                onChange={handleLike}
+                disabled={inactiveUser}
+              />
+              <div className="count">{likesCount}</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="comment-wrap">
-        <CommentForm setPostResponse={setPostResponse} post={post} />
-        <Comments
-          userId={userId}
-          setUser={setUser}
-          post={post}
-          showingAll={showingAll}
-          setShowingAll={setShowingAll}
-          setPostResponse={setPostResponse}
-        />
-      </div>
-    </li>
-  );
+        <div className="comment-wrap">
+          <CommentForm setPostResponse={setPostResponse} post={post} />
+          <Comments
+            post={post}
+            showingAll={showingAll}
+            setShowingAll={setShowingAll}
+            setPostResponse={setPostResponse}
+            isTeacherOrAdmin={isTeacherOrAdmin}
+          />
+        </div>
+      </li>
+    );
+  }
 };
-
 export default PostItem;

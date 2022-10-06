@@ -8,17 +8,13 @@ const Exercise = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    client
-        .get(`/exercise`)
-        .then(res => setExercises(res.data.data.exercises));
-  }, []);
+    client.get(`/exercise`).then(res => setExercises(res.data.data.exercises));
+  }, [])
 
   const handleClick = () => navigate('/exercise/create');
 
   const handleDelete = id => {
-    client
-        .delete(`/exercise/${id}`)
-        .then(() => navigate('/exercise'));
+    client.delete(`/exercise/${id}`).then(() => navigate('/exercise'));
   };
 
   const handleNavigate = id => navigate(`/exercise/${id}`, { state: { id } });
@@ -33,31 +29,31 @@ const Exercise = () => {
       >
         Create New Exercise
       </Button>
+
       <List className="exercise-list">
         {exercises.map(e => {
           return (
             <div key={e.id}>
               <ListItem
-                sx={{ cursor: 'pointer'}}
+                sx={{ cursor: 'pointer' }}
                 onClick={() => handleNavigate(e.id)}
               >
                 <ListItemText primary={e.name} />
                 <Button
-                variant="outlined"
-                color="error"
-                onClick={() => handleDelete(e.id)}
-              >
-                DELETE
-              </Button>
+                  variant="outlined"
+                  color="error"
+                  onClick={() => handleDelete(e.id)}
+                >
+                  DELETE
+                </Button>
               </ListItem>
               <Divider color="white" />
-
             </div>
-          );
+          )
         })}
       </List>
     </div>
-  );
-};
+  )
+}
 
 export default Exercise;

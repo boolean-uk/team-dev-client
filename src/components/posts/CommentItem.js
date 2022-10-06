@@ -4,6 +4,7 @@ import {
   Checkbox,
   TextField,
   ClickAwayListener,
+  Chip,
 } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
@@ -21,11 +22,12 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ClearIcon from '@mui/icons-material/Clear';
 import CommentReplyForm from './CommentReplyForm';
 import Replies from './Replies';
+import { useLoggedInUser } from '../../context/LoggedInUser';
 
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
+const CommentItem = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -36,28 +38,45 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
   const [newComment, setNewComment] = useState('');
   const [editCommentStatus, setEditCommentStatus] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [isActive, setIsActive] = useState(true);
+  const [inactiveWaring, setInactiveWarning] = useState(false);
+
+  const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getUserId = userId();
 
-    setThisUserId(getUserId);
+  const loggedInUser = useLoggedInUser().user;
+  useEffect(() => {
+    setThisUserId(loggedInUser.id);
+
+    if (comment.user.isActive === false) {
+      setIsActive(false);
+    }
 
     for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
+      if (loggedInUser.id === comment.likes[i].userId) {
+
         return setIsLiked(true);
       }
     }
 
     setIsLiked(false);
-  }, [comment, userId]);
+
+  }, [comment, loggedInUser]);
 
   const handleClick = e => {
     client
       .get(`/user/${comment.userId}`)
-      .then(res =>
-        navigate('/profile', { state: { user: res.data.data.user } })
-      )
+      .then(res => {
+        if (comment.user.isActive || isTeacherOrAdmin) {
+          navigate('/profile', { state: { user: res.data.data.user } });
+        } else {
+          setInactiveWarning(true);
+          setTimeout(() => {
+            setInactiveWarning(false);
+          }, 3000);
+        }
+      })
       .catch(err => console.error(err.response));
   };
 
@@ -129,6 +148,8 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
     setShowForm(!showForm);
   };
 
+  const inactiveUser = !isActive && user.role === 'STUDENT';
+
   return (
     <li className="comment-list">
       <div className="comment-item">
@@ -139,13 +160,33 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             sx={{ width: 35, height: 35 }}
           />
           <div className="comment-content-wrap">
-            <h4 onClick={handleClick} className="post-owner-name">
-              {comment.user.profile.firstName} {comment.user.profile.lastName}
+            <h4
+              onClick={handleClick}
+              className={`post-owner-name ${inactiveUser && 'deactive-user'}`}
+            >
+              <div>
+                {comment.user.profile.firstName} {comment.user.profile.lastName}
+              </div>
             </h4>
             <p className="createdAt-time">
               {' '}
               &#183; {formatTime(comment.createdAt)}
             </p>
+            {!isActive && isTeacherOrAdmin && (
+              <div className="deactive-user-teacher-admin">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                  label="deactivated"
+                />
+              </div>
+            )}
+            {inactiveWaring && (
+              <div className="inactive-warning">
+                User account is deactivated!
+              </div>
+            )}
             {editCommentStatus.length > 0 && (
               <div className="try-again">
                 <TryAgain />
@@ -194,30 +235,35 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               )}
             </div>
           )}
-          <div className="delete-button">
-            <ClickAwayListener onClickAway={resetDelBtn}>
-              <Button
-                className="delete-button-icon"
-                color={delStyle.color}
-                onClick={handleDeleteComment}
-              >
-                <DeleteIcon />
-              </Button>
-            </ClickAwayListener>
-            {confirmDeleteText && (
-              <Button
-                variant="text"
-                color="error"
-                onClick={handleDeleteComment}
-              >
-                confirm delete?
-              </Button>
-            )}
-          </div>
+          {thisUserId === comment.userId ||
+            (isTeacherOrAdmin && (
+              <div className="delete-button">
+                <ClickAwayListener onClickAway={resetDelBtn}>
+                  <Button
+                    className="delete-button-icon"
+                    color={delStyle.color}
+                    onClick={handleDeleteComment}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </ClickAwayListener>
+                {confirmDeleteText && (
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={handleDeleteComment}
+                  >
+                    confirm delete?
+                  </Button>
+                )}
+              </div>
+            ))}
+
           <div className="reply-button">
             <Button
               className="reply-button-icon"
               onClick={displayCommentReplyForm}
+              disabled={inactiveUser}
             >
               <CommentIcon />
             </Button>
@@ -229,6 +275,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
               icon={<ThumbUpOutlinedIcon />}
               checkedIcon={<ThumbUpIcon />}
               onClick={handleLike}
+              disabled={inactiveUser}
             />
             <div className="count">{comment.likes.length}</div>
           </div>
@@ -243,6 +290,7 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
             comment={comment}
             showForm={showForm}
             setShowForm={setShowForm}
+            isActive={isActive}
           />
         ) : null}
 
@@ -250,7 +298,9 @@ const CommentItem = ({ userId, post, comment, setUser, setPostResponse }) => {
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
-          userId={userId}
+
+          isTeacherOrAdmin={isTeacherOrAdmin}
+          isActive={isActive}
         />
       </div>
     </li>

@@ -5,7 +5,6 @@ import './style.css';
 import jwt_decode from 'jwt-decode';
 import { renderPosts } from './utils/getAllPosts';
 import PostItem from './PostItem';
-
 import StudentList from '../../components/studentList/StudentList';
 import TeacherAdmin from '../teacher/TeacherAdmin';
 import PostsOfTheWeek from './PostsOfTheWeek';
@@ -18,7 +17,7 @@ const PostsPage = ({ getUserId }) => {
   const [postResponse, setPostResponse] = useState('');
   const [posts, setPosts] = useState([]);
   const [postsOfTheWeek, setPostsOfTheWeek] = useState([]);
-  const [isTeacherorAdmin, setIsTeacherorAdmin] = useState(false);
+  const [isTeacherOrAdmin, setIsTeacherOrAdmin] = useState(false);
   const [postError, setPostError] = useState(false);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const PostsPage = ({ getUserId }) => {
       .then(res => {
         const userRole = res.data.data.user.role;
         if (userRole === 'TEACHER' || userRole === 'ADMIN') {
-          setIsTeacherorAdmin(true);
+          setIsTeacherOrAdmin(true);
         }
       })
       .catch(err => console.error('user error', err));
@@ -43,6 +42,7 @@ const PostsPage = ({ getUserId }) => {
     setPost({ ...post, isPrivate: postPref });
     // eslint-disable-next-line
   }, [postResponse, postPref]);
+
 
   const createPost = async event => {
     event.preventDefault();
@@ -77,14 +77,19 @@ const PostsPage = ({ getUserId }) => {
         isPrivate: !post.isPrivate,
       });
     }
+    if (event.target.name === 'toggle') {
+      setPost({
+        ...post,
+        isPinned: !post.isPinned,
+      });
+    }
   };
 
   return (
     <>
-      {isTeacherorAdmin && <TeacherAdmin />}
+      {isTeacherOrAdmin && <TeacherAdmin />}
 
       <section className="posts-section">
-
         {postError && <Alert severity="error">Must provide content</Alert>}
 
         <p>Status: {postResponse.status}</p>
@@ -92,6 +97,7 @@ const PostsPage = ({ getUserId }) => {
           handleSubmit={createPost}
           handleChange={handleChange}
           value={post}
+
         />
 
         <PostsOfTheWeek
@@ -99,6 +105,7 @@ const PostsPage = ({ getUserId }) => {
           getUserId={getUserId}
           setPost={setPost}
           setPostResponse={setPostResponse}
+          
         />
 
         {posts?.length > 0 ? (
@@ -110,6 +117,7 @@ const PostsPage = ({ getUserId }) => {
                 userId={getUserId}
                 setPost={setPost}
                 setPostResponse={setPostResponse}
+                isTeacherOrAdmin={isTeacherOrAdmin}
               />
             ))}
           </ul>
@@ -117,7 +125,7 @@ const PostsPage = ({ getUserId }) => {
           <p className="no-posts-message">There are no posts at the moment.</p>
         )}
       </section>
-      {!isTeacherorAdmin && <StudentList />}
+      {!isTeacherOrAdmin && <StudentList />}
     </>
   );
 };
