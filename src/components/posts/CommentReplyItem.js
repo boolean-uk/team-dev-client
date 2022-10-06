@@ -46,7 +46,6 @@ const CommentReplyItem = ({
   const [isActive, setIsActive] = useState(true);
   const [inactiveWaring, setInactiveWarning] = useState(false);
 
-  const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
   const loggedInUser = useLoggedInUser().user;
@@ -148,7 +147,7 @@ const CommentReplyItem = ({
     }
   };
 
-  const inactiveUser = !isActive && user.role === 'STUDENT';
+  const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
 
   return (
     <li className="comment-list" style={{ marginLeft: '40px' }}>

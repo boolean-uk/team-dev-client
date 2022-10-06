@@ -58,8 +58,6 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
   const [inactiveWaring, setInactiveWarning] = useState(false);
   const isActive = post.user.isActive;
 
-  const { user } = useLoggedInUser();
-
   const navigate = useNavigate();
   const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
@@ -161,7 +159,7 @@ const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
     liClasses += ' post-of-the-week';
   }
 
-  const inactiveUser = !isActive && user.role === 'STUDENT';
+  const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
 
   return (
     <li className={liClasses}>
