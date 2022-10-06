@@ -11,6 +11,7 @@ import PostItem from '../posts/PostItem';
 import PinnedPost from '../posts/PinnedPost';
 import { renderPinnedPosts } from '../posts/utils/getAllPosts';
 
+
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
@@ -138,6 +139,7 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
+      
       <div className="postProfile-display">
         <section className="posts-section">
 
@@ -160,6 +162,7 @@ const Profile = () => {
           )}
         </section>
       </div>
+
     </>
   );
 };
