@@ -48,6 +48,7 @@ const CommentReplyItem = ({
 
   const navigate = useNavigate();
 
+
   const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
     setThisUserId(loggedInUser.id);
@@ -65,6 +66,7 @@ const CommentReplyItem = ({
     }
 
     setIsLiked(false);
+
   }, [comment, loggedInUser]);
 
   const handleClick = e => {

@@ -25,6 +25,8 @@ import { formatTime } from './utils/getAllPosts';
 import VerticalDotMenu from './utils/VerticalDotMenu';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useLoggedInUser } from '../../context/LoggedInUser';
+import PushPinIcon from '@mui/icons-material/PushPin';
+
 
 const deleteBtnText = 'Delete';
 const confirmDeleteBtnText = 'Confirm Delete?';
@@ -45,6 +47,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
+  const [, setIsPinned] = useState(post.isPinned);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -60,9 +63,11 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
 
   const navigate = useNavigate();
   const loggedInUser = useLoggedInUser().user;
+
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
+    setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
     setContent(post.content);
@@ -78,7 +83,8 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
       }
     });
     // eslint-disable-next-line
-  }, [post, loggedInUser]);
+
+  }, [post, loggedInUser, setIsPinned]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -159,7 +165,11 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     liClasses += ' post-of-the-week';
   }
 
+  if (post.isPinnedPost) {
+    liClasses += ' pinned-post';
+
   const inactiveUser = !isActive && loggedInUser.role === 'STUDENT';
+
 
   return (
     <li className={liClasses}>
@@ -220,6 +230,20 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
             ) : (
               <div className="hot-topic-placeholder"></div>
             )}
+
+            {post.isPinnedPost ? (
+              <Chip
+                size="medium"
+                color="warning"
+                icon={<PushPinIcon size="medium" />}
+                label={'Pinned Post'}
+                variant="outlined"
+                theme={theme}
+              />
+            ) : (
+              post.isPinned === true
+            )}
+
             {isOwner && (
               <VerticalDotMenu post={post} setPostResponse={setPostResponse} />
             )}
@@ -312,5 +336,5 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
     </li>
   );
 };
-
-export default PostItem;
+}
+export default PostItem

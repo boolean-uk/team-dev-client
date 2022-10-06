@@ -44,6 +44,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
+
   const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
     setThisUserId(loggedInUser.id);
@@ -54,11 +55,13 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
 
     for (let i = 0; i < comment.likes.length; i++) {
       if (loggedInUser.id === comment.likes[i].userId) {
+
         return setIsLiked(true);
       }
     }
 
     setIsLiked(false);
+
   }, [comment, loggedInUser]);
 
   const handleClick = e => {
@@ -295,6 +298,7 @@ const CommentItem = ({ post, comment, setPostResponse, isTeacherOrAdmin }) => {
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
+
           isTeacherOrAdmin={isTeacherOrAdmin}
           isActive={isActive}
         />
