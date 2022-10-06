@@ -17,7 +17,7 @@ const CreateTemplate = ({ templateType }) => {
 
     return (
         <div className='form-container'>
-            <form onSubmit={handleSubmit}>
+            <form className='create-form' onSubmit={handleSubmit}>
                 <h1>Create new {templateType}</h1>
                 <TextField
                     label={templateType !== 'lesson' ? 'Name' : 'Day Number'}
