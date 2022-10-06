@@ -35,7 +35,6 @@ const likesToBeHotTopic = 10;
 const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [isPrivate, setIsPrivate] = useState(post.isPrivate);
-  const [, setIsPinned] = useState(post.isPinned);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editPostContent, setEditPostContent] = useState('');
@@ -53,7 +52,6 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
-    setIsPinned(post.isPinned);
     resetDelBtn();
     resetEditBtn();
     setLikesCount(post.likes.length);
@@ -69,7 +67,7 @@ const PostItem = ({ post, setPostResponse, isTeacherOrAdmin }) => {
         setIsLiked(false);
       }
     });
-  }, [post, user.id, setIsPinned]);
+  }, [post, user.id]);
 
   const resetDelBtn = () => {
     setIsDeleting(false);
