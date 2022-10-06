@@ -40,13 +40,7 @@ const theme = createTheme({
   },
 });
 
-const PostItem = ({
-  post,
-  userId,
-  setPostResponse,
-  setUser,
-  isTeacherorAdmin,
-}) => {
+const PostItem = ({ post, setPostResponse, isTeacherorAdmin }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [content, setContent] = useState(post.content);
   const [newContent, setNewContent] = useState(post.content);
@@ -67,8 +61,7 @@ const PostItem = ({
   const { user } = useLoggedInUser();
 
   const navigate = useNavigate();
-  const getUserId = userId();
-
+  const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
     setIsOwner(false);
     setIsPrivate(post.isPrivate);
@@ -78,16 +71,16 @@ const PostItem = ({
     setNewContent(post.content);
     setLikesCount(post.likes.length);
 
-    if (getUserId === post.userId) {
+    if (loggedInUser.id === post.userId) {
       setIsOwner(true);
     }
     post.likes.forEach(like => {
-      if (getUserId === like.userId) {
+      if (loggedInUser.id === like.userId) {
         setIsLiked(true);
       }
     });
     // eslint-disable-next-line
-  }, [post, userId]);
+  }, [post, loggedInUser]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -311,8 +304,6 @@ const PostItem = ({
       <div className="comment-wrap">
         <CommentForm setPostResponse={setPostResponse} post={post} />
         <Comments
-          userId={userId}
-          setUser={setUser}
           post={post}
           showingAll={showingAll}
           setShowingAll={setShowingAll}

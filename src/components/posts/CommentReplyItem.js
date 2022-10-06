@@ -28,10 +28,8 @@ const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
 const CommentReplyItem = ({
-  userId,
   post,
   comment,
-  setUser,
   showingAll,
   setPostResponse,
   isTeacherorAdmin,
@@ -51,17 +49,16 @@ const CommentReplyItem = ({
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
+  const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
-    const getUserId = userId();
-
-    setThisUserId(getUserId);
+    setThisUserId(loggedInUser.id);
 
     if (comment.user.isActive === false) {
       setIsActive(false);
     }
 
     const userHasLiked = comment.likes.find(
-      commentLike => commentLike.userId === getUserId
+      commentLike => commentLike.userId === loggedInUser.id
     );
 
     if (userHasLiked) {
@@ -69,7 +66,7 @@ const CommentReplyItem = ({
     }
 
     setIsLiked(false);
-  }, [comment, userId]);
+  }, [comment, loggedInUser]);
 
   const handleClick = e => {
     client

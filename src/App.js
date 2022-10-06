@@ -52,15 +52,9 @@ function App() {
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
           <Route path="/cohort" element={<CreateCohort />} />
-          <Route
-            path="/user/:id/profile"
-            element={<Profile getLoggedInUserId={getLoggedInUserId} />}
-          />
+          <Route path="/user/:id/profile" element={<Profile />} />
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
-          <Route
-            path="/posts"
-            element={<PostsPage getUserId={getLoggedInUserId} />}
-          />
+          <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />

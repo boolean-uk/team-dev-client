@@ -27,14 +27,7 @@ import { useLoggedInUser } from '../../context/LoggedInUser';
 const delBtn = { color: 'info' };
 const confirmDelStyle = { color: 'error' };
 
-const CommentItem = ({
-  userId,
-  post,
-  comment,
-  setUser,
-  setPostResponse,
-  isTeacherorAdmin,
-}) => {
+const CommentItem = ({ post, comment, setPostResponse, isTeacherorAdmin }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -51,23 +44,22 @@ const CommentItem = ({
   const { user } = useLoggedInUser();
   const navigate = useNavigate();
 
+  const loggedInUser = useLoggedInUser().user;
   useEffect(() => {
-    const getUserId = userId();
-
-    setThisUserId(getUserId);
+    setThisUserId(loggedInUser.id);
 
     if (comment.user.isActive === false) {
       setIsActive(false);
     }
 
     for (let i = 0; i < comment.likes.length; i++) {
-      if (getUserId === comment.likes[i].userId) {
+      if (loggedInUser.id === comment.likes[i].userId) {
         return setIsLiked(true);
       }
     }
 
     setIsLiked(false);
-  }, [comment, userId]);
+  }, [comment, loggedInUser]);
 
   const handleClick = e => {
     client
@@ -303,7 +295,6 @@ const CommentItem = ({
           post={post}
           setPostResponse={setPostResponse}
           comment={comment}
-          userId={userId}
           isTeacherorAdmin={isTeacherorAdmin}
           isActive={isActive}
         />
