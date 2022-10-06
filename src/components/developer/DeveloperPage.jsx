@@ -1,4 +1,4 @@
-import { InputAdornment, MenuItem, TextField } from '@mui/material';
+import { Alert, InputAdornment, MenuItem, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import client from '../../utils/client';
@@ -147,6 +147,14 @@ const DeveloperPage = () => {
           ></TextField>
         </div>
       </form>
+      {authError && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          Oops, something went wrong!
+        </Alert>
+      )}
       <EventList eventLogs={eventLogs} />
     </main>
   );
