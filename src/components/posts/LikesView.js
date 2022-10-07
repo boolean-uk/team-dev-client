@@ -15,10 +15,13 @@ export const LikesView = ({ post, openDialog, setOpenDialog, handleClick }) => {
     <Dialog open={openDialog} scroll="body">
       <DialogContent>
         <ClickAwayListener onClickAway={() => setOpenDialog(false)}>
-          <List sx={{ cursor: 'pointer' }} alignItems="flex-start">
-            {post.likes.map((like, i) => {
+          <List sx={{ cursor: 'pointer' }}>
+            {post.likes.map(like => {
               return (
-                <ListItem key={i} onClick={e => handleClick(e, like.user.id)}>
+                <ListItem
+                  key={like.postId + like.userId}
+                  onClick={e => handleClick(e, like.user.id)}
+                >
                   <ListItemAvatar>
                     <Avatar
                       src={like.user.profile.profileImageUrl}

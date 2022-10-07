@@ -4,7 +4,7 @@ import client from '../../../utils/client';
 
 import DeliveryLogItem from './DeliveryLogItem';
 
-const DeliveryLogs = ({ setCohort, deliveryLogs }) => {
+const DeliveryLogs = ({ setCohort, deliveryLogs, setNewLog }) => {
   const { cohortId } = useParams();
 
   const handleCreateLog = () => {
@@ -12,6 +12,7 @@ const DeliveryLogs = ({ setCohort, deliveryLogs }) => {
       .post('/log', { cohortId })
       .then(res => {
         const newLog = res.data.data.log;
+        setNewLog(newLog)
         setCohort(curr => {
           return { ...curr, deliveryLogs: [newLog, ...curr.deliveryLogs] };
         });

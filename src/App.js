@@ -16,6 +16,7 @@ import ViewCohort from './pages/viewCohort';
 import Exercise from './components/exercise/Exercise';
 import CreateExercise from './components/exercise/CreateExercise';
 import ExerciseView from './components/exercise/ExerciseView';
+import DeveloperPage from './components/developer/DeveloperPage';
 import ModuleList from './components/module/ModuleList';
 import ModuleView from './components/module/ModuleView';
 import UnitList from './components/unit/UnitList';
@@ -60,10 +61,12 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<RegistrationPage />} />
         <Route element={<AuthenticateUser />}>
+          <Route path='/events' element={<DeveloperPage />} />
           <Route path="/cohort" element={<CreateCohort />} />
           <Route
             path="/user/:id/profile"
-            element={<Profile getUserId={getLoggedInUserId} />} />
+            element={<Profile getUserId={getLoggedInUserId} />}
+          />
           <Route path="/cohort/:cohortId" element={<ViewCohort />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/enrolment" element={<EnrolmentPage />} />
@@ -81,7 +84,6 @@ function App() {
           <Route path="/module/create" element={<ModuleCreate />} />
           <Route path="/unit/create" element={<UnitCreate />} />
           <Route path="/lesson/create" element={<LessonCreate />} />
-
         </Route>
       </Routes>
     </div>

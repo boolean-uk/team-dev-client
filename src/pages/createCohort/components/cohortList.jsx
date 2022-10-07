@@ -68,20 +68,19 @@ const CohortList = ({ header }) => {
       <div className="admin-section-cohort__list">
         {cohorts.map(cohort => {
           return (
-            <Card
-              key={cohort.id}
-              style={{ boxShadow: 'none', textAlign: 'left' }}
-            >
-              {cohort.name ? (
-                <span>
-                  <strong>Name:</strong> {cohort.name}
-                </span>
-              ) : (
-                <span>
-                  <strong>ID:</strong> {cohort.id}
-                </span>
-              )}
-            </Card>
+            <Link to={`/cohort/${cohort.id}`} key={cohort.id}>
+              <Card sx={{ boxShadow: 'none' }}>
+                {cohort.name ? (
+                  <span>
+                    <strong>Name:</strong> {cohort.name}
+                  </span>
+                ) : (
+                  <span>
+                    <strong>ID:</strong> {cohort.id}
+                  </span>
+                )}
+              </Card>
+            </Link>
           );
         })}
       </div>

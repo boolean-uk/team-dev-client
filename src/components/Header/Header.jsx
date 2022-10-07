@@ -66,6 +66,7 @@ const Header = ({ companyName }) => {
 
         <Box>
           <Stack spacing={2} direction="row">
+            {userLoggedIn.role === 'DEVELOPER' && <Button variant="contained" onClick={() => handleClick('events')}>Events</Button>}
             <Button variant="contained" href="/posts">
               Posts
             </Button>

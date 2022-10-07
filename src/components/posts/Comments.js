@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CommentItem from './CommentItem';
 import FilterMenu from './utils/filterMenu';
+import { commentOptions as options } from './utils/filterUtils';
 
 const Comments = ({
   post,
@@ -40,7 +41,7 @@ const Comments = ({
     <div className="comments-section">
       {showingAll && (
         <div className="comment-filter">
-          <FilterMenu setSortType={setSortType} />
+          <FilterMenu setSortType={setSortType} options={options}/>
         </div>
       )}
       <ul className="comments-list">

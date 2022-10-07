@@ -1,6 +1,12 @@
 import PostItem from './PostItem';
 
-const PinnedPost = ({ posts, getUserId, setPost, setPostResponse }) => {
+const PinnedPost = ({
+  posts,
+  setPost,
+  setPostResponse,
+  setErrorPinPost,
+  setErrorPrivatePost,
+}) => {
   const pinnedPost = posts.map(post => {
     post.isPinnedPost = true;
     return post;
@@ -13,9 +19,10 @@ const PinnedPost = ({ posts, getUserId, setPost, setPostResponse }) => {
           <PostItem
             post={post}
             key={index}
-            userId={getUserId}
             setPost={setPost}
             setPostResponse={setPostResponse}
+            setErrorPinPost={setErrorPinPost}
+            setErrorPrivatePost={setErrorPrivatePost}
           />
         ))}
       </ul>
