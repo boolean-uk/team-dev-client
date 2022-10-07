@@ -58,7 +58,7 @@ function SearchBar() {
   return (
     <div className="search__container">
       <TextField
-        fullWidth
+        className='search__bar'
         size="small"
         variant="outlined"
         label="Search.."

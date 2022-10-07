@@ -12,6 +12,7 @@ import './style.css';
 const ViewCohort = () => {
   const [cohort, setCohort] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [newLog, setNewLog] = useState('')
   const cohortId = parseInt(useParams().cohortId);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const ViewCohort = () => {
         })
         .catch(err => console.error('[FETCH /cohort/:id]', err));
     }
-  }, [cohortId]);
+  }, [cohortId, newLog]);
 
   return (
     <div style={{ paddingInline: '10px' }}>
@@ -43,6 +44,7 @@ const ViewCohort = () => {
             <div className="view-cohort-content">
               <Students {...{ cohort }} />
               <DeliveryLogs
+                setNewLog={setNewLog}
                 deliveryLogs={cohort.deliveryLogs}
                 {...{ setCohort }}
               />

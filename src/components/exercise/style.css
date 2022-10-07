@@ -17,11 +17,12 @@
 }
 
 .exercise {
-    display: inline-block;
+    display: block;
+    margin: auto;
     margin-top: 1rem;
     border: #4b4b56 solid 1px;
     padding: 1rem;
-    width: 700px;
+    width: 57%;
     border-radius: 3px;
 }
 
@@ -50,4 +51,8 @@
 .log-list p:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.Back-btn__exercises.MuiButtonBase-root {
+    margin-top: 1rem;
 }
