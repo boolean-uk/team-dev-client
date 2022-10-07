@@ -11,13 +11,15 @@ import PostItem from '../posts/PostItem';
 import PinnedPost from '../posts/PinnedPost';
 import { renderPinnedPosts } from '../posts/utils/getAllPosts';
 
-
 const Profile = () => {
   const [userDisplayed, setUserDisplayed] = useState({});
   const [successProfileUpdate, setSuccessProfileUpdate] = useState(false);
   const [errorProfileUpdate, setErrorProfileUpdate] = useState(false);
+  const [errorPinPost, setErrorPinPost] = useState('');
+  const [errorPrivatePost, setErrorPrivatePost] = useState('');
   const [posts, setPosts] = useState([]);
   const [pinnedPost, setPinnedPost] = useState([]);
+  const [postResponse, setPostResponse] = useState('');
 
   const userLoggedIn = useLoggedInUser().user;
   const location = useLocation();
@@ -43,9 +45,10 @@ const Profile = () => {
   }, [location, userLoggedIn]);
 
   useEffect(() => {
-
-    renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
-  }, [userDisplayed]);
+    if (userDisplayed.id) {
+      renderPinnedPosts(setPosts, setPinnedPost, userDisplayed.id);
+    }
+  }, [userDisplayed, postResponse]);
 
   const isAdmin = userLoggedIn?.role === 'ADMIN';
 
@@ -147,20 +150,43 @@ const Profile = () => {
           Profile not updated
         </Alert>
       )}
-      
+      {errorPinPost && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          {errorPinPost}
+        </Alert>
+      )}
+      {errorPrivatePost && (
+        <Alert
+          sx={{ maxWidth: 'fit-content', margin: 'auto' }}
+          severity="error"
+        >
+          {errorPrivatePost}
+        </Alert>
+      )}
+
       <div className="postProfile-display">
         <section className="posts-section">
-
-          <PinnedPost 
-            posts={pinnedPost} 
+          <PinnedPost
+            posts={pinnedPost}
             userId={userLoggedIn}
-            
-            />
+            setPostResponse={setPostResponse}
+            setErrorPinPost={setErrorPinPost}
+            setErrorPrivatePost={setErrorPrivatePost}
+          />
 
           {posts?.length > 0 ? (
             <ul className="posts-list">
               {posts?.map((post, index) => (
-                <PostItem post={post} key={index} />
+                <PostItem
+                  post={post}
+                  key={index}
+                  setPostResponse={setPostResponse}
+                  setErrorPinPost={setErrorPinPost}
+                  setErrorPrivatePost={setErrorPrivatePost}
+                />
               ))}
             </ul>
           ) : (
@@ -170,7 +196,6 @@ const Profile = () => {
           )}
         </section>
       </div>
-
     </>
   );
 };

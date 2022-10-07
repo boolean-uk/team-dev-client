@@ -1,6 +1,6 @@
 import PostItem from './PostItem';
 
-const PostsOfTheWeek = ({ posts, getUserId, setPost, setPostResponse }) => {
+const PostsOfTheWeek = ({ posts, setPost, setPostResponse }) => {
   const postsOfTheWeek = posts.map(post => {
     post.isPostOfTheWeek = true;
     return post;
@@ -13,7 +13,6 @@ const PostsOfTheWeek = ({ posts, getUserId, setPost, setPostResponse }) => {
           <PostItem
             post={post}
             key={index}
-            userId={getUserId}
             setPost={setPost}
             setPostResponse={setPostResponse}
           />
